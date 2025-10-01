@@ -1,0 +1,122 @@
+[
+  {
+    "username": "ntc_admin",
+    "email": "admin@ntc.gov.lk",
+    "password": "admin123",
+    "role": "admin",
+    "profile": {
+      "firstName": "NTC",
+      "lastName": "Administrator",
+      "contactNumber": "+94-11-2587372",
+      "organization": "National Transport Commission"
+    },
+    "permissions": [
+      {
+        "resource": "routes",
+        "actions": ["create", "read", "update", "delete"]
+      },
+      {
+        "resource": "buses",
+        "actions": ["create", "read", "update", "delete"]
+      },
+      {
+        "resource": "trips", 
+        "actions": ["create", "read", "update", "delete"]
+      },
+      {
+        "resource": "tracking",
+        "actions": ["create", "read", "update", "delete"]
+      },
+      {
+        "resource": "users",
+        "actions": ["create", "read", "update", "delete"]
+      },
+      {
+        "resource": "reports",
+        "actions": ["create", "read", "update", "delete"]
+      }
+    ],
+    "isActive": true
+  },
+  {
+    "username": "bus_operator",
+    "email": "operator@sltb.lk",
+    "password": "operator123",
+    "role": "operator",
+    "profile": {
+      "firstName": "SLTB",
+      "lastName": "Operator",
+      "contactNumber": "+94-11-2234567",
+      "organization": "Sri Lanka Transport Board"
+    },
+    "permissions": [
+      {
+        "resource": "buses",
+        "actions": ["read", "update"]
+      },
+      {
+        "resource": "trips",
+        "actions": ["create", "read", "update"]
+      },
+      {
+        "resource": "tracking",
+        "actions": ["read", "update"]
+      }
+    ],
+    "isActive": true
+  },
+  {
+    "username": "driver_nimal",
+    "email": "nimal@driver.lk",
+    "password": "driver123",
+    "role": "driver",
+    "profile": {
+      "firstName": "Nimal",
+      "lastName": "Perera",
+      "contactNumber": "+94-77-1234567",
+      "organization": "SLTB Western Province"
+    },
+    "permissions": [
+      {
+        "resource": "trips",
+        "actions": ["read", "update"]
+      },
+      {
+        "resource": "tracking",
+        "actions": ["create", "read", "update"]
+      }
+    ],
+    "isActive": true
+  },
+  {
+    "username": "public_user",
+    "email": "user@public.lk",
+    "password": "public123",
+    "role": "viewer",
+    "profile": {
+      "firstName": "Public",
+      "lastName": "User",
+      "contactNumber": "+94-77-9999999",
+      "organization": "General Public"
+    },
+    "permissions": [
+      {
+        "resource": "routes",
+        "actions": ["read"]
+      },
+      {
+        "resource": "buses", 
+        "actions": ["read"]
+      },
+      {
+        "resource": "trips",
+        "actions": ["read"]
+      },
+      {
+        "resource": "tracking",
+        "actions": ["read"]
+      }
+    ],
+    "isActive": true
+  }
+]

@@ -1,0 +1,156 @@
+[
+  {
+    "tripId": "TR-20251002-001",
+    "busRegistration": "CAA-5678",
+    "routeNumber": "15-1",
+    "serviceDate": "2025-10-02",
+    "scheduledDeparture": "2025-10-02T06:30:00.000Z",
+    "scheduledArrival": "2025-10-02T09:30:00.000Z",
+    "status": "Scheduled",
+    "fare": 250,
+    "driver": {
+      "name": "Nimal Perera",
+      "licenseNumber": "DL-12345678",
+      "contactNumber": "+94-77-1234567"
+    },
+    "conductor": {
+      "name": "Public User",
+      "contactNumber": "+94-77-9999999"
+    }
+  },
+  {
+    "tripId": "TR-20251002-002",
+    "busRegistration": "SP-1234",
+    "routeNumber": "1-1",
+    "serviceDate": "2025-10-02",
+    "scheduledDeparture": "2025-10-02T07:00:00.000Z",
+    "scheduledArrival": "2025-10-02T09:30:00.000Z",
+    "status": "Scheduled",
+    "fare": 180,
+    "driver": {
+      "name": "Nimal Perera",
+      "licenseNumber": "DL-12345678",
+      "contactNumber": "+94-77-1234567"
+    },
+    "conductor": {
+      "name": "Public User",
+      "contactNumber": "+94-77-9999999"
+    }
+  },
+  {
+    "tripId": "TR-20251002-003",
+    "busRegistration": "AN-1111",
+    "routeNumber": "4-1",
+    "serviceDate": "2025-10-02",
+    "scheduledDeparture": "2025-10-02T08:00:00.000Z",
+    "scheduledArrival": "2025-10-02T12:30:00.000Z",
+    "status": "In Progress",
+    "fare": 320,
+    "actualDeparture": "2025-10-02T08:05:00.000Z",
+    "driver": {
+      "name": "Nimal Perera",
+      "licenseNumber": "DL-12345678",
+      "contactNumber": "+94-77-1234567"
+    },
+    "conductor": {
+      "name": "Public User",
+      "contactNumber": "+94-77-9999999"
+    }
+  },
+  {
+    "tripId": "TR-20251002-004",
+    "busRegistration": "BD-2222",
+    "routeNumber": "99-1",
+    "serviceDate": "2025-10-02",
+    "scheduledDeparture": "2025-10-02T09:30:00.000Z",
+    "scheduledArrival": "2025-10-02T15:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 380,
+    "driver": {
+      "name": "Nimal Perera",
+      "licenseNumber": "DL-12345678",
+      "contactNumber": "+94-77-1234567"
+    },
+    "conductor": {
+      "name": "Public User",
+      "contactNumber": "+94-77-9999999"
+    }
+  },
+  {
+    "tripId": "TR-20251002-005",
+    "busRegistration": "MR-3333",
+    "routeNumber": "245-1",
+    "serviceDate": "2025-10-02",
+    "scheduledDeparture": "2025-10-02T10:00:00.000Z",
+    "scheduledArrival": "2025-10-02T13:30:00.000Z",
+    "status": "In Progress",
+    "fare": 280,
+    "actualDeparture": "2025-10-02T10:02:00.000Z",
+    "driver": {
+      "name": "Nimal Perera",
+      "licenseNumber": "DL-12345678",
+      "contactNumber": "+94-77-1234567"
+    },
+    "conductor": {
+      "name": "Public User",
+      "contactNumber": "+94-77-9999999"
+    }
+  },
+  {
+    "tripId": "TR-20251003-001",
+    "busRegistration": "CAB-9012",
+    "routeNumber": "15-1",
+    "serviceDate": "2025-10-03",
+    "scheduledDeparture": "2025-10-03T06:30:00.000Z",
+    "scheduledArrival": "2025-10-03T09:30:00.000Z",
+    "status": "Scheduled",
+    "fare": 250,
+    "driver": {
+      "name": "Nimal Perera",
+      "licenseNumber": "DL-12345678",
+      "contactNumber": "+94-77-1234567"
+    },
+    "conductor": {
+      "name": "Public User",
+      "contactNumber": "+94-77-9999999"
+    }
+  },
+  {
+    "tripId": "TR-20251003-002",
+    "busRegistration": "SP-5678",
+    "routeNumber": "1-1",
+    "serviceDate": "2025-10-03",
+    "scheduledDeparture": "2025-10-03T07:15:00.000Z",
+    "scheduledArrival": "2025-10-03T09:45:00.000Z",
+    "status": "Scheduled",
+    "fare": 180,
+    "driver": {
+      "name": "Nimal Perera",
+      "licenseNumber": "DL-12345678",
+      "contactNumber": "+94-77-1234567"
+    },
+    "conductor": {
+      "name": "Public User",
+      "contactNumber": "+94-77-9999999"
+    }
+  },
+  {
+    "tripId": "TR-20251003-003",
+    "busRegistration": "AN-4444",
+    "routeNumber": "4-1",
+    "serviceDate": "2025-10-03",
+    "scheduledDeparture": "2025-10-03T08:30:00.000Z",
+    "scheduledArrival": "2025-10-03T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 320,
+    "driver": {
+      "name": "Nimal Perera",
+      "licenseNumber": "DL-12345678",
+      "contactNumber": "+94-77-1234567"
+    },
+    "conductor": {
+      "name": "Public User",
+      "contactNumber": "+94-77-9999999"
+    }
+  }
+]
