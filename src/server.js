@@ -213,6 +213,10 @@ app.use('/api/routes', protectedRoutes);
 const userManagementRoutes = (await import('./routes/user-management.js')).default;
 app.use('/api/users', userManagementRoutes);
 
+// Search and filtering routes
+const searchFilterRoutes = (await import('./routes/search-filter.js')).default;
+app.use('/api/search', searchFilterRoutes);
+
 // 404 handler
 app.all('*', (req, res) => {
   res.status(404).json({
