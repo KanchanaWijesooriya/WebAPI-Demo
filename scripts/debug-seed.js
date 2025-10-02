@@ -32,10 +32,10 @@ async function testSeeding() {
     // Try seeding routes only first
     console.log('Attempting to seed routes...');
     const routes = await seeder.seedRoutes();
-    console.log(`✅ Routes seeded successfully: ${routes.length}`);
+    console.log(`Routes seeded successfully: ${routes.length}`);
     
   } catch (error) {
-    console.error('❌ Test failed:', error.message);
+    console.error('Test failed:', error.message);
     console.error('Stack:', error.stack);
   } finally {
     process.exit(0);

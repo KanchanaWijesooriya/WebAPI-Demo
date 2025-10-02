@@ -20,7 +20,7 @@ async function forceFullSeed() {
     const result = await seeder.seedAll(true);
     
     console.log('==========================================');
-    console.log('✅ Full seeding completed successfully!');
+    console.log('Full seeding completed successfully!');
     console.log('Final Summary:');
     console.log(`   - Routes: ${result.routes.length}`);
     console.log(`   - Buses: ${result.buses.length}`);
@@ -29,7 +29,7 @@ async function forceFullSeed() {
     console.log(`   - Location Records: ${result.locations.length}`);
     
   } catch (error) {
-    console.error('❌ Seeding failed:', error.message);
+    console.error('Seeding failed:', error.message);
     console.error('Stack:', error.stack);
   } finally {
     await mongoose.connection.close();

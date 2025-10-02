@@ -33,7 +33,7 @@ async function runSeeder() {
       case 'clear':
         console.log('Clearing database...');
         await seeder.clearDatabase();
-        console.log('✅ Database cleared successfully');
+        console.log('Database cleared successfully');
         break;
         
       default:
@@ -45,7 +45,7 @@ async function runSeeder() {
     }
     
   } catch (error) {
-    console.error('❌ Seeder failed:', error.message);
+    console.error('Seeder failed:', error.message);
     process.exit(1);
   } finally {
     // Close MongoDB connection

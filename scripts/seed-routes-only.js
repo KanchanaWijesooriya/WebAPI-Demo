@@ -18,23 +18,23 @@ const seedRoutes = async () => {
   try {
     // Connect to MongoDB
     await mongoose.connect(process.env.MONGODB_URI);
-    console.log('✅ Connected to MongoDB');
+    console.log('Connected to MongoDB');
     console.log('Database:', mongoose.connection.name);
 
     // Clear existing routes
     const deleteResult = await Route.deleteMany({});
-    console.log(`🗑️  Cleared ${deleteResult.deletedCount} existing routes`);
+    console.log(`Cleared ${deleteResult.deletedCount} existing routes`);
 
     // Read routes data
     const routesPath = path.join(__dirname, '../data/routes.json');
-    console.log('📁 Reading from:', routesPath);
+    console.log('Reading from:', routesPath);
     
     if (!fs.existsSync(routesPath)) {
       throw new Error(`Routes file not found at: ${routesPath}`);
     }
     
     const routesData = JSON.parse(fs.readFileSync(routesPath, 'utf8'));
-    console.log(`📋 Found ${routesData.length} routes in file`);
+    console.log(`Found ${routesData.length} routes in file`);
 
     // Validate data before inserting
     if (!Array.isArray(routesData) || routesData.length === 0) {
@@ -43,22 +43,22 @@ const seedRoutes = async () => {
 
     // Insert routes
     const insertedRoutes = await Route.insertMany(routesData);
-    console.log(`✅ Inserted ${insertedRoutes.length} routes successfully`);
+    console.log(`Inserted ${insertedRoutes.length} routes successfully`);
     
     // Verify insertion
     const verifyCount = await Route.countDocuments();
-    console.log(`🔍 Verification: ${verifyCount} routes now in database`);
+    console.log(`Verification: ${verifyCount} routes now in database`);
 
     // Display inserted routes
-    console.log('\n📋 Inserted Routes:');
+    console.log('\nInserted Routes:');
     insertedRoutes.forEach((route, index) => {
       console.log(`${index + 1}. Route ${route.routeNumber}: ${route.name}`);
     });
 
-    console.log('\n🎉 Routes seeding completed successfully!');
+    console.log('\nRoutes seeding completed successfully!');
     process.exit(0);
   } catch (error) {
-    console.error('❌ Error seeding routes:', error);
+    console.error('Error seeding routes:', error);
     process.exit(1);
   }
 };

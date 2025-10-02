@@ -11,16 +11,16 @@ This RESTful API provides real-time GPS-based location tracking for inter-provin
 
 ## Features
 
-- ✅ Real-time bus location tracking
-- ✅ Route management system
-- ✅ Bus scheduling and trip management
-- ✅ RESTful API with full CRUD operations
-- ✅ JWT-based authentication
-- ✅ Rate limiting and security
-- ✅ MongoDB data persistence
-- ✅ Comprehensive error handling
-- ✅ Request validation
-- ✅ API documentation
+- Real-time bus location tracking
+- Route management system
+- Bus scheduling and trip management
+- RESTful API with full CRUD operations
+- JWT-based authentication
+- Rate limiting and security
+- MongoDB data persistence
+- Comprehensive error handling
+- Request validation
+- API documentation
 
 ## Tech Stack
 

@@ -205,6 +205,14 @@ app.get('/api/buses', async (req, res) => {
 const authWorkingRoutes = (await import('./routes/auth-working.js')).default;
 app.use('/api/auth', authWorkingRoutes);
 
+// Protected routes with RBAC
+const protectedRoutes = (await import('./routes/protected-routes.js')).default;
+app.use('/api/routes', protectedRoutes);
+
+// User management routes with RBAC
+const userManagementRoutes = (await import('./routes/user-management.js')).default;
+app.use('/api/users', userManagementRoutes);
+
 // 404 handler
 app.all('*', (req, res) => {
   res.status(404).json({

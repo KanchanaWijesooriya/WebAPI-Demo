@@ -91,11 +91,11 @@ async function verifyData() {
     
     console.log('');
     console.log(routeCount > 0 && busCount > 0 && tripCount > 0 && userCount > 0 
-      ? '✅ Database verification successful! All data seeded properly.' 
-      : '❌ Database verification failed! Some collections are empty.');
+      ? 'Database verification successful! All data seeded properly.' 
+      : 'Database verification failed! Some collections are empty.');
     
   } catch (error) {
-    console.error('❌ Verification failed:', error.message);
+    console.error('Verification failed:', error.message);
   } finally {
     await mongoose.connection.close();
     console.log('Database connection closed');

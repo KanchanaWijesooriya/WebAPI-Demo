@@ -38,9 +38,9 @@ class DataSeeder {
       await Trip.deleteMany({});
       await User.deleteMany({});
       await LocationHistory.deleteMany({});
-      console.log('✅ Database cleared successfully');
+      console.log('Database cleared successfully');
     } catch (error) {
-      console.error('❌ Error clearing database:', error.message);
+      console.error('Error clearing database:', error.message);
       throw error;
     }
   }
@@ -57,10 +57,10 @@ class DataSeeder {
       }
 
       const routes = await Route.insertMany(routesData);
-      console.log(`✅ Seeded ${routes.length} routes`);
+      console.log(`Seeded ${routes.length} routes`);
       return routes;
     } catch (error) {
-      console.error('❌ Error seeding routes:', error.message);
+      console.error('Error seeding routes:', error.message);
       throw error;
     }
   }
@@ -89,10 +89,10 @@ class DataSeeder {
       }));
 
       const buses = await Bus.insertMany(busesWithRouteIds);
-      console.log(`✅ Seeded ${buses.length} buses`);
+      console.log(`Seeded ${buses.length} buses`);
       return buses;
     } catch (error) {
-      console.error('❌ Error seeding buses:', error.message);
+      console.error('Error seeding buses:', error.message);
       throw error;
     }
   }
@@ -117,10 +117,10 @@ class DataSeeder {
       );
 
       const users = await User.insertMany(usersWithHashedPasswords);
-      console.log(`✅ Seeded ${users.length} users`);
+      console.log(`Seeded ${users.length} users`);
       return users;
     } catch (error) {
-      console.error('❌ Error seeding users:', error.message);
+      console.error('Error seeding users:', error.message);
       throw error;
     }
   }
@@ -164,10 +164,10 @@ class DataSeeder {
       }));
 
       const trips = await Trip.insertMany(tripsWithIds);
-      console.log(`✅ Seeded ${trips.length} trips`);
+      console.log(`Seeded ${trips.length} trips`);
       return trips;
     } catch (error) {
-      console.error('❌ Error seeding trips:', error.message);
+      console.error('Error seeding trips:', error.message);
       throw error;
     }
   }
@@ -217,13 +217,13 @@ class DataSeeder {
 
       if (locationHistories.length > 0) {
         const locations = await LocationHistory.insertMany(locationHistories);
-        console.log(`✅ Seeded ${locations.length} location history records`);
+        console.log(`Seeded ${locations.length} location history records`);
         return locations;
       }
 
       return [];
     } catch (error) {
-      console.error('❌ Error seeding location history:', error.message);
+      console.error('Error seeding location history:', error.message);
       throw error;
     }
   }
@@ -246,7 +246,7 @@ class DataSeeder {
       const locations = await this.seedLocationHistory(trips, buses);
 
       console.log('='.repeat(50));
-      console.log('✅ Database seeding completed successfully!');
+      console.log('Database seeding completed successfully!');
       console.log(`Summary:`);
       console.log(`   - Routes: ${routes.length}`);
       console.log(`   - Buses: ${buses.length}`);
@@ -262,7 +262,7 @@ class DataSeeder {
         locations
       };
     } catch (error) {
-      console.error('❌ Database seeding failed:', error.message);
+      console.error('Database seeding failed:', error.message);
       throw error;
     }
   }
