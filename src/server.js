@@ -7,6 +7,11 @@ import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
 import connectDB from './config/database.js';
 
+// Import routes - temporarily commented out due to import issues
+// import authRoutes from './routes/auth.js';
+// import routeRoutes from './routes/routes.js';
+// import busRoutes from './routes/buses.js';
+
 // Load environment variables
 dotenv.config();
 
@@ -125,6 +130,81 @@ app.get('/api/docs', (req, res) => {
 // app.use('/api/trips', tripRoutes);
 // app.use('/api/tracking', trackingRoutes);
 
+// Test route to debug
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'Test route works!' });
+});
+
+// Simple routes test without controller
+app.get('/api/routes-simple', (req, res) => {
+  res.json({ message: 'Simple routes test works!' });
+});
+
+// Test routes with direct database access
+app.get('/api/routes-direct', async (req, res) => {
+  try {
+    const Route = (await import('./models/Route.js')).default;
+    const routes = await Route.find();
+    res.json({
+      success: true,
+      count: routes.length,
+      data: routes
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
+// Get individual route by ID
+app.get('/api/routes-direct/:id', async (req, res) => {
+  try {
+    const Route = (await import('./models/Route.js')).default;
+    const route = await Route.findById(req.params.id);
+    
+    if (!route) {
+      return res.status(404).json({
+        success: false,
+        message: 'Route not found'
+      });
+    }
+    
+    res.json({
+      success: true,
+      data: route
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
+// Get buses endpoint
+app.get('/api/buses', async (req, res) => {
+  try {
+    const Bus = (await import('./models/Bus.js')).default;
+    const buses = await Bus.find().populate('route', 'routeNumber name');
+    res.json({
+      success: true,
+      count: buses.length,
+      data: buses
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
+// Authentication routes
+const authWorkingRoutes = (await import('./routes/auth-working.js')).default;
+app.use('/api/auth', authWorkingRoutes);
+
 // 404 handler
 app.all('*', (req, res) => {
   res.status(404).json({
@@ -137,16 +217,147 @@ app.all('*', (req, res) => {
   });
 });
 
-// Global error handler
-// Import routes
-import authRoutes from './routes/auth.js';
-import routeRoutes from './routes/routes.js';
-import busRoutes from './routes/buses.js';
+// Mount routes - using working inline implementations
+// Note: Commenting out problematic route file imports
+// app.use('/api/auth', authRoutes);  // Temporarily disabled - import issues
+// app.use('/api/buses', busRoutes);  // Temporarily disabled - import issues
 
-// Mount routes
-app.use('/api/auth', authRoutes);
-app.use('/api/routes', routeRoutes);
-app.use('/api/buses', busRoutes);
+// Working routes endpoint without problematic imports
+const routesRouter = express.Router();
+
+// GET /api/routes - List all routes
+routesRouter.get('/', async (req, res) => {
+  try {
+    const Route = (await import('./models/Route.js')).default;
+    const routes = await Route.find();
+    
+    res.status(200).json({
+      statusCode: 200,
+      data: {
+        routes,
+        pagination: {
+          total: routes.length,
+          page: 1,
+          limit: 10,
+          pages: 1
+        }
+      },
+      message: 'Routes retrieved successfully',
+      success: true,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    res.status(500).json({
+      statusCode: 500,
+      success: false,
+      message: 'Error retrieving routes',
+      error: error.message
+    });
+  }
+});
+
+// GET /api/routes/:id - Get single route
+routesRouter.get('/:id', async (req, res) => {
+  try {
+    const Route = (await import('./models/Route.js')).default;
+    const route = await Route.findById(req.params.id);
+    
+    if (!route) {
+      return res.status(404).json({
+        statusCode: 404,
+        success: false,
+        message: 'Route not found'
+      });
+    }
+
+    res.status(200).json({
+      statusCode: 200,
+      data: route,
+      message: 'Route retrieved successfully',
+      success: true,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    res.status(500).json({
+      statusCode: 500,
+      success: false,
+      message: 'Error retrieving route',
+      error: error.message
+    });
+  }
+});
+
+app.use('/api/routes', routesRouter);
+
+// Working buses endpoint
+const busesRouter = express.Router();
+
+// GET /api/buses - List all buses
+busesRouter.get('/', async (req, res) => {
+  try {
+    const Bus = (await import('./models/Bus.js')).default;
+    const buses = await Bus.find().populate('route', 'routeNumber name');
+    
+    res.status(200).json({
+      statusCode: 200,
+      data: {
+        buses,
+        pagination: {
+          total: buses.length,
+          page: 1,
+          limit: 10,
+          pages: Math.ceil(buses.length / 10)
+        }
+      },
+      message: 'Buses retrieved successfully',
+      success: true,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    res.status(500).json({
+      statusCode: 500,
+      success: false,
+      message: 'Error retrieving buses',
+      error: error.message
+    });
+  }
+});
+
+// GET /api/buses/:id - Get single bus
+busesRouter.get('/:id', async (req, res) => {
+  try {
+    const Bus = (await import('./models/Bus.js')).default;
+    const bus = await Bus.findById(req.params.id).populate('route', 'routeNumber name');
+    
+    if (!bus) {
+      return res.status(404).json({
+        statusCode: 404,
+        success: false,
+        message: 'Bus not found'
+      });
+    }
+    
+    res.status(200).json({
+      statusCode: 200,
+      data: bus,
+      message: 'Bus retrieved successfully',
+      success: true,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    res.status(500).json({
+      statusCode: 500,
+      success: false,
+      message: 'Error retrieving bus',
+      error: error.message
+    });
+  }
+});
+
+// Mount the buses router
+app.use('/api/buses', busesRouter);
+
+// 404 handler (MUST be after all route definitions)
 
 // Global error handler
 app.use((err, req, res, next) => {

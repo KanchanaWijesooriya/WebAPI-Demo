@@ -1,6 +1,6 @@
 [
   {
-    "routeNumber": "15-1",
+    "routeNumber": "001",
     "name": "Colombo - Kandy Express",
     "origin": {
       "city": "Colombo",
@@ -84,7 +84,7 @@
     "isActive": true
   },
   {
-    "routeNumber": "1-1",
+    "routeNumber": "002-1",
     "name": "Colombo - Galle Highway",
     "origin": {
       "city": "Colombo",
@@ -143,7 +143,7 @@
     "isActive": true
   },
   {
-    "routeNumber": "4-1", 
+    "routeNumber": "004", 
     "name": "Colombo - Anuradhapura",
     "origin": {
       "city": "Colombo",
@@ -187,7 +187,7 @@
     "isActive": true
   },
   {
-    "routeNumber": "99-1",
+    "routeNumber": "99",
     "name": "Colombo - Badulla",
     "origin": {
       "city": "Colombo", 
@@ -231,7 +231,7 @@
     "isActive": true
   },
   {
-    "routeNumber": "245-1",
+    "routeNumber": "002",
     "name": "Colombo - Matara",
     "origin": {
       "city": "Colombo",
