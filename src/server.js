@@ -202,20 +202,24 @@ app.get('/api/buses', async (req, res) => {
 });
 
 // Authentication routes
-const authWorkingRoutes = (await import('./routes/auth-working.js')).default;
+const authWorkingRoutes = (await import('./routes/auth_working.js')).default;
 app.use('/api/auth', authWorkingRoutes);
 
 // Protected routes with RBAC
-const protectedRoutes = (await import('./routes/protected-routes.js')).default;
+const protectedRoutes = (await import('./routes/protected_routes.js')).default;
 app.use('/api/routes', protectedRoutes);
 
 // User management routes with RBAC
-const userManagementRoutes = (await import('./routes/user-management.js')).default;
+const userManagementRoutes = (await import('./routes/user_management.js')).default;
 app.use('/api/users', userManagementRoutes);
 
 // Search and filtering routes
-const searchFilterRoutes = (await import('./routes/search-filter.js')).default;
+const searchFilterRoutes = (await import('./routes/search_filter.js')).default;
+const adminEnhancedRoutes = (await import('./routes/admin_enhanced.js')).default;
+const publicLiveLocationRoutes = (await import('./routes/public_live_location.js')).default;
 app.use('/api/search', searchFilterRoutes);
+app.use('/api/admin', adminEnhancedRoutes);
+app.use('/api/public', publicLiveLocationRoutes);
 
 // 404 handler
 app.all('*', (req, res) => {
