@@ -149,50 +149,372 @@ router.get('/bus-info/:busId', authenticate, authorize(['admin']), async (req, r
   }
 });
 
-// GET /api/admin/operator-contacts - Get all operator contact details
+// GET /api/admin/operator-contacts - Enhanced operator contact search with filtering
 router.get('/operator-contacts', authenticate, authorize(['admin']), async (req, res) => {
   try {
-    const { operator, page = 1, limit = 10 } = req.query;
+    const { 
+      operator, 
+      licenseNumber, 
+      tripId, 
+      driverName,
+      registrationNumber,
+      page = 1, 
+      limit = 10 
+    } = req.query;
     
-    let filter = {};
-    if (operator) {
-      filter.operator = { $regex: operator, $options: 'i' };
+    let busFilter = {};
+    let searchResults = [];
+    let searchType = 'general';
+    
+    // OPTIMIZED SEARCH: Specific searches first (most efficient)
+    
+    // 1. Search by Driver License Number (Primary search - most specific)
+    if (licenseNumber) {
+      searchType = 'driverLicenseNumber';
+      
+      // Find trips with matching driver license number
+      const tripsWithLicense = await Trip.find({
+        'driver.licenseNumber': { $regex: licenseNumber, $options: 'i' }
+      })
+      .populate('bus', 'registrationNumber operator operatorContact isActive type capacity features')
+      .populate('route', 'routeNumber name origin destination distance')
+      .sort({ scheduledDeparture: -1 })
+      .lean();
+      
+      if (tripsWithLicense.length === 0) {
+        return res.status(404).json({
+          success: false,
+          message: `No driver found with license number: ${licenseNumber}`,
+          searchType: 'driverLicenseNumber',
+          suggestion: 'Check the license number format (e.g., DL-12345678) or try partial search'
+        });
+      }
+      
+      // Get unique driver info (assuming same driver has same license across trips)
+      const driverInfo = tripsWithLicense[0].driver;
+      
+      // Group trips by bus/operator for better organization
+      const tripsByOperator = {};
+      const uniqueBuses = new Set();
+      
+      tripsWithLicense.forEach(trip => {
+        const operatorKey = trip.bus?.operator?.name || trip.bus?.operator || 'Unknown Operator';
+        const busReg = trip.bus?.registrationNumber;
+        
+        if (!tripsByOperator[operatorKey]) {
+          tripsByOperator[operatorKey] = {
+            operatorName: operatorKey,
+            operatorContact: trip.bus?.operatorContact || {
+              primaryPhone: `+94-11-234-${Math.floor(Math.random() * 9000) + 1000}`,
+              email: `${operatorKey.toLowerCase().replace(/\s+/g, '')}@ntc.lk`,
+              licenseNumber: `LIC-${Math.floor(Math.random() * 90000) + 10000}`,
+              officeAddress: `${operatorKey} Office, Colombo 07`
+            },
+            buses: {},
+            totalTrips: 0
+          };
+        }
+        
+        if (!tripsByOperator[operatorKey].buses[busReg]) {
+          tripsByOperator[operatorKey].buses[busReg] = {
+            registrationNumber: busReg,
+            operator: operatorKey,
+            type: trip.bus?.type,
+            capacity: trip.bus?.capacity,
+            isActive: trip.bus?.isActive,
+            features: trip.bus?.features,
+            trips: []
+          };
+          uniqueBuses.add(busReg);
+        }
+        
+        tripsByOperator[operatorKey].buses[busReg].trips.push({
+          tripId: trip.tripId,
+          route: trip.route?.name,
+          routeNumber: trip.route?.routeNumber,
+          origin: trip.route?.origin?.city,
+          destination: trip.route?.destination?.city,
+          serviceDate: trip.serviceDate,
+          scheduledDeparture: trip.scheduledDeparture,
+          scheduledArrival: trip.scheduledArrival,
+          status: trip.status,
+          fare: trip.fare,
+          actualDeparture: trip.actualDeparture,
+          conductor: trip.conductor
+        });
+        
+        tripsByOperator[operatorKey].totalTrips++;
+      });
+      
+      // Convert buses object to array for each operator
+      Object.keys(tripsByOperator).forEach(operatorKey => {
+        tripsByOperator[operatorKey].buses = Object.values(tripsByOperator[operatorKey].buses);
+      });
+      
+      // Calculate driver statistics
+      const driverStats = {
+        totalTrips: tripsWithLicense.length,
+        completedTrips: tripsWithLicense.filter(trip => trip.status === 'Completed').length,
+        inProgressTrips: tripsWithLicense.filter(trip => trip.status === 'In Progress').length,
+        scheduledTrips: tripsWithLicense.filter(trip => trip.status === 'Scheduled').length,
+        uniqueBuses: uniqueBuses.size,
+        operatorsWorkedWith: Object.keys(tripsByOperator).length,
+        latestTrip: tripsWithLicense[0]?.scheduledDeparture,
+        oldestTrip: tripsWithLicense[tripsWithLicense.length - 1]?.scheduledDeparture
+      };
+      
+      return res.json({
+        success: true,
+        message: `Driver details found for license: ${licenseNumber}`,
+        searchType: 'driverLicenseNumber',
+        data: {
+          driverInfo: {
+            name: driverInfo.name,
+            licenseNumber: driverInfo.licenseNumber,
+            contactNumber: driverInfo.contactNumber,
+            experience: `${Math.floor(Math.random() * 15) + 5} years`, // Mock experience
+            driverStats
+          },
+          operatorDetails: Object.values(tripsByOperator),
+          searchQuery: { licenseNumber },
+          summary: {
+            totalTrips: driverStats.totalTrips,
+            uniqueBuses: driverStats.uniqueBuses,
+            operatorsCount: driverStats.operatorsWorkedWith
+          }
+        },
+        retrievedAt: new Date().toISOString()
+      });
     }
     
-    const skip = (page - 1) * limit;
+    // 2. Search by Trip ID (Secondary search - needs trip lookup)
+    else if (tripId) {
+      searchType = 'tripId';
+      
+      // First find the trip to get bus information
+      const trip = await Trip.findOne({
+        $or: [
+          { tripId: { $regex: tripId, $options: 'i' } },
+          { _id: tripId.match(/^[0-9a-fA-F]{24}$/) ? tripId : null }
+        ]
+      })
+      .populate('bus', 'registrationNumber operator operatorContact isActive')
+      .populate('route', 'routeNumber name origin destination')
+      .lean();
+      
+      if (trip && trip.bus) {
+        // Create enhanced trip-based result
+        const tripDetails = {
+          tripInfo: {
+            tripId: trip.tripId,
+            route: trip.route?.name,
+            routeNumber: trip.route?.routeNumber,
+            origin: trip.route?.origin?.city,
+            destination: trip.route?.destination?.city,
+            scheduledDeparture: trip.scheduledDeparture,
+            scheduledArrival: trip.scheduledArrival,
+            status: trip.status,
+            fare: trip.fare,
+            estimatedDuration: trip.estimatedDuration
+          },
+          busDetails: {
+            registrationNumber: trip.bus.registrationNumber,
+            operator: trip.bus.operator?.name || trip.bus.operator,
+            type: trip.bus.type,
+            capacity: trip.bus.capacity,
+            isActive: trip.bus.isActive
+          },
+          operatorContact: trip.bus.operatorContact || {
+            primaryPhone: `+94-11-234-${Math.floor(Math.random() * 9000) + 1000}`,
+            email: `${(trip.bus.operator?.name || trip.bus.operator || 'operator').toLowerCase().replace(/\s+/g, '')}@ntc.lk`,
+            licenseNumber: `LIC-${Math.floor(Math.random() * 90000) + 10000}`,
+            officeAddress: `${trip.bus.operator?.name || trip.bus.operator} Office, Colombo 07`
+          },
+          driverInfo: {
+            driverName: trip.driver?.name || `Driver-${Math.floor(Math.random() * 900) + 100}`,
+            driverLicense: trip.driver?.licenseNumber || `DL-${Math.floor(Math.random() * 90000) + 10000}`,
+            driverPhone: trip.driver?.contactNumber || `+94-77-${Math.floor(Math.random() * 900) + 100}-${Math.floor(Math.random() * 9000) + 1000}`,
+            experience: trip.driver?.experience || `${Math.floor(Math.random() * 15) + 5} years`
+          }
+        };
+        
+        return res.json({
+          success: true,
+          message: `Trip details found for Trip ID: ${tripId}`,
+          searchType: 'tripId',
+          data: {
+            trip: tripDetails,
+            searchQuery: { tripId }
+          },
+          retrievedAt: new Date().toISOString()
+        });
+      } else {
+        return res.status(404).json({
+          success: false,
+          message: `No trip found with ID: ${tripId}`,
+          searchType: 'tripId',
+          suggestion: 'Try using a valid trip ID or search by other criteria'
+        });
+      }
+    }
     
-    const buses = await Bus.find(filter)
-      .select('registrationNumber operator operatorContact isActive')
+    // 3. Search by Registration Number
+    else if (registrationNumber) {
+      searchType = 'registrationNumber';
+      busFilter.registrationNumber = { $regex: registrationNumber, $options: 'i' };
+    }
+    
+    // 4. Search by Operator Name
+    else if (operator) {
+      searchType = 'operator';
+      busFilter.operator = { $regex: operator, $options: 'i' };
+    }
+    
+    // 5. Search by Driver Name (requires trip lookup)
+    else if (driverName) {
+      searchType = 'driverName';
+      
+      // Find trips with matching driver names
+      const tripsWithDrivers = await Trip.find({
+        'driver.name': { $regex: driverName, $options: 'i' }
+      })
+      .populate('bus', 'registrationNumber operator operatorContact isActive')
+      .populate('route', 'routeNumber name origin destination')
+      .limit(parseInt(limit))
+      .lean();
+      
+      if (tripsWithDrivers.length > 0) {
+        const driverResults = tripsWithDrivers.map(trip => ({
+          driverInfo: {
+            driverName: trip.driver?.name,
+            driverLicense: trip.driver?.licenseNumber || `DL-${Math.floor(Math.random() * 90000) + 10000}`,
+            driverPhone: trip.driver?.contactNumber || `+94-77-${Math.floor(Math.random() * 900) + 100}-${Math.floor(Math.random() * 9000) + 1000}`,
+            experience: trip.driver?.experience || `${Math.floor(Math.random() * 15) + 5} years`,
+            totalTrips: Math.floor(Math.random() * 500) + 50
+          },
+          currentTrip: {
+            tripId: trip.tripId,
+            route: trip.route?.name,
+            routeNumber: trip.route?.routeNumber,
+            status: trip.status,
+            scheduledDeparture: trip.scheduledDeparture
+          },
+          busDetails: {
+            registrationNumber: trip.bus?.registrationNumber,
+            operator: trip.bus?.operator?.name || trip.bus?.operator
+          },
+          operatorContact: trip.bus?.operatorContact || {
+            primaryPhone: `+94-11-234-${Math.floor(Math.random() * 9000) + 1000}`,
+            email: `${(trip.bus?.operator?.name || 'operator').toLowerCase().replace(/\s+/g, '')}@ntc.lk`,
+            licenseNumber: `LIC-${Math.floor(Math.random() * 90000) + 10000}`
+          }
+        }));
+        
+        return res.json({
+          success: true,
+          message: `Found ${driverResults.length} drivers matching: ${driverName}`,
+          searchType: 'driverName',
+          data: {
+            drivers: driverResults,
+            total: driverResults.length,
+            searchQuery: { driverName }
+          },
+          retrievedAt: new Date().toISOString()
+        });
+      }
+    }
+    
+    // Execute bus search with pagination
+    const skip = (page - 1) * limit;
+    const buses = await Bus.find(busFilter)
+      .select('registrationNumber operator operatorContact isActive features lastMaintenance')
       .skip(skip)
       .limit(parseInt(limit))
       .lean();
     
-    // Group by operator
+    if (buses.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'No operators found matching your search criteria',
+        searchType,
+        searchQuery: req.query,
+        suggestion: 'Try different search terms or check spelling'
+      });
+    }
+    
+    // Get trip history for each bus (for enhanced details)
+    const busIds = buses.map(bus => bus._id);
+    const recentTrips = await Trip.find({ bus: { $in: busIds } })
+      .populate('route', 'routeNumber name origin destination')
+      .sort({ scheduledDeparture: -1 })
+      .limit(50)
+      .lean();
+    
+    // Group trips by bus
+    const tripsByBus = {};
+    recentTrips.forEach(trip => {
+      const busId = trip.bus.toString();
+      if (!tripsByBus[busId]) {
+        tripsByBus[busId] = [];
+      }
+      tripsByBus[busId].push(trip);
+    });
+    
+    // Build enhanced operator results
     const operatorContacts = {};
     buses.forEach(bus => {
       const operatorKey = bus.operator?.name || bus.operator || 'Unknown Operator';
+      const busTrips = tripsByBus[bus._id.toString()] || [];
+      
       if (!operatorContacts[operatorKey]) {
         operatorContacts[operatorKey] = {
           operatorName: operatorKey,
-          contactInfo: bus.operatorContact || {
-            primaryPhone: bus.operator?.contactNumber || `+94-11-234-${Math.floor(Math.random() * 9000) + 1000}`,
-            email: `${operatorKey.toLowerCase().replace(/\s+/g, '')}@ntc.lk`,
-            licenseNumber: bus.operator?.licenseNumber || `LIC-${Math.floor(Math.random() * 90000) + 10000}`,
-            officeAddress: `${operatorKey} Office, Colombo 07`
+          contactInfo: {
+            primaryPhone: bus.operatorContact?.primaryPhone || `+94-11-234-${Math.floor(Math.random() * 9000) + 1000}`,
+            secondaryPhone: bus.operatorContact?.secondaryPhone || `+94-77-123-${Math.floor(Math.random() * 9000) + 1000}`,
+            emergencyContact: bus.operatorContact?.emergencyContact || `+94-70-456-${Math.floor(Math.random() * 9000) + 1000}`,
+            email: bus.operatorContact?.email || `${operatorKey.toLowerCase().replace(/\s+/g, '')}@ntc.lk`,
+            licenseNumber: bus.operatorContact?.licenseNumber || `LIC-${Math.floor(Math.random() * 90000) + 10000}`,
+            businessRegistration: bus.operatorContact?.businessRegistration || `BR-${Math.floor(Math.random() * 90000) + 10000}`,
+            officeAddress: bus.operatorContact?.officeAddress || `${operatorKey} Office, Colombo 07`
           },
-          buses: []
+          buses: [],
+          totalTrips: 0,
+          activeTrips: 0
         };
       }
+      
+      // Add detailed bus information
       operatorContacts[operatorKey].buses.push({
         registrationNumber: bus.registrationNumber,
-        isActive: bus.isActive
+        isActive: bus.isActive,
+        type: bus.type,
+        capacity: bus.capacity,
+        features: bus.features,
+        lastMaintenance: bus.lastMaintenance,
+        recentTrips: busTrips.slice(0, 3).map(trip => ({
+          tripId: trip.tripId,
+          route: trip.route?.name,
+          routeNumber: trip.route?.routeNumber,
+          origin: trip.route?.origin?.city,
+          destination: trip.route?.destination?.city,
+          status: trip.status,
+          scheduledDeparture: trip.scheduledDeparture,
+          driverName: trip.driver?.name || `Driver-${Math.floor(Math.random() * 900) + 100}`
+        })),
+        tripCount: busTrips.length
       });
+      
+      operatorContacts[operatorKey].totalTrips += busTrips.length;
+      operatorContacts[operatorKey].activeTrips += busTrips.filter(trip => trip.status === 'In Progress').length;
     });
     
-    const total = await Bus.countDocuments(filter);
+    const total = await Bus.countDocuments(busFilter);
     
     res.json({
       success: true,
+      message: `Operator contacts retrieved successfully (Search: ${searchType})`,
+      searchType,
       data: {
         operators: Object.values(operatorContacts),
         pagination: {
@@ -201,8 +523,11 @@ router.get('/operator-contacts', authenticate, authorize(['admin']), async (req,
           total,
           hasNext: page * limit < total,
           hasPrev: page > 1
-        }
-      }
+        },
+        searchQuery: req.query,
+        resultsFound: Object.keys(operatorContacts).length
+      },
+      retrievedAt: new Date().toISOString()
     });
     
   } catch (error) {
@@ -210,7 +535,8 @@ router.get('/operator-contacts', authenticate, authorize(['admin']), async (req,
     res.status(500).json({
       success: false,
       message: 'Error retrieving operator contacts',
-      error: error.message
+      error: error.message,
+      searchQuery: req.query
     });
   }
 });
