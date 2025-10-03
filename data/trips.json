@@ -10,7 +10,7 @@
     "fare": 250,
     "driver": {
       "name": "Nimal Perera",
-      "licenseNumber": "DL-12345678",
+      "licenseNumber": "B2345675",
       "contactNumber": "+94-77-1234567"
     },
     "conductor": {
@@ -29,7 +29,7 @@
     "fare": 180,
     "driver": {
       "name": "Nimal Perera",
-      "licenseNumber": "DL-12345678",
+      "licenseNumber": "B7684098",
       "contactNumber": "+94-77-1234567"
     },
     "conductor": {
@@ -49,7 +49,7 @@
     "actualDeparture": "2025-10-02T08:05:00.000Z",
     "driver": {
       "name": "Nimal Perera",
-      "licenseNumber": "DL-12345678",
+      "licenseNumber": "B4657828",
       "contactNumber": "+94-77-1234567"
     },
     "conductor": {
@@ -68,7 +68,7 @@
     "fare": 380,
     "driver": {
       "name": "Nimal Perera",
-      "licenseNumber": "DL-12345678",
+      "licenseNumber": "B8795764",
       "contactNumber": "+94-77-1234567"
     },
     "conductor": {
