@@ -48,6 +48,9 @@ export default {
   // Verbose output - disabled to show only main test suite results
   verbose: false,
   
+  // Silent mode - suppress console output during tests
+  silent: true,
+  
   // Module file extensions
   moduleFileExtensions: ['js', 'json'],
   
