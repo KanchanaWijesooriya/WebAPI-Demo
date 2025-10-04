@@ -45,10 +45,10 @@ export default {
   // Test timeout
   testTimeout: 30000,
   
-  // Verbose output - disabled to show only main test suite results
-  verbose: false,
+  // Verbose output - enabled to show individual test case results
+  verbose: true,
   
-  // Silent mode - suppress console output during tests
+  // Silent mode - suppress console.log/error output during tests but keep test results
   silent: true,
   
   // Module file extensions
