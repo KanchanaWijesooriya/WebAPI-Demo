@@ -4,6 +4,78 @@ import Trip from '../models/Trip.js';
 
 const router = express.Router();
 
+// Import optional auth middleware for role-based filtering
+import { optionalAuth } from '../middleware/auth.js';
+
+// Apply optional authentication to all search routes
+router.use(optionalAuth);
+
+// Helper function to filter data based on user role
+function filterDataForUser(data, isAdmin) {
+  if (isAdmin) {
+    // Admin: Return all data
+    return data;
+  }
+  
+  // Public: Remove internal/sensitive fields
+  if (Array.isArray(data)) {
+    return data.map(item => filterSingleItem(item, false));
+  } else {
+    return filterSingleItem(data, false);
+  }
+}
+
+function filterSingleItem(item, isAdmin) {
+  if (!item || typeof item !== 'object') return item;
+  
+  const filtered = { ...item };
+  
+  if (!isAdmin) {
+    // Remove internal database fields
+    delete filtered._id;
+    delete filtered.__v;
+    delete filtered.createdAt;
+    delete filtered.updatedAt;
+    delete filtered.isActive;
+    
+    // Filter route data if present
+    if (filtered.route && typeof filtered.route === 'object') {
+      delete filtered.route._id;
+      delete filtered.route.__v;
+      delete filtered.route.createdAt;
+      delete filtered.route.updatedAt;
+      delete filtered.route.isActive;
+    }
+    
+    // Filter bus data if present
+    if (filtered.bus && typeof filtered.bus === 'object') {
+      delete filtered.bus._id;
+      delete filtered.bus.__v;
+      delete filtered.bus.createdAt;
+      delete filtered.bus.updatedAt;
+      delete filtered.bus.registrationNumber;
+      
+      // Filter operator data in bus
+      if (filtered.bus.operator) {
+        delete filtered.bus.operator.licenseNumber;
+        delete filtered.bus.operator.contactNumber;
+      }
+    }
+    
+    // Remove driver data completely for privacy
+    delete filtered.driver;
+    
+    // Remove sensitive trip fields
+    delete filtered.passengers;
+    delete filtered.actualArrival;
+    delete filtered.actualDeparture;
+    delete filtered.delay;
+    delete filtered.weatherCondition;
+  }
+  
+  return filtered;
+}
+
 // GET /api/search/routes - Simplified route filtering
 router.get('/routes', async (req, res) => {
   try {
@@ -20,14 +92,14 @@ router.get('/routes', async (req, res) => {
     // Build filter object
     let filter = { isActive: true };
     
-    // Filter by start location (origin)
+    // Filter by start location (origin) - exact match
     if (start) {
-      filter['origin.city'] = { $regex: start, $options: 'i' };
+      filter['origin.city'] = { $regex: `^${start.trim()}$`, $options: 'i' };
     }
     
-    // Filter by end location (destination)
+    // Filter by end location (destination) - exact match
     if (end) {
-      filter['destination.city'] = { $regex: end, $options: 'i' };
+      filter['destination.city'] = { $regex: `^${end.trim()}$`, $options: 'i' };
     }
     
     // Filter by intermediate stops
@@ -52,10 +124,16 @@ router.get('/routes', async (req, res) => {
     // Get total count
     const totalRoutes = await Route.countDocuments(filter);
     
+    // Check if user is admin
+    const isAdmin = req.user && req.user.role === 'admin';
+    
+    // Filter data based on user role
+    const filteredRoutes = filterDataForUser(routes, isAdmin);
+    
     res.json({
       success: true,
       data: {
-        routes,
+        routes: filteredRoutes,
         pagination: {
           current: parseInt(page),
           pages: Math.ceil(totalRoutes / limit),
@@ -63,7 +141,8 @@ router.get('/routes', async (req, res) => {
           hasNext: page * limit < totalRoutes,
           hasPrev: page > 1
         }
-      }
+      },
+      dataLevel: isAdmin ? 'full' : 'public'
     });
 
   } catch (error) {
@@ -99,11 +178,11 @@ router.get('/trips', async (req, res) => {
     let routeFilter = { isActive: true };
     
     if (start) {
-      routeFilter['origin.city'] = { $regex: start, $options: 'i' };
+      routeFilter['origin.city'] = { $regex: `^${start.trim()}$`, $options: 'i' };
     }
     
     if (end) {
-      routeFilter['destination.city'] = { $regex: end, $options: 'i' };
+      routeFilter['destination.city'] = { $regex: `^${end.trim()}$`, $options: 'i' };
     }
     
     // Distance filter for routes
@@ -213,8 +292,9 @@ router.get('/trips', async (req, res) => {
     const sortObj = {};
     sortObj[sortBy] = sortOrder === 'desc' ? -1 : 1;
 
-    // Execute query with population
+    // Execute query with population (limited fields for privacy)
     const trips = await Trip.find(tripFilter)
+      .select('-driver') // Remove driver info for privacy
       .populate('route', 'routeNumber name origin destination distance stops')
       .populate('bus', 'registrationNumber operator type capacity')
       .sort(sortObj)
@@ -224,10 +304,16 @@ router.get('/trips', async (req, res) => {
 
     const totalTrips = await Trip.countDocuments(tripFilter);
     
+    // Check if user is admin
+    const isAdmin = req.user && req.user.role === 'admin';
+    
+    // Filter data based on user role
+    const filteredTrips = filterDataForUser(trips, isAdmin);
+    
     res.json({
       success: true,
       data: {
-        trips,
+        trips: filteredTrips,
         pagination: {
           current: parseInt(page),
           pages: Math.ceil(totalTrips / limit),
@@ -239,7 +325,8 @@ router.get('/trips', async (req, res) => {
           route: { start, end, minDistance, maxDistance },
           trip: { departureTime, minFare, maxFare, date, dayType }
         }
-      }
+      },
+      dataLevel: isAdmin ? 'full' : 'public'
     });
 
   } catch (error) {
@@ -273,8 +360,8 @@ router.get('/combined', async (req, res) => {
     // Use both endpoints' logic combined
     let routeFilter = { isActive: true };
     
-    if (start) routeFilter['origin.city'] = { $regex: start, $options: 'i' };
-    if (end) routeFilter['destination.city'] = { $regex: end, $options: 'i' };
+    if (start) routeFilter['origin.city'] = { $regex: `^${start.trim()}$`, $options: 'i' };
+    if (end) routeFilter['destination.city'] = { $regex: `^${end.trim()}$`, $options: 'i' };
     if (stops) routeFilter['stops.name'] = { $regex: stops, $options: 'i' };
     if (minDistance || maxDistance) {
       routeFilter.distance = {};
@@ -315,30 +402,48 @@ router.get('/combined', async (req, res) => {
       }
     }
 
-    // Get trips with populated data
+    // Get trips with populated data (limited fields for privacy)
     const trips = await Trip.find(tripFilter)
-      .populate('route')
-      .populate('bus')
+      .populate('route', 'routeNumber name origin destination distance stops')
+      .populate('bus', 'registrationNumber operator type capacity')
+      .populate('driver', 'name employeeId') // Only basic driver info
       .limit(parseInt(limit))
       .lean();
 
-    // Group by route
+    // Check if user is admin
+    const isAdmin = req.user && req.user.role === 'admin';
+    
+    // Group by route and filter properly
     const routeMap = {};
     routes.forEach(route => {
-      routeMap[route._id] = {
-        ...route,
-        availableTrips: trips.filter(trip => 
-          trip.route._id.toString() === route._id.toString()
-        )
-      };
+      const routeTrips = trips.filter(trip => 
+        trip.route._id.toString() === route._id.toString()
+      );
+      
+      // Only include routes that have matching trips
+      if (routeTrips.length > 0) {
+        routeMap[route._id] = {
+          ...route,
+          availableTrips: routeTrips
+        };
+      }
     });
 
     const results = Object.values(routeMap).slice((page - 1) * limit, page * limit);
+    
+    // Filter data based on user role
+    const filteredResults = results.map(result => {
+      const filteredResult = filterSingleItem(result, isAdmin);
+      if (filteredResult.availableTrips) {
+        filteredResult.availableTrips = filterDataForUser(filteredResult.availableTrips, isAdmin);
+      }
+      return filteredResult;
+    });
 
     res.json({
       success: true,
       data: {
-        results,
+        results: filteredResults,
         pagination: {
           current: parseInt(page),
           pages: Math.ceil(routes.length / limit),
@@ -351,7 +456,8 @@ router.get('/combined', async (req, res) => {
           tripsFound: trips.length,
           appliedFilters: { start, end, stops, departureTime, minFare, maxFare, minDistance, maxDistance, date, dayType }
         }
-      }
+      },
+      dataLevel: isAdmin ? 'full' : 'public'
     });
 
   } catch (error) {
