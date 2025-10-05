@@ -1,156 +1,6652 @@
 [
   {
-    "tripId": "TR-20251002-001",
+    "tripId": "TR-20251006-001-001",
     "busRegistration": "CAA-5678",
-    "routeNumber": "15-1",
-    "serviceDate": "2025-10-02",
-    "scheduledDeparture": "2025-10-02T06:30:00.000Z",
-    "scheduledArrival": "2025-10-02T09:30:00.000Z",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T06:00:00.000Z",
+    "scheduledArrival": "2025-10-06T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 250,
+    "fare": 350,
     "driver": {
       "name": "Nimal Perera",
       "licenseNumber": "B2345675",
       "contactNumber": "+94-77-1234567"
     },
     "conductor": {
-      "name": "Public User",
-      "contactNumber": "+94-77-9999999"
+      "name": "Asanka Silva",
+      "contactNumber": "+94-77-2345678"
     }
   },
   {
-    "tripId": "TR-20251002-002",
-    "busRegistration": "SP-1234",
-    "routeNumber": "1-1",
-    "serviceDate": "2025-10-02",
-    "scheduledDeparture": "2025-10-02T07:00:00.000Z",
-    "scheduledArrival": "2025-10-02T09:30:00.000Z",
+    "tripId": "TR-20251006-001-002",
+    "busRegistration": "CAA-5678",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T13:00:00.000Z",
+    "scheduledArrival": "2025-10-06T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 180,
+    "fare": 350,
     "driver": {
-      "name": "Nimal Perera",
-      "licenseNumber": "B7684098",
-      "contactNumber": "+94-77-1234567"
+      "name": "Amal Fernando",
+      "licenseNumber": "B3456786",
+      "contactNumber": "+94-77-3456789"
     },
     "conductor": {
-      "name": "Public User",
-      "contactNumber": "+94-77-9999999"
+      "name": "Chamara Dias",
+      "contactNumber": "+94-77-4567890"
     }
   },
   {
-    "tripId": "TR-20251002-003",
-    "busRegistration": "AN-1111",
-    "routeNumber": "4-1",
-    "serviceDate": "2025-10-02",
-    "scheduledDeparture": "2025-10-02T08:00:00.000Z",
-    "scheduledArrival": "2025-10-02T12:30:00.000Z",
-    "status": "In Progress",
+    "tripId": "TR-20251006-001-003",
+    "busRegistration": "CAB-5958",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T07:00:00.000Z",
+    "scheduledArrival": "2025-10-06T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Thisara Weerasinghe",
+      "licenseNumber": "B4567897",
+      "contactNumber": "+94-77-5678901"
+    },
+    "conductor": {
+      "name": "Dinesh Gunasekara",
+      "contactNumber": "+94-77-6789012"
+    }
+  },
+  {
+    "tripId": "TR-20251006-001-004",
+    "busRegistration": "CAB-5958",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T14:00:00.000Z",
+    "scheduledArrival": "2025-10-06T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Chamara Fernando",
+      "licenseNumber": "B5678908",
+      "contactNumber": "+94-77-7890123"
+    },
+    "conductor": {
+      "name": "Pradeep Mendis",
+      "contactNumber": "+94-77-8901234"
+    }
+  },
+  {
+    "tripId": "TR-20251006-001-005",
+    "busRegistration": "CAC-6173",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T08:00:00.000Z",
+    "scheduledArrival": "2025-10-06T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Kumara Jayasinghe",
+      "licenseNumber": "B6789019",
+      "contactNumber": "+94-77-9012345"
+    },
+    "conductor": {
+      "name": "Ruwan Wijeratne",
+      "contactNumber": "+94-77-1023456"
+    }
+  },
+  {
+    "tripId": "TR-20251006-001-006",
+    "busRegistration": "CAC-6173",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T15:00:00.000Z",
+    "scheduledArrival": "2025-10-06T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Mahinda Rajapakse",
+      "licenseNumber": "B7890120",
+      "contactNumber": "+94-77-2134567"
+    },
+    "conductor": {
+      "name": "Kasun Perera",
+      "contactNumber": "+94-77-3245678"
+    }
+  },
+  {
+    "tripId": "TR-20251006-001-007",
+    "busRegistration": "CAD-7284",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T09:00:00.000Z",
+    "scheduledArrival": "2025-10-06T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 750,
+    "driver": {
+      "name": "Saman Silva",
+      "licenseNumber": "B8901231",
+      "contactNumber": "+94-77-4356789"
+    },
+    "conductor": {
+      "name": "Gayan Fernando",
+      "contactNumber": "+94-77-5467890"
+    }
+  },
+  {
+    "tripId": "TR-20251006-001-008",
+    "busRegistration": "CAD-7284",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T16:00:00.000Z",
+    "scheduledArrival": "2025-10-06T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 750,
+    "driver": {
+      "name": "Ravi Wickramasinghe",
+      "licenseNumber": "B9012342",
+      "contactNumber": "+94-77-6578901"
+    },
+    "conductor": {
+      "name": "Janaka Amarasinghe",
+      "contactNumber": "+94-77-7689012"
+    }
+  },
+  {
+    "tripId": "TR-20251006-001-009",
+    "busRegistration": "CAE-8395",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T10:00:00.000Z",
+    "scheduledArrival": "2025-10-06T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1150,
+    "driver": {
+      "name": "Priyantha Gunasekara",
+      "licenseNumber": "B1023453",
+      "contactNumber": "+94-77-8790123"
+    },
+    "conductor": {
+      "name": "Suranga Perera",
+      "contactNumber": "+94-77-9801234"
+    }
+  },
+  {
+    "tripId": "TR-20251006-001-010",
+    "busRegistration": "CAE-8395",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T17:00:00.000Z",
+    "scheduledArrival": "2025-10-06T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1150,
+    "driver": {
+      "name": "Tharaka Jayawardana",
+      "licenseNumber": "B2134564",
+      "contactNumber": "+94-77-1912345"
+    },
+    "conductor": {
+      "name": "Nishan Silva",
+      "contactNumber": "+94-77-2023456"
+    }
+  },
+  {
+    "tripId": "TR-20251006-002-011",
+    "busRegistration": "CAF-9406",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T06:00:00.000Z",
+    "scheduledArrival": "2025-10-06T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 420,
+    "driver": {
+      "name": "Damith Jayasinghe",
+      "licenseNumber": "B3245675",
+      "contactNumber": "+94-77-3134567"
+    },
+    "conductor": {
+      "name": "Chanaka Perera",
+      "contactNumber": "+94-77-4245678"
+    }
+  },
+  {
+    "tripId": "TR-20251006-002-012",
+    "busRegistration": "CAF-9406",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T13:00:00.000Z",
+    "scheduledArrival": "2025-10-06T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 420,
+    "driver": {
+      "name": "Upul Fernando",
+      "licenseNumber": "B4356786",
+      "contactNumber": "+94-77-5356789"
+    },
+    "conductor": {
+      "name": "Roshan Silva",
+      "contactNumber": "+94-77-6467890"
+    }
+  },
+  {
+    "tripId": "TR-20251006-002-013",
+    "busRegistration": "CAG-1517",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T07:00:00.000Z",
+    "scheduledArrival": "2025-10-06T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 680,
+    "driver": {
+      "name": "Sampath Gunathilaka",
+      "licenseNumber": "B5467897",
+      "contactNumber": "+94-77-7578901"
+    },
+    "conductor": {
+      "name": "Indika Perera",
+      "contactNumber": "+94-77-8689012"
+    }
+  },
+  {
+    "tripId": "TR-20251006-002-014",
+    "busRegistration": "CAG-1517",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T14:00:00.000Z",
+    "scheduledArrival": "2025-10-06T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 680,
+    "driver": {
+      "name": "Wasantha Silva",
+      "licenseNumber": "B6578908",
+      "contactNumber": "+94-77-9790123"
+    },
+    "conductor": {
+      "name": "Thilak Fernando",
+      "contactNumber": "+94-77-1801234"
+    }
+  },
+  {
+    "tripId": "TR-20251006-002-015",
+    "busRegistration": "CAH-2628",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T08:00:00.000Z",
+    "scheduledArrival": "2025-10-06T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1300,
+    "driver": {
+      "name": "Lalith Gunasekara",
+      "licenseNumber": "B7689019",
+      "contactNumber": "+94-77-2912345"
+    },
+    "conductor": {
+      "name": "Aruna Perera",
+      "contactNumber": "+94-77-3023456"
+    }
+  },
+  {
+    "tripId": "TR-20251006-002-016",
+    "busRegistration": "CAH-2628",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T15:00:00.000Z",
+    "scheduledArrival": "2025-10-06T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1300,
+    "driver": {
+      "name": "Sunimal Jayawardana",
+      "licenseNumber": "B8790120",
+      "contactNumber": "+94-77-4134567"
+    },
+    "conductor": {
+      "name": "Sunil Silva",
+      "contactNumber": "+94-77-5245678"
+    }
+  },
+  {
+    "tripId": "TR-20251006-002-017",
+    "busRegistration": "CAI-3739",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T09:00:00.000Z",
+    "scheduledArrival": "2025-10-06T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1300,
+    "driver": {
+      "name": "Buddhika Fernando",
+      "licenseNumber": "B9801231",
+      "contactNumber": "+94-77-6356789"
+    },
+    "conductor": {
+      "name": "Asantha Perera",
+      "contactNumber": "+94-77-7467890"
+    }
+  },
+  {
+    "tripId": "TR-20251006-002-018",
+    "busRegistration": "CAI-3739",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T16:00:00.000Z",
+    "scheduledArrival": "2025-10-06T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1300,
+    "driver": {
+      "name": "Dilshan Wickramasinghe",
+      "licenseNumber": "B1912342",
+      "contactNumber": "+94-77-8578901"
+    },
+    "conductor": {
+      "name": "Namal Silva",
+      "contactNumber": "+94-77-9689012"
+    }
+  },
+  {
+    "tripId": "TR-20251006-002-019",
+    "busRegistration": "CAJ-4840",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T10:00:00.000Z",
+    "scheduledArrival": "2025-10-06T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 680,
+    "driver": {
+      "name": "Janith Jayasinghe",
+      "licenseNumber": "B2023453",
+      "contactNumber": "+94-77-1790123"
+    },
+    "conductor": {
+      "name": "Manjula Fernando",
+      "contactNumber": "+94-77-2801234"
+    }
+  },
+  {
+    "tripId": "TR-20251006-002-020",
+    "busRegistration": "CAJ-4840",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T17:00:00.000Z",
+    "scheduledArrival": "2025-10-06T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 680,
+    "driver": {
+      "name": "Thilina Gunasekara",
+      "licenseNumber": "B3134564",
+      "contactNumber": "+94-77-3912345"
+    },
+    "conductor": {
+      "name": "Pubudu Perera",
+      "contactNumber": "+94-77-4023456"
+    }
+  },
+  {
+    "tripId": "TR-20251006-021-021",
+    "busRegistration": "CAK-5951",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T06:00:00.000Z",
+    "scheduledArrival": "2025-10-06T09:00:00.000Z",
+    "status": "Scheduled",
     "fare": 320,
-    "actualDeparture": "2025-10-02T08:05:00.000Z",
     "driver": {
-      "name": "Nimal Perera",
-      "licenseNumber": "B4657828",
-      "contactNumber": "+94-77-1234567"
+      "name": "Milinda Silva",
+      "licenseNumber": "B4245675",
+      "contactNumber": "+94-77-5134567"
     },
     "conductor": {
-      "name": "Public User",
-      "contactNumber": "+94-77-9999999"
+      "name": "Kapila Fernando",
+      "contactNumber": "+94-77-6245678"
     }
   },
   {
-    "tripId": "TR-20251002-004",
-    "busRegistration": "BD-2222",
-    "routeNumber": "99-1",
-    "serviceDate": "2025-10-02",
-    "scheduledDeparture": "2025-10-02T09:30:00.000Z",
-    "scheduledArrival": "2025-10-02T15:00:00.000Z",
-    "status": "Scheduled",
-    "fare": 380,
-    "driver": {
-      "name": "Nimal Perera",
-      "licenseNumber": "B8795764",
-      "contactNumber": "+94-77-1234567"
-    },
-    "conductor": {
-      "name": "Public User",
-      "contactNumber": "+94-77-9999999"
-    }
-  },
-  {
-    "tripId": "TR-20251002-005",
-    "busRegistration": "MR-3333",
-    "routeNumber": "245-1",
-    "serviceDate": "2025-10-02",
-    "scheduledDeparture": "2025-10-02T10:00:00.000Z",
-    "scheduledArrival": "2025-10-02T13:30:00.000Z",
-    "status": "In Progress",
-    "fare": 280,
-    "actualDeparture": "2025-10-02T10:02:00.000Z",
-    "driver": {
-      "name": "Nimal Perera",
-      "licenseNumber": "DL-12345678",
-      "contactNumber": "+94-77-1234567"
-    },
-    "conductor": {
-      "name": "Public User",
-      "contactNumber": "+94-77-9999999"
-    }
-  },
-  {
-    "tripId": "TR-20251003-001",
-    "busRegistration": "CAB-9012",
-    "routeNumber": "15-1",
-    "serviceDate": "2025-10-03",
-    "scheduledDeparture": "2025-10-03T06:30:00.000Z",
-    "scheduledArrival": "2025-10-03T09:30:00.000Z",
-    "status": "Scheduled",
-    "fare": 250,
-    "driver": {
-      "name": "Nimal Perera",
-      "licenseNumber": "DL-12345678",
-      "contactNumber": "+94-77-1234567"
-    },
-    "conductor": {
-      "name": "Public User",
-      "contactNumber": "+94-77-9999999"
-    }
-  },
-  {
-    "tripId": "TR-20251003-002",
-    "busRegistration": "SP-5678",
-    "routeNumber": "1-1",
-    "serviceDate": "2025-10-03",
-    "scheduledDeparture": "2025-10-03T07:15:00.000Z",
-    "scheduledArrival": "2025-10-03T09:45:00.000Z",
-    "status": "Scheduled",
-    "fare": 180,
-    "driver": {
-      "name": "Nimal Perera",
-      "licenseNumber": "DL-12345678",
-      "contactNumber": "+94-77-1234567"
-    },
-    "conductor": {
-      "name": "Public User",
-      "contactNumber": "+94-77-9999999"
-    }
-  },
-  {
-    "tripId": "TR-20251003-003",
-    "busRegistration": "AN-4444",
-    "routeNumber": "4-1",
-    "serviceDate": "2025-10-03",
-    "scheduledDeparture": "2025-10-03T08:30:00.000Z",
-    "scheduledArrival": "2025-10-03T13:00:00.000Z",
+    "tripId": "TR-20251006-021-022",
+    "busRegistration": "CAK-5951",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T13:00:00.000Z",
+    "scheduledArrival": "2025-10-06T16:00:00.000Z",
     "status": "Scheduled",
     "fare": 320,
     "driver": {
+      "name": "Nuwan Jayawardana",
+      "licenseNumber": "B5356786",
+      "contactNumber": "+94-77-7356789"
+    },
+    "conductor": {
+      "name": "Sanjaya Perera",
+      "contactNumber": "+94-77-8467890"
+    }
+  },
+  {
+    "tripId": "TR-20251006-021-023",
+    "busRegistration": "CAL-6062",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T07:00:00.000Z",
+    "scheduledArrival": "2025-10-06T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Sandun Wickramasinghe",
+      "licenseNumber": "B6467897",
+      "contactNumber": "+94-77-9578901"
+    },
+    "conductor": {
+      "name": "Chatura Silva",
+      "contactNumber": "+94-77-1689012"
+    }
+  },
+  {
+    "tripId": "TR-20251006-021-024",
+    "busRegistration": "CAL-6062",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T14:00:00.000Z",
+    "scheduledArrival": "2025-10-06T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Amila Gunathilaka",
+      "licenseNumber": "B7578908",
+      "contactNumber": "+94-77-2790123"
+    },
+    "conductor": {
+      "name": "Dhanushka Fernando",
+      "contactNumber": "+94-77-3801234"
+    }
+  },
+  {
+    "tripId": "TR-20251006-021-025",
+    "busRegistration": "CAM-7173",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T08:00:00.000Z",
+    "scheduledArrival": "2025-10-06T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Ravindu Perera",
+      "licenseNumber": "B8689019",
+      "contactNumber": "+94-77-4912345"
+    },
+    "conductor": {
+      "name": "Chamika Silva",
+      "contactNumber": "+94-77-5023456"
+    }
+  },
+  {
+    "tripId": "TR-20251006-021-026",
+    "busRegistration": "CAM-7173",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T15:00:00.000Z",
+    "scheduledArrival": "2025-10-06T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
       "name": "Nimal Perera",
-      "licenseNumber": "DL-12345678",
+      "licenseNumber": "B2345675",
       "contactNumber": "+94-77-1234567"
     },
     "conductor": {
-      "name": "Public User",
-      "contactNumber": "+94-77-9999999"
+      "name": "Asanka Silva",
+      "contactNumber": "+94-77-2345678"
+    }
+  },
+  {
+    "tripId": "TR-20251006-021-027",
+    "busRegistration": "CAN-8284",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T09:00:00.000Z",
+    "scheduledArrival": "2025-10-06T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1100,
+    "driver": {
+      "name": "Amal Fernando",
+      "licenseNumber": "B3456786",
+      "contactNumber": "+94-77-3456789"
+    },
+    "conductor": {
+      "name": "Chamara Dias",
+      "contactNumber": "+94-77-4567890"
+    }
+  },
+  {
+    "tripId": "TR-20251006-021-028",
+    "busRegistration": "CAN-8284",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T16:00:00.000Z",
+    "scheduledArrival": "2025-10-06T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1100,
+    "driver": {
+      "name": "Thisara Weerasinghe",
+      "licenseNumber": "B4567897",
+      "contactNumber": "+94-77-5678901"
+    },
+    "conductor": {
+      "name": "Dinesh Gunasekara",
+      "contactNumber": "+94-77-6789012"
+    }
+  },
+  {
+    "tripId": "TR-20251006-021-029",
+    "busRegistration": "CAO-9395",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T10:00:00.000Z",
+    "scheduledArrival": "2025-10-06T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1100,
+    "driver": {
+      "name": "Chamara Fernando",
+      "licenseNumber": "B5678908",
+      "contactNumber": "+94-77-7890123"
+    },
+    "conductor": {
+      "name": "Pradeep Mendis",
+      "contactNumber": "+94-77-8901234"
+    }
+  },
+  {
+    "tripId": "TR-20251006-021-030",
+    "busRegistration": "CAO-9395",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T17:00:00.000Z",
+    "scheduledArrival": "2025-10-06T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1100,
+    "driver": {
+      "name": "Kumara Jayasinghe",
+      "licenseNumber": "B6789019",
+      "contactNumber": "+94-77-9012345"
+    },
+    "conductor": {
+      "name": "Ruwan Wijeratne",
+      "contactNumber": "+94-77-1023456"
+    }
+  },
+  {
+    "tripId": "TR-20251006-004-031",
+    "busRegistration": "CAP-1406",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T06:00:00.000Z",
+    "scheduledArrival": "2025-10-06T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Mahinda Rajapakse",
+      "licenseNumber": "B7890120",
+      "contactNumber": "+94-77-2134567"
+    },
+    "conductor": {
+      "name": "Kasun Perera",
+      "contactNumber": "+94-77-3245678"
+    }
+  },
+  {
+    "tripId": "TR-20251006-004-032",
+    "busRegistration": "CAP-1406",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T13:00:00.000Z",
+    "scheduledArrival": "2025-10-06T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Saman Silva",
+      "licenseNumber": "B8901231",
+      "contactNumber": "+94-77-4356789"
+    },
+    "conductor": {
+      "name": "Gayan Fernando",
+      "contactNumber": "+94-77-5467890"
+    }
+  },
+  {
+    "tripId": "TR-20251006-004-033",
+    "busRegistration": "CAQ-2517",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T07:00:00.000Z",
+    "scheduledArrival": "2025-10-06T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 850,
+    "driver": {
+      "name": "Ravi Wickramasinghe",
+      "licenseNumber": "B9012342",
+      "contactNumber": "+94-77-6578901"
+    },
+    "conductor": {
+      "name": "Janaka Amarasinghe",
+      "contactNumber": "+94-77-7689012"
+    }
+  },
+  {
+    "tripId": "TR-20251006-004-034",
+    "busRegistration": "CAQ-2517",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T14:00:00.000Z",
+    "scheduledArrival": "2025-10-06T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 850,
+    "driver": {
+      "name": "Priyantha Gunasekara",
+      "licenseNumber": "B1023453",
+      "contactNumber": "+94-77-8790123"
+    },
+    "conductor": {
+      "name": "Suranga Perera",
+      "contactNumber": "+94-77-9801234"
+    }
+  },
+  {
+    "tripId": "TR-20251006-004-035",
+    "busRegistration": "CAR-3628",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T08:00:00.000Z",
+    "scheduledArrival": "2025-10-06T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 850,
+    "driver": {
+      "name": "Tharaka Jayawardana",
+      "licenseNumber": "B2134564",
+      "contactNumber": "+94-77-1912345"
+    },
+    "conductor": {
+      "name": "Nishan Silva",
+      "contactNumber": "+94-77-2023456"
+    }
+  },
+  {
+    "tripId": "TR-20251006-004-036",
+    "busRegistration": "CAR-3628",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T15:00:00.000Z",
+    "scheduledArrival": "2025-10-06T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 850,
+    "driver": {
+      "name": "Damith Jayasinghe",
+      "licenseNumber": "B3245675",
+      "contactNumber": "+94-77-3134567"
+    },
+    "conductor": {
+      "name": "Chanaka Perera",
+      "contactNumber": "+94-77-4245678"
+    }
+  },
+  {
+    "tripId": "TR-20251006-004-037",
+    "busRegistration": "CAS-4739",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T09:00:00.000Z",
+    "scheduledArrival": "2025-10-06T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1120,
+    "driver": {
+      "name": "Upul Fernando",
+      "licenseNumber": "B4356786",
+      "contactNumber": "+94-77-5356789"
+    },
+    "conductor": {
+      "name": "Roshan Silva",
+      "contactNumber": "+94-77-6467890"
+    }
+  },
+  {
+    "tripId": "TR-20251006-004-038",
+    "busRegistration": "CAS-4739",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T16:00:00.000Z",
+    "scheduledArrival": "2025-10-06T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1120,
+    "driver": {
+      "name": "Sampath Gunathilaka",
+      "licenseNumber": "B5467897",
+      "contactNumber": "+94-77-7578901"
+    },
+    "conductor": {
+      "name": "Indika Perera",
+      "contactNumber": "+94-77-8689012"
+    }
+  },
+  {
+    "tripId": "TR-20251006-004-039",
+    "busRegistration": "CAT-5840",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T10:00:00.000Z",
+    "scheduledArrival": "2025-10-06T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1600,
+    "driver": {
+      "name": "Wasantha Silva",
+      "licenseNumber": "B6578908",
+      "contactNumber": "+94-77-9790123"
+    },
+    "conductor": {
+      "name": "Thilak Fernando",
+      "contactNumber": "+94-77-1801234"
+    }
+  },
+  {
+    "tripId": "TR-20251006-004-040",
+    "busRegistration": "CAT-5840",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T17:00:00.000Z",
+    "scheduledArrival": "2025-10-06T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1600,
+    "driver": {
+      "name": "Lalith Gunasekara",
+      "licenseNumber": "B7689019",
+      "contactNumber": "+94-77-2912345"
+    },
+    "conductor": {
+      "name": "Aruna Perera",
+      "contactNumber": "+94-77-3023456"
+    }
+  },
+  {
+    "tripId": "TR-20251006-099-041",
+    "busRegistration": "CAU-6951",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T06:00:00.000Z",
+    "scheduledArrival": "2025-10-06T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Sunimal Jayawardana",
+      "licenseNumber": "B8790120",
+      "contactNumber": "+94-77-4134567"
+    },
+    "conductor": {
+      "name": "Sunil Silva",
+      "contactNumber": "+94-77-5245678"
+    }
+  },
+  {
+    "tripId": "TR-20251006-099-042",
+    "busRegistration": "CAU-6951",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T13:00:00.000Z",
+    "scheduledArrival": "2025-10-06T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Buddhika Fernando",
+      "licenseNumber": "B9801231",
+      "contactNumber": "+94-77-6356789"
+    },
+    "conductor": {
+      "name": "Asantha Perera",
+      "contactNumber": "+94-77-7467890"
+    }
+  },
+  {
+    "tripId": "TR-20251006-099-043",
+    "busRegistration": "CAV-7062",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T07:00:00.000Z",
+    "scheduledArrival": "2025-10-06T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 950,
+    "driver": {
+      "name": "Dilshan Wickramasinghe",
+      "licenseNumber": "B1912342",
+      "contactNumber": "+94-77-8578901"
+    },
+    "conductor": {
+      "name": "Namal Silva",
+      "contactNumber": "+94-77-9689012"
+    }
+  },
+  {
+    "tripId": "TR-20251006-099-044",
+    "busRegistration": "CAV-7062",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T14:00:00.000Z",
+    "scheduledArrival": "2025-10-06T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 950,
+    "driver": {
+      "name": "Janith Jayasinghe",
+      "licenseNumber": "B2023453",
+      "contactNumber": "+94-77-1790123"
+    },
+    "conductor": {
+      "name": "Manjula Fernando",
+      "contactNumber": "+94-77-2801234"
+    }
+  },
+  {
+    "tripId": "TR-20251006-099-045",
+    "busRegistration": "CAW-8173",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T08:00:00.000Z",
+    "scheduledArrival": "2025-10-06T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 950,
+    "driver": {
+      "name": "Thilina Gunasekara",
+      "licenseNumber": "B3134564",
+      "contactNumber": "+94-77-3912345"
+    },
+    "conductor": {
+      "name": "Pubudu Perera",
+      "contactNumber": "+94-77-4023456"
+    }
+  },
+  {
+    "tripId": "TR-20251006-099-046",
+    "busRegistration": "CAW-8173",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T15:00:00.000Z",
+    "scheduledArrival": "2025-10-06T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 950,
+    "driver": {
+      "name": "Milinda Silva",
+      "licenseNumber": "B4245675",
+      "contactNumber": "+94-77-5134567"
+    },
+    "conductor": {
+      "name": "Kapila Fernando",
+      "contactNumber": "+94-77-6245678"
+    }
+  },
+  {
+    "tripId": "TR-20251006-099-047",
+    "busRegistration": "CAX-9284",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T09:00:00.000Z",
+    "scheduledArrival": "2025-10-06T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1250,
+    "driver": {
+      "name": "Nuwan Jayawardana",
+      "licenseNumber": "B5356786",
+      "contactNumber": "+94-77-7356789"
+    },
+    "conductor": {
+      "name": "Sanjaya Perera",
+      "contactNumber": "+94-77-8467890"
+    }
+  },
+  {
+    "tripId": "TR-20251006-099-048",
+    "busRegistration": "CAX-9284",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T16:00:00.000Z",
+    "scheduledArrival": "2025-10-06T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1250,
+    "driver": {
+      "name": "Sandun Wickramasinghe",
+      "licenseNumber": "B6467897",
+      "contactNumber": "+94-77-9578901"
+    },
+    "conductor": {
+      "name": "Chatura Silva",
+      "contactNumber": "+94-77-1689012"
+    }
+  },
+  {
+    "tripId": "TR-20251006-099-049",
+    "busRegistration": "CAY-1395",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T10:00:00.000Z",
+    "scheduledArrival": "2025-10-06T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1250,
+    "driver": {
+      "name": "Amila Gunathilaka",
+      "licenseNumber": "B7578908",
+      "contactNumber": "+94-77-2790123"
+    },
+    "conductor": {
+      "name": "Dhanushka Fernando",
+      "contactNumber": "+94-77-3801234"
+    }
+  },
+  {
+    "tripId": "TR-20251006-099-050",
+    "busRegistration": "CAY-1395",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-06",
+    "scheduledDeparture": "2025-10-06T17:00:00.000Z",
+    "scheduledArrival": "2025-10-06T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1250,
+    "driver": {
+      "name": "Ravindu Perera",
+      "licenseNumber": "B8689019",
+      "contactNumber": "+94-77-4912345"
+    },
+    "conductor": {
+      "name": "Chamika Silva",
+      "contactNumber": "+94-77-5023456"
+    }
+  },
+  {
+    "tripId": "TR-20251007-001-001",
+    "busRegistration": "CAA-5678",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T06:00:00.000Z",
+    "scheduledArrival": "2025-10-07T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 350,
+    "driver": {
+      "name": "Nimal Perera",
+      "licenseNumber": "B2345675",
+      "contactNumber": "+94-77-1234567"
+    },
+    "conductor": {
+      "name": "Asanka Silva",
+      "contactNumber": "+94-77-2345678"
+    }
+  },
+  {
+    "tripId": "TR-20251007-001-002",
+    "busRegistration": "CAA-5678",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T13:00:00.000Z",
+    "scheduledArrival": "2025-10-07T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 350,
+    "driver": {
+      "name": "Amal Fernando",
+      "licenseNumber": "B3456786",
+      "contactNumber": "+94-77-3456789"
+    },
+    "conductor": {
+      "name": "Chamara Dias",
+      "contactNumber": "+94-77-4567890"
+    }
+  },
+  {
+    "tripId": "TR-20251007-001-003",
+    "busRegistration": "CAB-5958",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T07:00:00.000Z",
+    "scheduledArrival": "2025-10-07T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Thisara Weerasinghe",
+      "licenseNumber": "B4567897",
+      "contactNumber": "+94-77-5678901"
+    },
+    "conductor": {
+      "name": "Dinesh Gunasekara",
+      "contactNumber": "+94-77-6789012"
+    }
+  },
+  {
+    "tripId": "TR-20251007-001-004",
+    "busRegistration": "CAB-5958",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T14:00:00.000Z",
+    "scheduledArrival": "2025-10-07T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Chamara Fernando",
+      "licenseNumber": "B5678908",
+      "contactNumber": "+94-77-7890123"
+    },
+    "conductor": {
+      "name": "Pradeep Mendis",
+      "contactNumber": "+94-77-8901234"
+    }
+  },
+  {
+    "tripId": "TR-20251007-001-005",
+    "busRegistration": "CAC-6173",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T08:00:00.000Z",
+    "scheduledArrival": "2025-10-07T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Kumara Jayasinghe",
+      "licenseNumber": "B6789019",
+      "contactNumber": "+94-77-9012345"
+    },
+    "conductor": {
+      "name": "Ruwan Wijeratne",
+      "contactNumber": "+94-77-1023456"
+    }
+  },
+  {
+    "tripId": "TR-20251007-001-006",
+    "busRegistration": "CAC-6173",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T15:00:00.000Z",
+    "scheduledArrival": "2025-10-07T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Mahinda Rajapakse",
+      "licenseNumber": "B7890120",
+      "contactNumber": "+94-77-2134567"
+    },
+    "conductor": {
+      "name": "Kasun Perera",
+      "contactNumber": "+94-77-3245678"
+    }
+  },
+  {
+    "tripId": "TR-20251007-001-007",
+    "busRegistration": "CAD-7284",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T09:00:00.000Z",
+    "scheduledArrival": "2025-10-07T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 750,
+    "driver": {
+      "name": "Saman Silva",
+      "licenseNumber": "B8901231",
+      "contactNumber": "+94-77-4356789"
+    },
+    "conductor": {
+      "name": "Gayan Fernando",
+      "contactNumber": "+94-77-5467890"
+    }
+  },
+  {
+    "tripId": "TR-20251007-001-008",
+    "busRegistration": "CAD-7284",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T16:00:00.000Z",
+    "scheduledArrival": "2025-10-07T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 750,
+    "driver": {
+      "name": "Ravi Wickramasinghe",
+      "licenseNumber": "B9012342",
+      "contactNumber": "+94-77-6578901"
+    },
+    "conductor": {
+      "name": "Janaka Amarasinghe",
+      "contactNumber": "+94-77-7689012"
+    }
+  },
+  {
+    "tripId": "TR-20251007-001-009",
+    "busRegistration": "CAE-8395",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T10:00:00.000Z",
+    "scheduledArrival": "2025-10-07T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1150,
+    "driver": {
+      "name": "Priyantha Gunasekara",
+      "licenseNumber": "B1023453",
+      "contactNumber": "+94-77-8790123"
+    },
+    "conductor": {
+      "name": "Suranga Perera",
+      "contactNumber": "+94-77-9801234"
+    }
+  },
+  {
+    "tripId": "TR-20251007-001-010",
+    "busRegistration": "CAE-8395",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T17:00:00.000Z",
+    "scheduledArrival": "2025-10-07T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1150,
+    "driver": {
+      "name": "Tharaka Jayawardana",
+      "licenseNumber": "B2134564",
+      "contactNumber": "+94-77-1912345"
+    },
+    "conductor": {
+      "name": "Nishan Silva",
+      "contactNumber": "+94-77-2023456"
+    }
+  },
+  {
+    "tripId": "TR-20251007-002-011",
+    "busRegistration": "CAF-9406",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T06:00:00.000Z",
+    "scheduledArrival": "2025-10-07T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 420,
+    "driver": {
+      "name": "Damith Jayasinghe",
+      "licenseNumber": "B3245675",
+      "contactNumber": "+94-77-3134567"
+    },
+    "conductor": {
+      "name": "Chanaka Perera",
+      "contactNumber": "+94-77-4245678"
+    }
+  },
+  {
+    "tripId": "TR-20251007-002-012",
+    "busRegistration": "CAF-9406",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T13:00:00.000Z",
+    "scheduledArrival": "2025-10-07T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 420,
+    "driver": {
+      "name": "Upul Fernando",
+      "licenseNumber": "B4356786",
+      "contactNumber": "+94-77-5356789"
+    },
+    "conductor": {
+      "name": "Roshan Silva",
+      "contactNumber": "+94-77-6467890"
+    }
+  },
+  {
+    "tripId": "TR-20251007-002-013",
+    "busRegistration": "CAG-1517",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T07:00:00.000Z",
+    "scheduledArrival": "2025-10-07T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 680,
+    "driver": {
+      "name": "Sampath Gunathilaka",
+      "licenseNumber": "B5467897",
+      "contactNumber": "+94-77-7578901"
+    },
+    "conductor": {
+      "name": "Indika Perera",
+      "contactNumber": "+94-77-8689012"
+    }
+  },
+  {
+    "tripId": "TR-20251007-002-014",
+    "busRegistration": "CAG-1517",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T14:00:00.000Z",
+    "scheduledArrival": "2025-10-07T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 680,
+    "driver": {
+      "name": "Wasantha Silva",
+      "licenseNumber": "B6578908",
+      "contactNumber": "+94-77-9790123"
+    },
+    "conductor": {
+      "name": "Thilak Fernando",
+      "contactNumber": "+94-77-1801234"
+    }
+  },
+  {
+    "tripId": "TR-20251007-002-015",
+    "busRegistration": "CAH-2628",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T08:00:00.000Z",
+    "scheduledArrival": "2025-10-07T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1300,
+    "driver": {
+      "name": "Lalith Gunasekara",
+      "licenseNumber": "B7689019",
+      "contactNumber": "+94-77-2912345"
+    },
+    "conductor": {
+      "name": "Aruna Perera",
+      "contactNumber": "+94-77-3023456"
+    }
+  },
+  {
+    "tripId": "TR-20251007-002-016",
+    "busRegistration": "CAH-2628",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T15:00:00.000Z",
+    "scheduledArrival": "2025-10-07T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1300,
+    "driver": {
+      "name": "Sunimal Jayawardana",
+      "licenseNumber": "B8790120",
+      "contactNumber": "+94-77-4134567"
+    },
+    "conductor": {
+      "name": "Sunil Silva",
+      "contactNumber": "+94-77-5245678"
+    }
+  },
+  {
+    "tripId": "TR-20251007-002-017",
+    "busRegistration": "CAI-3739",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T09:00:00.000Z",
+    "scheduledArrival": "2025-10-07T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1300,
+    "driver": {
+      "name": "Buddhika Fernando",
+      "licenseNumber": "B9801231",
+      "contactNumber": "+94-77-6356789"
+    },
+    "conductor": {
+      "name": "Asantha Perera",
+      "contactNumber": "+94-77-7467890"
+    }
+  },
+  {
+    "tripId": "TR-20251007-002-018",
+    "busRegistration": "CAI-3739",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T16:00:00.000Z",
+    "scheduledArrival": "2025-10-07T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1300,
+    "driver": {
+      "name": "Dilshan Wickramasinghe",
+      "licenseNumber": "B1912342",
+      "contactNumber": "+94-77-8578901"
+    },
+    "conductor": {
+      "name": "Namal Silva",
+      "contactNumber": "+94-77-9689012"
+    }
+  },
+  {
+    "tripId": "TR-20251007-002-019",
+    "busRegistration": "CAJ-4840",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T10:00:00.000Z",
+    "scheduledArrival": "2025-10-07T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 680,
+    "driver": {
+      "name": "Janith Jayasinghe",
+      "licenseNumber": "B2023453",
+      "contactNumber": "+94-77-1790123"
+    },
+    "conductor": {
+      "name": "Manjula Fernando",
+      "contactNumber": "+94-77-2801234"
+    }
+  },
+  {
+    "tripId": "TR-20251007-002-020",
+    "busRegistration": "CAJ-4840",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T17:00:00.000Z",
+    "scheduledArrival": "2025-10-07T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 680,
+    "driver": {
+      "name": "Thilina Gunasekara",
+      "licenseNumber": "B3134564",
+      "contactNumber": "+94-77-3912345"
+    },
+    "conductor": {
+      "name": "Pubudu Perera",
+      "contactNumber": "+94-77-4023456"
+    }
+  },
+  {
+    "tripId": "TR-20251007-021-021",
+    "busRegistration": "CAK-5951",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T06:00:00.000Z",
+    "scheduledArrival": "2025-10-07T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 320,
+    "driver": {
+      "name": "Milinda Silva",
+      "licenseNumber": "B4245675",
+      "contactNumber": "+94-77-5134567"
+    },
+    "conductor": {
+      "name": "Kapila Fernando",
+      "contactNumber": "+94-77-6245678"
+    }
+  },
+  {
+    "tripId": "TR-20251007-021-022",
+    "busRegistration": "CAK-5951",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T13:00:00.000Z",
+    "scheduledArrival": "2025-10-07T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 320,
+    "driver": {
+      "name": "Nuwan Jayawardana",
+      "licenseNumber": "B5356786",
+      "contactNumber": "+94-77-7356789"
+    },
+    "conductor": {
+      "name": "Sanjaya Perera",
+      "contactNumber": "+94-77-8467890"
+    }
+  },
+  {
+    "tripId": "TR-20251007-021-023",
+    "busRegistration": "CAL-6062",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T07:00:00.000Z",
+    "scheduledArrival": "2025-10-07T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Sandun Wickramasinghe",
+      "licenseNumber": "B6467897",
+      "contactNumber": "+94-77-9578901"
+    },
+    "conductor": {
+      "name": "Chatura Silva",
+      "contactNumber": "+94-77-1689012"
+    }
+  },
+  {
+    "tripId": "TR-20251007-021-024",
+    "busRegistration": "CAL-6062",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T14:00:00.000Z",
+    "scheduledArrival": "2025-10-07T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Amila Gunathilaka",
+      "licenseNumber": "B7578908",
+      "contactNumber": "+94-77-2790123"
+    },
+    "conductor": {
+      "name": "Dhanushka Fernando",
+      "contactNumber": "+94-77-3801234"
+    }
+  },
+  {
+    "tripId": "TR-20251007-021-025",
+    "busRegistration": "CAM-7173",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T08:00:00.000Z",
+    "scheduledArrival": "2025-10-07T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Ravindu Perera",
+      "licenseNumber": "B8689019",
+      "contactNumber": "+94-77-4912345"
+    },
+    "conductor": {
+      "name": "Chamika Silva",
+      "contactNumber": "+94-77-5023456"
+    }
+  },
+  {
+    "tripId": "TR-20251007-021-026",
+    "busRegistration": "CAM-7173",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T15:00:00.000Z",
+    "scheduledArrival": "2025-10-07T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Nimal Perera",
+      "licenseNumber": "B2345675",
+      "contactNumber": "+94-77-1234567"
+    },
+    "conductor": {
+      "name": "Asanka Silva",
+      "contactNumber": "+94-77-2345678"
+    }
+  },
+  {
+    "tripId": "TR-20251007-021-027",
+    "busRegistration": "CAN-8284",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T09:00:00.000Z",
+    "scheduledArrival": "2025-10-07T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1100,
+    "driver": {
+      "name": "Amal Fernando",
+      "licenseNumber": "B3456786",
+      "contactNumber": "+94-77-3456789"
+    },
+    "conductor": {
+      "name": "Chamara Dias",
+      "contactNumber": "+94-77-4567890"
+    }
+  },
+  {
+    "tripId": "TR-20251007-021-028",
+    "busRegistration": "CAN-8284",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T16:00:00.000Z",
+    "scheduledArrival": "2025-10-07T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1100,
+    "driver": {
+      "name": "Thisara Weerasinghe",
+      "licenseNumber": "B4567897",
+      "contactNumber": "+94-77-5678901"
+    },
+    "conductor": {
+      "name": "Dinesh Gunasekara",
+      "contactNumber": "+94-77-6789012"
+    }
+  },
+  {
+    "tripId": "TR-20251007-021-029",
+    "busRegistration": "CAO-9395",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T10:00:00.000Z",
+    "scheduledArrival": "2025-10-07T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1100,
+    "driver": {
+      "name": "Chamara Fernando",
+      "licenseNumber": "B5678908",
+      "contactNumber": "+94-77-7890123"
+    },
+    "conductor": {
+      "name": "Pradeep Mendis",
+      "contactNumber": "+94-77-8901234"
+    }
+  },
+  {
+    "tripId": "TR-20251007-021-030",
+    "busRegistration": "CAO-9395",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T17:00:00.000Z",
+    "scheduledArrival": "2025-10-07T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1100,
+    "driver": {
+      "name": "Kumara Jayasinghe",
+      "licenseNumber": "B6789019",
+      "contactNumber": "+94-77-9012345"
+    },
+    "conductor": {
+      "name": "Ruwan Wijeratne",
+      "contactNumber": "+94-77-1023456"
+    }
+  },
+  {
+    "tripId": "TR-20251007-004-031",
+    "busRegistration": "CAP-1406",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T06:00:00.000Z",
+    "scheduledArrival": "2025-10-07T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Mahinda Rajapakse",
+      "licenseNumber": "B7890120",
+      "contactNumber": "+94-77-2134567"
+    },
+    "conductor": {
+      "name": "Kasun Perera",
+      "contactNumber": "+94-77-3245678"
+    }
+  },
+  {
+    "tripId": "TR-20251007-004-032",
+    "busRegistration": "CAP-1406",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T13:00:00.000Z",
+    "scheduledArrival": "2025-10-07T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Saman Silva",
+      "licenseNumber": "B8901231",
+      "contactNumber": "+94-77-4356789"
+    },
+    "conductor": {
+      "name": "Gayan Fernando",
+      "contactNumber": "+94-77-5467890"
+    }
+  },
+  {
+    "tripId": "TR-20251007-004-033",
+    "busRegistration": "CAQ-2517",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T07:00:00.000Z",
+    "scheduledArrival": "2025-10-07T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 850,
+    "driver": {
+      "name": "Ravi Wickramasinghe",
+      "licenseNumber": "B9012342",
+      "contactNumber": "+94-77-6578901"
+    },
+    "conductor": {
+      "name": "Janaka Amarasinghe",
+      "contactNumber": "+94-77-7689012"
+    }
+  },
+  {
+    "tripId": "TR-20251007-004-034",
+    "busRegistration": "CAQ-2517",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T14:00:00.000Z",
+    "scheduledArrival": "2025-10-07T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 850,
+    "driver": {
+      "name": "Priyantha Gunasekara",
+      "licenseNumber": "B1023453",
+      "contactNumber": "+94-77-8790123"
+    },
+    "conductor": {
+      "name": "Suranga Perera",
+      "contactNumber": "+94-77-9801234"
+    }
+  },
+  {
+    "tripId": "TR-20251007-004-035",
+    "busRegistration": "CAR-3628",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T08:00:00.000Z",
+    "scheduledArrival": "2025-10-07T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 850,
+    "driver": {
+      "name": "Tharaka Jayawardana",
+      "licenseNumber": "B2134564",
+      "contactNumber": "+94-77-1912345"
+    },
+    "conductor": {
+      "name": "Nishan Silva",
+      "contactNumber": "+94-77-2023456"
+    }
+  },
+  {
+    "tripId": "TR-20251007-004-036",
+    "busRegistration": "CAR-3628",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T15:00:00.000Z",
+    "scheduledArrival": "2025-10-07T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 850,
+    "driver": {
+      "name": "Damith Jayasinghe",
+      "licenseNumber": "B3245675",
+      "contactNumber": "+94-77-3134567"
+    },
+    "conductor": {
+      "name": "Chanaka Perera",
+      "contactNumber": "+94-77-4245678"
+    }
+  },
+  {
+    "tripId": "TR-20251007-004-037",
+    "busRegistration": "CAS-4739",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T09:00:00.000Z",
+    "scheduledArrival": "2025-10-07T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1120,
+    "driver": {
+      "name": "Upul Fernando",
+      "licenseNumber": "B4356786",
+      "contactNumber": "+94-77-5356789"
+    },
+    "conductor": {
+      "name": "Roshan Silva",
+      "contactNumber": "+94-77-6467890"
+    }
+  },
+  {
+    "tripId": "TR-20251007-004-038",
+    "busRegistration": "CAS-4739",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T16:00:00.000Z",
+    "scheduledArrival": "2025-10-07T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1120,
+    "driver": {
+      "name": "Sampath Gunathilaka",
+      "licenseNumber": "B5467897",
+      "contactNumber": "+94-77-7578901"
+    },
+    "conductor": {
+      "name": "Indika Perera",
+      "contactNumber": "+94-77-8689012"
+    }
+  },
+  {
+    "tripId": "TR-20251007-004-039",
+    "busRegistration": "CAT-5840",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T10:00:00.000Z",
+    "scheduledArrival": "2025-10-07T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1600,
+    "driver": {
+      "name": "Wasantha Silva",
+      "licenseNumber": "B6578908",
+      "contactNumber": "+94-77-9790123"
+    },
+    "conductor": {
+      "name": "Thilak Fernando",
+      "contactNumber": "+94-77-1801234"
+    }
+  },
+  {
+    "tripId": "TR-20251007-004-040",
+    "busRegistration": "CAT-5840",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T17:00:00.000Z",
+    "scheduledArrival": "2025-10-07T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1600,
+    "driver": {
+      "name": "Lalith Gunasekara",
+      "licenseNumber": "B7689019",
+      "contactNumber": "+94-77-2912345"
+    },
+    "conductor": {
+      "name": "Aruna Perera",
+      "contactNumber": "+94-77-3023456"
+    }
+  },
+  {
+    "tripId": "TR-20251007-099-041",
+    "busRegistration": "CAU-6951",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T06:00:00.000Z",
+    "scheduledArrival": "2025-10-07T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Sunimal Jayawardana",
+      "licenseNumber": "B8790120",
+      "contactNumber": "+94-77-4134567"
+    },
+    "conductor": {
+      "name": "Sunil Silva",
+      "contactNumber": "+94-77-5245678"
+    }
+  },
+  {
+    "tripId": "TR-20251007-099-042",
+    "busRegistration": "CAU-6951",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T13:00:00.000Z",
+    "scheduledArrival": "2025-10-07T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Buddhika Fernando",
+      "licenseNumber": "B9801231",
+      "contactNumber": "+94-77-6356789"
+    },
+    "conductor": {
+      "name": "Asantha Perera",
+      "contactNumber": "+94-77-7467890"
+    }
+  },
+  {
+    "tripId": "TR-20251007-099-043",
+    "busRegistration": "CAV-7062",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T07:00:00.000Z",
+    "scheduledArrival": "2025-10-07T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 950,
+    "driver": {
+      "name": "Dilshan Wickramasinghe",
+      "licenseNumber": "B1912342",
+      "contactNumber": "+94-77-8578901"
+    },
+    "conductor": {
+      "name": "Namal Silva",
+      "contactNumber": "+94-77-9689012"
+    }
+  },
+  {
+    "tripId": "TR-20251007-099-044",
+    "busRegistration": "CAV-7062",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T14:00:00.000Z",
+    "scheduledArrival": "2025-10-07T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 950,
+    "driver": {
+      "name": "Janith Jayasinghe",
+      "licenseNumber": "B2023453",
+      "contactNumber": "+94-77-1790123"
+    },
+    "conductor": {
+      "name": "Manjula Fernando",
+      "contactNumber": "+94-77-2801234"
+    }
+  },
+  {
+    "tripId": "TR-20251007-099-045",
+    "busRegistration": "CAW-8173",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T08:00:00.000Z",
+    "scheduledArrival": "2025-10-07T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 950,
+    "driver": {
+      "name": "Thilina Gunasekara",
+      "licenseNumber": "B3134564",
+      "contactNumber": "+94-77-3912345"
+    },
+    "conductor": {
+      "name": "Pubudu Perera",
+      "contactNumber": "+94-77-4023456"
+    }
+  },
+  {
+    "tripId": "TR-20251007-099-046",
+    "busRegistration": "CAW-8173",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T15:00:00.000Z",
+    "scheduledArrival": "2025-10-07T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 950,
+    "driver": {
+      "name": "Milinda Silva",
+      "licenseNumber": "B4245675",
+      "contactNumber": "+94-77-5134567"
+    },
+    "conductor": {
+      "name": "Kapila Fernando",
+      "contactNumber": "+94-77-6245678"
+    }
+  },
+  {
+    "tripId": "TR-20251007-099-047",
+    "busRegistration": "CAX-9284",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T09:00:00.000Z",
+    "scheduledArrival": "2025-10-07T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1250,
+    "driver": {
+      "name": "Nuwan Jayawardana",
+      "licenseNumber": "B5356786",
+      "contactNumber": "+94-77-7356789"
+    },
+    "conductor": {
+      "name": "Sanjaya Perera",
+      "contactNumber": "+94-77-8467890"
+    }
+  },
+  {
+    "tripId": "TR-20251007-099-048",
+    "busRegistration": "CAX-9284",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T16:00:00.000Z",
+    "scheduledArrival": "2025-10-07T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1250,
+    "driver": {
+      "name": "Sandun Wickramasinghe",
+      "licenseNumber": "B6467897",
+      "contactNumber": "+94-77-9578901"
+    },
+    "conductor": {
+      "name": "Chatura Silva",
+      "contactNumber": "+94-77-1689012"
+    }
+  },
+  {
+    "tripId": "TR-20251007-099-049",
+    "busRegistration": "CAY-1395",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T10:00:00.000Z",
+    "scheduledArrival": "2025-10-07T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1250,
+    "driver": {
+      "name": "Amila Gunathilaka",
+      "licenseNumber": "B7578908",
+      "contactNumber": "+94-77-2790123"
+    },
+    "conductor": {
+      "name": "Dhanushka Fernando",
+      "contactNumber": "+94-77-3801234"
+    }
+  },
+  {
+    "tripId": "TR-20251007-099-050",
+    "busRegistration": "CAY-1395",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-07",
+    "scheduledDeparture": "2025-10-07T17:00:00.000Z",
+    "scheduledArrival": "2025-10-07T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1250,
+    "driver": {
+      "name": "Ravindu Perera",
+      "licenseNumber": "B8689019",
+      "contactNumber": "+94-77-4912345"
+    },
+    "conductor": {
+      "name": "Chamika Silva",
+      "contactNumber": "+94-77-5023456"
+    }
+  },
+  {
+    "tripId": "TR-20251008-001-001",
+    "busRegistration": "CAA-5678",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T06:00:00.000Z",
+    "scheduledArrival": "2025-10-08T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 350,
+    "driver": {
+      "name": "Nimal Perera",
+      "licenseNumber": "B2345675",
+      "contactNumber": "+94-77-1234567"
+    },
+    "conductor": {
+      "name": "Asanka Silva",
+      "contactNumber": "+94-77-2345678"
+    }
+  },
+  {
+    "tripId": "TR-20251008-001-002",
+    "busRegistration": "CAA-5678",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T13:00:00.000Z",
+    "scheduledArrival": "2025-10-08T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 350,
+    "driver": {
+      "name": "Amal Fernando",
+      "licenseNumber": "B3456786",
+      "contactNumber": "+94-77-3456789"
+    },
+    "conductor": {
+      "name": "Chamara Dias",
+      "contactNumber": "+94-77-4567890"
+    }
+  },
+  {
+    "tripId": "TR-20251008-001-003",
+    "busRegistration": "CAB-5958",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T07:00:00.000Z",
+    "scheduledArrival": "2025-10-08T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Thisara Weerasinghe",
+      "licenseNumber": "B4567897",
+      "contactNumber": "+94-77-5678901"
+    },
+    "conductor": {
+      "name": "Dinesh Gunasekara",
+      "contactNumber": "+94-77-6789012"
+    }
+  },
+  {
+    "tripId": "TR-20251008-001-004",
+    "busRegistration": "CAB-5958",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T14:00:00.000Z",
+    "scheduledArrival": "2025-10-08T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Chamara Fernando",
+      "licenseNumber": "B5678908",
+      "contactNumber": "+94-77-7890123"
+    },
+    "conductor": {
+      "name": "Pradeep Mendis",
+      "contactNumber": "+94-77-8901234"
+    }
+  },
+  {
+    "tripId": "TR-20251008-001-005",
+    "busRegistration": "CAC-6173",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T08:00:00.000Z",
+    "scheduledArrival": "2025-10-08T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Kumara Jayasinghe",
+      "licenseNumber": "B6789019",
+      "contactNumber": "+94-77-9012345"
+    },
+    "conductor": {
+      "name": "Ruwan Wijeratne",
+      "contactNumber": "+94-77-1023456"
+    }
+  },
+  {
+    "tripId": "TR-20251008-001-006",
+    "busRegistration": "CAC-6173",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T15:00:00.000Z",
+    "scheduledArrival": "2025-10-08T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Mahinda Rajapakse",
+      "licenseNumber": "B7890120",
+      "contactNumber": "+94-77-2134567"
+    },
+    "conductor": {
+      "name": "Kasun Perera",
+      "contactNumber": "+94-77-3245678"
+    }
+  },
+  {
+    "tripId": "TR-20251008-001-007",
+    "busRegistration": "CAD-7284",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T09:00:00.000Z",
+    "scheduledArrival": "2025-10-08T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 750,
+    "driver": {
+      "name": "Saman Silva",
+      "licenseNumber": "B8901231",
+      "contactNumber": "+94-77-4356789"
+    },
+    "conductor": {
+      "name": "Gayan Fernando",
+      "contactNumber": "+94-77-5467890"
+    }
+  },
+  {
+    "tripId": "TR-20251008-001-008",
+    "busRegistration": "CAD-7284",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T16:00:00.000Z",
+    "scheduledArrival": "2025-10-08T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 750,
+    "driver": {
+      "name": "Ravi Wickramasinghe",
+      "licenseNumber": "B9012342",
+      "contactNumber": "+94-77-6578901"
+    },
+    "conductor": {
+      "name": "Janaka Amarasinghe",
+      "contactNumber": "+94-77-7689012"
+    }
+  },
+  {
+    "tripId": "TR-20251008-001-009",
+    "busRegistration": "CAE-8395",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T10:00:00.000Z",
+    "scheduledArrival": "2025-10-08T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1150,
+    "driver": {
+      "name": "Priyantha Gunasekara",
+      "licenseNumber": "B1023453",
+      "contactNumber": "+94-77-8790123"
+    },
+    "conductor": {
+      "name": "Suranga Perera",
+      "contactNumber": "+94-77-9801234"
+    }
+  },
+  {
+    "tripId": "TR-20251008-001-010",
+    "busRegistration": "CAE-8395",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T17:00:00.000Z",
+    "scheduledArrival": "2025-10-08T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1150,
+    "driver": {
+      "name": "Tharaka Jayawardana",
+      "licenseNumber": "B2134564",
+      "contactNumber": "+94-77-1912345"
+    },
+    "conductor": {
+      "name": "Nishan Silva",
+      "contactNumber": "+94-77-2023456"
+    }
+  },
+  {
+    "tripId": "TR-20251008-002-011",
+    "busRegistration": "CAF-9406",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T06:00:00.000Z",
+    "scheduledArrival": "2025-10-08T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 420,
+    "driver": {
+      "name": "Damith Jayasinghe",
+      "licenseNumber": "B3245675",
+      "contactNumber": "+94-77-3134567"
+    },
+    "conductor": {
+      "name": "Chanaka Perera",
+      "contactNumber": "+94-77-4245678"
+    }
+  },
+  {
+    "tripId": "TR-20251008-002-012",
+    "busRegistration": "CAF-9406",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T13:00:00.000Z",
+    "scheduledArrival": "2025-10-08T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 420,
+    "driver": {
+      "name": "Upul Fernando",
+      "licenseNumber": "B4356786",
+      "contactNumber": "+94-77-5356789"
+    },
+    "conductor": {
+      "name": "Roshan Silva",
+      "contactNumber": "+94-77-6467890"
+    }
+  },
+  {
+    "tripId": "TR-20251008-002-013",
+    "busRegistration": "CAG-1517",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T07:00:00.000Z",
+    "scheduledArrival": "2025-10-08T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 680,
+    "driver": {
+      "name": "Sampath Gunathilaka",
+      "licenseNumber": "B5467897",
+      "contactNumber": "+94-77-7578901"
+    },
+    "conductor": {
+      "name": "Indika Perera",
+      "contactNumber": "+94-77-8689012"
+    }
+  },
+  {
+    "tripId": "TR-20251008-002-014",
+    "busRegistration": "CAG-1517",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T14:00:00.000Z",
+    "scheduledArrival": "2025-10-08T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 680,
+    "driver": {
+      "name": "Wasantha Silva",
+      "licenseNumber": "B6578908",
+      "contactNumber": "+94-77-9790123"
+    },
+    "conductor": {
+      "name": "Thilak Fernando",
+      "contactNumber": "+94-77-1801234"
+    }
+  },
+  {
+    "tripId": "TR-20251008-002-015",
+    "busRegistration": "CAH-2628",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T08:00:00.000Z",
+    "scheduledArrival": "2025-10-08T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1300,
+    "driver": {
+      "name": "Lalith Gunasekara",
+      "licenseNumber": "B7689019",
+      "contactNumber": "+94-77-2912345"
+    },
+    "conductor": {
+      "name": "Aruna Perera",
+      "contactNumber": "+94-77-3023456"
+    }
+  },
+  {
+    "tripId": "TR-20251008-002-016",
+    "busRegistration": "CAH-2628",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T15:00:00.000Z",
+    "scheduledArrival": "2025-10-08T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1300,
+    "driver": {
+      "name": "Sunimal Jayawardana",
+      "licenseNumber": "B8790120",
+      "contactNumber": "+94-77-4134567"
+    },
+    "conductor": {
+      "name": "Sunil Silva",
+      "contactNumber": "+94-77-5245678"
+    }
+  },
+  {
+    "tripId": "TR-20251008-002-017",
+    "busRegistration": "CAI-3739",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T09:00:00.000Z",
+    "scheduledArrival": "2025-10-08T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1300,
+    "driver": {
+      "name": "Buddhika Fernando",
+      "licenseNumber": "B9801231",
+      "contactNumber": "+94-77-6356789"
+    },
+    "conductor": {
+      "name": "Asantha Perera",
+      "contactNumber": "+94-77-7467890"
+    }
+  },
+  {
+    "tripId": "TR-20251008-002-018",
+    "busRegistration": "CAI-3739",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T16:00:00.000Z",
+    "scheduledArrival": "2025-10-08T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1300,
+    "driver": {
+      "name": "Dilshan Wickramasinghe",
+      "licenseNumber": "B1912342",
+      "contactNumber": "+94-77-8578901"
+    },
+    "conductor": {
+      "name": "Namal Silva",
+      "contactNumber": "+94-77-9689012"
+    }
+  },
+  {
+    "tripId": "TR-20251008-002-019",
+    "busRegistration": "CAJ-4840",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T10:00:00.000Z",
+    "scheduledArrival": "2025-10-08T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 680,
+    "driver": {
+      "name": "Janith Jayasinghe",
+      "licenseNumber": "B2023453",
+      "contactNumber": "+94-77-1790123"
+    },
+    "conductor": {
+      "name": "Manjula Fernando",
+      "contactNumber": "+94-77-2801234"
+    }
+  },
+  {
+    "tripId": "TR-20251008-002-020",
+    "busRegistration": "CAJ-4840",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T17:00:00.000Z",
+    "scheduledArrival": "2025-10-08T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 680,
+    "driver": {
+      "name": "Thilina Gunasekara",
+      "licenseNumber": "B3134564",
+      "contactNumber": "+94-77-3912345"
+    },
+    "conductor": {
+      "name": "Pubudu Perera",
+      "contactNumber": "+94-77-4023456"
+    }
+  },
+  {
+    "tripId": "TR-20251008-021-021",
+    "busRegistration": "CAK-5951",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T06:00:00.000Z",
+    "scheduledArrival": "2025-10-08T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 320,
+    "driver": {
+      "name": "Milinda Silva",
+      "licenseNumber": "B4245675",
+      "contactNumber": "+94-77-5134567"
+    },
+    "conductor": {
+      "name": "Kapila Fernando",
+      "contactNumber": "+94-77-6245678"
+    }
+  },
+  {
+    "tripId": "TR-20251008-021-022",
+    "busRegistration": "CAK-5951",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T13:00:00.000Z",
+    "scheduledArrival": "2025-10-08T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 320,
+    "driver": {
+      "name": "Nuwan Jayawardana",
+      "licenseNumber": "B5356786",
+      "contactNumber": "+94-77-7356789"
+    },
+    "conductor": {
+      "name": "Sanjaya Perera",
+      "contactNumber": "+94-77-8467890"
+    }
+  },
+  {
+    "tripId": "TR-20251008-021-023",
+    "busRegistration": "CAL-6062",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T07:00:00.000Z",
+    "scheduledArrival": "2025-10-08T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Sandun Wickramasinghe",
+      "licenseNumber": "B6467897",
+      "contactNumber": "+94-77-9578901"
+    },
+    "conductor": {
+      "name": "Chatura Silva",
+      "contactNumber": "+94-77-1689012"
+    }
+  },
+  {
+    "tripId": "TR-20251008-021-024",
+    "busRegistration": "CAL-6062",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T14:00:00.000Z",
+    "scheduledArrival": "2025-10-08T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Amila Gunathilaka",
+      "licenseNumber": "B7578908",
+      "contactNumber": "+94-77-2790123"
+    },
+    "conductor": {
+      "name": "Dhanushka Fernando",
+      "contactNumber": "+94-77-3801234"
+    }
+  },
+  {
+    "tripId": "TR-20251008-021-025",
+    "busRegistration": "CAM-7173",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T08:00:00.000Z",
+    "scheduledArrival": "2025-10-08T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Ravindu Perera",
+      "licenseNumber": "B8689019",
+      "contactNumber": "+94-77-4912345"
+    },
+    "conductor": {
+      "name": "Chamika Silva",
+      "contactNumber": "+94-77-5023456"
+    }
+  },
+  {
+    "tripId": "TR-20251008-021-026",
+    "busRegistration": "CAM-7173",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T15:00:00.000Z",
+    "scheduledArrival": "2025-10-08T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Nimal Perera",
+      "licenseNumber": "B2345675",
+      "contactNumber": "+94-77-1234567"
+    },
+    "conductor": {
+      "name": "Asanka Silva",
+      "contactNumber": "+94-77-2345678"
+    }
+  },
+  {
+    "tripId": "TR-20251008-021-027",
+    "busRegistration": "CAN-8284",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T09:00:00.000Z",
+    "scheduledArrival": "2025-10-08T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1100,
+    "driver": {
+      "name": "Amal Fernando",
+      "licenseNumber": "B3456786",
+      "contactNumber": "+94-77-3456789"
+    },
+    "conductor": {
+      "name": "Chamara Dias",
+      "contactNumber": "+94-77-4567890"
+    }
+  },
+  {
+    "tripId": "TR-20251008-021-028",
+    "busRegistration": "CAN-8284",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T16:00:00.000Z",
+    "scheduledArrival": "2025-10-08T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1100,
+    "driver": {
+      "name": "Thisara Weerasinghe",
+      "licenseNumber": "B4567897",
+      "contactNumber": "+94-77-5678901"
+    },
+    "conductor": {
+      "name": "Dinesh Gunasekara",
+      "contactNumber": "+94-77-6789012"
+    }
+  },
+  {
+    "tripId": "TR-20251008-021-029",
+    "busRegistration": "CAO-9395",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T10:00:00.000Z",
+    "scheduledArrival": "2025-10-08T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1100,
+    "driver": {
+      "name": "Chamara Fernando",
+      "licenseNumber": "B5678908",
+      "contactNumber": "+94-77-7890123"
+    },
+    "conductor": {
+      "name": "Pradeep Mendis",
+      "contactNumber": "+94-77-8901234"
+    }
+  },
+  {
+    "tripId": "TR-20251008-021-030",
+    "busRegistration": "CAO-9395",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T17:00:00.000Z",
+    "scheduledArrival": "2025-10-08T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1100,
+    "driver": {
+      "name": "Kumara Jayasinghe",
+      "licenseNumber": "B6789019",
+      "contactNumber": "+94-77-9012345"
+    },
+    "conductor": {
+      "name": "Ruwan Wijeratne",
+      "contactNumber": "+94-77-1023456"
+    }
+  },
+  {
+    "tripId": "TR-20251008-004-031",
+    "busRegistration": "CAP-1406",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T06:00:00.000Z",
+    "scheduledArrival": "2025-10-08T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Mahinda Rajapakse",
+      "licenseNumber": "B7890120",
+      "contactNumber": "+94-77-2134567"
+    },
+    "conductor": {
+      "name": "Kasun Perera",
+      "contactNumber": "+94-77-3245678"
+    }
+  },
+  {
+    "tripId": "TR-20251008-004-032",
+    "busRegistration": "CAP-1406",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T13:00:00.000Z",
+    "scheduledArrival": "2025-10-08T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Saman Silva",
+      "licenseNumber": "B8901231",
+      "contactNumber": "+94-77-4356789"
+    },
+    "conductor": {
+      "name": "Gayan Fernando",
+      "contactNumber": "+94-77-5467890"
+    }
+  },
+  {
+    "tripId": "TR-20251008-004-033",
+    "busRegistration": "CAQ-2517",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T07:00:00.000Z",
+    "scheduledArrival": "2025-10-08T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 850,
+    "driver": {
+      "name": "Ravi Wickramasinghe",
+      "licenseNumber": "B9012342",
+      "contactNumber": "+94-77-6578901"
+    },
+    "conductor": {
+      "name": "Janaka Amarasinghe",
+      "contactNumber": "+94-77-7689012"
+    }
+  },
+  {
+    "tripId": "TR-20251008-004-034",
+    "busRegistration": "CAQ-2517",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T14:00:00.000Z",
+    "scheduledArrival": "2025-10-08T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 850,
+    "driver": {
+      "name": "Priyantha Gunasekara",
+      "licenseNumber": "B1023453",
+      "contactNumber": "+94-77-8790123"
+    },
+    "conductor": {
+      "name": "Suranga Perera",
+      "contactNumber": "+94-77-9801234"
+    }
+  },
+  {
+    "tripId": "TR-20251008-004-035",
+    "busRegistration": "CAR-3628",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T08:00:00.000Z",
+    "scheduledArrival": "2025-10-08T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 850,
+    "driver": {
+      "name": "Tharaka Jayawardana",
+      "licenseNumber": "B2134564",
+      "contactNumber": "+94-77-1912345"
+    },
+    "conductor": {
+      "name": "Nishan Silva",
+      "contactNumber": "+94-77-2023456"
+    }
+  },
+  {
+    "tripId": "TR-20251008-004-036",
+    "busRegistration": "CAR-3628",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T15:00:00.000Z",
+    "scheduledArrival": "2025-10-08T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 850,
+    "driver": {
+      "name": "Damith Jayasinghe",
+      "licenseNumber": "B3245675",
+      "contactNumber": "+94-77-3134567"
+    },
+    "conductor": {
+      "name": "Chanaka Perera",
+      "contactNumber": "+94-77-4245678"
+    }
+  },
+  {
+    "tripId": "TR-20251008-004-037",
+    "busRegistration": "CAS-4739",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T09:00:00.000Z",
+    "scheduledArrival": "2025-10-08T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1120,
+    "driver": {
+      "name": "Upul Fernando",
+      "licenseNumber": "B4356786",
+      "contactNumber": "+94-77-5356789"
+    },
+    "conductor": {
+      "name": "Roshan Silva",
+      "contactNumber": "+94-77-6467890"
+    }
+  },
+  {
+    "tripId": "TR-20251008-004-038",
+    "busRegistration": "CAS-4739",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T16:00:00.000Z",
+    "scheduledArrival": "2025-10-08T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1120,
+    "driver": {
+      "name": "Sampath Gunathilaka",
+      "licenseNumber": "B5467897",
+      "contactNumber": "+94-77-7578901"
+    },
+    "conductor": {
+      "name": "Indika Perera",
+      "contactNumber": "+94-77-8689012"
+    }
+  },
+  {
+    "tripId": "TR-20251008-004-039",
+    "busRegistration": "CAT-5840",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T10:00:00.000Z",
+    "scheduledArrival": "2025-10-08T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1600,
+    "driver": {
+      "name": "Wasantha Silva",
+      "licenseNumber": "B6578908",
+      "contactNumber": "+94-77-9790123"
+    },
+    "conductor": {
+      "name": "Thilak Fernando",
+      "contactNumber": "+94-77-1801234"
+    }
+  },
+  {
+    "tripId": "TR-20251008-004-040",
+    "busRegistration": "CAT-5840",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T17:00:00.000Z",
+    "scheduledArrival": "2025-10-08T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1600,
+    "driver": {
+      "name": "Lalith Gunasekara",
+      "licenseNumber": "B7689019",
+      "contactNumber": "+94-77-2912345"
+    },
+    "conductor": {
+      "name": "Aruna Perera",
+      "contactNumber": "+94-77-3023456"
+    }
+  },
+  {
+    "tripId": "TR-20251008-099-041",
+    "busRegistration": "CAU-6951",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T06:00:00.000Z",
+    "scheduledArrival": "2025-10-08T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Sunimal Jayawardana",
+      "licenseNumber": "B8790120",
+      "contactNumber": "+94-77-4134567"
+    },
+    "conductor": {
+      "name": "Sunil Silva",
+      "contactNumber": "+94-77-5245678"
+    }
+  },
+  {
+    "tripId": "TR-20251008-099-042",
+    "busRegistration": "CAU-6951",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T13:00:00.000Z",
+    "scheduledArrival": "2025-10-08T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Buddhika Fernando",
+      "licenseNumber": "B9801231",
+      "contactNumber": "+94-77-6356789"
+    },
+    "conductor": {
+      "name": "Asantha Perera",
+      "contactNumber": "+94-77-7467890"
+    }
+  },
+  {
+    "tripId": "TR-20251008-099-043",
+    "busRegistration": "CAV-7062",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T07:00:00.000Z",
+    "scheduledArrival": "2025-10-08T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 950,
+    "driver": {
+      "name": "Dilshan Wickramasinghe",
+      "licenseNumber": "B1912342",
+      "contactNumber": "+94-77-8578901"
+    },
+    "conductor": {
+      "name": "Namal Silva",
+      "contactNumber": "+94-77-9689012"
+    }
+  },
+  {
+    "tripId": "TR-20251008-099-044",
+    "busRegistration": "CAV-7062",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T14:00:00.000Z",
+    "scheduledArrival": "2025-10-08T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 950,
+    "driver": {
+      "name": "Janith Jayasinghe",
+      "licenseNumber": "B2023453",
+      "contactNumber": "+94-77-1790123"
+    },
+    "conductor": {
+      "name": "Manjula Fernando",
+      "contactNumber": "+94-77-2801234"
+    }
+  },
+  {
+    "tripId": "TR-20251008-099-045",
+    "busRegistration": "CAW-8173",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T08:00:00.000Z",
+    "scheduledArrival": "2025-10-08T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 950,
+    "driver": {
+      "name": "Thilina Gunasekara",
+      "licenseNumber": "B3134564",
+      "contactNumber": "+94-77-3912345"
+    },
+    "conductor": {
+      "name": "Pubudu Perera",
+      "contactNumber": "+94-77-4023456"
+    }
+  },
+  {
+    "tripId": "TR-20251008-099-046",
+    "busRegistration": "CAW-8173",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T15:00:00.000Z",
+    "scheduledArrival": "2025-10-08T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 950,
+    "driver": {
+      "name": "Milinda Silva",
+      "licenseNumber": "B4245675",
+      "contactNumber": "+94-77-5134567"
+    },
+    "conductor": {
+      "name": "Kapila Fernando",
+      "contactNumber": "+94-77-6245678"
+    }
+  },
+  {
+    "tripId": "TR-20251008-099-047",
+    "busRegistration": "CAX-9284",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T09:00:00.000Z",
+    "scheduledArrival": "2025-10-08T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1250,
+    "driver": {
+      "name": "Nuwan Jayawardana",
+      "licenseNumber": "B5356786",
+      "contactNumber": "+94-77-7356789"
+    },
+    "conductor": {
+      "name": "Sanjaya Perera",
+      "contactNumber": "+94-77-8467890"
+    }
+  },
+  {
+    "tripId": "TR-20251008-099-048",
+    "busRegistration": "CAX-9284",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T16:00:00.000Z",
+    "scheduledArrival": "2025-10-08T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1250,
+    "driver": {
+      "name": "Sandun Wickramasinghe",
+      "licenseNumber": "B6467897",
+      "contactNumber": "+94-77-9578901"
+    },
+    "conductor": {
+      "name": "Chatura Silva",
+      "contactNumber": "+94-77-1689012"
+    }
+  },
+  {
+    "tripId": "TR-20251008-099-049",
+    "busRegistration": "CAY-1395",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T10:00:00.000Z",
+    "scheduledArrival": "2025-10-08T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1250,
+    "driver": {
+      "name": "Amila Gunathilaka",
+      "licenseNumber": "B7578908",
+      "contactNumber": "+94-77-2790123"
+    },
+    "conductor": {
+      "name": "Dhanushka Fernando",
+      "contactNumber": "+94-77-3801234"
+    }
+  },
+  {
+    "tripId": "TR-20251008-099-050",
+    "busRegistration": "CAY-1395",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-08",
+    "scheduledDeparture": "2025-10-08T17:00:00.000Z",
+    "scheduledArrival": "2025-10-08T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1250,
+    "driver": {
+      "name": "Ravindu Perera",
+      "licenseNumber": "B8689019",
+      "contactNumber": "+94-77-4912345"
+    },
+    "conductor": {
+      "name": "Chamika Silva",
+      "contactNumber": "+94-77-5023456"
+    }
+  },
+  {
+    "tripId": "TR-20251009-001-001",
+    "busRegistration": "CAA-5678",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T06:00:00.000Z",
+    "scheduledArrival": "2025-10-09T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 350,
+    "driver": {
+      "name": "Nimal Perera",
+      "licenseNumber": "B2345675",
+      "contactNumber": "+94-77-1234567"
+    },
+    "conductor": {
+      "name": "Asanka Silva",
+      "contactNumber": "+94-77-2345678"
+    }
+  },
+  {
+    "tripId": "TR-20251009-001-002",
+    "busRegistration": "CAA-5678",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T13:00:00.000Z",
+    "scheduledArrival": "2025-10-09T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 350,
+    "driver": {
+      "name": "Amal Fernando",
+      "licenseNumber": "B3456786",
+      "contactNumber": "+94-77-3456789"
+    },
+    "conductor": {
+      "name": "Chamara Dias",
+      "contactNumber": "+94-77-4567890"
+    }
+  },
+  {
+    "tripId": "TR-20251009-001-003",
+    "busRegistration": "CAB-5958",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T07:00:00.000Z",
+    "scheduledArrival": "2025-10-09T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Thisara Weerasinghe",
+      "licenseNumber": "B4567897",
+      "contactNumber": "+94-77-5678901"
+    },
+    "conductor": {
+      "name": "Dinesh Gunasekara",
+      "contactNumber": "+94-77-6789012"
+    }
+  },
+  {
+    "tripId": "TR-20251009-001-004",
+    "busRegistration": "CAB-5958",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T14:00:00.000Z",
+    "scheduledArrival": "2025-10-09T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Chamara Fernando",
+      "licenseNumber": "B5678908",
+      "contactNumber": "+94-77-7890123"
+    },
+    "conductor": {
+      "name": "Pradeep Mendis",
+      "contactNumber": "+94-77-8901234"
+    }
+  },
+  {
+    "tripId": "TR-20251009-001-005",
+    "busRegistration": "CAC-6173",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T08:00:00.000Z",
+    "scheduledArrival": "2025-10-09T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Kumara Jayasinghe",
+      "licenseNumber": "B6789019",
+      "contactNumber": "+94-77-9012345"
+    },
+    "conductor": {
+      "name": "Ruwan Wijeratne",
+      "contactNumber": "+94-77-1023456"
+    }
+  },
+  {
+    "tripId": "TR-20251009-001-006",
+    "busRegistration": "CAC-6173",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T15:00:00.000Z",
+    "scheduledArrival": "2025-10-09T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Mahinda Rajapakse",
+      "licenseNumber": "B7890120",
+      "contactNumber": "+94-77-2134567"
+    },
+    "conductor": {
+      "name": "Kasun Perera",
+      "contactNumber": "+94-77-3245678"
+    }
+  },
+  {
+    "tripId": "TR-20251009-001-007",
+    "busRegistration": "CAD-7284",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T09:00:00.000Z",
+    "scheduledArrival": "2025-10-09T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 750,
+    "driver": {
+      "name": "Saman Silva",
+      "licenseNumber": "B8901231",
+      "contactNumber": "+94-77-4356789"
+    },
+    "conductor": {
+      "name": "Gayan Fernando",
+      "contactNumber": "+94-77-5467890"
+    }
+  },
+  {
+    "tripId": "TR-20251009-001-008",
+    "busRegistration": "CAD-7284",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T16:00:00.000Z",
+    "scheduledArrival": "2025-10-09T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 750,
+    "driver": {
+      "name": "Ravi Wickramasinghe",
+      "licenseNumber": "B9012342",
+      "contactNumber": "+94-77-6578901"
+    },
+    "conductor": {
+      "name": "Janaka Amarasinghe",
+      "contactNumber": "+94-77-7689012"
+    }
+  },
+  {
+    "tripId": "TR-20251009-001-009",
+    "busRegistration": "CAE-8395",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T10:00:00.000Z",
+    "scheduledArrival": "2025-10-09T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1150,
+    "driver": {
+      "name": "Priyantha Gunasekara",
+      "licenseNumber": "B1023453",
+      "contactNumber": "+94-77-8790123"
+    },
+    "conductor": {
+      "name": "Suranga Perera",
+      "contactNumber": "+94-77-9801234"
+    }
+  },
+  {
+    "tripId": "TR-20251009-001-010",
+    "busRegistration": "CAE-8395",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T17:00:00.000Z",
+    "scheduledArrival": "2025-10-09T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1150,
+    "driver": {
+      "name": "Tharaka Jayawardana",
+      "licenseNumber": "B2134564",
+      "contactNumber": "+94-77-1912345"
+    },
+    "conductor": {
+      "name": "Nishan Silva",
+      "contactNumber": "+94-77-2023456"
+    }
+  },
+  {
+    "tripId": "TR-20251009-002-011",
+    "busRegistration": "CAF-9406",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T06:00:00.000Z",
+    "scheduledArrival": "2025-10-09T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 420,
+    "driver": {
+      "name": "Damith Jayasinghe",
+      "licenseNumber": "B3245675",
+      "contactNumber": "+94-77-3134567"
+    },
+    "conductor": {
+      "name": "Chanaka Perera",
+      "contactNumber": "+94-77-4245678"
+    }
+  },
+  {
+    "tripId": "TR-20251009-002-012",
+    "busRegistration": "CAF-9406",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T13:00:00.000Z",
+    "scheduledArrival": "2025-10-09T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 420,
+    "driver": {
+      "name": "Upul Fernando",
+      "licenseNumber": "B4356786",
+      "contactNumber": "+94-77-5356789"
+    },
+    "conductor": {
+      "name": "Roshan Silva",
+      "contactNumber": "+94-77-6467890"
+    }
+  },
+  {
+    "tripId": "TR-20251009-002-013",
+    "busRegistration": "CAG-1517",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T07:00:00.000Z",
+    "scheduledArrival": "2025-10-09T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 680,
+    "driver": {
+      "name": "Sampath Gunathilaka",
+      "licenseNumber": "B5467897",
+      "contactNumber": "+94-77-7578901"
+    },
+    "conductor": {
+      "name": "Indika Perera",
+      "contactNumber": "+94-77-8689012"
+    }
+  },
+  {
+    "tripId": "TR-20251009-002-014",
+    "busRegistration": "CAG-1517",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T14:00:00.000Z",
+    "scheduledArrival": "2025-10-09T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 680,
+    "driver": {
+      "name": "Wasantha Silva",
+      "licenseNumber": "B6578908",
+      "contactNumber": "+94-77-9790123"
+    },
+    "conductor": {
+      "name": "Thilak Fernando",
+      "contactNumber": "+94-77-1801234"
+    }
+  },
+  {
+    "tripId": "TR-20251009-002-015",
+    "busRegistration": "CAH-2628",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T08:00:00.000Z",
+    "scheduledArrival": "2025-10-09T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1300,
+    "driver": {
+      "name": "Lalith Gunasekara",
+      "licenseNumber": "B7689019",
+      "contactNumber": "+94-77-2912345"
+    },
+    "conductor": {
+      "name": "Aruna Perera",
+      "contactNumber": "+94-77-3023456"
+    }
+  },
+  {
+    "tripId": "TR-20251009-002-016",
+    "busRegistration": "CAH-2628",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T15:00:00.000Z",
+    "scheduledArrival": "2025-10-09T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1300,
+    "driver": {
+      "name": "Sunimal Jayawardana",
+      "licenseNumber": "B8790120",
+      "contactNumber": "+94-77-4134567"
+    },
+    "conductor": {
+      "name": "Sunil Silva",
+      "contactNumber": "+94-77-5245678"
+    }
+  },
+  {
+    "tripId": "TR-20251009-002-017",
+    "busRegistration": "CAI-3739",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T09:00:00.000Z",
+    "scheduledArrival": "2025-10-09T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1300,
+    "driver": {
+      "name": "Buddhika Fernando",
+      "licenseNumber": "B9801231",
+      "contactNumber": "+94-77-6356789"
+    },
+    "conductor": {
+      "name": "Asantha Perera",
+      "contactNumber": "+94-77-7467890"
+    }
+  },
+  {
+    "tripId": "TR-20251009-002-018",
+    "busRegistration": "CAI-3739",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T16:00:00.000Z",
+    "scheduledArrival": "2025-10-09T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1300,
+    "driver": {
+      "name": "Dilshan Wickramasinghe",
+      "licenseNumber": "B1912342",
+      "contactNumber": "+94-77-8578901"
+    },
+    "conductor": {
+      "name": "Namal Silva",
+      "contactNumber": "+94-77-9689012"
+    }
+  },
+  {
+    "tripId": "TR-20251009-002-019",
+    "busRegistration": "CAJ-4840",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T10:00:00.000Z",
+    "scheduledArrival": "2025-10-09T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 680,
+    "driver": {
+      "name": "Janith Jayasinghe",
+      "licenseNumber": "B2023453",
+      "contactNumber": "+94-77-1790123"
+    },
+    "conductor": {
+      "name": "Manjula Fernando",
+      "contactNumber": "+94-77-2801234"
+    }
+  },
+  {
+    "tripId": "TR-20251009-002-020",
+    "busRegistration": "CAJ-4840",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T17:00:00.000Z",
+    "scheduledArrival": "2025-10-09T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 680,
+    "driver": {
+      "name": "Thilina Gunasekara",
+      "licenseNumber": "B3134564",
+      "contactNumber": "+94-77-3912345"
+    },
+    "conductor": {
+      "name": "Pubudu Perera",
+      "contactNumber": "+94-77-4023456"
+    }
+  },
+  {
+    "tripId": "TR-20251009-021-021",
+    "busRegistration": "CAK-5951",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T06:00:00.000Z",
+    "scheduledArrival": "2025-10-09T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 320,
+    "driver": {
+      "name": "Milinda Silva",
+      "licenseNumber": "B4245675",
+      "contactNumber": "+94-77-5134567"
+    },
+    "conductor": {
+      "name": "Kapila Fernando",
+      "contactNumber": "+94-77-6245678"
+    }
+  },
+  {
+    "tripId": "TR-20251009-021-022",
+    "busRegistration": "CAK-5951",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T13:00:00.000Z",
+    "scheduledArrival": "2025-10-09T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 320,
+    "driver": {
+      "name": "Nuwan Jayawardana",
+      "licenseNumber": "B5356786",
+      "contactNumber": "+94-77-7356789"
+    },
+    "conductor": {
+      "name": "Sanjaya Perera",
+      "contactNumber": "+94-77-8467890"
+    }
+  },
+  {
+    "tripId": "TR-20251009-021-023",
+    "busRegistration": "CAL-6062",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T07:00:00.000Z",
+    "scheduledArrival": "2025-10-09T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Sandun Wickramasinghe",
+      "licenseNumber": "B6467897",
+      "contactNumber": "+94-77-9578901"
+    },
+    "conductor": {
+      "name": "Chatura Silva",
+      "contactNumber": "+94-77-1689012"
+    }
+  },
+  {
+    "tripId": "TR-20251009-021-024",
+    "busRegistration": "CAL-6062",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T14:00:00.000Z",
+    "scheduledArrival": "2025-10-09T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Amila Gunathilaka",
+      "licenseNumber": "B7578908",
+      "contactNumber": "+94-77-2790123"
+    },
+    "conductor": {
+      "name": "Dhanushka Fernando",
+      "contactNumber": "+94-77-3801234"
+    }
+  },
+  {
+    "tripId": "TR-20251009-021-025",
+    "busRegistration": "CAM-7173",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T08:00:00.000Z",
+    "scheduledArrival": "2025-10-09T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Ravindu Perera",
+      "licenseNumber": "B8689019",
+      "contactNumber": "+94-77-4912345"
+    },
+    "conductor": {
+      "name": "Chamika Silva",
+      "contactNumber": "+94-77-5023456"
+    }
+  },
+  {
+    "tripId": "TR-20251009-021-026",
+    "busRegistration": "CAM-7173",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T15:00:00.000Z",
+    "scheduledArrival": "2025-10-09T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Nimal Perera",
+      "licenseNumber": "B2345675",
+      "contactNumber": "+94-77-1234567"
+    },
+    "conductor": {
+      "name": "Asanka Silva",
+      "contactNumber": "+94-77-2345678"
+    }
+  },
+  {
+    "tripId": "TR-20251009-021-027",
+    "busRegistration": "CAN-8284",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T09:00:00.000Z",
+    "scheduledArrival": "2025-10-09T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1100,
+    "driver": {
+      "name": "Amal Fernando",
+      "licenseNumber": "B3456786",
+      "contactNumber": "+94-77-3456789"
+    },
+    "conductor": {
+      "name": "Chamara Dias",
+      "contactNumber": "+94-77-4567890"
+    }
+  },
+  {
+    "tripId": "TR-20251009-021-028",
+    "busRegistration": "CAN-8284",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T16:00:00.000Z",
+    "scheduledArrival": "2025-10-09T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1100,
+    "driver": {
+      "name": "Thisara Weerasinghe",
+      "licenseNumber": "B4567897",
+      "contactNumber": "+94-77-5678901"
+    },
+    "conductor": {
+      "name": "Dinesh Gunasekara",
+      "contactNumber": "+94-77-6789012"
+    }
+  },
+  {
+    "tripId": "TR-20251009-021-029",
+    "busRegistration": "CAO-9395",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T10:00:00.000Z",
+    "scheduledArrival": "2025-10-09T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1100,
+    "driver": {
+      "name": "Chamara Fernando",
+      "licenseNumber": "B5678908",
+      "contactNumber": "+94-77-7890123"
+    },
+    "conductor": {
+      "name": "Pradeep Mendis",
+      "contactNumber": "+94-77-8901234"
+    }
+  },
+  {
+    "tripId": "TR-20251009-021-030",
+    "busRegistration": "CAO-9395",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T17:00:00.000Z",
+    "scheduledArrival": "2025-10-09T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1100,
+    "driver": {
+      "name": "Kumara Jayasinghe",
+      "licenseNumber": "B6789019",
+      "contactNumber": "+94-77-9012345"
+    },
+    "conductor": {
+      "name": "Ruwan Wijeratne",
+      "contactNumber": "+94-77-1023456"
+    }
+  },
+  {
+    "tripId": "TR-20251009-004-031",
+    "busRegistration": "CAP-1406",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T06:00:00.000Z",
+    "scheduledArrival": "2025-10-09T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Mahinda Rajapakse",
+      "licenseNumber": "B7890120",
+      "contactNumber": "+94-77-2134567"
+    },
+    "conductor": {
+      "name": "Kasun Perera",
+      "contactNumber": "+94-77-3245678"
+    }
+  },
+  {
+    "tripId": "TR-20251009-004-032",
+    "busRegistration": "CAP-1406",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T13:00:00.000Z",
+    "scheduledArrival": "2025-10-09T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Saman Silva",
+      "licenseNumber": "B8901231",
+      "contactNumber": "+94-77-4356789"
+    },
+    "conductor": {
+      "name": "Gayan Fernando",
+      "contactNumber": "+94-77-5467890"
+    }
+  },
+  {
+    "tripId": "TR-20251009-004-033",
+    "busRegistration": "CAQ-2517",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T07:00:00.000Z",
+    "scheduledArrival": "2025-10-09T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 850,
+    "driver": {
+      "name": "Ravi Wickramasinghe",
+      "licenseNumber": "B9012342",
+      "contactNumber": "+94-77-6578901"
+    },
+    "conductor": {
+      "name": "Janaka Amarasinghe",
+      "contactNumber": "+94-77-7689012"
+    }
+  },
+  {
+    "tripId": "TR-20251009-004-034",
+    "busRegistration": "CAQ-2517",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T14:00:00.000Z",
+    "scheduledArrival": "2025-10-09T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 850,
+    "driver": {
+      "name": "Priyantha Gunasekara",
+      "licenseNumber": "B1023453",
+      "contactNumber": "+94-77-8790123"
+    },
+    "conductor": {
+      "name": "Suranga Perera",
+      "contactNumber": "+94-77-9801234"
+    }
+  },
+  {
+    "tripId": "TR-20251009-004-035",
+    "busRegistration": "CAR-3628",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T08:00:00.000Z",
+    "scheduledArrival": "2025-10-09T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 850,
+    "driver": {
+      "name": "Tharaka Jayawardana",
+      "licenseNumber": "B2134564",
+      "contactNumber": "+94-77-1912345"
+    },
+    "conductor": {
+      "name": "Nishan Silva",
+      "contactNumber": "+94-77-2023456"
+    }
+  },
+  {
+    "tripId": "TR-20251009-004-036",
+    "busRegistration": "CAR-3628",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T15:00:00.000Z",
+    "scheduledArrival": "2025-10-09T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 850,
+    "driver": {
+      "name": "Damith Jayasinghe",
+      "licenseNumber": "B3245675",
+      "contactNumber": "+94-77-3134567"
+    },
+    "conductor": {
+      "name": "Chanaka Perera",
+      "contactNumber": "+94-77-4245678"
+    }
+  },
+  {
+    "tripId": "TR-20251009-004-037",
+    "busRegistration": "CAS-4739",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T09:00:00.000Z",
+    "scheduledArrival": "2025-10-09T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1120,
+    "driver": {
+      "name": "Upul Fernando",
+      "licenseNumber": "B4356786",
+      "contactNumber": "+94-77-5356789"
+    },
+    "conductor": {
+      "name": "Roshan Silva",
+      "contactNumber": "+94-77-6467890"
+    }
+  },
+  {
+    "tripId": "TR-20251009-004-038",
+    "busRegistration": "CAS-4739",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T16:00:00.000Z",
+    "scheduledArrival": "2025-10-09T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1120,
+    "driver": {
+      "name": "Sampath Gunathilaka",
+      "licenseNumber": "B5467897",
+      "contactNumber": "+94-77-7578901"
+    },
+    "conductor": {
+      "name": "Indika Perera",
+      "contactNumber": "+94-77-8689012"
+    }
+  },
+  {
+    "tripId": "TR-20251009-004-039",
+    "busRegistration": "CAT-5840",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T10:00:00.000Z",
+    "scheduledArrival": "2025-10-09T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1600,
+    "driver": {
+      "name": "Wasantha Silva",
+      "licenseNumber": "B6578908",
+      "contactNumber": "+94-77-9790123"
+    },
+    "conductor": {
+      "name": "Thilak Fernando",
+      "contactNumber": "+94-77-1801234"
+    }
+  },
+  {
+    "tripId": "TR-20251009-004-040",
+    "busRegistration": "CAT-5840",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T17:00:00.000Z",
+    "scheduledArrival": "2025-10-09T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1600,
+    "driver": {
+      "name": "Lalith Gunasekara",
+      "licenseNumber": "B7689019",
+      "contactNumber": "+94-77-2912345"
+    },
+    "conductor": {
+      "name": "Aruna Perera",
+      "contactNumber": "+94-77-3023456"
+    }
+  },
+  {
+    "tripId": "TR-20251009-099-041",
+    "busRegistration": "CAU-6951",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T06:00:00.000Z",
+    "scheduledArrival": "2025-10-09T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Sunimal Jayawardana",
+      "licenseNumber": "B8790120",
+      "contactNumber": "+94-77-4134567"
+    },
+    "conductor": {
+      "name": "Sunil Silva",
+      "contactNumber": "+94-77-5245678"
+    }
+  },
+  {
+    "tripId": "TR-20251009-099-042",
+    "busRegistration": "CAU-6951",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T13:00:00.000Z",
+    "scheduledArrival": "2025-10-09T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Buddhika Fernando",
+      "licenseNumber": "B9801231",
+      "contactNumber": "+94-77-6356789"
+    },
+    "conductor": {
+      "name": "Asantha Perera",
+      "contactNumber": "+94-77-7467890"
+    }
+  },
+  {
+    "tripId": "TR-20251009-099-043",
+    "busRegistration": "CAV-7062",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T07:00:00.000Z",
+    "scheduledArrival": "2025-10-09T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 950,
+    "driver": {
+      "name": "Dilshan Wickramasinghe",
+      "licenseNumber": "B1912342",
+      "contactNumber": "+94-77-8578901"
+    },
+    "conductor": {
+      "name": "Namal Silva",
+      "contactNumber": "+94-77-9689012"
+    }
+  },
+  {
+    "tripId": "TR-20251009-099-044",
+    "busRegistration": "CAV-7062",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T14:00:00.000Z",
+    "scheduledArrival": "2025-10-09T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 950,
+    "driver": {
+      "name": "Janith Jayasinghe",
+      "licenseNumber": "B2023453",
+      "contactNumber": "+94-77-1790123"
+    },
+    "conductor": {
+      "name": "Manjula Fernando",
+      "contactNumber": "+94-77-2801234"
+    }
+  },
+  {
+    "tripId": "TR-20251009-099-045",
+    "busRegistration": "CAW-8173",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T08:00:00.000Z",
+    "scheduledArrival": "2025-10-09T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 950,
+    "driver": {
+      "name": "Thilina Gunasekara",
+      "licenseNumber": "B3134564",
+      "contactNumber": "+94-77-3912345"
+    },
+    "conductor": {
+      "name": "Pubudu Perera",
+      "contactNumber": "+94-77-4023456"
+    }
+  },
+  {
+    "tripId": "TR-20251009-099-046",
+    "busRegistration": "CAW-8173",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T15:00:00.000Z",
+    "scheduledArrival": "2025-10-09T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 950,
+    "driver": {
+      "name": "Milinda Silva",
+      "licenseNumber": "B4245675",
+      "contactNumber": "+94-77-5134567"
+    },
+    "conductor": {
+      "name": "Kapila Fernando",
+      "contactNumber": "+94-77-6245678"
+    }
+  },
+  {
+    "tripId": "TR-20251009-099-047",
+    "busRegistration": "CAX-9284",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T09:00:00.000Z",
+    "scheduledArrival": "2025-10-09T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1250,
+    "driver": {
+      "name": "Nuwan Jayawardana",
+      "licenseNumber": "B5356786",
+      "contactNumber": "+94-77-7356789"
+    },
+    "conductor": {
+      "name": "Sanjaya Perera",
+      "contactNumber": "+94-77-8467890"
+    }
+  },
+  {
+    "tripId": "TR-20251009-099-048",
+    "busRegistration": "CAX-9284",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T16:00:00.000Z",
+    "scheduledArrival": "2025-10-09T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1250,
+    "driver": {
+      "name": "Sandun Wickramasinghe",
+      "licenseNumber": "B6467897",
+      "contactNumber": "+94-77-9578901"
+    },
+    "conductor": {
+      "name": "Chatura Silva",
+      "contactNumber": "+94-77-1689012"
+    }
+  },
+  {
+    "tripId": "TR-20251009-099-049",
+    "busRegistration": "CAY-1395",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T10:00:00.000Z",
+    "scheduledArrival": "2025-10-09T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1250,
+    "driver": {
+      "name": "Amila Gunathilaka",
+      "licenseNumber": "B7578908",
+      "contactNumber": "+94-77-2790123"
+    },
+    "conductor": {
+      "name": "Dhanushka Fernando",
+      "contactNumber": "+94-77-3801234"
+    }
+  },
+  {
+    "tripId": "TR-20251009-099-050",
+    "busRegistration": "CAY-1395",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-09",
+    "scheduledDeparture": "2025-10-09T17:00:00.000Z",
+    "scheduledArrival": "2025-10-09T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1250,
+    "driver": {
+      "name": "Ravindu Perera",
+      "licenseNumber": "B8689019",
+      "contactNumber": "+94-77-4912345"
+    },
+    "conductor": {
+      "name": "Chamika Silva",
+      "contactNumber": "+94-77-5023456"
+    }
+  },
+  {
+    "tripId": "TR-20251010-001-001",
+    "busRegistration": "CAA-5678",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T06:00:00.000Z",
+    "scheduledArrival": "2025-10-10T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 350,
+    "driver": {
+      "name": "Nimal Perera",
+      "licenseNumber": "B2345675",
+      "contactNumber": "+94-77-1234567"
+    },
+    "conductor": {
+      "name": "Asanka Silva",
+      "contactNumber": "+94-77-2345678"
+    }
+  },
+  {
+    "tripId": "TR-20251010-001-002",
+    "busRegistration": "CAA-5678",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T13:00:00.000Z",
+    "scheduledArrival": "2025-10-10T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 350,
+    "driver": {
+      "name": "Amal Fernando",
+      "licenseNumber": "B3456786",
+      "contactNumber": "+94-77-3456789"
+    },
+    "conductor": {
+      "name": "Chamara Dias",
+      "contactNumber": "+94-77-4567890"
+    }
+  },
+  {
+    "tripId": "TR-20251010-001-003",
+    "busRegistration": "CAB-5958",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T07:00:00.000Z",
+    "scheduledArrival": "2025-10-10T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Thisara Weerasinghe",
+      "licenseNumber": "B4567897",
+      "contactNumber": "+94-77-5678901"
+    },
+    "conductor": {
+      "name": "Dinesh Gunasekara",
+      "contactNumber": "+94-77-6789012"
+    }
+  },
+  {
+    "tripId": "TR-20251010-001-004",
+    "busRegistration": "CAB-5958",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T14:00:00.000Z",
+    "scheduledArrival": "2025-10-10T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Chamara Fernando",
+      "licenseNumber": "B5678908",
+      "contactNumber": "+94-77-7890123"
+    },
+    "conductor": {
+      "name": "Pradeep Mendis",
+      "contactNumber": "+94-77-8901234"
+    }
+  },
+  {
+    "tripId": "TR-20251010-001-005",
+    "busRegistration": "CAC-6173",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T08:00:00.000Z",
+    "scheduledArrival": "2025-10-10T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Kumara Jayasinghe",
+      "licenseNumber": "B6789019",
+      "contactNumber": "+94-77-9012345"
+    },
+    "conductor": {
+      "name": "Ruwan Wijeratne",
+      "contactNumber": "+94-77-1023456"
+    }
+  },
+  {
+    "tripId": "TR-20251010-001-006",
+    "busRegistration": "CAC-6173",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T15:00:00.000Z",
+    "scheduledArrival": "2025-10-10T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Mahinda Rajapakse",
+      "licenseNumber": "B7890120",
+      "contactNumber": "+94-77-2134567"
+    },
+    "conductor": {
+      "name": "Kasun Perera",
+      "contactNumber": "+94-77-3245678"
+    }
+  },
+  {
+    "tripId": "TR-20251010-001-007",
+    "busRegistration": "CAD-7284",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T09:00:00.000Z",
+    "scheduledArrival": "2025-10-10T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 750,
+    "driver": {
+      "name": "Saman Silva",
+      "licenseNumber": "B8901231",
+      "contactNumber": "+94-77-4356789"
+    },
+    "conductor": {
+      "name": "Gayan Fernando",
+      "contactNumber": "+94-77-5467890"
+    }
+  },
+  {
+    "tripId": "TR-20251010-001-008",
+    "busRegistration": "CAD-7284",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T16:00:00.000Z",
+    "scheduledArrival": "2025-10-10T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 750,
+    "driver": {
+      "name": "Ravi Wickramasinghe",
+      "licenseNumber": "B9012342",
+      "contactNumber": "+94-77-6578901"
+    },
+    "conductor": {
+      "name": "Janaka Amarasinghe",
+      "contactNumber": "+94-77-7689012"
+    }
+  },
+  {
+    "tripId": "TR-20251010-001-009",
+    "busRegistration": "CAE-8395",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T10:00:00.000Z",
+    "scheduledArrival": "2025-10-10T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1150,
+    "driver": {
+      "name": "Priyantha Gunasekara",
+      "licenseNumber": "B1023453",
+      "contactNumber": "+94-77-8790123"
+    },
+    "conductor": {
+      "name": "Suranga Perera",
+      "contactNumber": "+94-77-9801234"
+    }
+  },
+  {
+    "tripId": "TR-20251010-001-010",
+    "busRegistration": "CAE-8395",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T17:00:00.000Z",
+    "scheduledArrival": "2025-10-10T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1150,
+    "driver": {
+      "name": "Tharaka Jayawardana",
+      "licenseNumber": "B2134564",
+      "contactNumber": "+94-77-1912345"
+    },
+    "conductor": {
+      "name": "Nishan Silva",
+      "contactNumber": "+94-77-2023456"
+    }
+  },
+  {
+    "tripId": "TR-20251010-002-011",
+    "busRegistration": "CAF-9406",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T06:00:00.000Z",
+    "scheduledArrival": "2025-10-10T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 420,
+    "driver": {
+      "name": "Damith Jayasinghe",
+      "licenseNumber": "B3245675",
+      "contactNumber": "+94-77-3134567"
+    },
+    "conductor": {
+      "name": "Chanaka Perera",
+      "contactNumber": "+94-77-4245678"
+    }
+  },
+  {
+    "tripId": "TR-20251010-002-012",
+    "busRegistration": "CAF-9406",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T13:00:00.000Z",
+    "scheduledArrival": "2025-10-10T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 420,
+    "driver": {
+      "name": "Upul Fernando",
+      "licenseNumber": "B4356786",
+      "contactNumber": "+94-77-5356789"
+    },
+    "conductor": {
+      "name": "Roshan Silva",
+      "contactNumber": "+94-77-6467890"
+    }
+  },
+  {
+    "tripId": "TR-20251010-002-013",
+    "busRegistration": "CAG-1517",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T07:00:00.000Z",
+    "scheduledArrival": "2025-10-10T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 680,
+    "driver": {
+      "name": "Sampath Gunathilaka",
+      "licenseNumber": "B5467897",
+      "contactNumber": "+94-77-7578901"
+    },
+    "conductor": {
+      "name": "Indika Perera",
+      "contactNumber": "+94-77-8689012"
+    }
+  },
+  {
+    "tripId": "TR-20251010-002-014",
+    "busRegistration": "CAG-1517",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T14:00:00.000Z",
+    "scheduledArrival": "2025-10-10T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 680,
+    "driver": {
+      "name": "Wasantha Silva",
+      "licenseNumber": "B6578908",
+      "contactNumber": "+94-77-9790123"
+    },
+    "conductor": {
+      "name": "Thilak Fernando",
+      "contactNumber": "+94-77-1801234"
+    }
+  },
+  {
+    "tripId": "TR-20251010-002-015",
+    "busRegistration": "CAH-2628",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T08:00:00.000Z",
+    "scheduledArrival": "2025-10-10T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1300,
+    "driver": {
+      "name": "Lalith Gunasekara",
+      "licenseNumber": "B7689019",
+      "contactNumber": "+94-77-2912345"
+    },
+    "conductor": {
+      "name": "Aruna Perera",
+      "contactNumber": "+94-77-3023456"
+    }
+  },
+  {
+    "tripId": "TR-20251010-002-016",
+    "busRegistration": "CAH-2628",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T15:00:00.000Z",
+    "scheduledArrival": "2025-10-10T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1300,
+    "driver": {
+      "name": "Sunimal Jayawardana",
+      "licenseNumber": "B8790120",
+      "contactNumber": "+94-77-4134567"
+    },
+    "conductor": {
+      "name": "Sunil Silva",
+      "contactNumber": "+94-77-5245678"
+    }
+  },
+  {
+    "tripId": "TR-20251010-002-017",
+    "busRegistration": "CAI-3739",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T09:00:00.000Z",
+    "scheduledArrival": "2025-10-10T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1300,
+    "driver": {
+      "name": "Buddhika Fernando",
+      "licenseNumber": "B9801231",
+      "contactNumber": "+94-77-6356789"
+    },
+    "conductor": {
+      "name": "Asantha Perera",
+      "contactNumber": "+94-77-7467890"
+    }
+  },
+  {
+    "tripId": "TR-20251010-002-018",
+    "busRegistration": "CAI-3739",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T16:00:00.000Z",
+    "scheduledArrival": "2025-10-10T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1300,
+    "driver": {
+      "name": "Dilshan Wickramasinghe",
+      "licenseNumber": "B1912342",
+      "contactNumber": "+94-77-8578901"
+    },
+    "conductor": {
+      "name": "Namal Silva",
+      "contactNumber": "+94-77-9689012"
+    }
+  },
+  {
+    "tripId": "TR-20251010-002-019",
+    "busRegistration": "CAJ-4840",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T10:00:00.000Z",
+    "scheduledArrival": "2025-10-10T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 680,
+    "driver": {
+      "name": "Janith Jayasinghe",
+      "licenseNumber": "B2023453",
+      "contactNumber": "+94-77-1790123"
+    },
+    "conductor": {
+      "name": "Manjula Fernando",
+      "contactNumber": "+94-77-2801234"
+    }
+  },
+  {
+    "tripId": "TR-20251010-002-020",
+    "busRegistration": "CAJ-4840",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T17:00:00.000Z",
+    "scheduledArrival": "2025-10-10T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 680,
+    "driver": {
+      "name": "Thilina Gunasekara",
+      "licenseNumber": "B3134564",
+      "contactNumber": "+94-77-3912345"
+    },
+    "conductor": {
+      "name": "Pubudu Perera",
+      "contactNumber": "+94-77-4023456"
+    }
+  },
+  {
+    "tripId": "TR-20251010-021-021",
+    "busRegistration": "CAK-5951",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T06:00:00.000Z",
+    "scheduledArrival": "2025-10-10T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 320,
+    "driver": {
+      "name": "Milinda Silva",
+      "licenseNumber": "B4245675",
+      "contactNumber": "+94-77-5134567"
+    },
+    "conductor": {
+      "name": "Kapila Fernando",
+      "contactNumber": "+94-77-6245678"
+    }
+  },
+  {
+    "tripId": "TR-20251010-021-022",
+    "busRegistration": "CAK-5951",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T13:00:00.000Z",
+    "scheduledArrival": "2025-10-10T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 320,
+    "driver": {
+      "name": "Nuwan Jayawardana",
+      "licenseNumber": "B5356786",
+      "contactNumber": "+94-77-7356789"
+    },
+    "conductor": {
+      "name": "Sanjaya Perera",
+      "contactNumber": "+94-77-8467890"
+    }
+  },
+  {
+    "tripId": "TR-20251010-021-023",
+    "busRegistration": "CAL-6062",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T07:00:00.000Z",
+    "scheduledArrival": "2025-10-10T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Sandun Wickramasinghe",
+      "licenseNumber": "B6467897",
+      "contactNumber": "+94-77-9578901"
+    },
+    "conductor": {
+      "name": "Chatura Silva",
+      "contactNumber": "+94-77-1689012"
+    }
+  },
+  {
+    "tripId": "TR-20251010-021-024",
+    "busRegistration": "CAL-6062",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T14:00:00.000Z",
+    "scheduledArrival": "2025-10-10T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Amila Gunathilaka",
+      "licenseNumber": "B7578908",
+      "contactNumber": "+94-77-2790123"
+    },
+    "conductor": {
+      "name": "Dhanushka Fernando",
+      "contactNumber": "+94-77-3801234"
+    }
+  },
+  {
+    "tripId": "TR-20251010-021-025",
+    "busRegistration": "CAM-7173",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T08:00:00.000Z",
+    "scheduledArrival": "2025-10-10T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Ravindu Perera",
+      "licenseNumber": "B8689019",
+      "contactNumber": "+94-77-4912345"
+    },
+    "conductor": {
+      "name": "Chamika Silva",
+      "contactNumber": "+94-77-5023456"
+    }
+  },
+  {
+    "tripId": "TR-20251010-021-026",
+    "busRegistration": "CAM-7173",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T15:00:00.000Z",
+    "scheduledArrival": "2025-10-10T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Nimal Perera",
+      "licenseNumber": "B2345675",
+      "contactNumber": "+94-77-1234567"
+    },
+    "conductor": {
+      "name": "Asanka Silva",
+      "contactNumber": "+94-77-2345678"
+    }
+  },
+  {
+    "tripId": "TR-20251010-021-027",
+    "busRegistration": "CAN-8284",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T09:00:00.000Z",
+    "scheduledArrival": "2025-10-10T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1100,
+    "driver": {
+      "name": "Amal Fernando",
+      "licenseNumber": "B3456786",
+      "contactNumber": "+94-77-3456789"
+    },
+    "conductor": {
+      "name": "Chamara Dias",
+      "contactNumber": "+94-77-4567890"
+    }
+  },
+  {
+    "tripId": "TR-20251010-021-028",
+    "busRegistration": "CAN-8284",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T16:00:00.000Z",
+    "scheduledArrival": "2025-10-10T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1100,
+    "driver": {
+      "name": "Thisara Weerasinghe",
+      "licenseNumber": "B4567897",
+      "contactNumber": "+94-77-5678901"
+    },
+    "conductor": {
+      "name": "Dinesh Gunasekara",
+      "contactNumber": "+94-77-6789012"
+    }
+  },
+  {
+    "tripId": "TR-20251010-021-029",
+    "busRegistration": "CAO-9395",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T10:00:00.000Z",
+    "scheduledArrival": "2025-10-10T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1100,
+    "driver": {
+      "name": "Chamara Fernando",
+      "licenseNumber": "B5678908",
+      "contactNumber": "+94-77-7890123"
+    },
+    "conductor": {
+      "name": "Pradeep Mendis",
+      "contactNumber": "+94-77-8901234"
+    }
+  },
+  {
+    "tripId": "TR-20251010-021-030",
+    "busRegistration": "CAO-9395",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T17:00:00.000Z",
+    "scheduledArrival": "2025-10-10T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1100,
+    "driver": {
+      "name": "Kumara Jayasinghe",
+      "licenseNumber": "B6789019",
+      "contactNumber": "+94-77-9012345"
+    },
+    "conductor": {
+      "name": "Ruwan Wijeratne",
+      "contactNumber": "+94-77-1023456"
+    }
+  },
+  {
+    "tripId": "TR-20251010-004-031",
+    "busRegistration": "CAP-1406",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T06:00:00.000Z",
+    "scheduledArrival": "2025-10-10T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Mahinda Rajapakse",
+      "licenseNumber": "B7890120",
+      "contactNumber": "+94-77-2134567"
+    },
+    "conductor": {
+      "name": "Kasun Perera",
+      "contactNumber": "+94-77-3245678"
+    }
+  },
+  {
+    "tripId": "TR-20251010-004-032",
+    "busRegistration": "CAP-1406",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T13:00:00.000Z",
+    "scheduledArrival": "2025-10-10T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Saman Silva",
+      "licenseNumber": "B8901231",
+      "contactNumber": "+94-77-4356789"
+    },
+    "conductor": {
+      "name": "Gayan Fernando",
+      "contactNumber": "+94-77-5467890"
+    }
+  },
+  {
+    "tripId": "TR-20251010-004-033",
+    "busRegistration": "CAQ-2517",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T07:00:00.000Z",
+    "scheduledArrival": "2025-10-10T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 850,
+    "driver": {
+      "name": "Ravi Wickramasinghe",
+      "licenseNumber": "B9012342",
+      "contactNumber": "+94-77-6578901"
+    },
+    "conductor": {
+      "name": "Janaka Amarasinghe",
+      "contactNumber": "+94-77-7689012"
+    }
+  },
+  {
+    "tripId": "TR-20251010-004-034",
+    "busRegistration": "CAQ-2517",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T14:00:00.000Z",
+    "scheduledArrival": "2025-10-10T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 850,
+    "driver": {
+      "name": "Priyantha Gunasekara",
+      "licenseNumber": "B1023453",
+      "contactNumber": "+94-77-8790123"
+    },
+    "conductor": {
+      "name": "Suranga Perera",
+      "contactNumber": "+94-77-9801234"
+    }
+  },
+  {
+    "tripId": "TR-20251010-004-035",
+    "busRegistration": "CAR-3628",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T08:00:00.000Z",
+    "scheduledArrival": "2025-10-10T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 850,
+    "driver": {
+      "name": "Tharaka Jayawardana",
+      "licenseNumber": "B2134564",
+      "contactNumber": "+94-77-1912345"
+    },
+    "conductor": {
+      "name": "Nishan Silva",
+      "contactNumber": "+94-77-2023456"
+    }
+  },
+  {
+    "tripId": "TR-20251010-004-036",
+    "busRegistration": "CAR-3628",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T15:00:00.000Z",
+    "scheduledArrival": "2025-10-10T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 850,
+    "driver": {
+      "name": "Damith Jayasinghe",
+      "licenseNumber": "B3245675",
+      "contactNumber": "+94-77-3134567"
+    },
+    "conductor": {
+      "name": "Chanaka Perera",
+      "contactNumber": "+94-77-4245678"
+    }
+  },
+  {
+    "tripId": "TR-20251010-004-037",
+    "busRegistration": "CAS-4739",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T09:00:00.000Z",
+    "scheduledArrival": "2025-10-10T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1120,
+    "driver": {
+      "name": "Upul Fernando",
+      "licenseNumber": "B4356786",
+      "contactNumber": "+94-77-5356789"
+    },
+    "conductor": {
+      "name": "Roshan Silva",
+      "contactNumber": "+94-77-6467890"
+    }
+  },
+  {
+    "tripId": "TR-20251010-004-038",
+    "busRegistration": "CAS-4739",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T16:00:00.000Z",
+    "scheduledArrival": "2025-10-10T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1120,
+    "driver": {
+      "name": "Sampath Gunathilaka",
+      "licenseNumber": "B5467897",
+      "contactNumber": "+94-77-7578901"
+    },
+    "conductor": {
+      "name": "Indika Perera",
+      "contactNumber": "+94-77-8689012"
+    }
+  },
+  {
+    "tripId": "TR-20251010-004-039",
+    "busRegistration": "CAT-5840",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T10:00:00.000Z",
+    "scheduledArrival": "2025-10-10T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1600,
+    "driver": {
+      "name": "Wasantha Silva",
+      "licenseNumber": "B6578908",
+      "contactNumber": "+94-77-9790123"
+    },
+    "conductor": {
+      "name": "Thilak Fernando",
+      "contactNumber": "+94-77-1801234"
+    }
+  },
+  {
+    "tripId": "TR-20251010-004-040",
+    "busRegistration": "CAT-5840",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T17:00:00.000Z",
+    "scheduledArrival": "2025-10-10T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1600,
+    "driver": {
+      "name": "Lalith Gunasekara",
+      "licenseNumber": "B7689019",
+      "contactNumber": "+94-77-2912345"
+    },
+    "conductor": {
+      "name": "Aruna Perera",
+      "contactNumber": "+94-77-3023456"
+    }
+  },
+  {
+    "tripId": "TR-20251010-099-041",
+    "busRegistration": "CAU-6951",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T06:00:00.000Z",
+    "scheduledArrival": "2025-10-10T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Sunimal Jayawardana",
+      "licenseNumber": "B8790120",
+      "contactNumber": "+94-77-4134567"
+    },
+    "conductor": {
+      "name": "Sunil Silva",
+      "contactNumber": "+94-77-5245678"
+    }
+  },
+  {
+    "tripId": "TR-20251010-099-042",
+    "busRegistration": "CAU-6951",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T13:00:00.000Z",
+    "scheduledArrival": "2025-10-10T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Buddhika Fernando",
+      "licenseNumber": "B9801231",
+      "contactNumber": "+94-77-6356789"
+    },
+    "conductor": {
+      "name": "Asantha Perera",
+      "contactNumber": "+94-77-7467890"
+    }
+  },
+  {
+    "tripId": "TR-20251010-099-043",
+    "busRegistration": "CAV-7062",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T07:00:00.000Z",
+    "scheduledArrival": "2025-10-10T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 950,
+    "driver": {
+      "name": "Dilshan Wickramasinghe",
+      "licenseNumber": "B1912342",
+      "contactNumber": "+94-77-8578901"
+    },
+    "conductor": {
+      "name": "Namal Silva",
+      "contactNumber": "+94-77-9689012"
+    }
+  },
+  {
+    "tripId": "TR-20251010-099-044",
+    "busRegistration": "CAV-7062",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T14:00:00.000Z",
+    "scheduledArrival": "2025-10-10T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 950,
+    "driver": {
+      "name": "Janith Jayasinghe",
+      "licenseNumber": "B2023453",
+      "contactNumber": "+94-77-1790123"
+    },
+    "conductor": {
+      "name": "Manjula Fernando",
+      "contactNumber": "+94-77-2801234"
+    }
+  },
+  {
+    "tripId": "TR-20251010-099-045",
+    "busRegistration": "CAW-8173",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T08:00:00.000Z",
+    "scheduledArrival": "2025-10-10T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 950,
+    "driver": {
+      "name": "Thilina Gunasekara",
+      "licenseNumber": "B3134564",
+      "contactNumber": "+94-77-3912345"
+    },
+    "conductor": {
+      "name": "Pubudu Perera",
+      "contactNumber": "+94-77-4023456"
+    }
+  },
+  {
+    "tripId": "TR-20251010-099-046",
+    "busRegistration": "CAW-8173",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T15:00:00.000Z",
+    "scheduledArrival": "2025-10-10T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 950,
+    "driver": {
+      "name": "Milinda Silva",
+      "licenseNumber": "B4245675",
+      "contactNumber": "+94-77-5134567"
+    },
+    "conductor": {
+      "name": "Kapila Fernando",
+      "contactNumber": "+94-77-6245678"
+    }
+  },
+  {
+    "tripId": "TR-20251010-099-047",
+    "busRegistration": "CAX-9284",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T09:00:00.000Z",
+    "scheduledArrival": "2025-10-10T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1250,
+    "driver": {
+      "name": "Nuwan Jayawardana",
+      "licenseNumber": "B5356786",
+      "contactNumber": "+94-77-7356789"
+    },
+    "conductor": {
+      "name": "Sanjaya Perera",
+      "contactNumber": "+94-77-8467890"
+    }
+  },
+  {
+    "tripId": "TR-20251010-099-048",
+    "busRegistration": "CAX-9284",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T16:00:00.000Z",
+    "scheduledArrival": "2025-10-10T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1250,
+    "driver": {
+      "name": "Sandun Wickramasinghe",
+      "licenseNumber": "B6467897",
+      "contactNumber": "+94-77-9578901"
+    },
+    "conductor": {
+      "name": "Chatura Silva",
+      "contactNumber": "+94-77-1689012"
+    }
+  },
+  {
+    "tripId": "TR-20251010-099-049",
+    "busRegistration": "CAY-1395",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T10:00:00.000Z",
+    "scheduledArrival": "2025-10-10T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1250,
+    "driver": {
+      "name": "Amila Gunathilaka",
+      "licenseNumber": "B7578908",
+      "contactNumber": "+94-77-2790123"
+    },
+    "conductor": {
+      "name": "Dhanushka Fernando",
+      "contactNumber": "+94-77-3801234"
+    }
+  },
+  {
+    "tripId": "TR-20251010-099-050",
+    "busRegistration": "CAY-1395",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-10",
+    "scheduledDeparture": "2025-10-10T17:00:00.000Z",
+    "scheduledArrival": "2025-10-10T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1250,
+    "driver": {
+      "name": "Ravindu Perera",
+      "licenseNumber": "B8689019",
+      "contactNumber": "+94-77-4912345"
+    },
+    "conductor": {
+      "name": "Chamika Silva",
+      "contactNumber": "+94-77-5023456"
+    }
+  },
+  {
+    "tripId": "TR-20251011-001-001",
+    "busRegistration": "CAA-5678",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T06:00:00.000Z",
+    "scheduledArrival": "2025-10-11T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 350,
+    "driver": {
+      "name": "Nimal Perera",
+      "licenseNumber": "B2345675",
+      "contactNumber": "+94-77-1234567"
+    },
+    "conductor": {
+      "name": "Asanka Silva",
+      "contactNumber": "+94-77-2345678"
+    }
+  },
+  {
+    "tripId": "TR-20251011-001-002",
+    "busRegistration": "CAA-5678",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T13:00:00.000Z",
+    "scheduledArrival": "2025-10-11T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 350,
+    "driver": {
+      "name": "Amal Fernando",
+      "licenseNumber": "B3456786",
+      "contactNumber": "+94-77-3456789"
+    },
+    "conductor": {
+      "name": "Chamara Dias",
+      "contactNumber": "+94-77-4567890"
+    }
+  },
+  {
+    "tripId": "TR-20251011-001-003",
+    "busRegistration": "CAB-5958",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T07:00:00.000Z",
+    "scheduledArrival": "2025-10-11T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Thisara Weerasinghe",
+      "licenseNumber": "B4567897",
+      "contactNumber": "+94-77-5678901"
+    },
+    "conductor": {
+      "name": "Dinesh Gunasekara",
+      "contactNumber": "+94-77-6789012"
+    }
+  },
+  {
+    "tripId": "TR-20251011-001-004",
+    "busRegistration": "CAB-5958",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T14:00:00.000Z",
+    "scheduledArrival": "2025-10-11T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Chamara Fernando",
+      "licenseNumber": "B5678908",
+      "contactNumber": "+94-77-7890123"
+    },
+    "conductor": {
+      "name": "Pradeep Mendis",
+      "contactNumber": "+94-77-8901234"
+    }
+  },
+  {
+    "tripId": "TR-20251011-001-005",
+    "busRegistration": "CAC-6173",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T08:00:00.000Z",
+    "scheduledArrival": "2025-10-11T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Kumara Jayasinghe",
+      "licenseNumber": "B6789019",
+      "contactNumber": "+94-77-9012345"
+    },
+    "conductor": {
+      "name": "Ruwan Wijeratne",
+      "contactNumber": "+94-77-1023456"
+    }
+  },
+  {
+    "tripId": "TR-20251011-001-006",
+    "busRegistration": "CAC-6173",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T15:00:00.000Z",
+    "scheduledArrival": "2025-10-11T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Mahinda Rajapakse",
+      "licenseNumber": "B7890120",
+      "contactNumber": "+94-77-2134567"
+    },
+    "conductor": {
+      "name": "Kasun Perera",
+      "contactNumber": "+94-77-3245678"
+    }
+  },
+  {
+    "tripId": "TR-20251011-001-007",
+    "busRegistration": "CAD-7284",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T09:00:00.000Z",
+    "scheduledArrival": "2025-10-11T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 750,
+    "driver": {
+      "name": "Saman Silva",
+      "licenseNumber": "B8901231",
+      "contactNumber": "+94-77-4356789"
+    },
+    "conductor": {
+      "name": "Gayan Fernando",
+      "contactNumber": "+94-77-5467890"
+    }
+  },
+  {
+    "tripId": "TR-20251011-001-008",
+    "busRegistration": "CAD-7284",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T16:00:00.000Z",
+    "scheduledArrival": "2025-10-11T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 750,
+    "driver": {
+      "name": "Ravi Wickramasinghe",
+      "licenseNumber": "B9012342",
+      "contactNumber": "+94-77-6578901"
+    },
+    "conductor": {
+      "name": "Janaka Amarasinghe",
+      "contactNumber": "+94-77-7689012"
+    }
+  },
+  {
+    "tripId": "TR-20251011-001-009",
+    "busRegistration": "CAE-8395",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T10:00:00.000Z",
+    "scheduledArrival": "2025-10-11T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1150,
+    "driver": {
+      "name": "Priyantha Gunasekara",
+      "licenseNumber": "B1023453",
+      "contactNumber": "+94-77-8790123"
+    },
+    "conductor": {
+      "name": "Suranga Perera",
+      "contactNumber": "+94-77-9801234"
+    }
+  },
+  {
+    "tripId": "TR-20251011-001-010",
+    "busRegistration": "CAE-8395",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T17:00:00.000Z",
+    "scheduledArrival": "2025-10-11T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1150,
+    "driver": {
+      "name": "Tharaka Jayawardana",
+      "licenseNumber": "B2134564",
+      "contactNumber": "+94-77-1912345"
+    },
+    "conductor": {
+      "name": "Nishan Silva",
+      "contactNumber": "+94-77-2023456"
+    }
+  },
+  {
+    "tripId": "TR-20251011-002-011",
+    "busRegistration": "CAF-9406",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T06:00:00.000Z",
+    "scheduledArrival": "2025-10-11T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 420,
+    "driver": {
+      "name": "Damith Jayasinghe",
+      "licenseNumber": "B3245675",
+      "contactNumber": "+94-77-3134567"
+    },
+    "conductor": {
+      "name": "Chanaka Perera",
+      "contactNumber": "+94-77-4245678"
+    }
+  },
+  {
+    "tripId": "TR-20251011-002-012",
+    "busRegistration": "CAF-9406",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T13:00:00.000Z",
+    "scheduledArrival": "2025-10-11T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 420,
+    "driver": {
+      "name": "Upul Fernando",
+      "licenseNumber": "B4356786",
+      "contactNumber": "+94-77-5356789"
+    },
+    "conductor": {
+      "name": "Roshan Silva",
+      "contactNumber": "+94-77-6467890"
+    }
+  },
+  {
+    "tripId": "TR-20251011-002-013",
+    "busRegistration": "CAG-1517",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T07:00:00.000Z",
+    "scheduledArrival": "2025-10-11T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 680,
+    "driver": {
+      "name": "Sampath Gunathilaka",
+      "licenseNumber": "B5467897",
+      "contactNumber": "+94-77-7578901"
+    },
+    "conductor": {
+      "name": "Indika Perera",
+      "contactNumber": "+94-77-8689012"
+    }
+  },
+  {
+    "tripId": "TR-20251011-002-014",
+    "busRegistration": "CAG-1517",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T14:00:00.000Z",
+    "scheduledArrival": "2025-10-11T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 680,
+    "driver": {
+      "name": "Wasantha Silva",
+      "licenseNumber": "B6578908",
+      "contactNumber": "+94-77-9790123"
+    },
+    "conductor": {
+      "name": "Thilak Fernando",
+      "contactNumber": "+94-77-1801234"
+    }
+  },
+  {
+    "tripId": "TR-20251011-002-015",
+    "busRegistration": "CAH-2628",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T08:00:00.000Z",
+    "scheduledArrival": "2025-10-11T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1300,
+    "driver": {
+      "name": "Lalith Gunasekara",
+      "licenseNumber": "B7689019",
+      "contactNumber": "+94-77-2912345"
+    },
+    "conductor": {
+      "name": "Aruna Perera",
+      "contactNumber": "+94-77-3023456"
+    }
+  },
+  {
+    "tripId": "TR-20251011-002-016",
+    "busRegistration": "CAH-2628",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T15:00:00.000Z",
+    "scheduledArrival": "2025-10-11T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1300,
+    "driver": {
+      "name": "Sunimal Jayawardana",
+      "licenseNumber": "B8790120",
+      "contactNumber": "+94-77-4134567"
+    },
+    "conductor": {
+      "name": "Sunil Silva",
+      "contactNumber": "+94-77-5245678"
+    }
+  },
+  {
+    "tripId": "TR-20251011-002-017",
+    "busRegistration": "CAI-3739",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T09:00:00.000Z",
+    "scheduledArrival": "2025-10-11T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1300,
+    "driver": {
+      "name": "Buddhika Fernando",
+      "licenseNumber": "B9801231",
+      "contactNumber": "+94-77-6356789"
+    },
+    "conductor": {
+      "name": "Asantha Perera",
+      "contactNumber": "+94-77-7467890"
+    }
+  },
+  {
+    "tripId": "TR-20251011-002-018",
+    "busRegistration": "CAI-3739",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T16:00:00.000Z",
+    "scheduledArrival": "2025-10-11T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1300,
+    "driver": {
+      "name": "Dilshan Wickramasinghe",
+      "licenseNumber": "B1912342",
+      "contactNumber": "+94-77-8578901"
+    },
+    "conductor": {
+      "name": "Namal Silva",
+      "contactNumber": "+94-77-9689012"
+    }
+  },
+  {
+    "tripId": "TR-20251011-002-019",
+    "busRegistration": "CAJ-4840",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T10:00:00.000Z",
+    "scheduledArrival": "2025-10-11T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 680,
+    "driver": {
+      "name": "Janith Jayasinghe",
+      "licenseNumber": "B2023453",
+      "contactNumber": "+94-77-1790123"
+    },
+    "conductor": {
+      "name": "Manjula Fernando",
+      "contactNumber": "+94-77-2801234"
+    }
+  },
+  {
+    "tripId": "TR-20251011-002-020",
+    "busRegistration": "CAJ-4840",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T17:00:00.000Z",
+    "scheduledArrival": "2025-10-11T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 680,
+    "driver": {
+      "name": "Thilina Gunasekara",
+      "licenseNumber": "B3134564",
+      "contactNumber": "+94-77-3912345"
+    },
+    "conductor": {
+      "name": "Pubudu Perera",
+      "contactNumber": "+94-77-4023456"
+    }
+  },
+  {
+    "tripId": "TR-20251011-021-021",
+    "busRegistration": "CAK-5951",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T06:00:00.000Z",
+    "scheduledArrival": "2025-10-11T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 320,
+    "driver": {
+      "name": "Milinda Silva",
+      "licenseNumber": "B4245675",
+      "contactNumber": "+94-77-5134567"
+    },
+    "conductor": {
+      "name": "Kapila Fernando",
+      "contactNumber": "+94-77-6245678"
+    }
+  },
+  {
+    "tripId": "TR-20251011-021-022",
+    "busRegistration": "CAK-5951",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T13:00:00.000Z",
+    "scheduledArrival": "2025-10-11T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 320,
+    "driver": {
+      "name": "Nuwan Jayawardana",
+      "licenseNumber": "B5356786",
+      "contactNumber": "+94-77-7356789"
+    },
+    "conductor": {
+      "name": "Sanjaya Perera",
+      "contactNumber": "+94-77-8467890"
+    }
+  },
+  {
+    "tripId": "TR-20251011-021-023",
+    "busRegistration": "CAL-6062",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T07:00:00.000Z",
+    "scheduledArrival": "2025-10-11T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Sandun Wickramasinghe",
+      "licenseNumber": "B6467897",
+      "contactNumber": "+94-77-9578901"
+    },
+    "conductor": {
+      "name": "Chatura Silva",
+      "contactNumber": "+94-77-1689012"
+    }
+  },
+  {
+    "tripId": "TR-20251011-021-024",
+    "busRegistration": "CAL-6062",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T14:00:00.000Z",
+    "scheduledArrival": "2025-10-11T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Amila Gunathilaka",
+      "licenseNumber": "B7578908",
+      "contactNumber": "+94-77-2790123"
+    },
+    "conductor": {
+      "name": "Dhanushka Fernando",
+      "contactNumber": "+94-77-3801234"
+    }
+  },
+  {
+    "tripId": "TR-20251011-021-025",
+    "busRegistration": "CAM-7173",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T08:00:00.000Z",
+    "scheduledArrival": "2025-10-11T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Ravindu Perera",
+      "licenseNumber": "B8689019",
+      "contactNumber": "+94-77-4912345"
+    },
+    "conductor": {
+      "name": "Chamika Silva",
+      "contactNumber": "+94-77-5023456"
+    }
+  },
+  {
+    "tripId": "TR-20251011-021-026",
+    "busRegistration": "CAM-7173",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T15:00:00.000Z",
+    "scheduledArrival": "2025-10-11T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Nimal Perera",
+      "licenseNumber": "B2345675",
+      "contactNumber": "+94-77-1234567"
+    },
+    "conductor": {
+      "name": "Asanka Silva",
+      "contactNumber": "+94-77-2345678"
+    }
+  },
+  {
+    "tripId": "TR-20251011-021-027",
+    "busRegistration": "CAN-8284",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T09:00:00.000Z",
+    "scheduledArrival": "2025-10-11T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1100,
+    "driver": {
+      "name": "Amal Fernando",
+      "licenseNumber": "B3456786",
+      "contactNumber": "+94-77-3456789"
+    },
+    "conductor": {
+      "name": "Chamara Dias",
+      "contactNumber": "+94-77-4567890"
+    }
+  },
+  {
+    "tripId": "TR-20251011-021-028",
+    "busRegistration": "CAN-8284",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T16:00:00.000Z",
+    "scheduledArrival": "2025-10-11T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1100,
+    "driver": {
+      "name": "Thisara Weerasinghe",
+      "licenseNumber": "B4567897",
+      "contactNumber": "+94-77-5678901"
+    },
+    "conductor": {
+      "name": "Dinesh Gunasekara",
+      "contactNumber": "+94-77-6789012"
+    }
+  },
+  {
+    "tripId": "TR-20251011-021-029",
+    "busRegistration": "CAO-9395",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T10:00:00.000Z",
+    "scheduledArrival": "2025-10-11T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1100,
+    "driver": {
+      "name": "Chamara Fernando",
+      "licenseNumber": "B5678908",
+      "contactNumber": "+94-77-7890123"
+    },
+    "conductor": {
+      "name": "Pradeep Mendis",
+      "contactNumber": "+94-77-8901234"
+    }
+  },
+  {
+    "tripId": "TR-20251011-021-030",
+    "busRegistration": "CAO-9395",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T17:00:00.000Z",
+    "scheduledArrival": "2025-10-11T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1100,
+    "driver": {
+      "name": "Kumara Jayasinghe",
+      "licenseNumber": "B6789019",
+      "contactNumber": "+94-77-9012345"
+    },
+    "conductor": {
+      "name": "Ruwan Wijeratne",
+      "contactNumber": "+94-77-1023456"
+    }
+  },
+  {
+    "tripId": "TR-20251011-004-031",
+    "busRegistration": "CAP-1406",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T06:00:00.000Z",
+    "scheduledArrival": "2025-10-11T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Mahinda Rajapakse",
+      "licenseNumber": "B7890120",
+      "contactNumber": "+94-77-2134567"
+    },
+    "conductor": {
+      "name": "Kasun Perera",
+      "contactNumber": "+94-77-3245678"
+    }
+  },
+  {
+    "tripId": "TR-20251011-004-032",
+    "busRegistration": "CAP-1406",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T13:00:00.000Z",
+    "scheduledArrival": "2025-10-11T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Saman Silva",
+      "licenseNumber": "B8901231",
+      "contactNumber": "+94-77-4356789"
+    },
+    "conductor": {
+      "name": "Gayan Fernando",
+      "contactNumber": "+94-77-5467890"
+    }
+  },
+  {
+    "tripId": "TR-20251011-004-033",
+    "busRegistration": "CAQ-2517",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T07:00:00.000Z",
+    "scheduledArrival": "2025-10-11T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 850,
+    "driver": {
+      "name": "Ravi Wickramasinghe",
+      "licenseNumber": "B9012342",
+      "contactNumber": "+94-77-6578901"
+    },
+    "conductor": {
+      "name": "Janaka Amarasinghe",
+      "contactNumber": "+94-77-7689012"
+    }
+  },
+  {
+    "tripId": "TR-20251011-004-034",
+    "busRegistration": "CAQ-2517",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T14:00:00.000Z",
+    "scheduledArrival": "2025-10-11T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 850,
+    "driver": {
+      "name": "Priyantha Gunasekara",
+      "licenseNumber": "B1023453",
+      "contactNumber": "+94-77-8790123"
+    },
+    "conductor": {
+      "name": "Suranga Perera",
+      "contactNumber": "+94-77-9801234"
+    }
+  },
+  {
+    "tripId": "TR-20251011-004-035",
+    "busRegistration": "CAR-3628",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T08:00:00.000Z",
+    "scheduledArrival": "2025-10-11T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 850,
+    "driver": {
+      "name": "Tharaka Jayawardana",
+      "licenseNumber": "B2134564",
+      "contactNumber": "+94-77-1912345"
+    },
+    "conductor": {
+      "name": "Nishan Silva",
+      "contactNumber": "+94-77-2023456"
+    }
+  },
+  {
+    "tripId": "TR-20251011-004-036",
+    "busRegistration": "CAR-3628",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T15:00:00.000Z",
+    "scheduledArrival": "2025-10-11T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 850,
+    "driver": {
+      "name": "Damith Jayasinghe",
+      "licenseNumber": "B3245675",
+      "contactNumber": "+94-77-3134567"
+    },
+    "conductor": {
+      "name": "Chanaka Perera",
+      "contactNumber": "+94-77-4245678"
+    }
+  },
+  {
+    "tripId": "TR-20251011-004-037",
+    "busRegistration": "CAS-4739",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T09:00:00.000Z",
+    "scheduledArrival": "2025-10-11T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1120,
+    "driver": {
+      "name": "Upul Fernando",
+      "licenseNumber": "B4356786",
+      "contactNumber": "+94-77-5356789"
+    },
+    "conductor": {
+      "name": "Roshan Silva",
+      "contactNumber": "+94-77-6467890"
+    }
+  },
+  {
+    "tripId": "TR-20251011-004-038",
+    "busRegistration": "CAS-4739",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T16:00:00.000Z",
+    "scheduledArrival": "2025-10-11T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1120,
+    "driver": {
+      "name": "Sampath Gunathilaka",
+      "licenseNumber": "B5467897",
+      "contactNumber": "+94-77-7578901"
+    },
+    "conductor": {
+      "name": "Indika Perera",
+      "contactNumber": "+94-77-8689012"
+    }
+  },
+  {
+    "tripId": "TR-20251011-004-039",
+    "busRegistration": "CAT-5840",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T10:00:00.000Z",
+    "scheduledArrival": "2025-10-11T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1600,
+    "driver": {
+      "name": "Wasantha Silva",
+      "licenseNumber": "B6578908",
+      "contactNumber": "+94-77-9790123"
+    },
+    "conductor": {
+      "name": "Thilak Fernando",
+      "contactNumber": "+94-77-1801234"
+    }
+  },
+  {
+    "tripId": "TR-20251011-004-040",
+    "busRegistration": "CAT-5840",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T17:00:00.000Z",
+    "scheduledArrival": "2025-10-11T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1600,
+    "driver": {
+      "name": "Lalith Gunasekara",
+      "licenseNumber": "B7689019",
+      "contactNumber": "+94-77-2912345"
+    },
+    "conductor": {
+      "name": "Aruna Perera",
+      "contactNumber": "+94-77-3023456"
+    }
+  },
+  {
+    "tripId": "TR-20251011-099-041",
+    "busRegistration": "CAU-6951",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T06:00:00.000Z",
+    "scheduledArrival": "2025-10-11T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Sunimal Jayawardana",
+      "licenseNumber": "B8790120",
+      "contactNumber": "+94-77-4134567"
+    },
+    "conductor": {
+      "name": "Sunil Silva",
+      "contactNumber": "+94-77-5245678"
+    }
+  },
+  {
+    "tripId": "TR-20251011-099-042",
+    "busRegistration": "CAU-6951",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T13:00:00.000Z",
+    "scheduledArrival": "2025-10-11T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Buddhika Fernando",
+      "licenseNumber": "B9801231",
+      "contactNumber": "+94-77-6356789"
+    },
+    "conductor": {
+      "name": "Asantha Perera",
+      "contactNumber": "+94-77-7467890"
+    }
+  },
+  {
+    "tripId": "TR-20251011-099-043",
+    "busRegistration": "CAV-7062",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T07:00:00.000Z",
+    "scheduledArrival": "2025-10-11T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 950,
+    "driver": {
+      "name": "Dilshan Wickramasinghe",
+      "licenseNumber": "B1912342",
+      "contactNumber": "+94-77-8578901"
+    },
+    "conductor": {
+      "name": "Namal Silva",
+      "contactNumber": "+94-77-9689012"
+    }
+  },
+  {
+    "tripId": "TR-20251011-099-044",
+    "busRegistration": "CAV-7062",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T14:00:00.000Z",
+    "scheduledArrival": "2025-10-11T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 950,
+    "driver": {
+      "name": "Janith Jayasinghe",
+      "licenseNumber": "B2023453",
+      "contactNumber": "+94-77-1790123"
+    },
+    "conductor": {
+      "name": "Manjula Fernando",
+      "contactNumber": "+94-77-2801234"
+    }
+  },
+  {
+    "tripId": "TR-20251011-099-045",
+    "busRegistration": "CAW-8173",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T08:00:00.000Z",
+    "scheduledArrival": "2025-10-11T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 950,
+    "driver": {
+      "name": "Thilina Gunasekara",
+      "licenseNumber": "B3134564",
+      "contactNumber": "+94-77-3912345"
+    },
+    "conductor": {
+      "name": "Pubudu Perera",
+      "contactNumber": "+94-77-4023456"
+    }
+  },
+  {
+    "tripId": "TR-20251011-099-046",
+    "busRegistration": "CAW-8173",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T15:00:00.000Z",
+    "scheduledArrival": "2025-10-11T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 950,
+    "driver": {
+      "name": "Milinda Silva",
+      "licenseNumber": "B4245675",
+      "contactNumber": "+94-77-5134567"
+    },
+    "conductor": {
+      "name": "Kapila Fernando",
+      "contactNumber": "+94-77-6245678"
+    }
+  },
+  {
+    "tripId": "TR-20251011-099-047",
+    "busRegistration": "CAX-9284",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T09:00:00.000Z",
+    "scheduledArrival": "2025-10-11T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1250,
+    "driver": {
+      "name": "Nuwan Jayawardana",
+      "licenseNumber": "B5356786",
+      "contactNumber": "+94-77-7356789"
+    },
+    "conductor": {
+      "name": "Sanjaya Perera",
+      "contactNumber": "+94-77-8467890"
+    }
+  },
+  {
+    "tripId": "TR-20251011-099-048",
+    "busRegistration": "CAX-9284",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T16:00:00.000Z",
+    "scheduledArrival": "2025-10-11T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1250,
+    "driver": {
+      "name": "Sandun Wickramasinghe",
+      "licenseNumber": "B6467897",
+      "contactNumber": "+94-77-9578901"
+    },
+    "conductor": {
+      "name": "Chatura Silva",
+      "contactNumber": "+94-77-1689012"
+    }
+  },
+  {
+    "tripId": "TR-20251011-099-049",
+    "busRegistration": "CAY-1395",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T10:00:00.000Z",
+    "scheduledArrival": "2025-10-11T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1250,
+    "driver": {
+      "name": "Amila Gunathilaka",
+      "licenseNumber": "B7578908",
+      "contactNumber": "+94-77-2790123"
+    },
+    "conductor": {
+      "name": "Dhanushka Fernando",
+      "contactNumber": "+94-77-3801234"
+    }
+  },
+  {
+    "tripId": "TR-20251011-099-050",
+    "busRegistration": "CAY-1395",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-11",
+    "scheduledDeparture": "2025-10-11T17:00:00.000Z",
+    "scheduledArrival": "2025-10-11T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1250,
+    "driver": {
+      "name": "Ravindu Perera",
+      "licenseNumber": "B8689019",
+      "contactNumber": "+94-77-4912345"
+    },
+    "conductor": {
+      "name": "Chamika Silva",
+      "contactNumber": "+94-77-5023456"
+    }
+  },
+  {
+    "tripId": "TR-20251012-001-001",
+    "busRegistration": "CAA-5678",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T06:00:00.000Z",
+    "scheduledArrival": "2025-10-12T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 350,
+    "driver": {
+      "name": "Nimal Perera",
+      "licenseNumber": "B2345675",
+      "contactNumber": "+94-77-1234567"
+    },
+    "conductor": {
+      "name": "Asanka Silva",
+      "contactNumber": "+94-77-2345678"
+    }
+  },
+  {
+    "tripId": "TR-20251012-001-002",
+    "busRegistration": "CAA-5678",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T13:00:00.000Z",
+    "scheduledArrival": "2025-10-12T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 350,
+    "driver": {
+      "name": "Amal Fernando",
+      "licenseNumber": "B3456786",
+      "contactNumber": "+94-77-3456789"
+    },
+    "conductor": {
+      "name": "Chamara Dias",
+      "contactNumber": "+94-77-4567890"
+    }
+  },
+  {
+    "tripId": "TR-20251012-001-003",
+    "busRegistration": "CAB-5958",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T07:00:00.000Z",
+    "scheduledArrival": "2025-10-12T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Thisara Weerasinghe",
+      "licenseNumber": "B4567897",
+      "contactNumber": "+94-77-5678901"
+    },
+    "conductor": {
+      "name": "Dinesh Gunasekara",
+      "contactNumber": "+94-77-6789012"
+    }
+  },
+  {
+    "tripId": "TR-20251012-001-004",
+    "busRegistration": "CAB-5958",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T14:00:00.000Z",
+    "scheduledArrival": "2025-10-12T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Chamara Fernando",
+      "licenseNumber": "B5678908",
+      "contactNumber": "+94-77-7890123"
+    },
+    "conductor": {
+      "name": "Pradeep Mendis",
+      "contactNumber": "+94-77-8901234"
+    }
+  },
+  {
+    "tripId": "TR-20251012-001-005",
+    "busRegistration": "CAC-6173",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T08:00:00.000Z",
+    "scheduledArrival": "2025-10-12T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Kumara Jayasinghe",
+      "licenseNumber": "B6789019",
+      "contactNumber": "+94-77-9012345"
+    },
+    "conductor": {
+      "name": "Ruwan Wijeratne",
+      "contactNumber": "+94-77-1023456"
+    }
+  },
+  {
+    "tripId": "TR-20251012-001-006",
+    "busRegistration": "CAC-6173",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T15:00:00.000Z",
+    "scheduledArrival": "2025-10-12T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Mahinda Rajapakse",
+      "licenseNumber": "B7890120",
+      "contactNumber": "+94-77-2134567"
+    },
+    "conductor": {
+      "name": "Kasun Perera",
+      "contactNumber": "+94-77-3245678"
+    }
+  },
+  {
+    "tripId": "TR-20251012-001-007",
+    "busRegistration": "CAD-7284",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T09:00:00.000Z",
+    "scheduledArrival": "2025-10-12T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 750,
+    "driver": {
+      "name": "Saman Silva",
+      "licenseNumber": "B8901231",
+      "contactNumber": "+94-77-4356789"
+    },
+    "conductor": {
+      "name": "Gayan Fernando",
+      "contactNumber": "+94-77-5467890"
+    }
+  },
+  {
+    "tripId": "TR-20251012-001-008",
+    "busRegistration": "CAD-7284",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T16:00:00.000Z",
+    "scheduledArrival": "2025-10-12T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 750,
+    "driver": {
+      "name": "Ravi Wickramasinghe",
+      "licenseNumber": "B9012342",
+      "contactNumber": "+94-77-6578901"
+    },
+    "conductor": {
+      "name": "Janaka Amarasinghe",
+      "contactNumber": "+94-77-7689012"
+    }
+  },
+  {
+    "tripId": "TR-20251012-001-009",
+    "busRegistration": "CAE-8395",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T10:00:00.000Z",
+    "scheduledArrival": "2025-10-12T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1150,
+    "driver": {
+      "name": "Priyantha Gunasekara",
+      "licenseNumber": "B1023453",
+      "contactNumber": "+94-77-8790123"
+    },
+    "conductor": {
+      "name": "Suranga Perera",
+      "contactNumber": "+94-77-9801234"
+    }
+  },
+  {
+    "tripId": "TR-20251012-001-010",
+    "busRegistration": "CAE-8395",
+    "routeNumber": "001",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T17:00:00.000Z",
+    "scheduledArrival": "2025-10-12T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1150,
+    "driver": {
+      "name": "Tharaka Jayawardana",
+      "licenseNumber": "B2134564",
+      "contactNumber": "+94-77-1912345"
+    },
+    "conductor": {
+      "name": "Nishan Silva",
+      "contactNumber": "+94-77-2023456"
+    }
+  },
+  {
+    "tripId": "TR-20251012-002-011",
+    "busRegistration": "CAF-9406",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T06:00:00.000Z",
+    "scheduledArrival": "2025-10-12T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 420,
+    "driver": {
+      "name": "Damith Jayasinghe",
+      "licenseNumber": "B3245675",
+      "contactNumber": "+94-77-3134567"
+    },
+    "conductor": {
+      "name": "Chanaka Perera",
+      "contactNumber": "+94-77-4245678"
+    }
+  },
+  {
+    "tripId": "TR-20251012-002-012",
+    "busRegistration": "CAF-9406",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T13:00:00.000Z",
+    "scheduledArrival": "2025-10-12T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 420,
+    "driver": {
+      "name": "Upul Fernando",
+      "licenseNumber": "B4356786",
+      "contactNumber": "+94-77-5356789"
+    },
+    "conductor": {
+      "name": "Roshan Silva",
+      "contactNumber": "+94-77-6467890"
+    }
+  },
+  {
+    "tripId": "TR-20251012-002-013",
+    "busRegistration": "CAG-1517",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T07:00:00.000Z",
+    "scheduledArrival": "2025-10-12T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 680,
+    "driver": {
+      "name": "Sampath Gunathilaka",
+      "licenseNumber": "B5467897",
+      "contactNumber": "+94-77-7578901"
+    },
+    "conductor": {
+      "name": "Indika Perera",
+      "contactNumber": "+94-77-8689012"
+    }
+  },
+  {
+    "tripId": "TR-20251012-002-014",
+    "busRegistration": "CAG-1517",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T14:00:00.000Z",
+    "scheduledArrival": "2025-10-12T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 680,
+    "driver": {
+      "name": "Wasantha Silva",
+      "licenseNumber": "B6578908",
+      "contactNumber": "+94-77-9790123"
+    },
+    "conductor": {
+      "name": "Thilak Fernando",
+      "contactNumber": "+94-77-1801234"
+    }
+  },
+  {
+    "tripId": "TR-20251012-002-015",
+    "busRegistration": "CAH-2628",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T08:00:00.000Z",
+    "scheduledArrival": "2025-10-12T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1300,
+    "driver": {
+      "name": "Lalith Gunasekara",
+      "licenseNumber": "B7689019",
+      "contactNumber": "+94-77-2912345"
+    },
+    "conductor": {
+      "name": "Aruna Perera",
+      "contactNumber": "+94-77-3023456"
+    }
+  },
+  {
+    "tripId": "TR-20251012-002-016",
+    "busRegistration": "CAH-2628",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T15:00:00.000Z",
+    "scheduledArrival": "2025-10-12T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1300,
+    "driver": {
+      "name": "Sunimal Jayawardana",
+      "licenseNumber": "B8790120",
+      "contactNumber": "+94-77-4134567"
+    },
+    "conductor": {
+      "name": "Sunil Silva",
+      "contactNumber": "+94-77-5245678"
+    }
+  },
+  {
+    "tripId": "TR-20251012-002-017",
+    "busRegistration": "CAI-3739",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T09:00:00.000Z",
+    "scheduledArrival": "2025-10-12T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1300,
+    "driver": {
+      "name": "Buddhika Fernando",
+      "licenseNumber": "B9801231",
+      "contactNumber": "+94-77-6356789"
+    },
+    "conductor": {
+      "name": "Asantha Perera",
+      "contactNumber": "+94-77-7467890"
+    }
+  },
+  {
+    "tripId": "TR-20251012-002-018",
+    "busRegistration": "CAI-3739",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T16:00:00.000Z",
+    "scheduledArrival": "2025-10-12T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1300,
+    "driver": {
+      "name": "Dilshan Wickramasinghe",
+      "licenseNumber": "B1912342",
+      "contactNumber": "+94-77-8578901"
+    },
+    "conductor": {
+      "name": "Namal Silva",
+      "contactNumber": "+94-77-9689012"
+    }
+  },
+  {
+    "tripId": "TR-20251012-002-019",
+    "busRegistration": "CAJ-4840",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T10:00:00.000Z",
+    "scheduledArrival": "2025-10-12T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 680,
+    "driver": {
+      "name": "Janith Jayasinghe",
+      "licenseNumber": "B2023453",
+      "contactNumber": "+94-77-1790123"
+    },
+    "conductor": {
+      "name": "Manjula Fernando",
+      "contactNumber": "+94-77-2801234"
+    }
+  },
+  {
+    "tripId": "TR-20251012-002-020",
+    "busRegistration": "CAJ-4840",
+    "routeNumber": "002",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T17:00:00.000Z",
+    "scheduledArrival": "2025-10-12T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 680,
+    "driver": {
+      "name": "Thilina Gunasekara",
+      "licenseNumber": "B3134564",
+      "contactNumber": "+94-77-3912345"
+    },
+    "conductor": {
+      "name": "Pubudu Perera",
+      "contactNumber": "+94-77-4023456"
+    }
+  },
+  {
+    "tripId": "TR-20251012-021-021",
+    "busRegistration": "CAK-5951",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T06:00:00.000Z",
+    "scheduledArrival": "2025-10-12T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 320,
+    "driver": {
+      "name": "Milinda Silva",
+      "licenseNumber": "B4245675",
+      "contactNumber": "+94-77-5134567"
+    },
+    "conductor": {
+      "name": "Kapila Fernando",
+      "contactNumber": "+94-77-6245678"
+    }
+  },
+  {
+    "tripId": "TR-20251012-021-022",
+    "busRegistration": "CAK-5951",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T13:00:00.000Z",
+    "scheduledArrival": "2025-10-12T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 320,
+    "driver": {
+      "name": "Nuwan Jayawardana",
+      "licenseNumber": "B5356786",
+      "contactNumber": "+94-77-7356789"
+    },
+    "conductor": {
+      "name": "Sanjaya Perera",
+      "contactNumber": "+94-77-8467890"
+    }
+  },
+  {
+    "tripId": "TR-20251012-021-023",
+    "busRegistration": "CAL-6062",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T07:00:00.000Z",
+    "scheduledArrival": "2025-10-12T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Sandun Wickramasinghe",
+      "licenseNumber": "B6467897",
+      "contactNumber": "+94-77-9578901"
+    },
+    "conductor": {
+      "name": "Chatura Silva",
+      "contactNumber": "+94-77-1689012"
+    }
+  },
+  {
+    "tripId": "TR-20251012-021-024",
+    "busRegistration": "CAL-6062",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T14:00:00.000Z",
+    "scheduledArrival": "2025-10-12T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Amila Gunathilaka",
+      "licenseNumber": "B7578908",
+      "contactNumber": "+94-77-2790123"
+    },
+    "conductor": {
+      "name": "Dhanushka Fernando",
+      "contactNumber": "+94-77-3801234"
+    }
+  },
+  {
+    "tripId": "TR-20251012-021-025",
+    "busRegistration": "CAM-7173",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T08:00:00.000Z",
+    "scheduledArrival": "2025-10-12T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Ravindu Perera",
+      "licenseNumber": "B8689019",
+      "contactNumber": "+94-77-4912345"
+    },
+    "conductor": {
+      "name": "Chamika Silva",
+      "contactNumber": "+94-77-5023456"
+    }
+  },
+  {
+    "tripId": "TR-20251012-021-026",
+    "busRegistration": "CAM-7173",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T15:00:00.000Z",
+    "scheduledArrival": "2025-10-12T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Nimal Perera",
+      "licenseNumber": "B2345675",
+      "contactNumber": "+94-77-1234567"
+    },
+    "conductor": {
+      "name": "Asanka Silva",
+      "contactNumber": "+94-77-2345678"
+    }
+  },
+  {
+    "tripId": "TR-20251012-021-027",
+    "busRegistration": "CAN-8284",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T09:00:00.000Z",
+    "scheduledArrival": "2025-10-12T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1100,
+    "driver": {
+      "name": "Amal Fernando",
+      "licenseNumber": "B3456786",
+      "contactNumber": "+94-77-3456789"
+    },
+    "conductor": {
+      "name": "Chamara Dias",
+      "contactNumber": "+94-77-4567890"
+    }
+  },
+  {
+    "tripId": "TR-20251012-021-028",
+    "busRegistration": "CAN-8284",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T16:00:00.000Z",
+    "scheduledArrival": "2025-10-12T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1100,
+    "driver": {
+      "name": "Thisara Weerasinghe",
+      "licenseNumber": "B4567897",
+      "contactNumber": "+94-77-5678901"
+    },
+    "conductor": {
+      "name": "Dinesh Gunasekara",
+      "contactNumber": "+94-77-6789012"
+    }
+  },
+  {
+    "tripId": "TR-20251012-021-029",
+    "busRegistration": "CAO-9395",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T10:00:00.000Z",
+    "scheduledArrival": "2025-10-12T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1100,
+    "driver": {
+      "name": "Chamara Fernando",
+      "licenseNumber": "B5678908",
+      "contactNumber": "+94-77-7890123"
+    },
+    "conductor": {
+      "name": "Pradeep Mendis",
+      "contactNumber": "+94-77-8901234"
+    }
+  },
+  {
+    "tripId": "TR-20251012-021-030",
+    "busRegistration": "CAO-9395",
+    "routeNumber": "002-1",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T17:00:00.000Z",
+    "scheduledArrival": "2025-10-12T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1100,
+    "driver": {
+      "name": "Kumara Jayasinghe",
+      "licenseNumber": "B6789019",
+      "contactNumber": "+94-77-9012345"
+    },
+    "conductor": {
+      "name": "Ruwan Wijeratne",
+      "contactNumber": "+94-77-1023456"
+    }
+  },
+  {
+    "tripId": "TR-20251012-004-031",
+    "busRegistration": "CAP-1406",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T06:00:00.000Z",
+    "scheduledArrival": "2025-10-12T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Mahinda Rajapakse",
+      "licenseNumber": "B7890120",
+      "contactNumber": "+94-77-2134567"
+    },
+    "conductor": {
+      "name": "Kasun Perera",
+      "contactNumber": "+94-77-3245678"
+    }
+  },
+  {
+    "tripId": "TR-20251012-004-032",
+    "busRegistration": "CAP-1406",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T13:00:00.000Z",
+    "scheduledArrival": "2025-10-12T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 520,
+    "driver": {
+      "name": "Saman Silva",
+      "licenseNumber": "B8901231",
+      "contactNumber": "+94-77-4356789"
+    },
+    "conductor": {
+      "name": "Gayan Fernando",
+      "contactNumber": "+94-77-5467890"
+    }
+  },
+  {
+    "tripId": "TR-20251012-004-033",
+    "busRegistration": "CAQ-2517",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T07:00:00.000Z",
+    "scheduledArrival": "2025-10-12T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 850,
+    "driver": {
+      "name": "Ravi Wickramasinghe",
+      "licenseNumber": "B9012342",
+      "contactNumber": "+94-77-6578901"
+    },
+    "conductor": {
+      "name": "Janaka Amarasinghe",
+      "contactNumber": "+94-77-7689012"
+    }
+  },
+  {
+    "tripId": "TR-20251012-004-034",
+    "busRegistration": "CAQ-2517",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T14:00:00.000Z",
+    "scheduledArrival": "2025-10-12T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 850,
+    "driver": {
+      "name": "Priyantha Gunasekara",
+      "licenseNumber": "B1023453",
+      "contactNumber": "+94-77-8790123"
+    },
+    "conductor": {
+      "name": "Suranga Perera",
+      "contactNumber": "+94-77-9801234"
+    }
+  },
+  {
+    "tripId": "TR-20251012-004-035",
+    "busRegistration": "CAR-3628",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T08:00:00.000Z",
+    "scheduledArrival": "2025-10-12T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 850,
+    "driver": {
+      "name": "Tharaka Jayawardana",
+      "licenseNumber": "B2134564",
+      "contactNumber": "+94-77-1912345"
+    },
+    "conductor": {
+      "name": "Nishan Silva",
+      "contactNumber": "+94-77-2023456"
+    }
+  },
+  {
+    "tripId": "TR-20251012-004-036",
+    "busRegistration": "CAR-3628",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T15:00:00.000Z",
+    "scheduledArrival": "2025-10-12T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 850,
+    "driver": {
+      "name": "Damith Jayasinghe",
+      "licenseNumber": "B3245675",
+      "contactNumber": "+94-77-3134567"
+    },
+    "conductor": {
+      "name": "Chanaka Perera",
+      "contactNumber": "+94-77-4245678"
+    }
+  },
+  {
+    "tripId": "TR-20251012-004-037",
+    "busRegistration": "CAS-4739",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T09:00:00.000Z",
+    "scheduledArrival": "2025-10-12T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1120,
+    "driver": {
+      "name": "Upul Fernando",
+      "licenseNumber": "B4356786",
+      "contactNumber": "+94-77-5356789"
+    },
+    "conductor": {
+      "name": "Roshan Silva",
+      "contactNumber": "+94-77-6467890"
+    }
+  },
+  {
+    "tripId": "TR-20251012-004-038",
+    "busRegistration": "CAS-4739",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T16:00:00.000Z",
+    "scheduledArrival": "2025-10-12T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1120,
+    "driver": {
+      "name": "Sampath Gunathilaka",
+      "licenseNumber": "B5467897",
+      "contactNumber": "+94-77-7578901"
+    },
+    "conductor": {
+      "name": "Indika Perera",
+      "contactNumber": "+94-77-8689012"
+    }
+  },
+  {
+    "tripId": "TR-20251012-004-039",
+    "busRegistration": "CAT-5840",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T10:00:00.000Z",
+    "scheduledArrival": "2025-10-12T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1600,
+    "driver": {
+      "name": "Wasantha Silva",
+      "licenseNumber": "B6578908",
+      "contactNumber": "+94-77-9790123"
+    },
+    "conductor": {
+      "name": "Thilak Fernando",
+      "contactNumber": "+94-77-1801234"
+    }
+  },
+  {
+    "tripId": "TR-20251012-004-040",
+    "busRegistration": "CAT-5840",
+    "routeNumber": "004",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T17:00:00.000Z",
+    "scheduledArrival": "2025-10-12T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1600,
+    "driver": {
+      "name": "Lalith Gunasekara",
+      "licenseNumber": "B7689019",
+      "contactNumber": "+94-77-2912345"
+    },
+    "conductor": {
+      "name": "Aruna Perera",
+      "contactNumber": "+94-77-3023456"
+    }
+  },
+  {
+    "tripId": "TR-20251012-099-041",
+    "busRegistration": "CAU-6951",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T06:00:00.000Z",
+    "scheduledArrival": "2025-10-12T09:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Sunimal Jayawardana",
+      "licenseNumber": "B8790120",
+      "contactNumber": "+94-77-4134567"
+    },
+    "conductor": {
+      "name": "Sunil Silva",
+      "contactNumber": "+94-77-5245678"
+    }
+  },
+  {
+    "tripId": "TR-20251012-099-042",
+    "busRegistration": "CAU-6951",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T13:00:00.000Z",
+    "scheduledArrival": "2025-10-12T16:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 580,
+    "driver": {
+      "name": "Buddhika Fernando",
+      "licenseNumber": "B9801231",
+      "contactNumber": "+94-77-6356789"
+    },
+    "conductor": {
+      "name": "Asantha Perera",
+      "contactNumber": "+94-77-7467890"
+    }
+  },
+  {
+    "tripId": "TR-20251012-099-043",
+    "busRegistration": "CAV-7062",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T07:00:00.000Z",
+    "scheduledArrival": "2025-10-12T11:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 950,
+    "driver": {
+      "name": "Dilshan Wickramasinghe",
+      "licenseNumber": "B1912342",
+      "contactNumber": "+94-77-8578901"
+    },
+    "conductor": {
+      "name": "Namal Silva",
+      "contactNumber": "+94-77-9689012"
+    }
+  },
+  {
+    "tripId": "TR-20251012-099-044",
+    "busRegistration": "CAV-7062",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T14:00:00.000Z",
+    "scheduledArrival": "2025-10-12T18:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 950,
+    "driver": {
+      "name": "Janith Jayasinghe",
+      "licenseNumber": "B2023453",
+      "contactNumber": "+94-77-1790123"
+    },
+    "conductor": {
+      "name": "Manjula Fernando",
+      "contactNumber": "+94-77-2801234"
+    }
+  },
+  {
+    "tripId": "TR-20251012-099-045",
+    "busRegistration": "CAW-8173",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T08:00:00.000Z",
+    "scheduledArrival": "2025-10-12T13:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 950,
+    "driver": {
+      "name": "Thilina Gunasekara",
+      "licenseNumber": "B3134564",
+      "contactNumber": "+94-77-3912345"
+    },
+    "conductor": {
+      "name": "Pubudu Perera",
+      "contactNumber": "+94-77-4023456"
+    }
+  },
+  {
+    "tripId": "TR-20251012-099-046",
+    "busRegistration": "CAW-8173",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T15:00:00.000Z",
+    "scheduledArrival": "2025-10-12T20:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 950,
+    "driver": {
+      "name": "Milinda Silva",
+      "licenseNumber": "B4245675",
+      "contactNumber": "+94-77-5134567"
+    },
+    "conductor": {
+      "name": "Kapila Fernando",
+      "contactNumber": "+94-77-6245678"
+    }
+  },
+  {
+    "tripId": "TR-20251012-099-047",
+    "busRegistration": "CAX-9284",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T09:00:00.000Z",
+    "scheduledArrival": "2025-10-12T12:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1250,
+    "driver": {
+      "name": "Nuwan Jayawardana",
+      "licenseNumber": "B5356786",
+      "contactNumber": "+94-77-7356789"
+    },
+    "conductor": {
+      "name": "Sanjaya Perera",
+      "contactNumber": "+94-77-8467890"
+    }
+  },
+  {
+    "tripId": "TR-20251012-099-048",
+    "busRegistration": "CAX-9284",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T16:00:00.000Z",
+    "scheduledArrival": "2025-10-12T19:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1250,
+    "driver": {
+      "name": "Sandun Wickramasinghe",
+      "licenseNumber": "B6467897",
+      "contactNumber": "+94-77-9578901"
+    },
+    "conductor": {
+      "name": "Chatura Silva",
+      "contactNumber": "+94-77-1689012"
+    }
+  },
+  {
+    "tripId": "TR-20251012-099-049",
+    "busRegistration": "CAY-1395",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T10:00:00.000Z",
+    "scheduledArrival": "2025-10-12T14:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1250,
+    "driver": {
+      "name": "Amila Gunathilaka",
+      "licenseNumber": "B7578908",
+      "contactNumber": "+94-77-2790123"
+    },
+    "conductor": {
+      "name": "Dhanushka Fernando",
+      "contactNumber": "+94-77-3801234"
+    }
+  },
+  {
+    "tripId": "TR-20251012-099-050",
+    "busRegistration": "CAY-1395",
+    "routeNumber": "099",
+    "serviceDate": "2025-10-12",
+    "scheduledDeparture": "2025-10-12T17:00:00.000Z",
+    "scheduledArrival": "2025-10-12T21:00:00.000Z",
+    "status": "Scheduled",
+    "fare": 1250,
+    "driver": {
+      "name": "Ravindu Perera",
+      "licenseNumber": "B8689019",
+      "contactNumber": "+94-77-4912345"
+    },
+    "conductor": {
+      "name": "Chamika Silva",
+      "contactNumber": "+94-77-5023456"
     }
   }
 ]

@@ -1,10 +1,16 @@
 import mongoose from 'mongoose';
 
 const routeSchema = new mongoose.Schema({
+  routeId: {
+    type: String,
+    required: [true, 'Route ID is required'],
+    unique: true,
+    trim: true,
+    index: true
+  },
   routeNumber: {
     type: String,
     required: [true, 'Route number is required'],
-    unique: true,
     trim: true,
     index: true
   },

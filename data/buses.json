@@ -2,98 +2,152 @@
   {
     "busNumber": "NB-1501",
     "registrationNumber": "CAA-5678",
-    "routeNumber": "15-1",
-    "capacity": 45,
+    "routeNumber": "001",
+    "capacity": 50,
+    "busType": "Normal",
+    "operator": {
+      "name": "SLTB Western Province",
+      "contactNumber": "+94-11-2234567",
+      "licenseNumber": "OP-2023-001"
+    },
+    "facilities": [],
+    "status": "Active",
+    "isOnline": true,
+    "availability": {
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": true,
+      "sunday": true
+    }
+  },
+  {
+    "busNumber": "NB-1502",
+    "registrationNumber": "CAB-5958",
+    "routeNumber": "001",
+    "capacity": 42,
     "busType": "Semi-Luxury",
     "operator": {
       "name": "SLTB Western Province",
       "contactNumber": "+94-11-2234567",
       "licenseNumber": "OP-2023-001"
     },
-    "facilities": ["AC", "WiFi"],
+    "facilities": ["AC"],
     "status": "Active",
-    "isOnline": true
+    "isOnline": true,
+    "availability": {
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": true,
+      "sunday": true
+    }
   },
   {
-    "busNumber": "NB-1502",
-    "registrationNumber": "CAB-9012",
-    "routeNumber": "15-1",
-    "capacity": 50,
+    "busNumber": "NB-1503",
+    "registrationNumber": "CAC-6173",
+    "routeNumber": "001",
+    "capacity": 42,
+    "busType": "Semi-Luxury",
+    "operator": {
+      "name": "SLTB Western Province",
+      "contactNumber": "+94-11-2234567",
+      "licenseNumber": "OP-2023-001"
+    },
+    "facilities": ["AC"],
+    "status": "Active",
+    "isOnline": true,
+    "availability": {
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": true,
+      "sunday": true
+    }
+  },
+  {
+    "busNumber": "NB-1504",
+    "registrationNumber": "CAD-7284",
+    "routeNumber": "001",
+    "capacity": 35,
     "busType": "Luxury",
     "operator": {
-      "name": "SLTB Western Province", 
+      "name": "SLTB Western Province",
       "contactNumber": "+94-11-2234567",
       "licenseNumber": "OP-2023-001"
     },
     "facilities": ["AC", "WiFi", "Charging Ports"],
     "status": "Active",
-    "isOnline": true
-  },
-  {
-    "busNumber": "NB-1503",
-    "registrationNumber": "CAC-3456",
-    "routeNumber": "15-1",
-    "capacity": 40,
-    "busType": "Normal",
-    "operator": {
-      "name": "SLTB Western Province",
-      "contactNumber": "+94-11-2234567", 
-      "licenseNumber": "OP-2023-001"
-    },
-    "facilities": [],
-    "status": "Active",
-    "isOnline": false
-  },
-  {
-    "busNumber": "NB-1504",
-    "registrationNumber": "CAD-7890",
-    "routeNumber": "15-1",
-    "capacity": 48,
-    "busType": "Semi-Luxury",
-    "operator": {
-      "name": "Private Operator A",
-      "contactNumber": "+94-77-3456789",
-      "licenseNumber": "OP-2023-045"
-    },
-    "facilities": ["AC"],
-    "status": "Active", 
-    "isOnline": true
+    "isOnline": true,
+    "availability": {
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": true,
+      "sunday": true
+    }
   },
   {
     "busNumber": "NB-1505",
-    "registrationNumber": "CAE-2468",
-    "routeNumber": "15-1",
-    "capacity": 42,
-    "busType": "Normal",
+    "registrationNumber": "CAE-8395",
+    "routeNumber": "001",
+    "capacity": 30,
+    "busType": "Intercity Express",
     "operator": {
-      "name": "Private Operator B",
-      "contactNumber": "+94-77-9876543",
-      "licenseNumber": "OP-2023-067"
+      "name": "SLTB Western Province",
+      "contactNumber": "+94-11-2234567",
+      "licenseNumber": "OP-2023-001"
     },
-    "facilities": [],
-    "status": "Maintenance",
-    "isOnline": false
+    "facilities": ["Premium AC", "WiFi", "Charging Ports", "Onboard Service"],
+    "status": "Active",
+    "isOnline": true,
+    "availability": {
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": true,
+      "sunday": true
+    }
   },
   {
-    "busNumber": "GB-0101",
-    "registrationNumber": "SP-1234",
-    "routeNumber": "1-1",
-    "capacity": 52,
-    "busType": "Air-Conditioned",
+    "busNumber": "NB-1506",
+    "registrationNumber": "CAF-9406",
+    "routeNumber": "002",
+    "capacity": 50,
+    "busType": "Normal",
     "operator": {
       "name": "SLTB Southern Province",
       "contactNumber": "+94-91-2234567",
       "licenseNumber": "OP-2023-002"
     },
-    "facilities": ["AC", "WiFi", "Entertainment System"],
+    "facilities": [],
     "status": "Active",
-    "isOnline": true
+    "isOnline": true,
+    "availability": {
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": true,
+      "sunday": true
+    }
   },
   {
-    "busNumber": "GB-0102", 
-    "registrationNumber": "SP-5678",
-    "routeNumber": "1-1",
-    "capacity": 48,
+    "busNumber": "NB-1507",
+    "registrationNumber": "CAG-1517",
+    "routeNumber": "002",
+    "capacity": 42,
     "busType": "Semi-Luxury",
     "operator": {
       "name": "SLTB Southern Province",
@@ -102,58 +156,238 @@
     },
     "facilities": ["AC"],
     "status": "Active",
-    "isOnline": true
+    "isOnline": true,
+    "availability": {
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": true,
+      "sunday": true
+    }
   },
   {
-    "busNumber": "GB-0103",
-    "registrationNumber": "SP-9012",
-    "routeNumber": "1-1",
-    "capacity": 45,
+    "busNumber": "NB-1508",
+    "registrationNumber": "CAH-2628",
+    "routeNumber": "002",
+    "capacity": 30,
+    "busType": "Intercity Express",
+    "operator": {
+      "name": "SLTB Southern Province",
+      "contactNumber": "+94-91-2234567",
+      "licenseNumber": "OP-2023-002"
+    },
+    "facilities": ["Premium AC", "WiFi", "Charging Ports", "Onboard Service"],
+    "status": "Active",
+    "isOnline": true,
+    "availability": {
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": true,
+      "sunday": true
+    }
+  },
+  {
+    "busNumber": "NB-1509",
+    "registrationNumber": "CAI-3739",
+    "routeNumber": "002",
+    "capacity": 30,
+    "busType": "Intercity Express",
+    "operator": {
+      "name": "SLTB Southern Province",
+      "contactNumber": "+94-91-2234567",
+      "licenseNumber": "OP-2023-002"
+    },
+    "facilities": ["Premium AC", "WiFi", "Charging Ports", "Onboard Service"],
+    "status": "Active",
+    "isOnline": true,
+    "availability": {
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": true,
+      "sunday": true
+    }
+  },
+  {
+    "busNumber": "NB-1510",
+    "registrationNumber": "CAJ-4840",
+    "routeNumber": "002",
+    "capacity": 42,
+    "busType": "Semi-Luxury",
+    "operator": {
+      "name": "SLTB Southern Province",
+      "contactNumber": "+94-91-2234567",
+      "licenseNumber": "OP-2023-002"
+    },
+    "facilities": ["AC"],
+    "status": "Active",
+    "isOnline": true,
+    "availability": {
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": true,
+      "sunday": true
+    }
+  },
+  {
+    "busNumber": "NB-1511",
+    "registrationNumber": "CAK-5951",
+    "routeNumber": "002-1",
+    "capacity": 50,
     "busType": "Normal",
     "operator": {
-      "name": "Highway Express Ltd",
-      "contactNumber": "+94-77-1111111",
-      "licenseNumber": "OP-2023-089"
+      "name": "SLTB Southern Province",
+      "contactNumber": "+94-91-2234567",
+      "licenseNumber": "OP-2023-002"
     },
     "facilities": [],
     "status": "Active",
-    "isOnline": true
+    "isOnline": true,
+    "availability": {
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": true,
+      "sunday": true
+    }
   },
   {
-    "busNumber": "GB-0104",
-    "registrationNumber": "SP-3456",
-    "routeNumber": "1-1", 
+    "busNumber": "NB-1512",
+    "registrationNumber": "CAL-6062",
+    "routeNumber": "002-1",
+    "capacity": 42,
+    "busType": "Semi-Luxury",
+    "operator": {
+      "name": "SLTB Southern Province",
+      "contactNumber": "+94-91-2234567",
+      "licenseNumber": "OP-2023-002"
+    },
+    "facilities": ["AC"],
+    "status": "Active",
+    "isOnline": true,
+    "availability": {
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": true,
+      "sunday": true
+    }
+  },
+  {
+    "busNumber": "NB-1513",
+    "registrationNumber": "CAM-7173",
+    "routeNumber": "002-1",
+    "capacity": 42,
+    "busType": "Semi-Luxury",
+    "operator": {
+      "name": "SLTB Southern Province",
+      "contactNumber": "+94-91-2234567",
+      "licenseNumber": "OP-2023-002"
+    },
+    "facilities": ["AC"],
+    "status": "Active",
+    "isOnline": true,
+    "availability": {
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": true,
+      "sunday": true
+    }
+  },
+  {
+    "busNumber": "NB-1514",
+    "registrationNumber": "CAN-8284",
+    "routeNumber": "002-1",
+    "capacity": 30,
+    "busType": "Intercity Express",
+    "operator": {
+      "name": "SLTB Southern Province",
+      "contactNumber": "+94-91-2234567",
+      "licenseNumber": "OP-2023-002"
+    },
+    "facilities": ["Premium AC", "WiFi", "Charging Ports", "Onboard Service"],
+    "status": "Active",
+    "isOnline": true,
+    "availability": {
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": true,
+      "sunday": true
+    }
+  },
+  {
+    "busNumber": "NB-1515",
+    "registrationNumber": "CAO-9395",
+    "routeNumber": "002-1",
+    "capacity": 30,
+    "busType": "Intercity Express",
+    "operator": {
+      "name": "SLTB Southern Province",
+      "contactNumber": "+94-91-2234567",
+      "licenseNumber": "OP-2023-002"
+    },
+    "facilities": ["Premium AC", "WiFi", "Charging Ports", "Onboard Service"],
+    "status": "Active",
+    "isOnline": true,
+    "availability": {
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": true,
+      "sunday": true
+    }
+  },
+  {
+    "busNumber": "NB-1516",
+    "registrationNumber": "CAP-1406",
+    "routeNumber": "004",
     "capacity": 50,
-    "busType": "Luxury",
+    "busType": "Normal",
     "operator": {
-      "name": "Galle Express Services",
-      "contactNumber": "+94-77-2222222",
-      "licenseNumber": "OP-2023-098"
+      "name": "SLTB North Central Province",
+      "contactNumber": "+94-25-2234567",
+      "licenseNumber": "OP-2023-003"
     },
-    "facilities": ["AC", "WiFi", "Charging Ports", "Entertainment System"],
+    "facilities": [],
     "status": "Active",
-    "isOnline": true
+    "isOnline": true,
+    "availability": {
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": true,
+      "sunday": true
+    }
   },
   {
-    "busNumber": "GB-0105",
-    "registrationNumber": "SP-7890",
-    "routeNumber": "1-1",
-    "capacity": 44,
-    "busType": "Semi-Luxury", 
-    "operator": {
-      "name": "Coastal Transport Co",
-      "contactNumber": "+94-77-3333333",
-      "licenseNumber": "OP-2023-112"
-    },
-    "facilities": ["AC", "WiFi"],
-    "status": "Active",
-    "isOnline": false
-  },
-  {
-    "busNumber": "AN-0401",
-    "registrationNumber": "NCP-1111",
-    "routeNumber": "4-1",
-    "capacity": 55,
+    "busNumber": "NB-1517",
+    "registrationNumber": "CAQ-2517",
+    "routeNumber": "004",
+    "capacity": 42,
     "busType": "Semi-Luxury",
     "operator": {
       "name": "SLTB North Central Province",
@@ -162,216 +396,207 @@
     },
     "facilities": ["AC"],
     "status": "Active",
-    "isOnline": true
+    "isOnline": true,
+    "availability": {
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": true,
+      "sunday": true
+    }
   },
   {
-    "busNumber": "AN-0402",
-    "registrationNumber": "NCP-2222",
-    "routeNumber": "4-1",
-    "capacity": 50,
-    "busType": "Normal",
-    "operator": {
-      "name": "SLTB North Central Province",
-      "contactNumber": "+94-25-2234567", 
-      "licenseNumber": "OP-2023-003"
-    },
-    "facilities": [],
-    "status": "Active",
-    "isOnline": true
-  },
-  {
-    "busNumber": "AN-0403",
-    "registrationNumber": "NCP-3333",
-    "routeNumber": "4-1",
-    "capacity": 48,
-    "busType": "Semi-Luxury",
-    "operator": {
-      "name": "Northern Express Transport",
-      "contactNumber": "+94-77-4444444",
-      "licenseNumber": "OP-2023-134"
-    },
-    "facilities": ["AC", "WiFi"],
-    "status": "Active",
-    "isOnline": true
-  },
-  {
-    "busNumber": "AN-0404",
-    "registrationNumber": "NCP-4444",
-    "routeNumber": "4-1",
-    "capacity": 52,
-    "busType": "Luxury",
-    "operator": {
-      "name": "Heritage City Express",
-      "contactNumber": "+94-77-5555555",
-      "licenseNumber": "OP-2023-145"
-    },
-    "facilities": ["AC", "WiFi", "Charging Ports"],
-    "status": "Active",
-    "isOnline": true
-  },
-  {
-    "busNumber": "AN-0405",
-    "registrationNumber": "NCP-5555",
-    "routeNumber": "4-1",
-    "capacity": 46,
-    "busType": "Normal",
-    "operator": {
-      "name": "Ancient City Transport",
-      "contactNumber": "+94-77-6666666",
-      "licenseNumber": "OP-2023-156"
-    },
-    "facilities": [],
-    "status": "Inactive",
-    "isOnline": false
-  },
-  {
-    "busNumber": "BD-9901",
-    "registrationNumber": "UV-1111",
-    "routeNumber": "99-1",
-    "capacity": 40,
-    "busType": "Semi-Luxury",
-    "operator": {
-      "name": "SLTB Uva Province",
-      "contactNumber": "+94-55-2234567",
-      "licenseNumber": "OP-2023-004"
-    },
-    "facilities": ["AC"],
-    "status": "Active",
-    "isOnline": true
-  },
-  {
-    "busNumber": "BD-9902",
-    "registrationNumber": "UV-2222", 
-    "routeNumber": "99-1",
-    "capacity": 38,
-    "busType": "Normal",
-    "operator": {
-      "name": "SLTB Uva Province",
-      "contactNumber": "+94-55-2234567",
-      "licenseNumber": "OP-2023-004"
-    },
-    "facilities": [],
-    "status": "Active",
-    "isOnline": true
-  },
-  {
-    "busNumber": "BD-9903",
-    "registrationNumber": "UV-3333",
-    "routeNumber": "99-1", 
+    "busNumber": "NB-1518",
+    "registrationNumber": "CAR-3628",
+    "routeNumber": "004",
     "capacity": 42,
     "busType": "Semi-Luxury",
     "operator": {
-      "name": "Hill Country Express", 
-      "contactNumber": "+94-77-7777777",
-      "licenseNumber": "OP-2023-167"
-    },
-    "facilities": ["AC", "WiFi"],
-    "status": "Active",
-    "isOnline": true
-  },
-  {
-    "busNumber": "BD-9904",
-    "registrationNumber": "UV-4444",
-    "routeNumber": "99-1",
-    "capacity": 45,
-    "busType": "Luxury",
-    "operator": {
-      "name": "Mountain View Transport",
-      "contactNumber": "+94-77-8888888",
-      "licenseNumber": "OP-2023-178"
-    },
-    "facilities": ["AC", "WiFi", "Charging Ports", "Entertainment System"],
-    "status": "Active",
-    "isOnline": false
-  },
-  {
-    "busNumber": "BD-9905",
-    "registrationNumber": "UV-5555",
-    "routeNumber": "99-1",
-    "capacity": 36,
-    "busType": "Normal",
-    "operator": {
-      "name": "Tea Country Express",
-      "contactNumber": "+94-77-9999999",
-      "licenseNumber": "OP-2023-189"
-    },
-    "facilities": [],
-    "status": "Maintenance",
-    "isOnline": false
-  },
-  {
-    "busNumber": "MT-2451",
-    "registrationNumber": "SP-6666",
-    "routeNumber": "245-1",
-    "capacity": 50,
-    "busType": "Semi-Luxury",
-    "operator": {
-      "name": "SLTB Southern Province",
-      "contactNumber": "+94-41-2234567",
-      "licenseNumber": "OP-2023-005"
+      "name": "SLTB North Central Province",
+      "contactNumber": "+94-25-2234567",
+      "licenseNumber": "OP-2023-003"
     },
     "facilities": ["AC"],
     "status": "Active",
-    "isOnline": true
+    "isOnline": true,
+    "availability": {
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": true,
+      "sunday": true
+    }
   },
   {
-    "busNumber": "MT-2452",
-    "registrationNumber": "SP-7777",
-    "routeNumber": "245-1",
-    "capacity": 48,
-    "busType": "Normal",
-    "operator": {
-      "name": "SLTB Southern Province",
-      "contactNumber": "+94-41-2234567",
-      "licenseNumber": "OP-2023-005"
-    },
-    "facilities": [],
-    "status": "Active", 
-    "isOnline": true
-  },
-  {
-    "busNumber": "MT-2453",
-    "registrationNumber": "SP-8888",
-    "routeNumber": "245-1",
-    "capacity": 46,
-    "busType": "Semi-Luxury",
-    "operator": {
-      "name": "South Coast Express",
-      "contactNumber": "+94-77-1010101",
-      "licenseNumber": "OP-2023-190"
-    },
-    "facilities": ["AC", "WiFi"],
-    "status": "Active",
-    "isOnline": true
-  },
-  {
-    "busNumber": "MT-2454",
-    "registrationNumber": "SP-9999",
-    "routeNumber": "245-1",
-    "capacity": 52,
+    "busNumber": "NB-1519",
+    "registrationNumber": "CAS-4739",
+    "routeNumber": "004",
+    "capacity": 35,
     "busType": "Luxury",
     "operator": {
-      "name": "Matara Luxury Lines",
-      "contactNumber": "+94-77-2020202",
-      "licenseNumber": "OP-2023-201"
+      "name": "SLTB North Central Province",
+      "contactNumber": "+94-25-2234567",
+      "licenseNumber": "OP-2023-003"
     },
     "facilities": ["AC", "WiFi", "Charging Ports"],
     "status": "Active",
-    "isOnline": true
+    "isOnline": true,
+    "availability": {
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": true,
+      "sunday": true
+    }
   },
   {
-    "busNumber": "MT-2455",
-    "registrationNumber": "SP-0000",
-    "routeNumber": "245-1",
-    "capacity": 44,
+    "busNumber": "NB-1520",
+    "registrationNumber": "CAT-5840",
+    "routeNumber": "004",
+    "capacity": 30,
+    "busType": "Intercity Express",
+    "operator": {
+      "name": "SLTB North Central Province",
+      "contactNumber": "+94-25-2234567",
+      "licenseNumber": "OP-2023-003"
+    },
+    "facilities": ["Premium AC", "WiFi", "Charging Ports", "Onboard Service"],
+    "status": "Active",
+    "isOnline": true,
+    "availability": {
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": true,
+      "sunday": true
+    }
+  },
+  {
+    "busNumber": "NB-1521",
+    "registrationNumber": "CAU-6951",
+    "routeNumber": "099",
+    "capacity": 50,
     "busType": "Normal",
     "operator": {
-      "name": "Southern Comfort Transport",
-      "contactNumber": "+94-77-3030303",
-      "licenseNumber": "OP-2023-212"
+      "name": "SLTB Uva Province",
+      "contactNumber": "+94-55-2234567",
+      "licenseNumber": "OP-2023-004"
     },
     "facilities": [],
-    "status": "Out of Service",
-    "isOnline": false
+    "status": "Active",
+    "isOnline": true,
+    "availability": {
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": true,
+      "sunday": true
+    }
+  },
+  {
+    "busNumber": "NB-1522",
+    "registrationNumber": "CAV-7062",
+    "routeNumber": "099",
+    "capacity": 42,
+    "busType": "Semi-Luxury",
+    "operator": {
+      "name": "SLTB Uva Province",
+      "contactNumber": "+94-55-2234567",
+      "licenseNumber": "OP-2023-004"
+    },
+    "facilities": ["AC"],
+    "status": "Active",
+    "isOnline": true,
+    "availability": {
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": true,
+      "sunday": true
+    }
+  },
+  {
+    "busNumber": "NB-1523",
+    "registrationNumber": "CAW-8173",
+    "routeNumber": "099",
+    "capacity": 42,
+    "busType": "Semi-Luxury",
+    "operator": {
+      "name": "SLTB Uva Province",
+      "contactNumber": "+94-55-2234567",
+      "licenseNumber": "OP-2023-004"
+    },
+    "facilities": ["AC"],
+    "status": "Active",
+    "isOnline": true,
+    "availability": {
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": true,
+      "sunday": true
+    }
+  },
+  {
+    "busNumber": "NB-1524",
+    "registrationNumber": "CAX-9284",
+    "routeNumber": "099",
+    "capacity": 35,
+    "busType": "Luxury",
+    "operator": {
+      "name": "SLTB Uva Province",
+      "contactNumber": "+94-55-2234567",
+      "licenseNumber": "OP-2023-004"
+    },
+    "facilities": ["AC", "WiFi", "Charging Ports"],
+    "status": "Active",
+    "isOnline": true,
+    "availability": {
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": true,
+      "sunday": true
+    }
+  },
+  {
+    "busNumber": "NB-1525",
+    "registrationNumber": "CAY-1395",
+    "routeNumber": "099",
+    "capacity": 35,
+    "busType": "Luxury",
+    "operator": {
+      "name": "SLTB Uva Province",
+      "contactNumber": "+94-55-2234567",
+      "licenseNumber": "OP-2023-004"
+    },
+    "facilities": ["AC", "WiFi", "Charging Ports"],
+    "status": "Active",
+    "isOnline": true,
+    "availability": {
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": true,
+      "sunday": true
+    }
   }
 ]
