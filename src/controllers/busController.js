@@ -3,43 +3,163 @@ import { ApiError } from '../utils/ApiError.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
 import { ApiFeatures } from '../utils/ApiFeatures.js';
 
+// Helper function to filter bus data based on user role
+function filterBusDataForUser(bus, isAdmin) {
+  if (isAdmin) {
+    return bus; // Admin sees all data
+  }
+  
+  // Public user: hide sensitive information
+  const filteredBus = bus.toObject ? { ...bus.toObject() } : { ...bus };
+  
+  // Remove sensitive fields for public users
+  delete filteredBus.registrationNumber;
+  delete filteredBus._id;
+  delete filteredBus.__v;
+  delete filteredBus.createdAt;
+  delete filteredBus.updatedAt;
+  delete filteredBus.id; // Remove virtual id field
+  
+  // Filter operator information
+  if (filteredBus.operator && typeof filteredBus.operator === 'object') {
+    delete filteredBus.operator.licenseNumber;
+    delete filteredBus.operator.contactNumber;
+    delete filteredBus.operator.email;
+  }
+  
+  // Clean route information for public users but PRESERVE essential route data for all users
+  if (filteredBus.route && typeof filteredBus.route === 'object') {
+    // Always preserve route information for user navigation
+    const routeInfo = {
+      routeNumber: filteredBus.route.routeNumber,
+      name: filteredBus.route.name,
+      from: filteredBus.route.origin ? {
+        city: filteredBus.route.origin.city,
+        province: filteredBus.route.origin.province
+      } : null,
+      to: filteredBus.route.destination ? {
+        city: filteredBus.route.destination.city,
+        province: filteredBus.route.destination.province
+      } : null,
+      distance: filteredBus.route.distance,
+      estimatedDuration: filteredBus.route.estimatedDuration
+    };
+    
+    // Include stops information (cleaned for public users)
+    if (filteredBus.route.stops && Array.isArray(filteredBus.route.stops)) {
+      routeInfo.stops = filteredBus.route.stops.map(stop => {
+        if (typeof stop === 'object') {
+          return {
+            name: stop.name,
+            coordinates: stop.coordinates,
+            order: stop.order
+          };
+        }
+        return stop;
+      });
+    }
+    
+    // Replace the full route object with cleaned essential information
+    filteredBus.route = routeInfo;
+  } else if (!filteredBus.route) {
+    // If no route is assigned, make it clear
+    filteredBus.route = {
+      routeNumber: null,
+      name: 'Route not assigned',
+      from: null,
+      to: null,
+      distance: null,
+      estimatedDuration: null,
+      stops: []
+    };
+  }
+  
+  return filteredBus;
+}
+
 class BusController {
-  // GET /api/buses - List all buses with filtering
+  // GET /api/buses - List all buses with filtering and role-based data filtering
   static async getAllBuses(req, res, next) {
     try {
+      // Check if user is admin (this requires optionalAuth middleware)
+      const isAdmin = req.user && req.user.role === 'admin';
+      
       const features = new ApiFeatures(Bus.find(), req.query)
         .filter()
         .sort()
         .limitFields()
         .paginate();
 
-      const buses = await features.query.populate('route', 'routeNumber startLocation endLocation');
+      // Populate route information with comprehensive details
+      const buses = await features.query.populate({
+        path: 'route',
+        select: 'routeNumber name origin destination distance estimatedDuration stops',
+        populate: {
+          path: 'stops',
+          select: 'name coordinates order'
+        }
+      });
       const total = await Bus.countDocuments();
+      
+      // Filter data based on user role
+      const filteredBuses = buses.map(bus => filterBusDataForUser(bus, isAdmin));
+      
+      // Count buses with and without route assignments for informational purposes
+      const busesWithRoutes = filteredBuses.filter(bus => bus.route && bus.route.routeNumber).length;
+      const busesWithoutRoutes = filteredBuses.length - busesWithRoutes;
 
       res.status(200).json(new ApiResponse(200, {
-        buses,
+        buses: filteredBuses,
         pagination: {
           total,
           page: req.query.page * 1 || 1,
           limit: req.query.limit * 1 || 10,
           pages: Math.ceil(total / (req.query.limit * 1 || 10))
-        }
+        },
+        routeInfo: {
+          busesWithRoutes,
+          busesWithoutRoutes,
+          note: busesWithoutRoutes > 0 ? 'Some buses do not have route assignments yet' : 'All buses have route assignments'
+        },
+        dataLevel: isAdmin ? 'full' : 'public'
       }, 'Buses retrieved successfully'));
     } catch (error) {
       next(new ApiError(500, 'Error retrieving buses'));
     }
   }
 
-  // GET /api/buses/:id - Get single bus
+  // GET /api/buses/:id - Get single bus with role-based data filtering
   static async getBus(req, res, next) {
     try {
-      const bus = await Bus.findById(req.params.id).populate('route');
+      const bus = await Bus.findById(req.params.id).populate({
+        path: 'route',
+        select: 'routeNumber name origin destination distance estimatedDuration stops',
+        populate: {
+          path: 'stops',
+          select: 'name coordinates order'
+        }
+      });
       
       if (!bus) {
         return next(new ApiError(404, 'Bus not found'));
       }
+      
+      // Check if user is admin
+      const isAdmin = req.user && req.user.role === 'admin';
+      
+      // Filter data based on user role
+      const filteredBus = filterBusDataForUser(bus, isAdmin);
 
-      res.status(200).json(new ApiResponse(200, bus, 'Bus retrieved successfully'));
+      res.status(200).json(new ApiResponse(200, {
+        bus: filteredBus,
+        routeInfo: {
+          hasRoute: !!(filteredBus.route && filteredBus.route.routeNumber),
+          note: filteredBus.route && filteredBus.route.routeNumber ? 
+            `Bus operates on route ${filteredBus.route.routeNumber}: ${filteredBus.route.from?.city} → ${filteredBus.route.to?.city}` :
+            'This bus does not have a route assignment yet'
+        },
+        dataLevel: isAdmin ? 'full' : 'public'
+      }, 'Bus retrieved successfully'));
     } catch (error) {
       next(new ApiError(500, 'Error retrieving bus'));
     }
@@ -100,34 +220,120 @@ class BusController {
     }
   }
 
-  // GET /api/buses/:id/location - Get current bus location
+  // GET /api/buses/:id/location - Get current bus location with role-based filtering
   static async getBusLocation(req, res, next) {
     try {
       const LocationHistory = (await import('../models/LocationHistory.js')).default;
+      
+      // Check if user is admin
+      const isAdmin = req.user && req.user.role === 'admin';
+      
       const location = await LocationHistory.findOne({ bus: req.params.id })
         .sort({ timestamp: -1 })
-        .populate('bus', 'registrationNumber busNumber')
+        .populate('bus', 'registrationNumber busNumber operator type')
         .populate('trip', 'tripId status');
 
       if (!location) {
         return next(new ApiError(404, 'No location data found for this bus'));
       }
+      
+      // Filter location data based on user role
+      const filteredLocation = { ...location.toObject() };
+      
+      if (!isAdmin) {
+        // Remove internal fields for public users
+        delete filteredLocation._id;
+        delete filteredLocation.__v;
+        delete filteredLocation.createdAt;
+        delete filteredLocation.updatedAt;
+        
+        // Filter bus information
+        if (filteredLocation.bus) {
+          delete filteredLocation.bus._id;
+          delete filteredLocation.bus.__v;
+          delete filteredLocation.bus.registrationNumber; // Hide registration
+          
+          if (filteredLocation.bus.operator) {
+            delete filteredLocation.bus.operator.licenseNumber;
+            delete filteredLocation.bus.operator.contactNumber;
+          }
+        }
+        
+        // Filter trip information
+        if (filteredLocation.trip) {
+          delete filteredLocation.trip._id;
+          delete filteredLocation.trip.__v;
+        }
+      }
 
-      res.status(200).json(new ApiResponse(200, location, 'Bus location retrieved successfully'));
+      res.status(200).json(new ApiResponse(200, {
+        location: filteredLocation,
+        dataLevel: isAdmin ? 'full' : 'public'
+      }, 'Bus location retrieved successfully'));
     } catch (error) {
       next(new ApiError(500, 'Error retrieving bus location'));
     }
   }
 
-  // GET /api/buses/:id/trips - Get trips for specific bus
+  // GET /api/buses/:id/trips - Get trips for specific bus with role-based filtering
   static async getBusTrips(req, res, next) {
     try {
       const Trip = (await import('../models/Trip.js')).default;
+      
+      // Check if user is admin
+      const isAdmin = req.user && req.user.role === 'admin';
+      
       const trips = await Trip.find({ bus: req.params.id })
-        .populate('route', 'routeNumber startLocation endLocation')
+        .populate('route', 'routeNumber name origin destination distance')
+        .populate('bus', 'operator type capacity')
         .sort({ scheduledDeparture: -1 });
+      
+      // Filter trips data based on user role
+      const filteredTrips = trips.map(trip => {
+        if (isAdmin) {
+          return trip; // Admin sees all data
+        }
+        
+        // Public user: filter sensitive data
+        const filtered = { ...trip.toObject() };
+        
+        // Remove internal/sensitive fields
+        delete filtered._id;
+        delete filtered.__v;
+        delete filtered.createdAt;
+        delete filtered.updatedAt;
+        delete filtered.driver;
+        delete filtered.passengers;
+        delete filtered.actualArrival;
+        delete filtered.actualDeparture;
+        delete filtered.delay;
+        delete filtered.weatherCondition;
+        
+        // Filter route data
+        if (filtered.route) {
+          delete filtered.route._id;
+          delete filtered.route.__v;
+          delete filtered.route.createdAt;
+          delete filtered.route.updatedAt;
+        }
+        
+        // Filter bus data
+        if (filtered.bus) {
+          delete filtered.bus._id;
+          delete filtered.bus.__v;
+          if (filtered.bus.operator) {
+            delete filtered.bus.operator.licenseNumber;
+            delete filtered.bus.operator.contactNumber;
+          }
+        }
+        
+        return filtered;
+      });
 
-      res.status(200).json(new ApiResponse(200, trips, 'Bus trips retrieved successfully'));
+      res.status(200).json(new ApiResponse(200, {
+        trips: filteredTrips,
+        dataLevel: isAdmin ? 'full' : 'public'
+      }, 'Bus trips retrieved successfully'));
     } catch (error) {
       next(new ApiError(500, 'Error retrieving bus trips'));
     }

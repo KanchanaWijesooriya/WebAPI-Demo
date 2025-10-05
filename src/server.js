@@ -186,56 +186,13 @@ app.get('/api/routes-direct/:id', async (req, res) => {
 // Import optional auth middleware at top level
 const { optionalAuth } = await import('./middleware/auth.js');
 
-// Get buses endpoint with role-based data filtering
-app.get('/api/buses', optionalAuth, async (req, res) => {
-  try {
-    const Bus = (await import('./models/Bus.js')).default;
-    
-    // Check if user is authenticated and is admin
-    const isAdmin = req.user && req.user.role === 'admin';
-    
-    // Debug logging
-    console.log('Bus endpoint debug:', {
-      hasUser: !!req.user,
-      userRole: req.user?.role,
-      isAdmin: isAdmin,
-      authHeader: req.headers.authorization ? 'present' : 'missing'
-    });
-    
-    let buses;
-    if (isAdmin) {
-      // Admin: Show all data including sensitive information
-      console.log('Admin access: showing all data');
-      buses = await Bus.find().populate('route', 'routeNumber name');
-    } else {
-      // Public: Hide sensitive data (registrationNumber, operator.licenseNumber, operator.contactNumber)
-      console.log('Public access: hiding sensitive data');
-      buses = await Bus.find()
-        .select('-registrationNumber -operator.licenseNumber -operator.contactNumber')
-        .populate('route', 'routeNumber name');
-    }
-    
-    res.json({
-      success: true,
-      count: buses.length,
-      data: buses,
-      dataLevel: isAdmin ? 'full' : 'public' // Indicate what level of data is returned
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: error.message
-    });
-  }
-});
+// Buses endpoint is now handled by proper route files with comprehensive RBAC
 
 // Authentication routes
 const authWorkingRoutes = (await import('./routes/auth_working.js')).default;
 app.use('/api/auth', authWorkingRoutes);
 
-// Protected routes with RBAC
-const protectedRoutes = (await import('./routes/protected_routes.js')).default;
-app.use('/api/routes', protectedRoutes);
+// Protected routes with RBAC are now integrated into the main route controllers
 
 // User management routes with RBAC
 const userManagementRoutes = (await import('./routes/user_management.js')).default;
@@ -249,251 +206,98 @@ app.use('/api/search', searchFilterRoutes);
 app.use('/api/admin', adminEnhancedRoutes);
 app.use('/api/public', publicLiveLocationRoutes);
 
-// Mount routes - using working inline implementations
-// Note: Commenting out problematic route file imports
-// app.use('/api/auth', authRoutes);  // Temporarily disabled - import issues
-// app.use('/api/buses', busRoutes);  // Temporarily disabled - import issues
+// Mount RBAC-enabled route modules
+const routeRoutes = (await import('./routes/routes.js')).default;
+const busRoutes = (await import('./routes/buses.js')).default;
+app.use('/api/routes', routeRoutes);
+app.use('/api/buses', busRoutes);
 
-// Working routes endpoint without problematic imports
-const routesRouter = express.Router();
+// Note: All public endpoints now implement intelligent role-based filtering
+// - Public users see clean, essential information without sensitive data
+// - Admin users see complete data including internal fields and sensitive information
+// - All endpoints use optionalAuth middleware to detect user role without requiring authentication
 
-// GET /api/routes - List all routes
-routesRouter.get('/', async (req, res) => {
-  try {
-    const Route = (await import('./models/Route.js')).default;
-    const routes = await Route.find();
+// Buses are now handled by proper route files with RBAC
     
-    res.status(200).json({
-      statusCode: 200,
-      data: {
-        routes,
-        pagination: {
-          total: routes.length,
-          page: 1,
-          limit: 10,
-          pages: 1
-        }
-      },
-      message: 'Routes retrieved successfully',
-      success: true,
-      timestamp: new Date().toISOString()
-    });
-  } catch (error) {
-    res.status(500).json({
-      statusCode: 500,
-      success: false,
-      message: 'Error retrieving routes',
-      error: error.message
-    });
-  }
-});
+// Single bus endpoint is now handled by proper route files with RBAC
 
-// GET /api/routes/:id - Get single route
-routesRouter.get('/:id', async (req, res) => {
-  try {
-    const Route = (await import('./models/Route.js')).default;
-    const route = await Route.findById(req.params.id);
-    
-    if (!route) {
-      return res.status(404).json({
-        statusCode: 404,
-        success: false,
-        message: 'Route not found'
-      });
-    }
-
-    res.status(200).json({
-      statusCode: 200,
-      data: route,
-      message: 'Route retrieved successfully',
-      success: true,
-      timestamp: new Date().toISOString()
-    });
-  } catch (error) {
-    res.status(500).json({
-      statusCode: 500,
-      success: false,
-      message: 'Error retrieving route',
-      error: error.message
-    });
-  }
-});
-
-app.use('/api/routes', routesRouter);
-
-// Working buses endpoint with role-based data filtering (DISABLED - using main endpoint above)
-const busesRouter = express.Router();
-
-// Apply optional authentication to check user role
-busesRouter.use(optionalAuth);
-
-// GET /api/buses - List all buses with role-based data filtering
-busesRouter.get('/', async (req, res) => {
-  try {
-    const Bus = (await import('./models/Bus.js')).default;
-    
-    // Check if user is authenticated and is admin
-    const isAdmin = req.user && req.user.role === 'admin';
-    
-    let buses;
-    if (isAdmin) {
-      // Admin: Show all data including sensitive information
-      buses = await Bus.find().populate('route', 'routeNumber name');
-    } else {
-      // Public: Hide sensitive data (registrationNumber, operator.licenseNumber, operator.contactNumber)
-      buses = await Bus.find()
-        .select('-registrationNumber -operator.licenseNumber -operator.contactNumber')
-        .populate('route', 'routeNumber name');
-    }
-    
-    res.status(200).json({
-      statusCode: 200,
-      data: {
-        buses,
-        pagination: {
-          total: buses.length,
-          page: 1,
-          limit: 10,
-          pages: Math.ceil(buses.length / 10)
-        },
-        dataLevel: isAdmin ? 'full' : 'public' // Indicate what level of data is returned
-      },
-      message: 'Buses retrieved successfully',
-      success: true,
-      timestamp: new Date().toISOString()
-    });
-  } catch (error) {
-    res.status(500).json({
-      statusCode: 500,
-      success: false,
-      message: 'Error retrieving buses',
-      error: error.message
-    });
-  }
-});
-
-// GET /api/buses/:id - Get single bus with role-based data filtering
-busesRouter.get('/:id', async (req, res) => {
-  try {
-    const Bus = (await import('./models/Bus.js')).default;
-    
-    // Check if user is authenticated and is admin
-    const isAdmin = req.user && req.user.role === 'admin';
-    
-    let bus;
-    if (isAdmin) {
-      // Admin: Show all data including sensitive information
-      bus = await Bus.findById(req.params.id).populate('route', 'routeNumber name');
-    } else {
-      // Public: Hide sensitive data
-      bus = await Bus.findById(req.params.id)
-        .select('-registrationNumber -operator.licenseNumber -operator.contactNumber')
-        .populate('route', 'routeNumber name');
-    }
-    
-    if (!bus) {
-      return res.status(404).json({
-        statusCode: 404,
-        success: false,
-        message: 'Bus not found'
-      });
-    }
-    
-    res.status(200).json({
-      statusCode: 200,
-      data: bus,
-      dataLevel: isAdmin ? 'full' : 'public',
-      message: 'Bus retrieved successfully',
-      success: true,
-      timestamp: new Date().toISOString()
-    });
-  } catch (error) {
-    res.status(500).json({
-      statusCode: 500,
-      success: false,
-      message: 'Error retrieving bus',
-      error: error.message
-    });
-  }
-});
-
-// Mount the buses router - DISABLED: Using main endpoint with role-based filtering instead
-// app.use('/api/buses', busesRouter);
-
-// Get single bus endpoint with role-based data filtering
-app.get('/api/buses/:id', async (req, res) => {
-  try {
-    // Import optional auth middleware and apply it
-    const { optionalAuth } = await import('./middleware/auth.js');
-    
-    // Apply optional auth to check user role
-    await new Promise((resolve, reject) => {
-      optionalAuth(req, res, (error) => {
-        if (error) reject(error);
-        else resolve();
-      });
-    });
-    
-    const Bus = (await import('./models/Bus.js')).default;
-    
-    // Check if user is authenticated and is admin
-    const isAdmin = req.user && req.user.role === 'admin';
-    
-    let bus;
-    if (isAdmin) {
-      // Admin: Show all data including sensitive information
-      bus = await Bus.findById(req.params.id).populate('route', 'routeNumber name');
-    } else {
-      // Public: Hide sensitive data
-      bus = await Bus.findById(req.params.id)
-        .select('-registrationNumber -operator.licenseNumber -operator.contactNumber')
-        .populate('route', 'routeNumber name');
-    }
-    
-    if (!bus) {
-      return res.status(404).json({
-        success: false,
-        message: 'Bus not found'
-      });
-    }
-    
-    res.json({
-      success: true,
-      data: bus,
-      dataLevel: isAdmin ? 'full' : 'public'
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: error.message
-    });
-  }
-});
-
-// Working trips endpoint
+// Working trips endpoint with role-based filtering
 const tripsRouter = express.Router();
 
-// GET /api/trips - List all trips (redirected from /api/search/trips for better functionality)
+// Apply optional authentication
+tripsRouter.use(optionalAuth);
+
+// Helper function to filter trip data based on user role
+function filterTripDataForUser(trip, isAdmin) {
+  if (isAdmin) {
+    return trip; // Admin sees all data
+  }
+  
+  // Public user: remove sensitive/internal information
+  const filtered = { ...trip };
+  
+  // Remove internal fields
+  delete filtered._id;
+  delete filtered.__v;
+  delete filtered.createdAt;
+  delete filtered.updatedAt;
+  delete filtered.driver; // Always remove driver info for privacy
+  delete filtered.passengers;
+  delete filtered.actualArrival;
+  delete filtered.actualDeparture;
+  delete filtered.delay;
+  delete filtered.weatherCondition;
+  
+  // Filter route data
+  if (filtered.route && typeof filtered.route === 'object') {
+    delete filtered.route._id;
+    delete filtered.route.__v;
+    delete filtered.route.createdAt;
+    delete filtered.route.updatedAt;
+  }
+  
+  // Filter bus data - remove sensitive info
+  if (filtered.bus && typeof filtered.bus === 'object') {
+    delete filtered.bus._id;
+    delete filtered.bus.__v;
+    delete filtered.bus.registrationNumber; // Hide registration for public
+    if (filtered.bus.operator && typeof filtered.bus.operator === 'object') {
+      delete filtered.bus.operator.licenseNumber;
+      delete filtered.bus.operator.contactNumber;
+    }
+  }
+  
+  return filtered;
+}
+
+// GET /api/trips - List all trips with role-based filtering
 tripsRouter.get('/', async (req, res) => {
   try {
     const Trip = (await import('./models/Trip.js')).default;
+    
+    // Check if user is admin
+    const isAdmin = req.user && req.user.role === 'admin';
+    
     const trips = await Trip.find()
-      .select('-driver') // Remove driver info completely for privacy
       .populate('route', 'routeNumber name origin destination distance')
       .populate('bus', 'registrationNumber operator type capacity')
       .limit(20) // Limit results for performance
       .lean();
     
+    // Filter data based on user role
+    const filteredTrips = trips.map(trip => filterTripDataForUser(trip, isAdmin));
+    
     res.status(200).json({
       statusCode: 200,
       data: {
-        trips,
+        trips: filteredTrips,
         pagination: {
           total: trips.length,
           page: 1,
           limit: 20,
           pages: Math.ceil(trips.length / 20)
-        }
+        },
+        dataLevel: isAdmin ? 'full' : 'public'
       },
       message: 'Trips retrieved successfully',
       success: true,
@@ -509,12 +313,15 @@ tripsRouter.get('/', async (req, res) => {
   }
 });
 
-// GET /api/trips/:id - Get single trip
+// GET /api/trips/:id - Get single trip with role-based filtering
 tripsRouter.get('/:id', async (req, res) => {
   try {
     const Trip = (await import('./models/Trip.js')).default;
+    
+    // Check if user is admin
+    const isAdmin = req.user && req.user.role === 'admin';
+    
     const trip = await Trip.findById(req.params.id)
-      .select('-driver') // Remove driver info for privacy
       .populate('route', 'routeNumber name origin destination distance stops')
       .populate('bus', 'registrationNumber operator type capacity')
       .lean();
@@ -527,9 +334,15 @@ tripsRouter.get('/:id', async (req, res) => {
       });
     }
     
+    // Filter data based on user role
+    const filteredTrip = filterTripDataForUser(trip, isAdmin);
+    
     res.status(200).json({
       statusCode: 200,
-      data: trip,
+      data: {
+        trip: filteredTrip,
+        dataLevel: isAdmin ? 'full' : 'public'
+      },
       message: 'Trip retrieved successfully',
       success: true,
       timestamp: new Date().toISOString()

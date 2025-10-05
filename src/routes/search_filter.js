@@ -37,14 +37,30 @@ function filterSingleItem(item, isAdmin) {
     delete filtered.createdAt;
     delete filtered.updatedAt;
     delete filtered.isActive;
+    delete filtered.id; // Remove virtual id field
     
-    // Filter route data if present
+    // Filter route data if present (recursive filtering)
     if (filtered.route && typeof filtered.route === 'object') {
       delete filtered.route._id;
       delete filtered.route.__v;
       delete filtered.route.createdAt;
       delete filtered.route.updatedAt;
       delete filtered.route.isActive;
+      delete filtered.route.id;
+      
+      // Filter stops in route if present
+      if (filtered.route.stops && Array.isArray(filtered.route.stops)) {
+        filtered.route.stops = filtered.route.stops.map(stop => {
+          if (typeof stop === 'object') {
+            const cleanStop = { ...stop };
+            delete cleanStop._id;
+            delete cleanStop.__v;
+            delete cleanStop.id;
+            return cleanStop;
+          }
+          return stop;
+        });
+      }
     }
     
     // Filter bus data if present
@@ -54,12 +70,27 @@ function filterSingleItem(item, isAdmin) {
       delete filtered.bus.createdAt;
       delete filtered.bus.updatedAt;
       delete filtered.bus.registrationNumber;
+      delete filtered.bus.id;
       
       // Filter operator data in bus
       if (filtered.bus.operator) {
         delete filtered.bus.operator.licenseNumber;
         delete filtered.bus.operator.contactNumber;
       }
+    }
+    
+    // Filter stops array if present
+    if (filtered.stops && Array.isArray(filtered.stops)) {
+      filtered.stops = filtered.stops.map(stop => {
+        if (typeof stop === 'object') {
+          const cleanStop = { ...stop };
+          delete cleanStop._id;
+          delete cleanStop.__v;
+          delete cleanStop.id;
+          return cleanStop;
+        }
+        return stop;
+      });
     }
     
     // Remove driver data completely for privacy
@@ -76,7 +107,7 @@ function filterSingleItem(item, isAdmin) {
   return filtered;
 }
 
-// GET /api/search/routes - Simplified route filtering
+// GET /api/search/routes - Enhanced route filtering with bidirectional support
 router.get('/routes', async (req, res) => {
   try {
     const {
@@ -89,46 +120,128 @@ router.get('/routes', async (req, res) => {
       sortOrder = 'asc'
     } = req.query;
 
-    // Build filter object
-    let filter = { isActive: true };
+    // Helper function to check if route serves the requested journey
+    const canServeJourney = (route, startCity, endCity) => {
+      if (!startCity && !endCity) return { canServe: true, direction: 'any' };
+      
+      const routeStops = route.stops || [];
+      const allStops = [
+        route.origin.city,
+        ...routeStops.map(stop => stop.name),
+        route.destination.city
+      ];
+      
+      // Check forward direction (origin → destination)
+      let forwardStartIndex = -1;
+      let forwardEndIndex = -1;
+      
+      // Check reverse direction (destination → origin)
+      let reverseStartIndex = -1;
+      let reverseEndIndex = -1;
+      
+      allStops.forEach((stop, index) => {
+        // Forward direction checks
+        if (startCity && stop.toLowerCase().includes(startCity.toLowerCase()) && forwardStartIndex === -1) {
+          forwardStartIndex = index;
+        }
+        if (endCity && stop.toLowerCase().includes(endCity.toLowerCase()) && forwardEndIndex === -1) {
+          forwardEndIndex = index;
+        }
+        
+        // Reverse direction checks (for bidirectional routes)
+        if (endCity && stop.toLowerCase().includes(endCity.toLowerCase()) && reverseStartIndex === -1) {
+          reverseStartIndex = index;
+        }
+        if (startCity && stop.toLowerCase().includes(startCity.toLowerCase()) && reverseEndIndex === -1) {
+          reverseEndIndex = index;
+        }
+      });
+      
+      // Check if forward direction works
+      const forwardWorks = (!startCity || forwardStartIndex !== -1) && 
+                          (!endCity || forwardEndIndex !== -1) && 
+                          (forwardStartIndex < forwardEndIndex || forwardStartIndex === -1 || forwardEndIndex === -1);
+      
+      // Check if reverse direction works (for return journeys)
+      const reverseWorks = (!startCity || reverseEndIndex !== -1) && 
+                          (!endCity || reverseStartIndex !== -1) && 
+                          (reverseStartIndex < reverseEndIndex || reverseStartIndex === -1 || reverseEndIndex === -1);
+      
+      if (forwardWorks && reverseWorks) return { canServe: true, direction: 'bidirectional' };
+      if (forwardWorks) return { canServe: true, direction: 'forward' };
+      if (reverseWorks) return { canServe: true, direction: 'reverse' };
+      
+      return { canServe: false, direction: 'none' };
+    };
+
+    // Get all active routes first
+    let baseFilter = { isActive: true };
+    const allRoutes = await Route.find(baseFilter).lean();
     
-    // Filter by start location (origin) - exact match
-    if (start) {
-      filter['origin.city'] = { $regex: `^${start.trim()}$`, $options: 'i' };
-    }
+    let matchingRoutes = [];
     
-    // Filter by end location (destination) - exact match
-    if (end) {
-      filter['destination.city'] = { $regex: `^${end.trim()}$`, $options: 'i' };
-    }
-    
-    // Filter by intermediate stops
-    if (stops) {
-      filter['stops.name'] = { $regex: stops, $options: 'i' };
+    // If no specific criteria, return all routes
+    if (!start && !end && !stops) {
+      matchingRoutes = allRoutes.map(route => ({
+        ...route,
+        journeyInfo: {
+          direction: 'forward',
+          canServe: true,
+          matchType: 'all'
+        }
+      }));
+    } else {
+      // Filter routes based on criteria
+      allRoutes.forEach(route => {
+        // Check if route can serve the journey
+        const journeyCheck = canServeJourney(route, start, end);
+        
+        // Check stops if specified
+        const stopMatch = !stops || (route.stops && route.stops.some(stop => 
+          stop.name.toLowerCase().includes(stops.toLowerCase())
+        ));
+        
+        if (journeyCheck.canServe && stopMatch) {
+          matchingRoutes.push({
+            ...route,
+            journeyInfo: {
+              direction: journeyCheck.direction,
+              canServe: true,
+              matchType: 'filtered',
+              requestedJourney: start && end ? `${start} → ${end}` : null,
+              routePath: `${route.origin.city} → ${route.destination.city}`,
+              intermediateStops: route.stops ? route.stops.map(stop => stop.name) : []
+            }
+          });
+        }
+      });
     }
 
     // Calculate pagination
+    const totalRoutes = matchingRoutes.length;
     const skip = (page - 1) * limit;
     
     // Build sort object
     const sortObj = {};
     sortObj[sortBy] = sortOrder === 'desc' ? -1 : 1;
 
-    // Execute query
-    const routes = await Route.find(filter)
-      .sort(sortObj)
-      .skip(skip)
-      .limit(parseInt(limit))
-      .lean();
+    // Apply sorting and pagination
+    const sortedRoutes = matchingRoutes.sort((a, b) => {
+      const aVal = a[sortBy];
+      const bVal = b[sortBy];
+      if (sortOrder === 'desc') {
+        return bVal > aVal ? 1 : bVal < aVal ? -1 : 0;
+      }
+      return aVal > bVal ? 1 : aVal < bVal ? -1 : 0;
+    });
 
-    // Get total count
-    const totalRoutes = await Route.countDocuments(filter);
+    const paginatedRoutes = sortedRoutes.slice(skip, skip + parseInt(limit));
     
     // Check if user is admin
     const isAdmin = req.user && req.user.role === 'admin';
     
     // Filter data based on user role
-    const filteredRoutes = filterDataForUser(routes, isAdmin);
+    const filteredRoutes = filterDataForUser(paginatedRoutes, isAdmin);
     
     res.json({
       success: true,
@@ -140,6 +253,12 @@ router.get('/routes', async (req, res) => {
           total: totalRoutes,
           hasNext: page * limit < totalRoutes,
           hasPrev: page > 1
+        },
+        searchInfo: {
+          bidirectionalSupport: true,
+          partialJourneySupport: true,
+          appliedFilters: { start, end, stops },
+          matchingCriteria: start || end || stops ? 'filtered' : 'all'
         }
       },
       dataLevel: isAdmin ? 'full' : 'public'
@@ -339,7 +458,7 @@ router.get('/trips', async (req, res) => {
   }
 });
 
-// GET /api/search/combined - Combined route filters with multiple criteria
+// GET /api/search/combined - Enhanced search with bidirectional route support and intermediate stops
 router.get('/combined', async (req, res) => {
   try {
     const {
@@ -357,21 +476,129 @@ router.get('/combined', async (req, res) => {
       limit = 5
     } = req.query;
 
-    // Use both endpoints' logic combined
-    let routeFilter = { isActive: true };
+    let matchingRoutes = [];
     
-    if (start) routeFilter['origin.city'] = { $regex: `^${start.trim()}$`, $options: 'i' };
-    if (end) routeFilter['destination.city'] = { $regex: `^${end.trim()}$`, $options: 'i' };
-    if (stops) routeFilter['stops.name'] = { $regex: stops, $options: 'i' };
+    // Helper function to check if a stop exists in a route's stops array
+    const hasStop = (route, stopName) => {
+      return route.stops && route.stops.some(stop => 
+        stop.name.toLowerCase().includes(stopName.toLowerCase())
+      );
+    };
+
+    // Helper function to check if route can serve the journey (including partial journeys)
+    const canServeJourney = (route, startCity, endCity) => {
+      if (!startCity && !endCity) return true;
+      
+      const routeStops = route.stops || [];
+      const allStops = [
+        route.origin.city,
+        ...routeStops.map(stop => stop.name),
+        route.destination.city
+      ];
+      
+      let startFound = false;
+      let endFound = false;
+      let startIndex = -1;
+      let endIndex = -1;
+      
+      // Check if both cities exist in the route (in order)
+      allStops.forEach((stop, index) => {
+        if (startCity && stop.toLowerCase().includes(startCity.toLowerCase())) {
+          if (!startFound) {
+            startFound = true;
+            startIndex = index;
+          }
+        }
+        if (endCity && stop.toLowerCase().includes(endCity.toLowerCase())) {
+          if (!endFound) {
+            endFound = true;
+            endIndex = index;
+          }
+        }
+      });
+      
+      // If only start specified, check if start exists
+      if (startCity && !endCity) return startFound;
+      
+      // If only end specified, check if end exists
+      if (!startCity && endCity) return endFound;
+      
+      // If both specified, check if they exist in correct order
+      if (startCity && endCity) {
+        return startFound && endFound && startIndex < endIndex;
+      }
+      
+      return true;
+    };
+
+    // Base filter for active routes
+    let baseRouteFilter = { isActive: true };
+    
+    // Apply distance filters if specified
     if (minDistance || maxDistance) {
-      routeFilter.distance = {};
-      if (minDistance) routeFilter.distance.$gte = parseFloat(minDistance);
-      if (maxDistance) routeFilter.distance.$lte = parseFloat(maxDistance);
+      baseRouteFilter.distance = {};
+      if (minDistance) baseRouteFilter.distance.$gte = parseFloat(minDistance);
+      if (maxDistance) baseRouteFilter.distance.$lte = parseFloat(maxDistance);
     }
 
-    // Get matching routes
-    const routes = await Route.find(routeFilter).lean();
-    const routeIds = routes.map(r => r._id);
+    // Get all routes that could potentially match
+    const allRoutes = await Route.find(baseRouteFilter).lean();
+    
+    // Filter routes based on start/end/stops criteria
+    if (start || end || stops) {
+      allRoutes.forEach(route => {
+        // Check direct routes (origin to destination)
+        const directMatch = (!start || route.origin.city.toLowerCase().includes(start.toLowerCase())) &&
+                           (!end || route.destination.city.toLowerCase().includes(end.toLowerCase()));
+        
+        // Check reverse routes (destination to origin) - for bidirectional support
+        const reverseMatch = (!start || route.destination.city.toLowerCase().includes(start.toLowerCase())) &&
+                            (!end || route.origin.city.toLowerCase().includes(end.toLowerCase()));
+        
+        // Check if it's a partial journey within the route
+        const partialMatch = canServeJourney(route, start, end);
+        
+        // Check stops if specified
+        const stopMatch = !stops || hasStop(route, stops);
+        
+        // Include route if any condition matches and stops match
+        if ((directMatch || reverseMatch || partialMatch) && stopMatch) {
+          // Add direction indicator for user understanding
+          let routeDirection = 'forward';
+          if (reverseMatch && !directMatch) {
+            routeDirection = 'reverse';
+          } else if (partialMatch && !directMatch && !reverseMatch) {
+            routeDirection = 'partial';
+          }
+          
+          const enhancedRoute = {
+            ...route,
+            matchType: routeDirection,
+            servesJourney: {
+              from: start || route.origin.city,
+              to: end || route.destination.city,
+              direction: routeDirection
+            }
+          };
+          
+          matchingRoutes.push(enhancedRoute);
+        }
+      });
+    } else {
+      // No specific start/end criteria, include all routes
+      matchingRoutes = allRoutes.map(route => ({
+        ...route,
+        matchType: 'all',
+        servesJourney: {
+          from: route.origin.city,
+          to: route.destination.city,
+          direction: 'forward'
+        }
+      }));
+    }
+
+    // Get route IDs for trip filtering
+    const routeIds = matchingRoutes.map(r => r._id);
 
     // Build trip filter for these routes
     let tripFilter = {
@@ -386,7 +613,7 @@ router.get('/combined', async (req, res) => {
       if (maxFare) tripFilter.fare.$lte = parseFloat(maxFare);
     }
 
-    // Date/time filters (simplified version)
+    // Date/time filters
     if (date || dayType || departureTime) {
       let dateFilter = {};
       
@@ -402,31 +629,38 @@ router.get('/combined', async (req, res) => {
       }
     }
 
-    // Get trips with populated data (limited fields for privacy)
+    // Get trips with populated data
     const trips = await Trip.find(tripFilter)
       .populate('route', 'routeNumber name origin destination distance stops')
-      .populate('bus', 'registrationNumber operator type capacity')
-      .populate('driver', 'name employeeId') // Only basic driver info
-      .limit(parseInt(limit))
+      .populate('bus', 'busNumber operator busType capacity')
+      .limit(parseInt(limit) * 2) // Get more trips to ensure we have options
       .lean();
 
     // Check if user is admin
     const isAdmin = req.user && req.user.role === 'admin';
     
-    // Group by route and filter properly
+    // Group routes with their trips and add journey information
     const routeMap = {};
-    routes.forEach(route => {
+    matchingRoutes.forEach(route => {
       const routeTrips = trips.filter(trip => 
         trip.route._id.toString() === route._id.toString()
       );
       
-      // Only include routes that have matching trips
-      if (routeTrips.length > 0) {
-        routeMap[route._id] = {
-          ...route,
-          availableTrips: routeTrips
-        };
-      }
+      // Only include routes that have matching trips or show all routes for better UX
+      routeMap[route._id] = {
+        ...route,
+        availableTrips: routeTrips,
+        // Enhanced journey information
+        journeyInfo: {
+          canTravel: true,
+          routeDirection: route.matchType,
+          fullRoute: `${route.origin.city} → ${route.destination.city}`,
+          requestedJourney: start && end ? `${start} → ${end}` : null,
+          intermediateStops: route.stops ? route.stops.map(stop => stop.name) : [],
+          totalDistance: route.distance,
+          estimatedDuration: route.estimatedDuration
+        }
+      };
     });
 
     const results = Object.values(routeMap).slice((page - 1) * limit, page * limit);
@@ -446,14 +680,19 @@ router.get('/combined', async (req, res) => {
         results: filteredResults,
         pagination: {
           current: parseInt(page),
-          pages: Math.ceil(routes.length / limit),
-          total: routes.length,
-          hasNext: page * limit < routes.length,
+          pages: Math.ceil(matchingRoutes.length / limit),
+          total: matchingRoutes.length,
+          hasNext: page * limit < matchingRoutes.length,
           hasPrev: page > 1
         },
         summary: {
-          routesFound: routes.length,
+          routesFound: matchingRoutes.length,
           tripsFound: trips.length,
+          searchCriteria: {
+            bidirectionalSearch: !!(start && end),
+            partialJourneySupport: true,
+            intermediateStopSearch: !!stops
+          },
           appliedFilters: { start, end, stops, departureTime, minFare, maxFare, minDistance, maxDistance, date, dayType }
         }
       },
