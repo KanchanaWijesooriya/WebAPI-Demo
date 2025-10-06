@@ -279,63 +279,70 @@ class BusController {
   static async getBusTrips(req, res, next) {
     try {
       const Trip = (await import('../models/Trip.js')).default;
+      const userRole = req.user?.role || 'passenger';
       
-      // Check if user is admin
-      const isAdmin = req.user && req.user.role === 'admin';
+      // Find trips by bus ID or busRegistration
+      const trips = await Trip.find({
+        $or: [
+          { bus: req.params.id },
+          { busRegistration: req.params.id }
+        ]
+      })
+        .populate('route', 'name routeId routeNumber startLocation endLocation')
+        .populate('bus', 'registrationNumber busType capacity features')
+        .sort({ serviceDate: -1, departureTime: -1 });
       
-      const trips = await Trip.find({ bus: req.params.id })
-        .populate('route', 'routeNumber name origin destination distance')
-        .populate('bus', 'operator type capacity')
-        .sort({ scheduledDeparture: -1 });
-      
-      // Filter trips data based on user role
+      // Filter trips data based on user role using the same logic as TripController
       const filteredTrips = trips.map(trip => {
-        if (isAdmin) {
-          return trip; // Admin sees all data
+        const baseData = {
+          _id: trip._id,
+          tripId: trip.tripId,
+          route: trip.route,
+          routeNumber: trip.routeNumber,
+          bus: trip.bus,
+          busRegistration: trip.busRegistration,
+          serviceDate: trip.serviceDate,
+          departureTime: trip.departureTime,
+          arrivalTime: trip.arrivalTime,
+          status: trip.status,
+          currentLocation: trip.currentLocation,
+          nextStop: trip.nextStop,
+          delayMinutes: trip.delayMinutes,
+          createdAt: trip.createdAt,
+          updatedAt: trip.updatedAt
+        };
+
+        if (userRole === 'admin') {
+          return {
+            ...baseData,
+            driver: trip.driver,
+            conductor: trip.conductor,
+            estimatedRevenue: trip.estimatedRevenue,
+            actualRevenue: trip.actualRevenue,
+            fuelCost: trip.fuelCost,
+            maintenanceCost: trip.maintenanceCost,
+            operationalNotes: trip.operationalNotes
+          };
+        } else if (userRole === 'operator') {
+          return {
+            ...baseData,
+            driver: trip.driver,
+            conductor: trip.conductor,
+            estimatedRevenue: trip.estimatedRevenue,
+            operationalNotes: trip.operationalNotes
+          };
+        } else {
+          return baseData;
         }
-        
-        // Public user: filter sensitive data
-        const filtered = { ...trip.toObject() };
-        
-        // Remove internal/sensitive fields
-        delete filtered._id;
-        delete filtered.__v;
-        delete filtered.createdAt;
-        delete filtered.updatedAt;
-        delete filtered.driver;
-        delete filtered.passengers;
-        delete filtered.actualArrival;
-        delete filtered.actualDeparture;
-        delete filtered.delay;
-        delete filtered.weatherCondition;
-        
-        // Filter route data
-        if (filtered.route) {
-          delete filtered.route._id;
-          delete filtered.route.__v;
-          delete filtered.route.createdAt;
-          delete filtered.route.updatedAt;
-        }
-        
-        // Filter bus data
-        if (filtered.bus) {
-          delete filtered.bus._id;
-          delete filtered.bus.__v;
-          if (filtered.bus.operator) {
-            delete filtered.bus.operator.licenseNumber;
-            delete filtered.bus.operator.contactNumber;
-          }
-        }
-        
-        return filtered;
       });
 
       res.status(200).json(new ApiResponse(200, {
         trips: filteredTrips,
-        dataLevel: isAdmin ? 'full' : 'public'
+        totalTrips: trips.length,
+        dataLevel: userRole === 'admin' ? 'full' : userRole === 'operator' ? 'operational' : 'public'
       }, 'Bus trips retrieved successfully'));
     } catch (error) {
-      next(new ApiError(500, 'Error retrieving bus trips'));
+      next(new ApiError(500, 'Error retrieving bus trips', [error.message]));
     }
   }
 }

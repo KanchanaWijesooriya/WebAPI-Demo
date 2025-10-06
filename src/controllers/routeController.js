@@ -205,6 +205,158 @@ class RouteController {
       next(new ApiError(500, 'Error retrieving route buses'));
     }
   }
+
+  // GET /api/routes/pricing/:from/:to - Get stopwise pricing between two cities
+  static async getStopwisePricing(req, res, next) {
+    try {
+      const { from, to } = req.params;
+      const { busType = 'Normal' } = req.query;
+
+      // Find routes that serve this journey (both directions)
+      const routes = await Route.find({
+        $or: [
+          {
+            'origin.city': { $regex: new RegExp(from, 'i') },
+            'destination.city': { $regex: new RegExp(to, 'i') }
+          },
+          {
+            'origin.city': { $regex: new RegExp(to, 'i') },
+            'destination.city': { $regex: new RegExp(from, 'i') }
+          },
+          {
+            'stops.name': { $regex: new RegExp(from, 'i') },
+            'destination.city': { $regex: new RegExp(to, 'i') }
+          },
+          {
+            'origin.city': { $regex: new RegExp(from, 'i') },
+            'stops.name': { $regex: new RegExp(to, 'i') }
+          },
+          {
+            'stops.name': { $all: [new RegExp(from, 'i'), new RegExp(to, 'i')] }
+          }
+        ],
+        isActive: true
+      });
+
+      if (routes.length === 0) {
+        return next(new ApiError(404, `No routes found between ${from} and ${to}`));
+      }
+
+      const pricingResults = [];
+
+      for (const route of routes) {
+        const routeStops = [
+          { name: route.origin.city, order: 0, coordinates: route.origin.coordinates },
+          ...route.stops.sort((a, b) => a.order - b.order),
+          { name: route.destination.city, order: route.stops.length + 1, coordinates: route.destination.coordinates }
+        ];
+
+        // Find start and end stop indices
+        const startIndex = routeStops.findIndex(stop => 
+          stop.name.toLowerCase().includes(from.toLowerCase())
+        );
+        const endIndex = routeStops.findIndex(stop => 
+          stop.name.toLowerCase().includes(to.toLowerCase())
+        );
+
+        if (startIndex === -1 || endIndex === -1) continue;
+
+        // Ensure proper order (start before end)
+        const fromIndex = Math.min(startIndex, endIndex);
+        const toIndex = Math.max(startIndex, endIndex);
+
+        // Calculate stopwise pricing
+        const stopwisePricing = [];
+        let cumulativeDistance = 0;
+        let cumulativePrice = 0;
+
+        // Base pricing logic
+        const baseFare = route.pricingInfo?.baseFare || 50;
+        const pricePerKm = route.pricingInfo?.pricePerKm || 3;
+        const busTypeMultiplier = getBusTypeMultiplier(busType);
+
+        for (let i = fromIndex; i < toIndex; i++) {
+          const currentStop = routeStops[i];
+          const nextStop = routeStops[i + 1];
+          
+          // Calculate distance between stops (rough calculation)
+          const distance = calculateDistance(
+            currentStop.coordinates,
+            nextStop.coordinates
+          );
+          
+          cumulativeDistance += distance;
+          const segmentPrice = Math.round((baseFare + (distance * pricePerKm)) * busTypeMultiplier);
+          cumulativePrice += segmentPrice;
+
+          stopwisePricing.push({
+            from: currentStop.name,
+            to: nextStop.name,
+            distance: Math.round(distance * 10) / 10, // Round to 1 decimal
+            segmentPrice: segmentPrice,
+            cumulativeDistance: Math.round(cumulativeDistance * 10) / 10,
+            cumulativePrice: cumulativePrice
+          });
+        }
+
+        pricingResults.push({
+          route: {
+            _id: route._id,
+            name: route.name,
+            routeNumber: route.routeNumber,
+            routeId: route.routeId
+          },
+          journey: {
+            from: routeStops[fromIndex].name,
+            to: routeStops[toIndex].name,
+            totalDistance: Math.round(cumulativeDistance * 10) / 10,
+            totalPrice: cumulativePrice,
+            busType: busType,
+            multiplier: busTypeMultiplier
+          },
+          stopwisePricing: stopwisePricing
+        });
+      }
+
+      if (pricingResults.length === 0) {
+        return next(new ApiError(404, `No valid pricing found for journey ${from} to ${to}`));
+      }
+
+      res.status(200).json(new ApiResponse(200, {
+        journey: { from, to, busType },
+        routes: pricingResults,
+        count: pricingResults.length
+      }, 'Stopwise pricing retrieved successfully'));
+
+    } catch (error) {
+      next(new ApiError(500, 'Error retrieving stopwise pricing', [error.message]));
+    }
+  }
+}
+
+// Helper function to get bus type multiplier
+function getBusTypeMultiplier(busType) {
+  const multipliers = {
+    'Normal': 1.0,
+    'Semi-Luxury': 1.3,
+    'Luxury': 1.6,
+    'Super Luxury': 2.0,
+    'Intercity Express': 1.8
+  };
+  return multipliers[busType] || 1.0;
+}
+
+// Helper function to calculate distance between two coordinates (Haversine formula)
+function calculateDistance(coord1, coord2) {
+  const R = 6371; // Earth's radius in kilometers
+  const dLat = (coord2.latitude - coord1.latitude) * Math.PI / 180;
+  const dLon = (coord2.longitude - coord1.longitude) * Math.PI / 180;
+  const a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(coord1.latitude * Math.PI / 180) * Math.cos(coord2.latitude * Math.PI / 180) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return R * c; // Distance in km
 }
 
 export default RouteController;

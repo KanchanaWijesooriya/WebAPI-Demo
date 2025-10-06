@@ -6,8 +6,9 @@ const router = express.Router();
 
 // Public routes with optional authentication for role-based filtering
 router.get('/', optionalAuth, RouteController.getAllRoutes);
-router.get('/:id', optionalAuth, RouteController.getRoute);
+router.get('/pricing/:from/:to', optionalAuth, RouteController.getStopwisePricing);
 router.get('/:id/buses', optionalAuth, RouteController.getRouteBuses);
+router.get('/:id', optionalAuth, RouteController.getRoute);
 
 // Protected routes (admin only)
 router.use(protect); // All routes below require authentication

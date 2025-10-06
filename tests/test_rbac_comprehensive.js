@@ -55,21 +55,21 @@ async function loginAdmin() {
   if (response.ok) {
     const data = await response.json();
     adminToken = data.token;
-    console.log('✅ Admin login successful');
+    console.log('Admin login successful');
     return true;
   } else {
-    console.log('❌ Admin login failed');
+    console.log('Admin login failed');
     return false;
   }
 }
 
 // Test endpoint with both public and admin access
 async function testEndpoint(endpoint, description) {
-  console.log(`\n📊 Testing: ${description}`);
+  console.log(`\nTesting: ${description}`);
   console.log(`   Endpoint: ${endpoint}`);
   
   // Test public access
-  console.log('   👤 Public access:');
+  console.log('   Public access:');
   const publicResponse = await makeRequest(endpoint);
   console.log(`      Status: ${publicResponse.status}`);
   
@@ -78,7 +78,7 @@ async function testEndpoint(endpoint, description) {
                              JSON.stringify(publicResponse.data).includes('"registrationNumber"') ||
                              JSON.stringify(publicResponse.data).includes('"licenseNumber"');
     console.log(`      Data level: ${publicResponse.data.dataLevel || 'not specified'}`);
-    console.log(`      Has sensitive fields: ${hasInternalFields ? '❌ YES (BAD)' : '✅ NO (GOOD)'}`);
+    console.log(`      Has sensitive fields: ${hasInternalFields ? 'YES (BAD)' : 'NO (GOOD)'}`);
   }
   
   // Test admin access
@@ -91,7 +91,7 @@ async function testEndpoint(endpoint, description) {
       const hasInternalFields = JSON.stringify(adminResponse.data).includes('"_id"') || 
                                JSON.stringify(adminResponse.data).includes('"registrationNumber"');
       console.log(`      Data level: ${adminResponse.data.dataLevel || 'not specified'}`);
-      console.log(`      Has internal fields: ${hasInternalFields ? '✅ YES (GOOD)' : '❌ NO (BAD)'}`);
+      console.log(`      Has internal fields: ${hasInternalFields ? 'YES (GOOD)' : 'NO (BAD)'}`);
     }
   }
 }
@@ -113,20 +113,20 @@ function analyzeDataFields(data, userType) {
   console.log(`      Sensitive fields analysis (${userType}):`);
   Object.entries(sensitiveFields).forEach(([field, present]) => {
     const shouldBePresent = userType === 'admin';
-    const status = present === shouldBePresent ? '✅' : '❌';
+    const status = present === shouldBePresent ? '[OK]' : '[ERROR]';
     console.log(`        ${field}: ${present ? 'Present' : 'Hidden'} ${status}`);
   });
 }
 
 // Main test function
 async function runComprehensiveRBACTests() {
-  console.log('🚀 Starting Comprehensive RBAC Testing');
+  console.log('Starting Comprehensive RBAC Testing');
   console.log('=' .repeat(60));
   
   // Login admin
   const adminLoggedIn = await loginAdmin();
   if (!adminLoggedIn) {
-    console.log('⚠️  Continuing with public tests only');
+    console.log('Continuing with public tests only');
   }
   
   // Test all endpoints
@@ -159,12 +159,12 @@ async function runComprehensiveRBACTests() {
   }
   
   console.log('\n' + '=' .repeat(60));
-  console.log('🏁 RBAC Testing Complete');
-  console.log('\n📋 Summary:');
-  console.log('   ✅ Public users should see clean data without internal fields');
-  console.log('   ✅ Admin users should see complete data including sensitive information');
-  console.log('   ✅ All endpoints should indicate dataLevel (public/full)');
-  console.log('   ❌ Any sensitive data visible to public users indicates a security issue');
+  console.log('RBAC Testing Complete');
+  console.log('\nSummary:');
+  console.log('   [OK] Public users should see clean data without internal fields');
+  console.log('   [OK] Admin users should see complete data including sensitive information');
+  console.log('   [OK] All endpoints should indicate dataLevel (public/full)');
+  console.log('   [ERROR] Any sensitive data visible to public users indicates a security issue');
 }
 
 // Run the tests

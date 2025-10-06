@@ -64,20 +64,20 @@ GET /api/public/route-buses/67890abcdef123456789
 === FEATURES IMPLEMENTED ===
 
 ADMIN FEATURES:
-✅ Detailed bus information with operator contact details (phones, emails, addresses)
-✅ Performance metrics and reliability scores
-✅ Trip history and maintenance information
-✅ Operator contact directory with business details
-✅ Admin-only sensitive information access
+- Detailed bus information with operator contact details (phones, emails, addresses)
+- Performance metrics and reliability scores
+- Trip history and maintenance information
+- Operator contact directory with business details
+- Admin-only sensitive information access
 
 PUBLIC FEATURES:
-✅ Live bus location tracking
-✅ Current trip information (route, destination, occupancy)
-✅ Nearby buses finder with location-based search
-✅ Route-specific bus tracking
-✅ Estimated arrival times
-✅ Real-time service status updates
-✅ Privacy-friendly public information only
+- Live bus location tracking
+- Current trip information (route, destination, occupancy)
+- Nearby buses finder with location-based search
+- Route-specific bus tracking
+- Estimated arrival times
+- Real-time service status updates
+- Privacy-friendly public information only
 
 Both features are ready for Postman testing!
 */

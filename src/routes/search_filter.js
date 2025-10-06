@@ -69,8 +69,13 @@ function filterSingleItem(item, isAdmin) {
       delete filtered.bus.__v;
       delete filtered.bus.createdAt;
       delete filtered.bus.updatedAt;
-      delete filtered.bus.registrationNumber;
       delete filtered.bus.id;
+      
+      // Keep important bus info for public: busType, capacity, features
+      // Remove only sensitive registration info for public users
+      if (!isAdmin) {
+        delete filtered.bus.registrationNumber;
+      }
       
       // Filter operator data in bus
       if (filtered.bus.operator) {
@@ -368,7 +373,7 @@ router.get('/trips', async (req, res) => {
       const endOfDay = new Date(targetDate);
       endOfDay.setHours(23, 59, 59, 999);
       
-      tripFilter.scheduledDeparture = {
+      tripFilter.serviceDate = {
         $gte: startOfDay,
         $lte: endOfDay
       };
@@ -379,27 +384,32 @@ router.get('/trips', async (req, res) => {
       const [hours, minutes] = departureTime.split(':').map(Number);
       
       // If we have a date filter, add time constraint to existing date filter
-      if (tripFilter.scheduledDeparture) {
-        const baseDate = tripFilter.scheduledDeparture.$gte || new Date();
+      if (tripFilter.serviceDate) {
+        const baseDate = tripFilter.serviceDate.$gte || new Date();
         const startTime = new Date(baseDate);
         startTime.setHours(hours, minutes, 0, 0);
         
         const endTime = new Date(baseDate);
         endTime.setHours(hours, minutes + 30, 0, 0); // 30 minute window
         
-        tripFilter.scheduledDeparture = {
-          ...tripFilter.scheduledDeparture,
-          $gte: startTime,
-          $lte: endTime
-        };
+        // Create a combined filter for date and time
+        const combinedStartDate = new Date(tripFilter.serviceDate.$gte);
+        combinedStartDate.setHours(hours, minutes, 0, 0);
+        
+        const combinedEndDate = new Date(tripFilter.serviceDate.$lte);
+        combinedEndDate.setHours(hours, minutes + 30, 0, 0);
+        
+        tripFilter.$and = [
+          { serviceDate: tripFilter.serviceDate },
+          { departureTime: { $gte: `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}` } },
+          { departureTime: { $lte: `${hours.toString().padStart(2, '0')}:${(minutes + 30).toString().padStart(2, '0')}` } }
+        ];
+        delete tripFilter.serviceDate;
       } else {
         // General time filter for any day
-        tripFilter.$expr = {
-          $and: [
-            { $eq: [{ $hour: '$scheduledDeparture' }, hours] },
-            { $gte: [{ $minute: '$scheduledDeparture' }, minutes] },
-            { $lte: [{ $minute: '$scheduledDeparture' }, minutes + 30] }
-          ]
+        tripFilter.departureTime = {
+          $gte: `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`,
+          $lte: `${hours.toString().padStart(2, '0')}:${(minutes + 30).toString().padStart(2, '0')}`
         };
       }
     }
@@ -413,9 +423,9 @@ router.get('/trips', async (req, res) => {
 
     // Execute query with population (limited fields for privacy)
     const trips = await Trip.find(tripFilter)
-      .select('-driver') // Remove driver info for privacy
-      .populate('route', 'routeNumber name origin destination distance stops')
-      .populate('bus', 'registrationNumber operator type capacity')
+      .select('-driver -conductor') // Remove driver/conductor info for privacy
+      .populate('route', 'name routeId routeNumber startLocation endLocation distance stops')
+      .populate('bus', 'registrationNumber busType capacity features')
       .sort(sortObj)
       .skip(skip)
       .limit(parseInt(limit))
@@ -625,14 +635,14 @@ router.get('/combined', async (req, res) => {
       }
       
       if (dateFilter.$gte || dateFilter.$lt) {
-        tripFilter.scheduledDeparture = dateFilter;
+        tripFilter.serviceDate = dateFilter;
       }
     }
 
     // Get trips with populated data
     const trips = await Trip.find(tripFilter)
-      .populate('route', 'routeNumber name origin destination distance stops')
-      .populate('bus', 'busNumber operator busType capacity')
+      .populate('route', 'name routeId routeNumber startLocation endLocation distance stops')
+      .populate('bus', 'registrationNumber busType capacity features')
       .limit(parseInt(limit) * 2) // Get more trips to ensure we have options
       .lean();
 
@@ -704,6 +714,201 @@ router.get('/combined', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Error in combined search',
+      error: error.message
+    });
+  }
+});
+
+// GET /api/search/pricing/:from/:to - Get stopwise pricing between two cities
+router.get('/pricing/:from/:to', async (req, res) => {
+  try {
+    const { from, to } = req.params;
+    const { busType = 'Normal' } = req.query;
+    const isAdmin = req.user && req.user.role === 'admin';
+
+    // Find routes that serve this journey (both directions and intermediate stops)
+    const routes = await Route.find({
+      $or: [
+        {
+          'origin.city': { $regex: new RegExp(from, 'i') },
+          'destination.city': { $regex: new RegExp(to, 'i') }
+        },
+        {
+          'origin.city': { $regex: new RegExp(to, 'i') },
+          'destination.city': { $regex: new RegExp(from, 'i') }
+        },
+        {
+          'stops.name': { $regex: new RegExp(from, 'i') }
+        },
+        {
+          'stops.name': { $regex: new RegExp(to, 'i') }
+        }
+      ],
+      isActive: true
+    });
+
+    if (routes.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: `No routes found between ${from} and ${to}`,
+        suggestion: 'Try searching with shorter city names like "Kandy" instead of "Kandy City"'
+      });
+    }
+
+    const pricingResults = [];
+
+    // Helper function to calculate distance between coordinates
+    const calculateDistance = (coord1, coord2) => {
+      const R = 6371; 
+      const dLat = (coord2.latitude - coord1.latitude) * Math.PI / 180;
+      const dLon = (coord2.longitude - coord1.longitude) * Math.PI / 180;
+      const a = 
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(coord1.latitude * Math.PI / 180) * Math.cos(coord2.latitude * Math.PI / 180) * 
+        Math.sin(dLon/2) * Math.sin(dLon/2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      return R * c;
+    };
+
+    // Helper function to get bus type multiplier
+    const getBusTypeMultiplier = (type) => {
+      const multipliers = {
+        'Normal': 1.0,
+        'Semi-Luxury': 1.3,
+        'Luxury': 1.6,
+        'Super Luxury': 2.0,
+        'Intercity Express': 1.8
+      };
+      return multipliers[type] || 1.0;
+    };
+
+    for (const route of routes) {
+      const allStops = [
+        { 
+          name: route.origin.city, 
+          order: 0, 
+          coordinates: route.origin.coordinates,
+          isOrigin: true 
+        },
+        ...route.stops.sort((a, b) => a.order - b.order),
+        { 
+          name: route.destination.city, 
+          order: route.stops.length + 1, 
+          coordinates: route.destination.coordinates,
+          isDestination: true 
+        }
+      ];
+
+      // Find start and end positions
+      const startIndex = allStops.findIndex(stop => 
+        stop.name.toLowerCase().includes(from.toLowerCase())
+      );
+      const endIndex = allStops.findIndex(stop => 
+        stop.name.toLowerCase().includes(to.toLowerCase())
+      );
+
+      if (startIndex === -1 || endIndex === -1 || startIndex === endIndex) continue;
+
+      // Ensure proper order
+      const fromIndex = Math.min(startIndex, endIndex);
+      const toIndex = Math.max(startIndex, endIndex);
+      const isReverse = startIndex > endIndex;
+
+      // Calculate stopwise pricing
+      const stopwisePricing = [];
+      let cumulativeDistance = 0;
+      let cumulativePrice = 0;
+
+      // Pricing parameters
+      const baseFare = 50;
+      const pricePerKm = 4;
+      const busTypeMultiplier = getBusTypeMultiplier(busType);
+
+      for (let i = fromIndex; i < toIndex; i++) {
+        const currentStop = allStops[i];
+        const nextStop = allStops[i + 1];
+        
+        // Calculate distance between consecutive stops
+        const segmentDistance = calculateDistance(
+          currentStop.coordinates,
+          nextStop.coordinates
+        );
+        
+        cumulativeDistance += segmentDistance;
+        
+        // Calculate segment price with bus type multiplier
+        const baseSegmentPrice = Math.max(baseFare * 0.3, segmentDistance * pricePerKm);
+        const segmentPrice = Math.round(baseSegmentPrice * busTypeMultiplier);
+        cumulativePrice += segmentPrice;
+
+        stopwisePricing.push({
+          from: currentStop.name,
+          to: nextStop.name,
+          distance: Math.round(segmentDistance * 10) / 10,
+          price: segmentPrice,
+          cumulativeDistance: Math.round(cumulativeDistance * 10) / 10,
+          cumulativePrice: cumulativePrice
+        });
+      }
+
+      // Add route information
+      pricingResults.push({
+        route: {
+          _id: route._id,
+          name: route.name,
+          routeNumber: route.routeNumber,
+          routeId: route.routeId || `RT-${route.routeNumber}`,
+          direction: isReverse ? 'Reverse' : 'Forward'
+        },
+        journey: {
+          from: allStops[fromIndex].name,
+          to: allStops[toIndex].name,
+          totalDistance: Math.round(cumulativeDistance * 10) / 10,
+          totalPrice: cumulativePrice,
+          busType: busType,
+          priceMultiplier: busTypeMultiplier
+        },
+        stoppings: stopwisePricing
+      });
+    }
+
+    if (pricingResults.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: `No valid routes found for journey ${from} to ${to}`,
+        availableRoutes: routes.map(r => ({ 
+          name: r.name, 
+          origin: r.origin.city, 
+          destination: r.destination.city,
+          stops: r.stops.map(s => s.name) 
+        }))
+      });
+    }
+
+    res.json({
+      success: true,
+      data: {
+        journey: { from, to, busType },
+        availableRoutes: pricingResults,
+        summary: {
+          routesFound: pricingResults.length,
+          cheapestRoute: pricingResults.reduce((min, route) => 
+            route.journey.totalPrice < min.journey.totalPrice ? route : min
+          ),
+          averagePrice: Math.round(
+            pricingResults.reduce((sum, route) => sum + route.journey.totalPrice, 0) / pricingResults.length
+          )
+        }
+      },
+      message: 'Stopwise pricing retrieved successfully',
+      dataLevel: isAdmin ? 'full' : 'public'
+    });
+
+  } catch (error) {
+    console.error('Pricing search error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error retrieving stopwise pricing',
       error: error.message
     });
   }

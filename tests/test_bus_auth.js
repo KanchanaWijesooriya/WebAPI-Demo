@@ -21,10 +21,10 @@ async function testBusEndpoint() {
       const bus = publicData.data[0];
       console.log('\n   Sample Bus Data:');
       console.log(`     Bus Number: ${bus.busNumber}`);
-      console.log(`     Registration Number: ${bus.registrationNumber ? ' VISIBLE (SHOULD BE HIDDEN)' : '✅ HIDDEN'}`);
+      console.log(`     Registration Number: ${bus.registrationNumber ? ' VISIBLE (SHOULD BE HIDDEN)' : '[OK] HIDDEN'}`);
       console.log(`     Operator Name: ${bus.operator?.name || 'N/A'}`);
-      console.log(`     Operator License: ${bus.operator?.licenseNumber ? ' VISIBLE (SHOULD BE HIDDEN)' : '✅ HIDDEN'}`);
-      console.log(`     Operator Contact: ${bus.operator?.contactNumber ? ' VISIBLE (SHOULD BE HIDDEN)' : '✅ HIDDEN'}`);
+      console.log(`     Operator License: ${bus.operator?.licenseNumber ? ' VISIBLE (SHOULD BE HIDDEN)' : '[OK] HIDDEN'}`);
+      console.log(`     Operator Contact: ${bus.operator?.contactNumber ? ' VISIBLE (SHOULD BE HIDDEN)' : '[OK] HIDDEN'}`);
       console.log(`     Bus Type: ${bus.busType}`);
       console.log(`     Capacity: ${bus.capacity}`);
       console.log(`     Status: ${bus.status}`);
@@ -50,7 +50,7 @@ async function testBusEndpoint() {
       const token = loginData.data?.token;
       
       if (token) {
-        console.log('   ✅ Admin login successful');
+        console.log('   [OK] Admin login successful');
         console.log(`   URL: ${baseUrl} (with admin token)`);
         
         const adminResponse = await fetch(baseUrl, {
@@ -66,10 +66,10 @@ async function testBusEndpoint() {
           const bus = adminData.data[0];
           console.log('\n   Sample Bus Data:');
           console.log(`     Bus Number: ${bus.busNumber}`);
-          console.log(`     Registration Number: ${bus.registrationNumber ? '✅ VISIBLE (ADMIN ACCESS)' : '🔴 HIDDEN (SHOULD BE VISIBLE)'}`);
+          console.log(`     Registration Number: ${bus.registrationNumber ? '[OK] VISIBLE (ADMIN ACCESS)' : '[ERROR] HIDDEN (SHOULD BE VISIBLE)'}`);
           console.log(`     Operator Name: ${bus.operator?.name || 'N/A'}`);
-          console.log(`     Operator License: ${bus.operator?.licenseNumber ? '✅ VISIBLE (ADMIN ACCESS)' : '🔴 HIDDEN (SHOULD BE VISIBLE)'}`);
-          console.log(`     Operator Contact: ${bus.operator?.contactNumber ? '✅ VISIBLE (ADMIN ACCESS)' : '🔴 HIDDEN (SHOULD BE VISIBLE)'}`);
+          console.log(`     Operator License: ${bus.operator?.licenseNumber ? '[OK] VISIBLE (ADMIN ACCESS)' : '[ERROR] HIDDEN (SHOULD BE VISIBLE)'}`);
+          console.log(`     Operator Contact: ${bus.operator?.contactNumber ? '[OK] VISIBLE (ADMIN ACCESS)' : '[ERROR] HIDDEN (SHOULD BE VISIBLE)'}`);
           console.log(`     Bus Type: ${bus.busType}`);
           console.log(`     Capacity: ${bus.capacity}`);
           console.log(`     Status: ${bus.status}`);
@@ -83,7 +83,7 @@ async function testBusEndpoint() {
     }
     
   } catch (error) {
-    console.error('❌ Test Error:', error.message);
+    console.error('[ERROR] Test Error:', error.message);
   }
   
   console.log('\ Expected Behavior:');

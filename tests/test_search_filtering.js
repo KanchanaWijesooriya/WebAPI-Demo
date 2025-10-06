@@ -4,7 +4,7 @@
 async function testSearchFiltering() {
   const baseUrl = 'http://localhost:3000/api/search';
   
-  console.log('🔍 Testing Search Endpoints Role-Based Data Filtering\n');
+  console.log('Testing Search Endpoints Role-Based Data Filtering\n');
   
   try {
     // Test 1: Public user - Combined search
@@ -24,7 +24,7 @@ async function testSearchFiltering() {
       Object.keys(result).forEach(key => {
         if (key === 'availableTrips') return; // Handle separately
         const isInternal = ['_id', '__v', 'createdAt', 'updatedAt', 'isActive'].includes(key);
-        console.log(`     ${key}: ${isInternal ? '🔴 VISIBLE (SHOULD BE HIDDEN)' : '✅ VISIBLE'}`);
+        console.log(`     ${key}: ${isInternal ? '[ERROR] VISIBLE (SHOULD BE HIDDEN)' : '[OK] VISIBLE'}`);
       });
       
       if (result.availableTrips && result.availableTrips.length > 0) {
@@ -34,7 +34,7 @@ async function testSearchFiltering() {
           const isInternal = ['_id', '__v', 'createdAt', 'updatedAt'].includes(key);
           const isSensitive = ['driver', 'passengers', 'actualArrival', 'actualDeparture', 'delay', 'weatherCondition'].includes(key);
           const shouldBeHidden = isInternal || isSensitive;
-          console.log(`     ${key}: ${shouldBeHidden ? '🔴 VISIBLE (SHOULD BE HIDDEN)' : '✅ VISIBLE'}`);
+          console.log(`     ${key}: ${shouldBeHidden ? '[ERROR] VISIBLE (SHOULD BE HIDDEN)' : '[OK] VISIBLE'}`);
         });
         
         // Check bus data
@@ -44,7 +44,7 @@ async function testSearchFiltering() {
             const isInternal = ['_id', '__v', 'createdAt', 'updatedAt'].includes(key);
             const isSensitive = ['registrationNumber'].includes(key);
             const shouldBeHidden = isInternal || isSensitive;
-            console.log(`     ${key}: ${shouldBeHidden ? '🔴 VISIBLE (SHOULD BE HIDDEN)' : '✅ VISIBLE'}`);
+            console.log(`     ${key}: ${shouldBeHidden ? '[ERROR] VISIBLE (SHOULD BE HIDDEN)' : '[OK] VISIBLE'}`);
           });
         }
       }
@@ -70,7 +70,7 @@ async function testSearchFiltering() {
       const token = loginData.data?.token;
       
       if (token) {
-        console.log('   ✅ Admin login successful');
+        console.log('   [OK] Admin login successful');
         console.log(`   URL: ${publicUrl} (with admin token)`);
         
         const adminResponse = await fetch(publicUrl, {
@@ -86,29 +86,29 @@ async function testSearchFiltering() {
           const result = adminData.data.results[0];
           console.log('\n   Route Data Fields:');
           Object.keys(result).forEach(key => {
-            console.log(`     ${key}: ✅ VISIBLE (ADMIN ACCESS)`);
+            console.log(`     ${key}: [OK] VISIBLE (ADMIN ACCESS)`);
           });
           
           if (result.availableTrips && result.availableTrips.length > 0) {
             const trip = result.availableTrips[0];
             console.log('\n   Trip Data Fields:');
             Object.keys(trip).forEach(key => {
-              console.log(`     ${key}: ✅ VISIBLE (ADMIN ACCESS)`);
+              console.log(`     ${key}: [OK] VISIBLE (ADMIN ACCESS)`);
             });
             
             if (trip.bus) {
               console.log('\n   Bus Data Fields:');
               Object.keys(trip.bus).forEach(key => {
-                console.log(`     ${key}: ✅ VISIBLE (ADMIN ACCESS)`);
+                console.log(`     ${key}: [OK] VISIBLE (ADMIN ACCESS)`);
               });
             }
           }
         }
       } else {
-        console.log('   🔴 No token received from login');
+        console.log('   [ERROR] No token received from login');
       }
     } else {
-      console.log('   🔴 Admin login failed');
+      console.log('   [ERROR] Admin login failed');
     }
     
     console.log('\n' + '='.repeat(80) + '\n');
@@ -127,15 +127,15 @@ async function testSearchFiltering() {
       console.log('\n   Route Fields:');
       Object.keys(route).forEach(key => {
         const isInternal = ['_id', '__v', 'createdAt', 'updatedAt', 'isActive'].includes(key);
-        console.log(`     ${key}: ${isInternal ? '🔴 VISIBLE (SHOULD BE HIDDEN)' : '✅ VISIBLE'}`);
+        console.log(`     ${key}: ${isInternal ? '[ERROR] VISIBLE (SHOULD BE HIDDEN)' : '[OK] VISIBLE'}`);
       });
     }
     
   } catch (error) {
-    console.error('❌ Test Error:', error.message);
+    console.error('[ERROR] Test Error:', error.message);
   }
   
-  console.log('\n🎯 Expected Behavior:');
+  console.log('\nExpected Behavior:');
   console.log('   PUBLIC USERS should NOT see:');
   console.log('   • Internal fields: _id, __v, createdAt, updatedAt, isActive');
   console.log('   • Sensitive trip data: driver, passengers, actualArrival, actualDeparture, delay, weatherCondition');

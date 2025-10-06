@@ -67,8 +67,28 @@ const routeSchema = new mongoose.Schema({
       latitude: { type: Number, required: true },
       longitude: { type: Number, required: true }
     },
-    order: { type: Number, required: true }
+    order: { type: Number, required: true },
+    distanceFromOrigin: { type: Number, default: 0 }, // km from origin
+    cumulativeDistance: { type: Number, default: 0 }  // total distance covered
   }],
+  // Stopwise pricing information
+  pricingInfo: {
+    baseFare: { type: Number, default: 50 }, // minimum fare
+    pricePerKm: { type: Number, default: 3 }, // rate per kilometer
+    stopwisePricing: [{
+      fromStop: { type: String, required: true },
+      toStop: { type: String, required: true },
+      distance: { type: Number, required: true }, // in km
+      price: { type: Number, required: true }, // in LKR
+      busTypeMultipliers: {
+        Normal: { type: Number, default: 1.0 },
+        'Semi-Luxury': { type: Number, default: 1.3 },
+        'Luxury': { type: Number, default: 1.6 },
+        'Super Luxury': { type: Number, default: 2.0 },
+        'Intercity Express': { type: Number, default: 1.8 }
+      }
+    }]
+  },
   isActive: {
     type: Boolean,
     default: true
