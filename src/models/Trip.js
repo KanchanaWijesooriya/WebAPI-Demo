@@ -7,6 +7,23 @@ const tripSchema = new mongoose.Schema({
     unique: true,
     index: true
   },
+  busRegistration: {
+    type: String,
+    required: [true, 'Bus registration is required'],
+    trim: true,
+    index: true
+  },
+  routeNumber: {
+    type: String,
+    required: [true, 'Route number is required'],
+    trim: true,
+    index: true
+  },
+  serviceDate: {
+    type: String,
+    required: [true, 'Service date is required'],
+    index: true
+  },
   bus: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Bus',

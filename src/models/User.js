@@ -36,7 +36,10 @@ const userSchema = new mongoose.Schema({
     firstName: { type: String, trim: true },
     lastName: { type: String, trim: true },
     contactNumber: { type: String, trim: true },
-    organization: { type: String, trim: true }
+    organization: { type: String, trim: true },
+    licenseNumber: { type: String, trim: true }, // For drivers
+    employeeId: { type: String, trim: true }, // For NTC employees
+    department: { type: String, trim: true }
   },
   permissions: [{
     resource: {
