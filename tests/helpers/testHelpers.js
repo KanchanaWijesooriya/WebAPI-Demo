@@ -111,7 +111,7 @@ export const testData = {
   validBus: {
     registrationNumber: 'BUS-TEST-001',
     operator: 'Test Operator',
-    type: 'AC Luxury',
+    type: 'AC Intercity Express',
     capacity: 45,
     isActive: true,
     features: ['AC', 'WiFi', 'GPS']

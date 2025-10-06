@@ -28,7 +28,7 @@
     "registrationNumber": "CAB-5958",
     "routeNumber": "001",
     "capacity": 42,
-    "busType": "Semi-Luxury",
+    "busType": "Express",
     "operator": {
       "name": "SLTB Western Province",
       "contactNumber": "+94-11-2234567",
@@ -52,7 +52,7 @@
     "registrationNumber": "CAC-6173",
     "routeNumber": "001",
     "capacity": 42,
-    "busType": "Semi-Luxury",
+    "busType": "Express",
     "operator": {
       "name": "SLTB Western Province",
       "contactNumber": "+94-11-2234567",
@@ -76,7 +76,7 @@
     "registrationNumber": "CAD-7284",
     "routeNumber": "001",
     "capacity": 35,
-    "busType": "Luxury",
+    "busType": "Intercity Express",
     "operator": {
       "name": "SLTB Western Province",
       "contactNumber": "+94-11-2234567",
@@ -106,7 +106,7 @@
       "contactNumber": "+94-11-2234567",
       "licenseNumber": "OP-2023-001"
     },
-    "facilities": ["Premium AC", "WiFi", "Charging Ports", "Onboard Service"],
+    "facilities": ["AC", "WiFi", "Charging Ports", "Onboard Service"],
     "status": "Active",
     "isOnline": true,
     "availability": {
@@ -148,7 +148,7 @@
     "registrationNumber": "CAG-1517",
     "routeNumber": "002",
     "capacity": 42,
-    "busType": "Semi-Luxury",
+    "busType": "Express",
     "operator": {
       "name": "SLTB Southern Province",
       "contactNumber": "+94-91-2234567",
@@ -178,7 +178,7 @@
       "contactNumber": "+94-91-2234567",
       "licenseNumber": "OP-2023-002"
     },
-    "facilities": ["Premium AC", "WiFi", "Charging Ports", "Onboard Service"],
+    "facilities": ["AC", "WiFi", "Charging Ports", "Onboard Service"],
     "status": "Active",
     "isOnline": true,
     "availability": {
@@ -202,7 +202,7 @@
       "contactNumber": "+94-91-2234567",
       "licenseNumber": "OP-2023-002"
     },
-    "facilities": ["Premium AC", "WiFi", "Charging Ports", "Onboard Service"],
+    "facilities": ["AC", "WiFi", "Charging Ports", "Onboard Service"],
     "status": "Active",
     "isOnline": true,
     "availability": {
@@ -220,7 +220,7 @@
     "registrationNumber": "CAJ-4840",
     "routeNumber": "002",
     "capacity": 42,
-    "busType": "Semi-Luxury",
+    "busType": "Express",
     "operator": {
       "name": "SLTB Southern Province",
       "contactNumber": "+94-91-2234567",
@@ -268,7 +268,7 @@
     "registrationNumber": "CAL-6062",
     "routeNumber": "002-1",
     "capacity": 42,
-    "busType": "Semi-Luxury",
+    "busType": "Express",
     "operator": {
       "name": "SLTB Southern Province",
       "contactNumber": "+94-91-2234567",
@@ -292,7 +292,7 @@
     "registrationNumber": "CAM-7173",
     "routeNumber": "002-1",
     "capacity": 42,
-    "busType": "Semi-Luxury",
+    "busType": "Express",
     "operator": {
       "name": "SLTB Southern Province",
       "contactNumber": "+94-91-2234567",
@@ -322,7 +322,7 @@
       "contactNumber": "+94-91-2234567",
       "licenseNumber": "OP-2023-002"
     },
-    "facilities": ["Premium AC", "WiFi", "Charging Ports", "Onboard Service"],
+    "facilities": ["AC", "WiFi", "Charging Ports", "Onboard Service"],
     "status": "Active",
     "isOnline": true,
     "availability": {
@@ -346,7 +346,7 @@
       "contactNumber": "+94-91-2234567",
       "licenseNumber": "OP-2023-002"
     },
-    "facilities": ["Premium AC", "WiFi", "Charging Ports", "Onboard Service"],
+    "facilities": ["AC", "WiFi", "Charging Ports", "Onboard Service"],
     "status": "Active",
     "isOnline": true,
     "availability": {
@@ -388,7 +388,7 @@
     "registrationNumber": "CAQ-2517",
     "routeNumber": "004",
     "capacity": 42,
-    "busType": "Semi-Luxury",
+    "busType": "Express",
     "operator": {
       "name": "SLTB North Central Province",
       "contactNumber": "+94-25-2234567",
@@ -412,7 +412,7 @@
     "registrationNumber": "CAR-3628",
     "routeNumber": "004",
     "capacity": 42,
-    "busType": "Semi-Luxury",
+    "busType": "Express",
     "operator": {
       "name": "SLTB North Central Province",
       "contactNumber": "+94-25-2234567",
@@ -436,7 +436,7 @@
     "registrationNumber": "CAS-4739",
     "routeNumber": "004",
     "capacity": 35,
-    "busType": "Luxury",
+    "busType": "Intercity Express",
     "operator": {
       "name": "SLTB North Central Province",
       "contactNumber": "+94-25-2234567",
@@ -466,7 +466,7 @@
       "contactNumber": "+94-25-2234567",
       "licenseNumber": "OP-2023-003"
     },
-    "facilities": ["Premium AC", "WiFi", "Charging Ports", "Onboard Service"],
+    "facilities": ["AC", "WiFi", "Charging Ports", "Onboard Service"],
     "status": "Active",
     "isOnline": true,
     "availability": {
@@ -508,7 +508,7 @@
     "registrationNumber": "CAV-7062",
     "routeNumber": "099",
     "capacity": 42,
-    "busType": "Semi-Luxury",
+    "busType": "Express",
     "operator": {
       "name": "SLTB Uva Province",
       "contactNumber": "+94-55-2234567",
@@ -532,7 +532,7 @@
     "registrationNumber": "CAW-8173",
     "routeNumber": "099",
     "capacity": 42,
-    "busType": "Semi-Luxury",
+    "busType": "Express",
     "operator": {
       "name": "SLTB Uva Province",
       "contactNumber": "+94-55-2234567",
@@ -556,7 +556,7 @@
     "registrationNumber": "CAX-9284",
     "routeNumber": "099",
     "capacity": 35,
-    "busType": "Luxury",
+    "busType": "Intercity Express",
     "operator": {
       "name": "SLTB Uva Province",
       "contactNumber": "+94-55-2234567",
@@ -580,7 +580,7 @@
     "registrationNumber": "CAY-1395",
     "routeNumber": "099",
     "capacity": 35,
-    "busType": "Luxury",
+    "busType": "Intercity Express",
     "operator": {
       "name": "SLTB Uva Province",
       "contactNumber": "+94-55-2234567",

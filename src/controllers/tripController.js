@@ -4,58 +4,7 @@ import Route from '../models/Route.js';
 import { ApiFeatures } from '../utils/ApiFeatures.js';
 import { ApiError } from '../utils/ApiError.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
-
-/**
- * Filter trip data based on user role
- * @param {Object} trip - Trip object from database
- * @param {string} role - User role ('admin', 'operator', 'passenger')
- * @returns {Object} Filtered trip data
- */
-const filterTripDataForUser = (trip, role) => {
-  const baseData = {
-    _id: trip._id,
-    tripId: trip.tripId,
-    route: trip.route,
-    routeNumber: trip.routeNumber,
-    bus: trip.bus,
-    busRegistration: trip.busRegistration,
-    serviceDate: trip.serviceDate,
-    departureTime: trip.departureTime,
-    arrivalTime: trip.arrivalTime,
-    status: trip.status,
-    currentLocation: trip.currentLocation,
-    nextStop: trip.nextStop,
-    delayMinutes: trip.delayMinutes,
-    createdAt: trip.createdAt,
-    updatedAt: trip.updatedAt
-  };
-
-  if (role === 'admin') {
-    // Admins get all data including sensitive operational details
-    return {
-      ...baseData,
-      driver: trip.driver,
-      conductor: trip.conductor,
-      estimatedRevenue: trip.estimatedRevenue,
-      actualRevenue: trip.actualRevenue,
-      fuelCost: trip.fuelCost,
-      maintenanceCost: trip.maintenanceCost,
-      operationalNotes: trip.operationalNotes
-    };
-  } else if (role === 'operator') {
-    // Operators get operational data but not detailed financial info
-    return {
-      ...baseData,
-      driver: trip.driver,
-      conductor: trip.conductor,
-      estimatedRevenue: trip.estimatedRevenue,
-      operationalNotes: trip.operationalNotes
-    };
-  } else {
-    // Passengers get only public information
-    return baseData;
-  }
-};
+import { filterTripData, getDataLevel } from '../utils/dataFilters.js';
 
 class TripController {
   /**
@@ -65,7 +14,7 @@ class TripController {
    */
   static async getAllTrips(req, res, next) {
     try {
-      const userRole = req.user?.role || 'passenger';
+      const userRole = req.user?.role || null;
       
       // Create API features instance for filtering, sorting, pagination
       const features = new ApiFeatures(Trip.find(), req.query)
@@ -76,13 +25,15 @@ class TripController {
 
       // Add population for related data
       features.query = features.query
-        .populate('route', 'name routeId routeNumber startLocation endLocation')
-        .populate('bus', 'registrationNumber busType capacity features operator');
+        .populate('route', 'name routeName routeId routeNumber origin destination distance estimatedDuration')
+        .populate('bus', 'busNumber registrationNumber busType capacity facilities operator isActive');
 
       const trips = await features.query;
       
       // Filter data based on user role
-      const filteredTrips = trips.map(trip => filterTripDataForUser(trip, userRole));
+      const filteredTrips = trips
+        .map(trip => filterTripData(trip, userRole))
+        .filter(trip => trip !== null);
 
       // Get total count for pagination
       const totalTrips = await Trip.countDocuments();
@@ -93,7 +44,8 @@ class TripController {
           trips: filteredTrips,
           totalTrips,
           currentPage: parseInt(req.query.page) || 1,
-          totalPages: Math.ceil(totalTrips / (parseInt(req.query.limit) || 10))
+          totalPages: Math.ceil(totalTrips / (parseInt(req.query.limit) || 10)),
+          dataLevel: getDataLevel(userRole)
         },
         'Trips retrieved successfully'
       ));
@@ -112,16 +64,19 @@ class TripController {
       const userRole = req.user?.role || 'passenger';
       
       const trip = await Trip.findById(req.params.id)
-        .populate('route', 'name routeId routeNumber startLocation endLocation distance duration')
-        .populate('bus', 'registrationNumber busType capacity features availability');
+        .populate('route', 'name routeName routeId routeNumber origin destination distance estimatedDuration stops')
+        .populate('bus', 'busNumber registrationNumber busType capacity facilities operator isActive');
 
       if (!trip) {
         return next(new ApiError(404, 'Trip not found'));
       }
 
-      const filteredTrip = filterTripDataForUser(trip, userRole);
+      const filteredTrip = filterTripData(trip, userRole);
 
-      res.status(200).json(new ApiResponse(200, filteredTrip, 'Trip retrieved successfully'));
+      res.status(200).json(new ApiResponse(200, {
+        trip: filteredTrip,
+        dataLevel: getDataLevel(userRole)
+      }, 'Trip retrieved successfully'));
     } catch (error) {
       next(new ApiError(500, 'Error retrieving trip', [error.message]));
     }

@@ -35,7 +35,7 @@ router.get('/docs', (req, res) => {
     features: [
       'Role-based access control (Admin/Operator/Passenger)',
       '7-day trip scheduling system',
-      'Enhanced bus types (Normal, Semi-Luxury, Intercity Express)',
+      'Enhanced bus types (Normal, Express, Intercity Express)',
       'Advanced search and filtering',
       'Stopwise pricing calculations',
       'Real-time location tracking'

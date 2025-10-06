@@ -153,7 +153,7 @@ describe('Bus Model', () => {
       const definition = schema.definition;
       
       expect(definition.busType.enum).toEqual([
-        'Normal', 'Semi-Luxury', 'Luxury', 'Air-Conditioned'
+        'Normal', 'Express', 'Intercity Express', 'Air-Conditioned'
       ]);
       expect(definition.busType.default).toBe('Normal');
     });
@@ -524,7 +524,7 @@ describe('Bus Model', () => {
 
   describe('Validation Edge Cases', () => {
     test('should handle all bus types', () => {
-      const busTypes = ['Normal', 'Semi-Luxury', 'Luxury', 'Air-Conditioned'];
+      const busTypes = ['Normal', 'Express', 'Intercity Express', 'Air-Conditioned'];
       
       busTypes.forEach((type, index) => {
         const busData = {

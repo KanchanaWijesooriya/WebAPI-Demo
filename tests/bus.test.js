@@ -154,7 +154,7 @@ describe('Bus Management Tests', () => {
     });
 
     test('Should validate bus type categories', () => {
-      const validTypes = ['AC Luxury', 'Semi Luxury', 'Normal', 'Express'];
+      const validTypes = ['AC Intercity Express', 'Semi Intercity Express', 'Normal', 'Express'];
       const invalidTypes = ['', null, undefined, 123];
 
       validTypes.forEach(type => {

@@ -2,43 +2,17 @@ import Route from '../models/Route.js';
 import { ApiError } from '../utils/ApiError.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
 import { ApiFeatures } from '../utils/ApiFeatures.js';
-
-// Helper function to filter route data based on user role
-function filterRouteDataForUser(route, isAdmin) {
-  if (isAdmin) {
-    return route; // Admin sees all data
-  }
-  
-  // Public user: hide internal/sensitive information
-  const filteredRoute = route.toObject ? { ...route.toObject() } : { ...route };
-  
-  // Remove internal database fields
-  delete filteredRoute._id;
-  delete filteredRoute.__v;
-  delete filteredRoute.createdAt;
-  delete filteredRoute.updatedAt;
-  delete filteredRoute.createdBy;
-  delete filteredRoute.updatedBy;
-  delete filteredRoute.id; // Remove the virtual id field as well
-  
-  // Only show active routes to public
-  if (filteredRoute.isActive === false) {
-    return null; // Don't show inactive routes to public
-  }
-  delete filteredRoute.isActive;
-  
-  return filteredRoute;
-}
+import { filterRouteData, filterBusData, getDataLevel } from '../utils/dataFilters.js';
 
 class RouteController {
   // GET /api/routes - List all routes with filtering, sorting, pagination and role-based filtering
   static async getAllRoutes(req, res, next) {
     try {
-      // Check if user is admin
-      const isAdmin = req.user && req.user.role === 'admin';
+      // Get user role
+      const userRole = req.user?.role || null;
       
-      // Apply base filter for public users (only active routes)
-      const baseQuery = isAdmin ? {} : { isActive: true };
+      // Apply base filter for non-admin users (only active routes)
+      const baseQuery = userRole === 'admin' ? {} : { isActive: true };
       
       const features = new ApiFeatures(Route.find(baseQuery), req.query)
         .filter()
@@ -46,53 +20,115 @@ class RouteController {
         .limitFields()
         .paginate();
 
-      const routes = await features.query;
+      const routes = await features.query.populate('stops');
       const total = await Route.countDocuments(baseQuery);
       
-      // Filter data based on user role
+      // Filter routes based on user role - show all stops by default
       const filteredRoutes = routes
-        .map(route => filterRouteDataForUser(route, isAdmin))
-        .filter(route => route !== null); // Remove null entries (inactive routes for public)
+        .map(route => filterRouteData(route, userRole, { limitStops: false }))
+        .filter(route => route !== null);
 
-      res.status(200).json(new ApiResponse(200, {
-        routes: filteredRoutes,
-        pagination: {
-          total,
-          page: req.query.page * 1 || 1,
-          limit: req.query.limit * 1 || 10,
-          pages: Math.ceil(total / (req.query.limit * 1 || 10))
+      const response = new ApiResponse(
+        200,
+        {
+          routes: filteredRoutes,
+          pagination: {
+            total,
+            page: parseInt(req.query.page) || 1,
+            limit: parseInt(req.query.limit) || 10,
+            pages: Math.ceil(total / (parseInt(req.query.limit) || 10))
+          },
+          dataLevel: getDataLevel(userRole)
         },
-        dataLevel: isAdmin ? 'full' : 'public'
-      }, 'Routes retrieved successfully'));
+        'Routes retrieved successfully'
+      );
+
+      res.status(200).json(response);
     } catch (error) {
       next(new ApiError(500, 'Error retrieving routes'));
     }
   }
 
-  // GET /api/routes/:id - Get single route with role-based data filtering
+  // GET /api/routes/:id - Get single route with role-based data filtering (supports bidirectional)
   static async getRoute(req, res, next) {
     try {
       // Check if user is admin
       const isAdmin = req.user && req.user.role === 'admin';
+      const userRole = req.user?.role || null;
       
-      // For public users, only show active routes
-      const query = isAdmin 
-        ? { _id: req.params.id }
-        : { _id: req.params.id, isActive: true };
+      // Try to find by MongoDB ObjectId first, then by route number
+      let query = {};
+      let isSingleRoute = false;
       
-      const route = await Route.findOne(query);
-      
-      if (!route) {
-        return next(new ApiError(404, 'Route not found or not available'));
+      if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+        // It's a valid MongoDB ObjectId - return single route
+        query = isAdmin ? { _id: req.params.id } : { _id: req.params.id, isActive: true };
+        isSingleRoute = true;
+      } else {
+        // It's likely a route number - find all routes with this base number (bidirectional)
+        const routeNum = req.params.id;
+        query = isAdmin 
+          ? { $or: [
+              { routeNumber: routeNum }, 
+              { routeNumber: new RegExp(routeNum, 'i') }, 
+              { routeId: new RegExp(routeNum, 'i') }
+            ]}
+          : { $or: [
+              { routeNumber: routeNum }, 
+              { routeNumber: new RegExp(routeNum, 'i') }, 
+              { routeId: new RegExp(routeNum, 'i') }
+            ], isActive: true };
       }
       
-      // Filter data based on user role
-      const filteredRoute = filterRouteDataForUser(route, isAdmin);
+      if (isSingleRoute) {
+        // Single route by ObjectId
+        const route = await Route.findOne(query);
+        
+        if (!route) {
+          return next(new ApiError(404, 'Route not found or not available'));
+        }
+        
+        const filteredRoute = filterRouteData(route, userRole, { limitStops: false });
 
-      res.status(200).json(new ApiResponse(200, {
-        route: filteredRoute,
-        dataLevel: isAdmin ? 'full' : 'public'
-      }, 'Route retrieved successfully'));
+        res.status(200).json(new ApiResponse(200, {
+          route: filteredRoute,
+          dataLevel: getDataLevel(userRole)
+        }, 'Route retrieved successfully'));
+        
+      } else {
+        // Multiple routes by route number (bidirectional support)
+        const routes = await Route.find(query);
+        
+        if (!routes || routes.length === 0) {
+          return next(new ApiError(404, 'Route not found or not available'));
+        }
+        
+        // Filter routes based on user role - show all stops by default
+        const filteredRoutes = routes
+          .map(route => filterRouteData(route, userRole, { limitStops: false }))
+          .filter(route => route !== null);
+
+        // If only one route found, return single route format for backward compatibility
+        if (filteredRoutes.length === 1) {
+          res.status(200).json(new ApiResponse(200, {
+            route: filteredRoutes[0],
+            dataLevel: getDataLevel(userRole)
+          }, 'Route retrieved successfully'));
+        } else {
+          // Multiple routes found - return bidirectional format
+          res.status(200).json(new ApiResponse(200, {
+            routes: filteredRoutes,
+            routeNumber: req.params.id,
+            bidirectional: true,
+            summary: {
+              totalRoutes: filteredRoutes.length,
+              directions: filteredRoutes.map(r => r.direction).filter((v, i, a) => a.indexOf(v) === i),
+              routeInfo: `Found ${filteredRoutes.length} route(s) for route number ${req.params.id}`
+            },
+            dataLevel: getDataLevel(userRole)
+          }, `Found ${filteredRoutes.length} route(s) for route number ${req.params.id}`));
+        }
+      }
     } catch (error) {
       next(new ApiError(500, 'Error retrieving route'));
     }
@@ -159,50 +195,57 @@ class RouteController {
       
       // Check if user is admin
       const isAdmin = req.user && req.user.role === 'admin';
+      const userRole = req.user?.role || null;
       
-      const buses = await Bus.find({ route: req.params.id })
+      let routeQuery = {};
+      let routeIds = [];
+      
+      // Check if the parameter is a MongoDB ObjectId or route number
+      if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+        // It's a MongoDB ObjectId - use it directly
+        routeIds = [req.params.id];
+      } else {
+        // It's a route number - find all routes with this number
+        const routeNum = req.params.id;
+        routeQuery = isAdmin 
+          ? { $or: [
+              { routeNumber: routeNum }, 
+              { routeNumber: new RegExp(routeNum, 'i') }, 
+              { routeId: new RegExp(routeNum, 'i') }
+            ]}
+          : { $or: [
+              { routeNumber: routeNum }, 
+              { routeNumber: new RegExp(routeNum, 'i') }, 
+              { routeId: new RegExp(routeNum, 'i') }
+            ], isActive: true };
+            
+        // Find routes that match the route number
+        const routes = await Route.find(routeQuery).select('_id');
+        routeIds = routes.map(route => route._id);
+        
+        if (routeIds.length === 0) {
+          return next(new ApiError(404, `No routes found for route number ${req.params.id}`));
+        }
+      }
+      
+      // Find buses that serve any of these routes
+      const buses = await Bus.find({ route: { $in: routeIds } })
         .populate('route', 'routeNumber name origin destination distance');
       
-      // Filter buses data based on user role using the same helper function
-      const filteredBuses = buses.map(bus => {
-        if (isAdmin) {
-          return bus; // Admin sees all data
-        }
-        
-        // Public user: hide sensitive information
-        const filteredBus = { ...bus.toObject() };
-        
-        // Remove sensitive fields for public users
-        delete filteredBus.registrationNumber;
-        delete filteredBus._id;
-        delete filteredBus.__v;
-        delete filteredBus.createdAt;
-        delete filteredBus.updatedAt;
-        
-        // Filter operator information
-        if (filteredBus.operator && typeof filteredBus.operator === 'object') {
-          delete filteredBus.operator.licenseNumber;
-          delete filteredBus.operator.contactNumber;
-          delete filteredBus.operator.email;
-        }
-        
-        // Filter route information
-        if (filteredBus.route) {
-          delete filteredBus.route._id;
-          delete filteredBus.route.__v;
-          delete filteredBus.route.createdAt;
-          delete filteredBus.route.updatedAt;
-        }
-        
-        return filteredBus;
-      });
+      // Filter buses data based on user role
+      const filteredBuses = buses
+        .map(bus => filterBusData(bus, userRole))
+        .filter(bus => bus !== null);
 
       res.status(200).json(new ApiResponse(200, {
         buses: filteredBuses,
-        dataLevel: isAdmin ? 'full' : 'public'
-      }, 'Route buses retrieved successfully'));
+        routeIds: routeIds, // For debugging
+        searchParameter: req.params.id,
+        dataLevel: getDataLevel(userRole)
+      }, `Route buses retrieved successfully for ${req.params.id}`));
     } catch (error) {
-      next(new ApiError(500, 'Error retrieving route buses'));
+      console.error('Error in getRouteBuses:', error);
+      next(new ApiError(500, `Error retrieving route buses: ${error.message}`));
     }
   }
 
@@ -265,10 +308,9 @@ class RouteController {
         const fromIndex = Math.min(startIndex, endIndex);
         const toIndex = Math.max(startIndex, endIndex);
 
-        // Calculate stopwise pricing
+        // Calculate stopwise pricing (simplified)
         const stopwisePricing = [];
-        let cumulativeDistance = 0;
-        let cumulativePrice = 0;
+        let totalPrice = 0;
 
         // Base pricing logic
         const baseFare = route.pricingInfo?.baseFare || 50;
@@ -285,36 +327,23 @@ class RouteController {
             nextStop.coordinates
           );
           
-          cumulativeDistance += distance;
           const segmentPrice = Math.round((baseFare + (distance * pricePerKm)) * busTypeMultiplier);
-          cumulativePrice += segmentPrice;
+          totalPrice += segmentPrice;
 
           stopwisePricing.push({
             from: currentStop.name,
             to: nextStop.name,
-            distance: Math.round(distance * 10) / 10, // Round to 1 decimal
-            segmentPrice: segmentPrice,
-            cumulativeDistance: Math.round(cumulativeDistance * 10) / 10,
-            cumulativePrice: cumulativePrice
+            fare: `LKR ${segmentPrice}`
           });
         }
 
         pricingResults.push({
-          route: {
-            _id: route._id,
-            name: route.name,
-            routeNumber: route.routeNumber,
-            routeId: route.routeId
-          },
-          journey: {
-            from: routeStops[fromIndex].name,
-            to: routeStops[toIndex].name,
-            totalDistance: Math.round(cumulativeDistance * 10) / 10,
-            totalPrice: cumulativePrice,
-            busType: busType,
-            multiplier: busTypeMultiplier
-          },
-          stopwisePricing: stopwisePricing
+          routeNumber: route.routeNumber,
+          routeName: route.name,
+          busType: busType,
+          totalFare: `LKR ${totalPrice}`,
+          duration: route.estimatedDuration ? `${Math.round(route.estimatedDuration / 60)} hours` : null,
+          stopwiseFares: stopwisePricing
         });
       }
 
@@ -323,10 +352,12 @@ class RouteController {
       }
 
       res.status(200).json(new ApiResponse(200, {
-        journey: { from, to, busType },
+        from,
+        to,
+        busType,
         routes: pricingResults,
-        count: pricingResults.length
-      }, 'Stopwise pricing retrieved successfully'));
+        totalOptions: pricingResults.length
+      }, `Found ${pricingResults.length} route(s) for ${from} to ${to}`));
 
     } catch (error) {
       next(new ApiError(500, 'Error retrieving stopwise pricing', [error.message]));
@@ -338,9 +369,9 @@ class RouteController {
 function getBusTypeMultiplier(busType) {
   const multipliers = {
     'Normal': 1.0,
-    'Semi-Luxury': 1.3,
-    'Luxury': 1.6,
-    'Super Luxury': 2.0,
+    'Express': 1.3,
+    'Intercity Express': 1.6,
+    'Super Intercity Express': 2.0,
     'Intercity Express': 1.8
   };
   return multipliers[busType] || 1.0;

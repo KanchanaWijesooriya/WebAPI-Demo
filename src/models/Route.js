@@ -82,9 +82,9 @@ const routeSchema = new mongoose.Schema({
       price: { type: Number, required: true }, // in LKR
       busTypeMultipliers: {
         Normal: { type: Number, default: 1.0 },
-        'Semi-Luxury': { type: Number, default: 1.3 },
-        'Luxury': { type: Number, default: 1.6 },
-        'Super Luxury': { type: Number, default: 2.0 },
+        'Express': { type: Number, default: 1.3 },
+        'Intercity Express': { type: Number, default: 1.6 },
+        'Super Intercity Express': { type: Number, default: 2.0 },
         'Intercity Express': { type: Number, default: 1.8 }
       }
     }]

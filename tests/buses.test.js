@@ -101,7 +101,7 @@ describe('Bus Management Tests', () => {
     });
 
     test('Should validate bus type categories', () => {
-      const validTypes = ['City Bus', 'Intercity', 'Luxury', 'Semi-Luxury'];
+      const validTypes = ['City Bus', 'Intercity', 'Intercity Express', 'Express'];
       
       validTypes.forEach(type => {
         expect(typeof type).toBe('string');

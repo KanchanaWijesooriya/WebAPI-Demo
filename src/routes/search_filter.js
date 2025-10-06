@@ -1,116 +1,31 @@
 import express from 'express';
 import Route from '../models/Route.js';
 import Trip from '../models/Trip.js';
+import { filterRouteData, filterBusData, filterTripData, filterSearchResults, getDataLevel } from '../utils/dataFilters.js';
 
 const router = express.Router();
 
 // Import optional auth middleware for role-based filtering
 import { optionalAuth } from '../middleware/auth.js';
 
+// Helper functions for data filtering
+const filterDataForUser = (data, isAdmin) => {
+  if (!Array.isArray(data)) return data;
+  return data.map(item => {
+    if (item.route) return filterTripData(item, isAdmin ? 'admin' : null);
+    if (item.origin) return filterRouteData(item, isAdmin ? 'admin' : null);
+    return item;
+  });
+};
+
+const filterSingleItem = (item, isAdmin) => {
+  if (item.origin) return filterRouteData(item, isAdmin ? 'admin' : null);
+  if (item.route) return filterTripData(item, isAdmin ? 'admin' : null);
+  return item;
+};
+
 // Apply optional authentication to all search routes
 router.use(optionalAuth);
-
-// Helper function to filter data based on user role
-function filterDataForUser(data, isAdmin) {
-  if (isAdmin) {
-    // Admin: Return all data
-    return data;
-  }
-  
-  // Public: Remove internal/sensitive fields
-  if (Array.isArray(data)) {
-    return data.map(item => filterSingleItem(item, false));
-  } else {
-    return filterSingleItem(data, false);
-  }
-}
-
-function filterSingleItem(item, isAdmin) {
-  if (!item || typeof item !== 'object') return item;
-  
-  const filtered = { ...item };
-  
-  if (!isAdmin) {
-    // Remove internal database fields
-    delete filtered._id;
-    delete filtered.__v;
-    delete filtered.createdAt;
-    delete filtered.updatedAt;
-    delete filtered.isActive;
-    delete filtered.id; // Remove virtual id field
-    
-    // Filter route data if present (recursive filtering)
-    if (filtered.route && typeof filtered.route === 'object') {
-      delete filtered.route._id;
-      delete filtered.route.__v;
-      delete filtered.route.createdAt;
-      delete filtered.route.updatedAt;
-      delete filtered.route.isActive;
-      delete filtered.route.id;
-      
-      // Filter stops in route if present
-      if (filtered.route.stops && Array.isArray(filtered.route.stops)) {
-        filtered.route.stops = filtered.route.stops.map(stop => {
-          if (typeof stop === 'object') {
-            const cleanStop = { ...stop };
-            delete cleanStop._id;
-            delete cleanStop.__v;
-            delete cleanStop.id;
-            return cleanStop;
-          }
-          return stop;
-        });
-      }
-    }
-    
-    // Filter bus data if present
-    if (filtered.bus && typeof filtered.bus === 'object') {
-      delete filtered.bus._id;
-      delete filtered.bus.__v;
-      delete filtered.bus.createdAt;
-      delete filtered.bus.updatedAt;
-      delete filtered.bus.id;
-      
-      // Keep important bus info for public: busType, capacity, features
-      // Remove only sensitive registration info for public users
-      if (!isAdmin) {
-        delete filtered.bus.registrationNumber;
-      }
-      
-      // Filter operator data in bus
-      if (filtered.bus.operator) {
-        delete filtered.bus.operator.licenseNumber;
-        delete filtered.bus.operator.contactNumber;
-      }
-    }
-    
-    // Filter stops array if present
-    if (filtered.stops && Array.isArray(filtered.stops)) {
-      filtered.stops = filtered.stops.map(stop => {
-        if (typeof stop === 'object') {
-          const cleanStop = { ...stop };
-          delete cleanStop._id;
-          delete cleanStop.__v;
-          delete cleanStop.id;
-          return cleanStop;
-        }
-        return stop;
-      });
-    }
-    
-    // Remove driver data completely for privacy
-    delete filtered.driver;
-    
-    // Remove sensitive trip fields
-    delete filtered.passengers;
-    delete filtered.actualArrival;
-    delete filtered.actualDeparture;
-    delete filtered.delay;
-    delete filtered.weatherCondition;
-  }
-  
-  return filtered;
-}
 
 // GET /api/search/routes - Enhanced route filtering with bidirectional support
 router.get('/routes', async (req, res) => {
@@ -162,7 +77,7 @@ router.get('/routes', async (req, res) => {
         }
       });
       
-      // Check if forward direction works
+      // Check if forward direction works (more specific matching)
       const forwardWorks = (!startCity || forwardStartIndex !== -1) && 
                           (!endCity || forwardEndIndex !== -1) && 
                           (forwardStartIndex < forwardEndIndex || forwardStartIndex === -1 || forwardEndIndex === -1);
@@ -172,11 +87,11 @@ router.get('/routes', async (req, res) => {
                           (!endCity || reverseStartIndex !== -1) && 
                           (reverseStartIndex < reverseEndIndex || reverseStartIndex === -1 || reverseEndIndex === -1);
       
-      if (forwardWorks && reverseWorks) return { canServe: true, direction: 'bidirectional' };
-      if (forwardWorks) return { canServe: true, direction: 'forward' };
-      if (reverseWorks) return { canServe: true, direction: 'reverse' };
+      // Prioritize forward direction over reverse for better relevance
+      if (forwardWorks) return { canServe: true, direction: 'forward', priority: 1 };
+      if (reverseWorks) return { canServe: true, direction: 'reverse', priority: 2 };
       
-      return { canServe: false, direction: 'none' };
+      return { canServe: false, direction: 'none', priority: 99 };
     };
 
     // Get all active routes first
@@ -213,6 +128,7 @@ router.get('/routes', async (req, res) => {
               direction: journeyCheck.direction,
               canServe: true,
               matchType: 'filtered',
+              priority: journeyCheck.priority || 1,
               requestedJourney: start && end ? `${start} → ${end}` : null,
               routePath: `${route.origin.city} → ${route.destination.city}`,
               intermediateStops: route.stops ? route.stops.map(stop => stop.name) : []
@@ -230,8 +146,16 @@ router.get('/routes', async (req, res) => {
     const sortObj = {};
     sortObj[sortBy] = sortOrder === 'desc' ? -1 : 1;
 
-    // Apply sorting and pagination
+    // Apply sorting and pagination with relevance priority
     const sortedRoutes = matchingRoutes.sort((a, b) => {
+      // First sort by relevance priority (forward direction routes first)
+      const priorityA = a.journeyInfo?.priority || 1;
+      const priorityB = b.journeyInfo?.priority || 1;
+      if (priorityA !== priorityB) {
+        return priorityA - priorityB;
+      }
+      
+      // Then sort by the requested field
       const aVal = a[sortBy];
       const bVal = b[sortBy];
       if (sortOrder === 'desc') {
@@ -298,15 +222,49 @@ router.get('/trips', async (req, res) => {
       sortOrder = 'asc'
     } = req.query;
 
-    // Build route filter first
+    // Build route filter with flexible city matching (like the route search)
     let routeFilter = { isActive: true };
     
-    if (start) {
-      routeFilter['origin.city'] = { $regex: `^${start.trim()}$`, $options: 'i' };
-    }
-    
-    if (end) {
-      routeFilter['destination.city'] = { $regex: `^${end.trim()}$`, $options: 'i' };
+    if (start || end) {
+      const orConditions = [];
+      
+      if (start && end) {
+        // Search for routes that serve this journey in either direction
+        orConditions.push(
+          {
+            'origin.city': { $regex: start.trim(), $options: 'i' },
+            'destination.city': { $regex: end.trim(), $options: 'i' }
+          },
+          {
+            'origin.city': { $regex: end.trim(), $options: 'i' },
+            'destination.city': { $regex: start.trim(), $options: 'i' }
+          },
+          {
+            'stops.name': { $regex: start.trim(), $options: 'i' },
+            'destination.city': { $regex: end.trim(), $options: 'i' }
+          },
+          {
+            'origin.city': { $regex: start.trim(), $options: 'i' },
+            'stops.name': { $regex: end.trim(), $options: 'i' }
+          }
+        );
+      } else if (start) {
+        orConditions.push(
+          { 'origin.city': { $regex: start.trim(), $options: 'i' } },
+          { 'destination.city': { $regex: start.trim(), $options: 'i' } },
+          { 'stops.name': { $regex: start.trim(), $options: 'i' } }
+        );
+      } else if (end) {
+        orConditions.push(
+          { 'origin.city': { $regex: end.trim(), $options: 'i' } },
+          { 'destination.city': { $regex: end.trim(), $options: 'i' } },
+          { 'stops.name': { $regex: end.trim(), $options: 'i' } }
+        );
+      }
+      
+      if (orConditions.length > 0) {
+        routeFilter.$or = orConditions;
+      }
     }
     
     // Distance filter for routes
@@ -326,11 +284,25 @@ router.get('/trips', async (req, res) => {
       status: { $in: ['Scheduled', 'In Progress'] }
     };
 
-    // Fare filter
+    // Fare filter - handle invalid ranges gracefully
     if (minFare || maxFare) {
+      const minFareNum = parseFloat(minFare) || 0;
+      const maxFareNum = parseFloat(maxFare) || 10000;
+      
+      // If minFare > maxFare, swap them or show no results
+      if (minFareNum > maxFareNum) {
+        console.log(`Invalid fare range: min (${minFareNum}) > max (${maxFareNum})`);
+        // Return empty results for invalid ranges
+        return res.json({
+          success: true,
+          data: { trips: [], pagination: { current: 1, pages: 0, total: 0 } },
+          message: `Invalid fare range: minimum fare (${minFareNum}) cannot be greater than maximum fare (${maxFareNum})`
+        });
+      }
+      
       tripFilter.fare = {};
-      if (minFare) tripFilter.fare.$gte = parseFloat(minFare);
-      if (maxFare) tripFilter.fare.$lte = parseFloat(maxFare);
+      if (minFare) tripFilter.fare.$gte = minFareNum;
+      if (maxFare) tripFilter.fare.$lte = maxFareNum;
     }
 
     // Date and day type filtering
@@ -759,6 +731,9 @@ router.get('/pricing/:from/:to', async (req, res) => {
 
     // Helper function to calculate distance between coordinates
     const calculateDistance = (coord1, coord2) => {
+      if (!coord1 || !coord2 || typeof coord1.latitude !== 'number' || typeof coord2.latitude !== 'number') {
+        return 10; // Default distance if coordinates are invalid
+      }
       const R = 6371; 
       const dLat = (coord2.latitude - coord1.latitude) * Math.PI / 180;
       const dLon = (coord2.longitude - coord1.longitude) * Math.PI / 180;
@@ -774,9 +749,9 @@ router.get('/pricing/:from/:to', async (req, res) => {
     const getBusTypeMultiplier = (type) => {
       const multipliers = {
         'Normal': 1.0,
-        'Semi-Luxury': 1.3,
-        'Luxury': 1.6,
-        'Super Luxury': 2.0,
+        'Express': 1.3,
+        'Intercity Express': 1.6,
+        'Super Intercity Express': 2.0,
         'Intercity Express': 1.8
       };
       return multipliers[type] || 1.0;
@@ -819,9 +794,9 @@ router.get('/pricing/:from/:to', async (req, res) => {
       let cumulativeDistance = 0;
       let cumulativePrice = 0;
 
-      // Pricing parameters
-      const baseFare = 50;
-      const pricePerKm = 4;
+      // Pricing parameters - use route's pricing if available
+      const baseFare = route.pricingInfo?.baseFare || 50;
+      const pricePerKm = route.pricingInfo?.pricePerKm || 4;
       const busTypeMultiplier = getBusTypeMultiplier(busType);
 
       for (let i = fromIndex; i < toIndex; i++) {
@@ -844,10 +819,8 @@ router.get('/pricing/:from/:to', async (req, res) => {
         stopwisePricing.push({
           from: currentStop.name,
           to: nextStop.name,
-          distance: Math.round(segmentDistance * 10) / 10,
-          price: segmentPrice,
-          cumulativeDistance: Math.round(cumulativeDistance * 10) / 10,
-          cumulativePrice: cumulativePrice
+          distance: `${Math.round(segmentDistance * 10) / 10} km`,
+          fare: `LKR ${segmentPrice}`
         });
       }
 
@@ -863,10 +836,8 @@ router.get('/pricing/:from/:to', async (req, res) => {
         journey: {
           from: allStops[fromIndex].name,
           to: allStops[toIndex].name,
-          totalDistance: Math.round(cumulativeDistance * 10) / 10,
-          totalPrice: cumulativePrice,
-          busType: busType,
-          priceMultiplier: busTypeMultiplier
+          totalFare: `LKR ${cumulativePrice}`,
+          busType: busType
         },
         stoppings: stopwisePricing
       });

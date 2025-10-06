@@ -45,7 +45,7 @@ const busSchema = new mongoose.Schema({
   },
   busType: {
     type: String,
-    enum: ['Normal', 'Semi-Luxury', 'Luxury', 'Intercity Express', 'Air-Conditioned'],
+    enum: ['Normal', 'Express', 'Intercity Express', 'Intercity Express', 'Air-Conditioned'],
     default: 'Normal'
   },
   facilities: [{

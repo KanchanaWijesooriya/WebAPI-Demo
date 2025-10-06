@@ -7,7 +7,7 @@
     "scheduledDeparture": "2025-10-06T06:00:00.000Z",
     "scheduledArrival": "2025-10-06T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 350,
+    "fare": 460,
     "driver": {
       "name": "Nimal Perera",
       "licenseNumber": "B2345675",
@@ -26,7 +26,7 @@
     "scheduledDeparture": "2025-10-06T13:00:00.000Z",
     "scheduledArrival": "2025-10-06T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 350,
+    "fare": 460,
     "driver": {
       "name": "Amal Fernando",
       "licenseNumber": "B3456786",
@@ -45,7 +45,7 @@
     "scheduledDeparture": "2025-10-06T07:00:00.000Z",
     "scheduledArrival": "2025-10-06T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Thisara Weerasinghe",
       "licenseNumber": "B4567897",
@@ -64,7 +64,7 @@
     "scheduledDeparture": "2025-10-06T14:00:00.000Z",
     "scheduledArrival": "2025-10-06T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Chamara Fernando",
       "licenseNumber": "B5678908",
@@ -83,7 +83,7 @@
     "scheduledDeparture": "2025-10-06T08:00:00.000Z",
     "scheduledArrival": "2025-10-06T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Kumara Jayasinghe",
       "licenseNumber": "B6789019",
@@ -102,7 +102,7 @@
     "scheduledDeparture": "2025-10-06T15:00:00.000Z",
     "scheduledArrival": "2025-10-06T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Mahinda Rajapakse",
       "licenseNumber": "B7890120",
@@ -121,7 +121,7 @@
     "scheduledDeparture": "2025-10-06T09:00:00.000Z",
     "scheduledArrival": "2025-10-06T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 750,
+    "fare": 985,
     "driver": {
       "name": "Saman Silva",
       "licenseNumber": "B8901231",
@@ -140,7 +140,7 @@
     "scheduledDeparture": "2025-10-06T16:00:00.000Z",
     "scheduledArrival": "2025-10-06T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 750,
+    "fare": 985,
     "driver": {
       "name": "Ravi Wickramasinghe",
       "licenseNumber": "B9012342",
@@ -159,7 +159,7 @@
     "scheduledDeparture": "2025-10-06T10:00:00.000Z",
     "scheduledArrival": "2025-10-06T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1150,
+    "fare": 1510,
     "driver": {
       "name": "Priyantha Gunasekara",
       "licenseNumber": "B1023453",
@@ -178,7 +178,7 @@
     "scheduledDeparture": "2025-10-06T17:00:00.000Z",
     "scheduledArrival": "2025-10-06T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1150,
+    "fare": 1510,
     "driver": {
       "name": "Tharaka Jayawardana",
       "licenseNumber": "B2134564",
@@ -197,7 +197,7 @@
     "scheduledDeparture": "2025-10-06T06:00:00.000Z",
     "scheduledArrival": "2025-10-06T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 420,
+    "fare": 550,
     "driver": {
       "name": "Damith Jayasinghe",
       "licenseNumber": "B3245675",
@@ -216,7 +216,7 @@
     "scheduledDeparture": "2025-10-06T13:00:00.000Z",
     "scheduledArrival": "2025-10-06T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 420,
+    "fare": 550,
     "driver": {
       "name": "Upul Fernando",
       "licenseNumber": "B4356786",
@@ -235,7 +235,7 @@
     "scheduledDeparture": "2025-10-06T07:00:00.000Z",
     "scheduledArrival": "2025-10-06T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 680,
+    "fare": 890,
     "driver": {
       "name": "Sampath Gunathilaka",
       "licenseNumber": "B5467897",
@@ -254,7 +254,7 @@
     "scheduledDeparture": "2025-10-06T14:00:00.000Z",
     "scheduledArrival": "2025-10-06T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 680,
+    "fare": 890,
     "driver": {
       "name": "Wasantha Silva",
       "licenseNumber": "B6578908",
@@ -273,7 +273,7 @@
     "scheduledDeparture": "2025-10-06T08:00:00.000Z",
     "scheduledArrival": "2025-10-06T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1300,
+    "fare": 1710,
     "driver": {
       "name": "Lalith Gunasekara",
       "licenseNumber": "B7689019",
@@ -292,7 +292,7 @@
     "scheduledDeparture": "2025-10-06T15:00:00.000Z",
     "scheduledArrival": "2025-10-06T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1300,
+    "fare": 1710,
     "driver": {
       "name": "Sunimal Jayawardana",
       "licenseNumber": "B8790120",
@@ -311,7 +311,7 @@
     "scheduledDeparture": "2025-10-06T09:00:00.000Z",
     "scheduledArrival": "2025-10-06T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1300,
+    "fare": 1710,
     "driver": {
       "name": "Buddhika Fernando",
       "licenseNumber": "B9801231",
@@ -330,7 +330,7 @@
     "scheduledDeparture": "2025-10-06T16:00:00.000Z",
     "scheduledArrival": "2025-10-06T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1300,
+    "fare": 1710,
     "driver": {
       "name": "Dilshan Wickramasinghe",
       "licenseNumber": "B1912342",
@@ -349,7 +349,7 @@
     "scheduledDeparture": "2025-10-06T10:00:00.000Z",
     "scheduledArrival": "2025-10-06T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 680,
+    "fare": 890,
     "driver": {
       "name": "Janith Jayasinghe",
       "licenseNumber": "B2023453",
@@ -368,7 +368,7 @@
     "scheduledDeparture": "2025-10-06T17:00:00.000Z",
     "scheduledArrival": "2025-10-06T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 680,
+    "fare": 890,
     "driver": {
       "name": "Thilina Gunasekara",
       "licenseNumber": "B3134564",
@@ -387,7 +387,7 @@
     "scheduledDeparture": "2025-10-06T06:00:00.000Z",
     "scheduledArrival": "2025-10-06T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 320,
+    "fare": 550,
     "driver": {
       "name": "Milinda Silva",
       "licenseNumber": "B4245675",
@@ -406,7 +406,7 @@
     "scheduledDeparture": "2025-10-06T13:00:00.000Z",
     "scheduledArrival": "2025-10-06T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 320,
+    "fare": 550,
     "driver": {
       "name": "Nuwan Jayawardana",
       "licenseNumber": "B5356786",
@@ -425,7 +425,7 @@
     "scheduledDeparture": "2025-10-06T07:00:00.000Z",
     "scheduledArrival": "2025-10-06T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Sandun Wickramasinghe",
       "licenseNumber": "B6467897",
@@ -444,7 +444,7 @@
     "scheduledDeparture": "2025-10-06T14:00:00.000Z",
     "scheduledArrival": "2025-10-06T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Amila Gunathilaka",
       "licenseNumber": "B7578908",
@@ -463,7 +463,7 @@
     "scheduledDeparture": "2025-10-06T08:00:00.000Z",
     "scheduledArrival": "2025-10-06T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Ravindu Perera",
       "licenseNumber": "B8689019",
@@ -482,7 +482,7 @@
     "scheduledDeparture": "2025-10-06T15:00:00.000Z",
     "scheduledArrival": "2025-10-06T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Nimal Perera",
       "licenseNumber": "B2345675",
@@ -501,7 +501,7 @@
     "scheduledDeparture": "2025-10-06T09:00:00.000Z",
     "scheduledArrival": "2025-10-06T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1100,
+    "fare": 1445,
     "driver": {
       "name": "Amal Fernando",
       "licenseNumber": "B3456786",
@@ -520,7 +520,7 @@
     "scheduledDeparture": "2025-10-06T16:00:00.000Z",
     "scheduledArrival": "2025-10-06T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1100,
+    "fare": 1445,
     "driver": {
       "name": "Thisara Weerasinghe",
       "licenseNumber": "B4567897",
@@ -539,7 +539,7 @@
     "scheduledDeparture": "2025-10-06T10:00:00.000Z",
     "scheduledArrival": "2025-10-06T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1100,
+    "fare": 1445,
     "driver": {
       "name": "Chamara Fernando",
       "licenseNumber": "B5678908",
@@ -558,7 +558,7 @@
     "scheduledDeparture": "2025-10-06T17:00:00.000Z",
     "scheduledArrival": "2025-10-06T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1100,
+    "fare": 1445,
     "driver": {
       "name": "Kumara Jayasinghe",
       "licenseNumber": "B6789019",
@@ -577,7 +577,7 @@
     "scheduledDeparture": "2025-10-06T06:00:00.000Z",
     "scheduledArrival": "2025-10-06T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Mahinda Rajapakse",
       "licenseNumber": "B7890120",
@@ -596,7 +596,7 @@
     "scheduledDeparture": "2025-10-06T13:00:00.000Z",
     "scheduledArrival": "2025-10-06T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Saman Silva",
       "licenseNumber": "B8901231",
@@ -615,7 +615,7 @@
     "scheduledDeparture": "2025-10-06T07:00:00.000Z",
     "scheduledArrival": "2025-10-06T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 850,
+    "fare": 1115,
     "driver": {
       "name": "Ravi Wickramasinghe",
       "licenseNumber": "B9012342",
@@ -634,7 +634,7 @@
     "scheduledDeparture": "2025-10-06T14:00:00.000Z",
     "scheduledArrival": "2025-10-06T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 850,
+    "fare": 1115,
     "driver": {
       "name": "Priyantha Gunasekara",
       "licenseNumber": "B1023453",
@@ -653,7 +653,7 @@
     "scheduledDeparture": "2025-10-06T08:00:00.000Z",
     "scheduledArrival": "2025-10-06T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 850,
+    "fare": 1115,
     "driver": {
       "name": "Tharaka Jayawardana",
       "licenseNumber": "B2134564",
@@ -672,7 +672,7 @@
     "scheduledDeparture": "2025-10-06T15:00:00.000Z",
     "scheduledArrival": "2025-10-06T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 850,
+    "fare": 1115,
     "driver": {
       "name": "Damith Jayasinghe",
       "licenseNumber": "B3245675",
@@ -691,7 +691,7 @@
     "scheduledDeparture": "2025-10-06T09:00:00.000Z",
     "scheduledArrival": "2025-10-06T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1120,
+    "fare": 1470,
     "driver": {
       "name": "Upul Fernando",
       "licenseNumber": "B4356786",
@@ -710,7 +710,7 @@
     "scheduledDeparture": "2025-10-06T16:00:00.000Z",
     "scheduledArrival": "2025-10-06T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1120,
+    "fare": 1470,
     "driver": {
       "name": "Sampath Gunathilaka",
       "licenseNumber": "B5467897",
@@ -729,7 +729,7 @@
     "scheduledDeparture": "2025-10-06T10:00:00.000Z",
     "scheduledArrival": "2025-10-06T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1600,
+    "fare": 2100,
     "driver": {
       "name": "Wasantha Silva",
       "licenseNumber": "B6578908",
@@ -748,7 +748,7 @@
     "scheduledDeparture": "2025-10-06T17:00:00.000Z",
     "scheduledArrival": "2025-10-06T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1600,
+    "fare": 2100,
     "driver": {
       "name": "Lalith Gunasekara",
       "licenseNumber": "B7689019",
@@ -767,7 +767,7 @@
     "scheduledDeparture": "2025-10-06T06:00:00.000Z",
     "scheduledArrival": "2025-10-06T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Sunimal Jayawardana",
       "licenseNumber": "B8790120",
@@ -786,7 +786,7 @@
     "scheduledDeparture": "2025-10-06T13:00:00.000Z",
     "scheduledArrival": "2025-10-06T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Buddhika Fernando",
       "licenseNumber": "B9801231",
@@ -805,7 +805,7 @@
     "scheduledDeparture": "2025-10-06T07:00:00.000Z",
     "scheduledArrival": "2025-10-06T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 950,
+    "fare": 1245,
     "driver": {
       "name": "Dilshan Wickramasinghe",
       "licenseNumber": "B1912342",
@@ -824,7 +824,7 @@
     "scheduledDeparture": "2025-10-06T14:00:00.000Z",
     "scheduledArrival": "2025-10-06T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 950,
+    "fare": 1245,
     "driver": {
       "name": "Janith Jayasinghe",
       "licenseNumber": "B2023453",
@@ -843,7 +843,7 @@
     "scheduledDeparture": "2025-10-06T08:00:00.000Z",
     "scheduledArrival": "2025-10-06T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 950,
+    "fare": 1245,
     "driver": {
       "name": "Thilina Gunasekara",
       "licenseNumber": "B3134564",
@@ -862,7 +862,7 @@
     "scheduledDeparture": "2025-10-06T15:00:00.000Z",
     "scheduledArrival": "2025-10-06T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 950,
+    "fare": 1245,
     "driver": {
       "name": "Milinda Silva",
       "licenseNumber": "B4245675",
@@ -881,7 +881,7 @@
     "scheduledDeparture": "2025-10-06T09:00:00.000Z",
     "scheduledArrival": "2025-10-06T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1250,
+    "fare": 1640,
     "driver": {
       "name": "Nuwan Jayawardana",
       "licenseNumber": "B5356786",
@@ -900,7 +900,7 @@
     "scheduledDeparture": "2025-10-06T16:00:00.000Z",
     "scheduledArrival": "2025-10-06T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1250,
+    "fare": 1640,
     "driver": {
       "name": "Sandun Wickramasinghe",
       "licenseNumber": "B6467897",
@@ -919,7 +919,7 @@
     "scheduledDeparture": "2025-10-06T10:00:00.000Z",
     "scheduledArrival": "2025-10-06T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1250,
+    "fare": 1640,
     "driver": {
       "name": "Amila Gunathilaka",
       "licenseNumber": "B7578908",
@@ -938,7 +938,7 @@
     "scheduledDeparture": "2025-10-06T17:00:00.000Z",
     "scheduledArrival": "2025-10-06T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1250,
+    "fare": 1640,
     "driver": {
       "name": "Ravindu Perera",
       "licenseNumber": "B8689019",
@@ -957,7 +957,7 @@
     "scheduledDeparture": "2025-10-07T06:00:00.000Z",
     "scheduledArrival": "2025-10-07T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 350,
+    "fare": 460,
     "driver": {
       "name": "Nimal Perera",
       "licenseNumber": "B2345675",
@@ -976,7 +976,7 @@
     "scheduledDeparture": "2025-10-07T13:00:00.000Z",
     "scheduledArrival": "2025-10-07T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 350,
+    "fare": 460,
     "driver": {
       "name": "Amal Fernando",
       "licenseNumber": "B3456786",
@@ -995,7 +995,7 @@
     "scheduledDeparture": "2025-10-07T07:00:00.000Z",
     "scheduledArrival": "2025-10-07T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Thisara Weerasinghe",
       "licenseNumber": "B4567897",
@@ -1014,7 +1014,7 @@
     "scheduledDeparture": "2025-10-07T14:00:00.000Z",
     "scheduledArrival": "2025-10-07T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Chamara Fernando",
       "licenseNumber": "B5678908",
@@ -1033,7 +1033,7 @@
     "scheduledDeparture": "2025-10-07T08:00:00.000Z",
     "scheduledArrival": "2025-10-07T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Kumara Jayasinghe",
       "licenseNumber": "B6789019",
@@ -1052,7 +1052,7 @@
     "scheduledDeparture": "2025-10-07T15:00:00.000Z",
     "scheduledArrival": "2025-10-07T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Mahinda Rajapakse",
       "licenseNumber": "B7890120",
@@ -1071,7 +1071,7 @@
     "scheduledDeparture": "2025-10-07T09:00:00.000Z",
     "scheduledArrival": "2025-10-07T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 750,
+    "fare": 985,
     "driver": {
       "name": "Saman Silva",
       "licenseNumber": "B8901231",
@@ -1090,7 +1090,7 @@
     "scheduledDeparture": "2025-10-07T16:00:00.000Z",
     "scheduledArrival": "2025-10-07T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 750,
+    "fare": 985,
     "driver": {
       "name": "Ravi Wickramasinghe",
       "licenseNumber": "B9012342",
@@ -1109,7 +1109,7 @@
     "scheduledDeparture": "2025-10-07T10:00:00.000Z",
     "scheduledArrival": "2025-10-07T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1150,
+    "fare": 1510,
     "driver": {
       "name": "Priyantha Gunasekara",
       "licenseNumber": "B1023453",
@@ -1128,7 +1128,7 @@
     "scheduledDeparture": "2025-10-07T17:00:00.000Z",
     "scheduledArrival": "2025-10-07T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1150,
+    "fare": 1510,
     "driver": {
       "name": "Tharaka Jayawardana",
       "licenseNumber": "B2134564",
@@ -1147,7 +1147,7 @@
     "scheduledDeparture": "2025-10-07T06:00:00.000Z",
     "scheduledArrival": "2025-10-07T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 420,
+    "fare": 550,
     "driver": {
       "name": "Damith Jayasinghe",
       "licenseNumber": "B3245675",
@@ -1166,7 +1166,7 @@
     "scheduledDeparture": "2025-10-07T13:00:00.000Z",
     "scheduledArrival": "2025-10-07T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 420,
+    "fare": 550,
     "driver": {
       "name": "Upul Fernando",
       "licenseNumber": "B4356786",
@@ -1185,7 +1185,7 @@
     "scheduledDeparture": "2025-10-07T07:00:00.000Z",
     "scheduledArrival": "2025-10-07T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 680,
+    "fare": 890,
     "driver": {
       "name": "Sampath Gunathilaka",
       "licenseNumber": "B5467897",
@@ -1204,7 +1204,7 @@
     "scheduledDeparture": "2025-10-07T14:00:00.000Z",
     "scheduledArrival": "2025-10-07T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 680,
+    "fare": 890,
     "driver": {
       "name": "Wasantha Silva",
       "licenseNumber": "B6578908",
@@ -1223,7 +1223,7 @@
     "scheduledDeparture": "2025-10-07T08:00:00.000Z",
     "scheduledArrival": "2025-10-07T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1300,
+    "fare": 1710,
     "driver": {
       "name": "Lalith Gunasekara",
       "licenseNumber": "B7689019",
@@ -1242,7 +1242,7 @@
     "scheduledDeparture": "2025-10-07T15:00:00.000Z",
     "scheduledArrival": "2025-10-07T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1300,
+    "fare": 1710,
     "driver": {
       "name": "Sunimal Jayawardana",
       "licenseNumber": "B8790120",
@@ -1261,7 +1261,7 @@
     "scheduledDeparture": "2025-10-07T09:00:00.000Z",
     "scheduledArrival": "2025-10-07T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1300,
+    "fare": 1710,
     "driver": {
       "name": "Buddhika Fernando",
       "licenseNumber": "B9801231",
@@ -1280,7 +1280,7 @@
     "scheduledDeparture": "2025-10-07T16:00:00.000Z",
     "scheduledArrival": "2025-10-07T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1300,
+    "fare": 1710,
     "driver": {
       "name": "Dilshan Wickramasinghe",
       "licenseNumber": "B1912342",
@@ -1299,7 +1299,7 @@
     "scheduledDeparture": "2025-10-07T10:00:00.000Z",
     "scheduledArrival": "2025-10-07T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 680,
+    "fare": 890,
     "driver": {
       "name": "Janith Jayasinghe",
       "licenseNumber": "B2023453",
@@ -1318,7 +1318,7 @@
     "scheduledDeparture": "2025-10-07T17:00:00.000Z",
     "scheduledArrival": "2025-10-07T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 680,
+    "fare": 890,
     "driver": {
       "name": "Thilina Gunasekara",
       "licenseNumber": "B3134564",
@@ -1337,7 +1337,7 @@
     "scheduledDeparture": "2025-10-07T06:00:00.000Z",
     "scheduledArrival": "2025-10-07T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 320,
+    "fare": 550,
     "driver": {
       "name": "Milinda Silva",
       "licenseNumber": "B4245675",
@@ -1356,7 +1356,7 @@
     "scheduledDeparture": "2025-10-07T13:00:00.000Z",
     "scheduledArrival": "2025-10-07T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 320,
+    "fare": 550,
     "driver": {
       "name": "Nuwan Jayawardana",
       "licenseNumber": "B5356786",
@@ -1375,7 +1375,7 @@
     "scheduledDeparture": "2025-10-07T07:00:00.000Z",
     "scheduledArrival": "2025-10-07T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Sandun Wickramasinghe",
       "licenseNumber": "B6467897",
@@ -1394,7 +1394,7 @@
     "scheduledDeparture": "2025-10-07T14:00:00.000Z",
     "scheduledArrival": "2025-10-07T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Amila Gunathilaka",
       "licenseNumber": "B7578908",
@@ -1413,7 +1413,7 @@
     "scheduledDeparture": "2025-10-07T08:00:00.000Z",
     "scheduledArrival": "2025-10-07T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Ravindu Perera",
       "licenseNumber": "B8689019",
@@ -1432,7 +1432,7 @@
     "scheduledDeparture": "2025-10-07T15:00:00.000Z",
     "scheduledArrival": "2025-10-07T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Nimal Perera",
       "licenseNumber": "B2345675",
@@ -1451,7 +1451,7 @@
     "scheduledDeparture": "2025-10-07T09:00:00.000Z",
     "scheduledArrival": "2025-10-07T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1100,
+    "fare": 1445,
     "driver": {
       "name": "Amal Fernando",
       "licenseNumber": "B3456786",
@@ -1470,7 +1470,7 @@
     "scheduledDeparture": "2025-10-07T16:00:00.000Z",
     "scheduledArrival": "2025-10-07T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1100,
+    "fare": 1445,
     "driver": {
       "name": "Thisara Weerasinghe",
       "licenseNumber": "B4567897",
@@ -1489,7 +1489,7 @@
     "scheduledDeparture": "2025-10-07T10:00:00.000Z",
     "scheduledArrival": "2025-10-07T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1100,
+    "fare": 1445,
     "driver": {
       "name": "Chamara Fernando",
       "licenseNumber": "B5678908",
@@ -1508,7 +1508,7 @@
     "scheduledDeparture": "2025-10-07T17:00:00.000Z",
     "scheduledArrival": "2025-10-07T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1100,
+    "fare": 1445,
     "driver": {
       "name": "Kumara Jayasinghe",
       "licenseNumber": "B6789019",
@@ -1527,7 +1527,7 @@
     "scheduledDeparture": "2025-10-07T06:00:00.000Z",
     "scheduledArrival": "2025-10-07T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Mahinda Rajapakse",
       "licenseNumber": "B7890120",
@@ -1546,7 +1546,7 @@
     "scheduledDeparture": "2025-10-07T13:00:00.000Z",
     "scheduledArrival": "2025-10-07T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Saman Silva",
       "licenseNumber": "B8901231",
@@ -1565,7 +1565,7 @@
     "scheduledDeparture": "2025-10-07T07:00:00.000Z",
     "scheduledArrival": "2025-10-07T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 850,
+    "fare": 1115,
     "driver": {
       "name": "Ravi Wickramasinghe",
       "licenseNumber": "B9012342",
@@ -1584,7 +1584,7 @@
     "scheduledDeparture": "2025-10-07T14:00:00.000Z",
     "scheduledArrival": "2025-10-07T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 850,
+    "fare": 1115,
     "driver": {
       "name": "Priyantha Gunasekara",
       "licenseNumber": "B1023453",
@@ -1603,7 +1603,7 @@
     "scheduledDeparture": "2025-10-07T08:00:00.000Z",
     "scheduledArrival": "2025-10-07T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 850,
+    "fare": 1115,
     "driver": {
       "name": "Tharaka Jayawardana",
       "licenseNumber": "B2134564",
@@ -1622,7 +1622,7 @@
     "scheduledDeparture": "2025-10-07T15:00:00.000Z",
     "scheduledArrival": "2025-10-07T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 850,
+    "fare": 1115,
     "driver": {
       "name": "Damith Jayasinghe",
       "licenseNumber": "B3245675",
@@ -1641,7 +1641,7 @@
     "scheduledDeparture": "2025-10-07T09:00:00.000Z",
     "scheduledArrival": "2025-10-07T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1120,
+    "fare": 1470,
     "driver": {
       "name": "Upul Fernando",
       "licenseNumber": "B4356786",
@@ -1660,7 +1660,7 @@
     "scheduledDeparture": "2025-10-07T16:00:00.000Z",
     "scheduledArrival": "2025-10-07T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1120,
+    "fare": 1470,
     "driver": {
       "name": "Sampath Gunathilaka",
       "licenseNumber": "B5467897",
@@ -1679,7 +1679,7 @@
     "scheduledDeparture": "2025-10-07T10:00:00.000Z",
     "scheduledArrival": "2025-10-07T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1600,
+    "fare": 2100,
     "driver": {
       "name": "Wasantha Silva",
       "licenseNumber": "B6578908",
@@ -1698,7 +1698,7 @@
     "scheduledDeparture": "2025-10-07T17:00:00.000Z",
     "scheduledArrival": "2025-10-07T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1600,
+    "fare": 2100,
     "driver": {
       "name": "Lalith Gunasekara",
       "licenseNumber": "B7689019",
@@ -1717,7 +1717,7 @@
     "scheduledDeparture": "2025-10-07T06:00:00.000Z",
     "scheduledArrival": "2025-10-07T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Sunimal Jayawardana",
       "licenseNumber": "B8790120",
@@ -1736,7 +1736,7 @@
     "scheduledDeparture": "2025-10-07T13:00:00.000Z",
     "scheduledArrival": "2025-10-07T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Buddhika Fernando",
       "licenseNumber": "B9801231",
@@ -1755,7 +1755,7 @@
     "scheduledDeparture": "2025-10-07T07:00:00.000Z",
     "scheduledArrival": "2025-10-07T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 950,
+    "fare": 1245,
     "driver": {
       "name": "Dilshan Wickramasinghe",
       "licenseNumber": "B1912342",
@@ -1774,7 +1774,7 @@
     "scheduledDeparture": "2025-10-07T14:00:00.000Z",
     "scheduledArrival": "2025-10-07T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 950,
+    "fare": 1245,
     "driver": {
       "name": "Janith Jayasinghe",
       "licenseNumber": "B2023453",
@@ -1793,7 +1793,7 @@
     "scheduledDeparture": "2025-10-07T08:00:00.000Z",
     "scheduledArrival": "2025-10-07T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 950,
+    "fare": 1245,
     "driver": {
       "name": "Thilina Gunasekara",
       "licenseNumber": "B3134564",
@@ -1812,7 +1812,7 @@
     "scheduledDeparture": "2025-10-07T15:00:00.000Z",
     "scheduledArrival": "2025-10-07T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 950,
+    "fare": 1245,
     "driver": {
       "name": "Milinda Silva",
       "licenseNumber": "B4245675",
@@ -1831,7 +1831,7 @@
     "scheduledDeparture": "2025-10-07T09:00:00.000Z",
     "scheduledArrival": "2025-10-07T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1250,
+    "fare": 1640,
     "driver": {
       "name": "Nuwan Jayawardana",
       "licenseNumber": "B5356786",
@@ -1850,7 +1850,7 @@
     "scheduledDeparture": "2025-10-07T16:00:00.000Z",
     "scheduledArrival": "2025-10-07T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1250,
+    "fare": 1640,
     "driver": {
       "name": "Sandun Wickramasinghe",
       "licenseNumber": "B6467897",
@@ -1869,7 +1869,7 @@
     "scheduledDeparture": "2025-10-07T10:00:00.000Z",
     "scheduledArrival": "2025-10-07T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1250,
+    "fare": 1640,
     "driver": {
       "name": "Amila Gunathilaka",
       "licenseNumber": "B7578908",
@@ -1888,7 +1888,7 @@
     "scheduledDeparture": "2025-10-07T17:00:00.000Z",
     "scheduledArrival": "2025-10-07T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1250,
+    "fare": 1640,
     "driver": {
       "name": "Ravindu Perera",
       "licenseNumber": "B8689019",
@@ -1907,7 +1907,7 @@
     "scheduledDeparture": "2025-10-08T06:00:00.000Z",
     "scheduledArrival": "2025-10-08T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 350,
+    "fare": 460,
     "driver": {
       "name": "Nimal Perera",
       "licenseNumber": "B2345675",
@@ -1926,7 +1926,7 @@
     "scheduledDeparture": "2025-10-08T13:00:00.000Z",
     "scheduledArrival": "2025-10-08T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 350,
+    "fare": 460,
     "driver": {
       "name": "Amal Fernando",
       "licenseNumber": "B3456786",
@@ -1945,7 +1945,7 @@
     "scheduledDeparture": "2025-10-08T07:00:00.000Z",
     "scheduledArrival": "2025-10-08T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Thisara Weerasinghe",
       "licenseNumber": "B4567897",
@@ -1964,7 +1964,7 @@
     "scheduledDeparture": "2025-10-08T14:00:00.000Z",
     "scheduledArrival": "2025-10-08T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Chamara Fernando",
       "licenseNumber": "B5678908",
@@ -1983,7 +1983,7 @@
     "scheduledDeparture": "2025-10-08T08:00:00.000Z",
     "scheduledArrival": "2025-10-08T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Kumara Jayasinghe",
       "licenseNumber": "B6789019",
@@ -2002,7 +2002,7 @@
     "scheduledDeparture": "2025-10-08T15:00:00.000Z",
     "scheduledArrival": "2025-10-08T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Mahinda Rajapakse",
       "licenseNumber": "B7890120",
@@ -2021,7 +2021,7 @@
     "scheduledDeparture": "2025-10-08T09:00:00.000Z",
     "scheduledArrival": "2025-10-08T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 750,
+    "fare": 985,
     "driver": {
       "name": "Saman Silva",
       "licenseNumber": "B8901231",
@@ -2040,7 +2040,7 @@
     "scheduledDeparture": "2025-10-08T16:00:00.000Z",
     "scheduledArrival": "2025-10-08T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 750,
+    "fare": 985,
     "driver": {
       "name": "Ravi Wickramasinghe",
       "licenseNumber": "B9012342",
@@ -2059,7 +2059,7 @@
     "scheduledDeparture": "2025-10-08T10:00:00.000Z",
     "scheduledArrival": "2025-10-08T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1150,
+    "fare": 1510,
     "driver": {
       "name": "Priyantha Gunasekara",
       "licenseNumber": "B1023453",
@@ -2078,7 +2078,7 @@
     "scheduledDeparture": "2025-10-08T17:00:00.000Z",
     "scheduledArrival": "2025-10-08T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1150,
+    "fare": 1510,
     "driver": {
       "name": "Tharaka Jayawardana",
       "licenseNumber": "B2134564",
@@ -2097,7 +2097,7 @@
     "scheduledDeparture": "2025-10-08T06:00:00.000Z",
     "scheduledArrival": "2025-10-08T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 420,
+    "fare": 550,
     "driver": {
       "name": "Damith Jayasinghe",
       "licenseNumber": "B3245675",
@@ -2116,7 +2116,7 @@
     "scheduledDeparture": "2025-10-08T13:00:00.000Z",
     "scheduledArrival": "2025-10-08T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 420,
+    "fare": 550,
     "driver": {
       "name": "Upul Fernando",
       "licenseNumber": "B4356786",
@@ -2135,7 +2135,7 @@
     "scheduledDeparture": "2025-10-08T07:00:00.000Z",
     "scheduledArrival": "2025-10-08T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 680,
+    "fare": 890,
     "driver": {
       "name": "Sampath Gunathilaka",
       "licenseNumber": "B5467897",
@@ -2154,7 +2154,7 @@
     "scheduledDeparture": "2025-10-08T14:00:00.000Z",
     "scheduledArrival": "2025-10-08T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 680,
+    "fare": 890,
     "driver": {
       "name": "Wasantha Silva",
       "licenseNumber": "B6578908",
@@ -2173,7 +2173,7 @@
     "scheduledDeparture": "2025-10-08T08:00:00.000Z",
     "scheduledArrival": "2025-10-08T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1300,
+    "fare": 1710,
     "driver": {
       "name": "Lalith Gunasekara",
       "licenseNumber": "B7689019",
@@ -2192,7 +2192,7 @@
     "scheduledDeparture": "2025-10-08T15:00:00.000Z",
     "scheduledArrival": "2025-10-08T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1300,
+    "fare": 1710,
     "driver": {
       "name": "Sunimal Jayawardana",
       "licenseNumber": "B8790120",
@@ -2211,7 +2211,7 @@
     "scheduledDeparture": "2025-10-08T09:00:00.000Z",
     "scheduledArrival": "2025-10-08T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1300,
+    "fare": 1710,
     "driver": {
       "name": "Buddhika Fernando",
       "licenseNumber": "B9801231",
@@ -2230,7 +2230,7 @@
     "scheduledDeparture": "2025-10-08T16:00:00.000Z",
     "scheduledArrival": "2025-10-08T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1300,
+    "fare": 1710,
     "driver": {
       "name": "Dilshan Wickramasinghe",
       "licenseNumber": "B1912342",
@@ -2249,7 +2249,7 @@
     "scheduledDeparture": "2025-10-08T10:00:00.000Z",
     "scheduledArrival": "2025-10-08T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 680,
+    "fare": 890,
     "driver": {
       "name": "Janith Jayasinghe",
       "licenseNumber": "B2023453",
@@ -2268,7 +2268,7 @@
     "scheduledDeparture": "2025-10-08T17:00:00.000Z",
     "scheduledArrival": "2025-10-08T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 680,
+    "fare": 890,
     "driver": {
       "name": "Thilina Gunasekara",
       "licenseNumber": "B3134564",
@@ -2287,7 +2287,7 @@
     "scheduledDeparture": "2025-10-08T06:00:00.000Z",
     "scheduledArrival": "2025-10-08T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 320,
+    "fare": 550,
     "driver": {
       "name": "Milinda Silva",
       "licenseNumber": "B4245675",
@@ -2306,7 +2306,7 @@
     "scheduledDeparture": "2025-10-08T13:00:00.000Z",
     "scheduledArrival": "2025-10-08T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 320,
+    "fare": 550,
     "driver": {
       "name": "Nuwan Jayawardana",
       "licenseNumber": "B5356786",
@@ -2325,7 +2325,7 @@
     "scheduledDeparture": "2025-10-08T07:00:00.000Z",
     "scheduledArrival": "2025-10-08T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Sandun Wickramasinghe",
       "licenseNumber": "B6467897",
@@ -2344,7 +2344,7 @@
     "scheduledDeparture": "2025-10-08T14:00:00.000Z",
     "scheduledArrival": "2025-10-08T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Amila Gunathilaka",
       "licenseNumber": "B7578908",
@@ -2363,7 +2363,7 @@
     "scheduledDeparture": "2025-10-08T08:00:00.000Z",
     "scheduledArrival": "2025-10-08T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Ravindu Perera",
       "licenseNumber": "B8689019",
@@ -2382,7 +2382,7 @@
     "scheduledDeparture": "2025-10-08T15:00:00.000Z",
     "scheduledArrival": "2025-10-08T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Nimal Perera",
       "licenseNumber": "B2345675",
@@ -2401,7 +2401,7 @@
     "scheduledDeparture": "2025-10-08T09:00:00.000Z",
     "scheduledArrival": "2025-10-08T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1100,
+    "fare": 1445,
     "driver": {
       "name": "Amal Fernando",
       "licenseNumber": "B3456786",
@@ -2420,7 +2420,7 @@
     "scheduledDeparture": "2025-10-08T16:00:00.000Z",
     "scheduledArrival": "2025-10-08T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1100,
+    "fare": 1445,
     "driver": {
       "name": "Thisara Weerasinghe",
       "licenseNumber": "B4567897",
@@ -2439,7 +2439,7 @@
     "scheduledDeparture": "2025-10-08T10:00:00.000Z",
     "scheduledArrival": "2025-10-08T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1100,
+    "fare": 1445,
     "driver": {
       "name": "Chamara Fernando",
       "licenseNumber": "B5678908",
@@ -2458,7 +2458,7 @@
     "scheduledDeparture": "2025-10-08T17:00:00.000Z",
     "scheduledArrival": "2025-10-08T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1100,
+    "fare": 1445,
     "driver": {
       "name": "Kumara Jayasinghe",
       "licenseNumber": "B6789019",
@@ -2477,7 +2477,7 @@
     "scheduledDeparture": "2025-10-08T06:00:00.000Z",
     "scheduledArrival": "2025-10-08T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Mahinda Rajapakse",
       "licenseNumber": "B7890120",
@@ -2496,7 +2496,7 @@
     "scheduledDeparture": "2025-10-08T13:00:00.000Z",
     "scheduledArrival": "2025-10-08T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Saman Silva",
       "licenseNumber": "B8901231",
@@ -2515,7 +2515,7 @@
     "scheduledDeparture": "2025-10-08T07:00:00.000Z",
     "scheduledArrival": "2025-10-08T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 850,
+    "fare": 1115,
     "driver": {
       "name": "Ravi Wickramasinghe",
       "licenseNumber": "B9012342",
@@ -2534,7 +2534,7 @@
     "scheduledDeparture": "2025-10-08T14:00:00.000Z",
     "scheduledArrival": "2025-10-08T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 850,
+    "fare": 1115,
     "driver": {
       "name": "Priyantha Gunasekara",
       "licenseNumber": "B1023453",
@@ -2553,7 +2553,7 @@
     "scheduledDeparture": "2025-10-08T08:00:00.000Z",
     "scheduledArrival": "2025-10-08T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 850,
+    "fare": 1115,
     "driver": {
       "name": "Tharaka Jayawardana",
       "licenseNumber": "B2134564",
@@ -2572,7 +2572,7 @@
     "scheduledDeparture": "2025-10-08T15:00:00.000Z",
     "scheduledArrival": "2025-10-08T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 850,
+    "fare": 1115,
     "driver": {
       "name": "Damith Jayasinghe",
       "licenseNumber": "B3245675",
@@ -2591,7 +2591,7 @@
     "scheduledDeparture": "2025-10-08T09:00:00.000Z",
     "scheduledArrival": "2025-10-08T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1120,
+    "fare": 1470,
     "driver": {
       "name": "Upul Fernando",
       "licenseNumber": "B4356786",
@@ -2610,7 +2610,7 @@
     "scheduledDeparture": "2025-10-08T16:00:00.000Z",
     "scheduledArrival": "2025-10-08T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1120,
+    "fare": 1470,
     "driver": {
       "name": "Sampath Gunathilaka",
       "licenseNumber": "B5467897",
@@ -2629,7 +2629,7 @@
     "scheduledDeparture": "2025-10-08T10:00:00.000Z",
     "scheduledArrival": "2025-10-08T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1600,
+    "fare": 2100,
     "driver": {
       "name": "Wasantha Silva",
       "licenseNumber": "B6578908",
@@ -2648,7 +2648,7 @@
     "scheduledDeparture": "2025-10-08T17:00:00.000Z",
     "scheduledArrival": "2025-10-08T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1600,
+    "fare": 2100,
     "driver": {
       "name": "Lalith Gunasekara",
       "licenseNumber": "B7689019",
@@ -2667,7 +2667,7 @@
     "scheduledDeparture": "2025-10-08T06:00:00.000Z",
     "scheduledArrival": "2025-10-08T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Sunimal Jayawardana",
       "licenseNumber": "B8790120",
@@ -2686,7 +2686,7 @@
     "scheduledDeparture": "2025-10-08T13:00:00.000Z",
     "scheduledArrival": "2025-10-08T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Buddhika Fernando",
       "licenseNumber": "B9801231",
@@ -2705,7 +2705,7 @@
     "scheduledDeparture": "2025-10-08T07:00:00.000Z",
     "scheduledArrival": "2025-10-08T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 950,
+    "fare": 1245,
     "driver": {
       "name": "Dilshan Wickramasinghe",
       "licenseNumber": "B1912342",
@@ -2724,7 +2724,7 @@
     "scheduledDeparture": "2025-10-08T14:00:00.000Z",
     "scheduledArrival": "2025-10-08T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 950,
+    "fare": 1245,
     "driver": {
       "name": "Janith Jayasinghe",
       "licenseNumber": "B2023453",
@@ -2743,7 +2743,7 @@
     "scheduledDeparture": "2025-10-08T08:00:00.000Z",
     "scheduledArrival": "2025-10-08T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 950,
+    "fare": 1245,
     "driver": {
       "name": "Thilina Gunasekara",
       "licenseNumber": "B3134564",
@@ -2762,7 +2762,7 @@
     "scheduledDeparture": "2025-10-08T15:00:00.000Z",
     "scheduledArrival": "2025-10-08T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 950,
+    "fare": 1245,
     "driver": {
       "name": "Milinda Silva",
       "licenseNumber": "B4245675",
@@ -2781,7 +2781,7 @@
     "scheduledDeparture": "2025-10-08T09:00:00.000Z",
     "scheduledArrival": "2025-10-08T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1250,
+    "fare": 1640,
     "driver": {
       "name": "Nuwan Jayawardana",
       "licenseNumber": "B5356786",
@@ -2800,7 +2800,7 @@
     "scheduledDeparture": "2025-10-08T16:00:00.000Z",
     "scheduledArrival": "2025-10-08T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1250,
+    "fare": 1640,
     "driver": {
       "name": "Sandun Wickramasinghe",
       "licenseNumber": "B6467897",
@@ -2819,7 +2819,7 @@
     "scheduledDeparture": "2025-10-08T10:00:00.000Z",
     "scheduledArrival": "2025-10-08T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1250,
+    "fare": 1640,
     "driver": {
       "name": "Amila Gunathilaka",
       "licenseNumber": "B7578908",
@@ -2838,7 +2838,7 @@
     "scheduledDeparture": "2025-10-08T17:00:00.000Z",
     "scheduledArrival": "2025-10-08T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1250,
+    "fare": 1640,
     "driver": {
       "name": "Ravindu Perera",
       "licenseNumber": "B8689019",
@@ -2857,7 +2857,7 @@
     "scheduledDeparture": "2025-10-09T06:00:00.000Z",
     "scheduledArrival": "2025-10-09T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 350,
+    "fare": 460,
     "driver": {
       "name": "Nimal Perera",
       "licenseNumber": "B2345675",
@@ -2876,7 +2876,7 @@
     "scheduledDeparture": "2025-10-09T13:00:00.000Z",
     "scheduledArrival": "2025-10-09T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 350,
+    "fare": 460,
     "driver": {
       "name": "Amal Fernando",
       "licenseNumber": "B3456786",
@@ -2895,7 +2895,7 @@
     "scheduledDeparture": "2025-10-09T07:00:00.000Z",
     "scheduledArrival": "2025-10-09T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Thisara Weerasinghe",
       "licenseNumber": "B4567897",
@@ -2914,7 +2914,7 @@
     "scheduledDeparture": "2025-10-09T14:00:00.000Z",
     "scheduledArrival": "2025-10-09T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Chamara Fernando",
       "licenseNumber": "B5678908",
@@ -2933,7 +2933,7 @@
     "scheduledDeparture": "2025-10-09T08:00:00.000Z",
     "scheduledArrival": "2025-10-09T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Kumara Jayasinghe",
       "licenseNumber": "B6789019",
@@ -2952,7 +2952,7 @@
     "scheduledDeparture": "2025-10-09T15:00:00.000Z",
     "scheduledArrival": "2025-10-09T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Mahinda Rajapakse",
       "licenseNumber": "B7890120",
@@ -2971,7 +2971,7 @@
     "scheduledDeparture": "2025-10-09T09:00:00.000Z",
     "scheduledArrival": "2025-10-09T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 750,
+    "fare": 985,
     "driver": {
       "name": "Saman Silva",
       "licenseNumber": "B8901231",
@@ -2990,7 +2990,7 @@
     "scheduledDeparture": "2025-10-09T16:00:00.000Z",
     "scheduledArrival": "2025-10-09T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 750,
+    "fare": 985,
     "driver": {
       "name": "Ravi Wickramasinghe",
       "licenseNumber": "B9012342",
@@ -3009,7 +3009,7 @@
     "scheduledDeparture": "2025-10-09T10:00:00.000Z",
     "scheduledArrival": "2025-10-09T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1150,
+    "fare": 1510,
     "driver": {
       "name": "Priyantha Gunasekara",
       "licenseNumber": "B1023453",
@@ -3028,7 +3028,7 @@
     "scheduledDeparture": "2025-10-09T17:00:00.000Z",
     "scheduledArrival": "2025-10-09T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1150,
+    "fare": 1510,
     "driver": {
       "name": "Tharaka Jayawardana",
       "licenseNumber": "B2134564",
@@ -3047,7 +3047,7 @@
     "scheduledDeparture": "2025-10-09T06:00:00.000Z",
     "scheduledArrival": "2025-10-09T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 420,
+    "fare": 550,
     "driver": {
       "name": "Damith Jayasinghe",
       "licenseNumber": "B3245675",
@@ -3066,7 +3066,7 @@
     "scheduledDeparture": "2025-10-09T13:00:00.000Z",
     "scheduledArrival": "2025-10-09T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 420,
+    "fare": 550,
     "driver": {
       "name": "Upul Fernando",
       "licenseNumber": "B4356786",
@@ -3085,7 +3085,7 @@
     "scheduledDeparture": "2025-10-09T07:00:00.000Z",
     "scheduledArrival": "2025-10-09T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 680,
+    "fare": 890,
     "driver": {
       "name": "Sampath Gunathilaka",
       "licenseNumber": "B5467897",
@@ -3104,7 +3104,7 @@
     "scheduledDeparture": "2025-10-09T14:00:00.000Z",
     "scheduledArrival": "2025-10-09T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 680,
+    "fare": 890,
     "driver": {
       "name": "Wasantha Silva",
       "licenseNumber": "B6578908",
@@ -3123,7 +3123,7 @@
     "scheduledDeparture": "2025-10-09T08:00:00.000Z",
     "scheduledArrival": "2025-10-09T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1300,
+    "fare": 1710,
     "driver": {
       "name": "Lalith Gunasekara",
       "licenseNumber": "B7689019",
@@ -3142,7 +3142,7 @@
     "scheduledDeparture": "2025-10-09T15:00:00.000Z",
     "scheduledArrival": "2025-10-09T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1300,
+    "fare": 1710,
     "driver": {
       "name": "Sunimal Jayawardana",
       "licenseNumber": "B8790120",
@@ -3161,7 +3161,7 @@
     "scheduledDeparture": "2025-10-09T09:00:00.000Z",
     "scheduledArrival": "2025-10-09T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1300,
+    "fare": 1710,
     "driver": {
       "name": "Buddhika Fernando",
       "licenseNumber": "B9801231",
@@ -3180,7 +3180,7 @@
     "scheduledDeparture": "2025-10-09T16:00:00.000Z",
     "scheduledArrival": "2025-10-09T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1300,
+    "fare": 1710,
     "driver": {
       "name": "Dilshan Wickramasinghe",
       "licenseNumber": "B1912342",
@@ -3199,7 +3199,7 @@
     "scheduledDeparture": "2025-10-09T10:00:00.000Z",
     "scheduledArrival": "2025-10-09T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 680,
+    "fare": 890,
     "driver": {
       "name": "Janith Jayasinghe",
       "licenseNumber": "B2023453",
@@ -3218,7 +3218,7 @@
     "scheduledDeparture": "2025-10-09T17:00:00.000Z",
     "scheduledArrival": "2025-10-09T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 680,
+    "fare": 890,
     "driver": {
       "name": "Thilina Gunasekara",
       "licenseNumber": "B3134564",
@@ -3237,7 +3237,7 @@
     "scheduledDeparture": "2025-10-09T06:00:00.000Z",
     "scheduledArrival": "2025-10-09T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 320,
+    "fare": 550,
     "driver": {
       "name": "Milinda Silva",
       "licenseNumber": "B4245675",
@@ -3256,7 +3256,7 @@
     "scheduledDeparture": "2025-10-09T13:00:00.000Z",
     "scheduledArrival": "2025-10-09T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 320,
+    "fare": 550,
     "driver": {
       "name": "Nuwan Jayawardana",
       "licenseNumber": "B5356786",
@@ -3275,7 +3275,7 @@
     "scheduledDeparture": "2025-10-09T07:00:00.000Z",
     "scheduledArrival": "2025-10-09T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Sandun Wickramasinghe",
       "licenseNumber": "B6467897",
@@ -3294,7 +3294,7 @@
     "scheduledDeparture": "2025-10-09T14:00:00.000Z",
     "scheduledArrival": "2025-10-09T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Amila Gunathilaka",
       "licenseNumber": "B7578908",
@@ -3313,7 +3313,7 @@
     "scheduledDeparture": "2025-10-09T08:00:00.000Z",
     "scheduledArrival": "2025-10-09T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Ravindu Perera",
       "licenseNumber": "B8689019",
@@ -3332,7 +3332,7 @@
     "scheduledDeparture": "2025-10-09T15:00:00.000Z",
     "scheduledArrival": "2025-10-09T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Nimal Perera",
       "licenseNumber": "B2345675",
@@ -3351,7 +3351,7 @@
     "scheduledDeparture": "2025-10-09T09:00:00.000Z",
     "scheduledArrival": "2025-10-09T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1100,
+    "fare": 1445,
     "driver": {
       "name": "Amal Fernando",
       "licenseNumber": "B3456786",
@@ -3370,7 +3370,7 @@
     "scheduledDeparture": "2025-10-09T16:00:00.000Z",
     "scheduledArrival": "2025-10-09T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1100,
+    "fare": 1445,
     "driver": {
       "name": "Thisara Weerasinghe",
       "licenseNumber": "B4567897",
@@ -3389,7 +3389,7 @@
     "scheduledDeparture": "2025-10-09T10:00:00.000Z",
     "scheduledArrival": "2025-10-09T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1100,
+    "fare": 1445,
     "driver": {
       "name": "Chamara Fernando",
       "licenseNumber": "B5678908",
@@ -3408,7 +3408,7 @@
     "scheduledDeparture": "2025-10-09T17:00:00.000Z",
     "scheduledArrival": "2025-10-09T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1100,
+    "fare": 1445,
     "driver": {
       "name": "Kumara Jayasinghe",
       "licenseNumber": "B6789019",
@@ -3427,7 +3427,7 @@
     "scheduledDeparture": "2025-10-09T06:00:00.000Z",
     "scheduledArrival": "2025-10-09T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Mahinda Rajapakse",
       "licenseNumber": "B7890120",
@@ -3446,7 +3446,7 @@
     "scheduledDeparture": "2025-10-09T13:00:00.000Z",
     "scheduledArrival": "2025-10-09T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Saman Silva",
       "licenseNumber": "B8901231",
@@ -3465,7 +3465,7 @@
     "scheduledDeparture": "2025-10-09T07:00:00.000Z",
     "scheduledArrival": "2025-10-09T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 850,
+    "fare": 1115,
     "driver": {
       "name": "Ravi Wickramasinghe",
       "licenseNumber": "B9012342",
@@ -3484,7 +3484,7 @@
     "scheduledDeparture": "2025-10-09T14:00:00.000Z",
     "scheduledArrival": "2025-10-09T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 850,
+    "fare": 1115,
     "driver": {
       "name": "Priyantha Gunasekara",
       "licenseNumber": "B1023453",
@@ -3503,7 +3503,7 @@
     "scheduledDeparture": "2025-10-09T08:00:00.000Z",
     "scheduledArrival": "2025-10-09T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 850,
+    "fare": 1115,
     "driver": {
       "name": "Tharaka Jayawardana",
       "licenseNumber": "B2134564",
@@ -3522,7 +3522,7 @@
     "scheduledDeparture": "2025-10-09T15:00:00.000Z",
     "scheduledArrival": "2025-10-09T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 850,
+    "fare": 1115,
     "driver": {
       "name": "Damith Jayasinghe",
       "licenseNumber": "B3245675",
@@ -3541,7 +3541,7 @@
     "scheduledDeparture": "2025-10-09T09:00:00.000Z",
     "scheduledArrival": "2025-10-09T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1120,
+    "fare": 1470,
     "driver": {
       "name": "Upul Fernando",
       "licenseNumber": "B4356786",
@@ -3560,7 +3560,7 @@
     "scheduledDeparture": "2025-10-09T16:00:00.000Z",
     "scheduledArrival": "2025-10-09T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1120,
+    "fare": 1470,
     "driver": {
       "name": "Sampath Gunathilaka",
       "licenseNumber": "B5467897",
@@ -3579,7 +3579,7 @@
     "scheduledDeparture": "2025-10-09T10:00:00.000Z",
     "scheduledArrival": "2025-10-09T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1600,
+    "fare": 2100,
     "driver": {
       "name": "Wasantha Silva",
       "licenseNumber": "B6578908",
@@ -3598,7 +3598,7 @@
     "scheduledDeparture": "2025-10-09T17:00:00.000Z",
     "scheduledArrival": "2025-10-09T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1600,
+    "fare": 2100,
     "driver": {
       "name": "Lalith Gunasekara",
       "licenseNumber": "B7689019",
@@ -3617,7 +3617,7 @@
     "scheduledDeparture": "2025-10-09T06:00:00.000Z",
     "scheduledArrival": "2025-10-09T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Sunimal Jayawardana",
       "licenseNumber": "B8790120",
@@ -3636,7 +3636,7 @@
     "scheduledDeparture": "2025-10-09T13:00:00.000Z",
     "scheduledArrival": "2025-10-09T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Buddhika Fernando",
       "licenseNumber": "B9801231",
@@ -3655,7 +3655,7 @@
     "scheduledDeparture": "2025-10-09T07:00:00.000Z",
     "scheduledArrival": "2025-10-09T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 950,
+    "fare": 1245,
     "driver": {
       "name": "Dilshan Wickramasinghe",
       "licenseNumber": "B1912342",
@@ -3674,7 +3674,7 @@
     "scheduledDeparture": "2025-10-09T14:00:00.000Z",
     "scheduledArrival": "2025-10-09T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 950,
+    "fare": 1245,
     "driver": {
       "name": "Janith Jayasinghe",
       "licenseNumber": "B2023453",
@@ -3693,7 +3693,7 @@
     "scheduledDeparture": "2025-10-09T08:00:00.000Z",
     "scheduledArrival": "2025-10-09T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 950,
+    "fare": 1245,
     "driver": {
       "name": "Thilina Gunasekara",
       "licenseNumber": "B3134564",
@@ -3712,7 +3712,7 @@
     "scheduledDeparture": "2025-10-09T15:00:00.000Z",
     "scheduledArrival": "2025-10-09T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 950,
+    "fare": 1245,
     "driver": {
       "name": "Milinda Silva",
       "licenseNumber": "B4245675",
@@ -3731,7 +3731,7 @@
     "scheduledDeparture": "2025-10-09T09:00:00.000Z",
     "scheduledArrival": "2025-10-09T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1250,
+    "fare": 1640,
     "driver": {
       "name": "Nuwan Jayawardana",
       "licenseNumber": "B5356786",
@@ -3750,7 +3750,7 @@
     "scheduledDeparture": "2025-10-09T16:00:00.000Z",
     "scheduledArrival": "2025-10-09T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1250,
+    "fare": 1640,
     "driver": {
       "name": "Sandun Wickramasinghe",
       "licenseNumber": "B6467897",
@@ -3769,7 +3769,7 @@
     "scheduledDeparture": "2025-10-09T10:00:00.000Z",
     "scheduledArrival": "2025-10-09T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1250,
+    "fare": 1640,
     "driver": {
       "name": "Amila Gunathilaka",
       "licenseNumber": "B7578908",
@@ -3788,7 +3788,7 @@
     "scheduledDeparture": "2025-10-09T17:00:00.000Z",
     "scheduledArrival": "2025-10-09T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1250,
+    "fare": 1640,
     "driver": {
       "name": "Ravindu Perera",
       "licenseNumber": "B8689019",
@@ -3807,7 +3807,7 @@
     "scheduledDeparture": "2025-10-10T06:00:00.000Z",
     "scheduledArrival": "2025-10-10T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 350,
+    "fare": 460,
     "driver": {
       "name": "Nimal Perera",
       "licenseNumber": "B2345675",
@@ -3826,7 +3826,7 @@
     "scheduledDeparture": "2025-10-10T13:00:00.000Z",
     "scheduledArrival": "2025-10-10T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 350,
+    "fare": 460,
     "driver": {
       "name": "Amal Fernando",
       "licenseNumber": "B3456786",
@@ -3845,7 +3845,7 @@
     "scheduledDeparture": "2025-10-10T07:00:00.000Z",
     "scheduledArrival": "2025-10-10T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Thisara Weerasinghe",
       "licenseNumber": "B4567897",
@@ -3864,7 +3864,7 @@
     "scheduledDeparture": "2025-10-10T14:00:00.000Z",
     "scheduledArrival": "2025-10-10T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Chamara Fernando",
       "licenseNumber": "B5678908",
@@ -3883,7 +3883,7 @@
     "scheduledDeparture": "2025-10-10T08:00:00.000Z",
     "scheduledArrival": "2025-10-10T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Kumara Jayasinghe",
       "licenseNumber": "B6789019",
@@ -3902,7 +3902,7 @@
     "scheduledDeparture": "2025-10-10T15:00:00.000Z",
     "scheduledArrival": "2025-10-10T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Mahinda Rajapakse",
       "licenseNumber": "B7890120",
@@ -3921,7 +3921,7 @@
     "scheduledDeparture": "2025-10-10T09:00:00.000Z",
     "scheduledArrival": "2025-10-10T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 750,
+    "fare": 985,
     "driver": {
       "name": "Saman Silva",
       "licenseNumber": "B8901231",
@@ -3940,7 +3940,7 @@
     "scheduledDeparture": "2025-10-10T16:00:00.000Z",
     "scheduledArrival": "2025-10-10T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 750,
+    "fare": 985,
     "driver": {
       "name": "Ravi Wickramasinghe",
       "licenseNumber": "B9012342",
@@ -3959,7 +3959,7 @@
     "scheduledDeparture": "2025-10-10T10:00:00.000Z",
     "scheduledArrival": "2025-10-10T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1150,
+    "fare": 1510,
     "driver": {
       "name": "Priyantha Gunasekara",
       "licenseNumber": "B1023453",
@@ -3978,7 +3978,7 @@
     "scheduledDeparture": "2025-10-10T17:00:00.000Z",
     "scheduledArrival": "2025-10-10T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1150,
+    "fare": 1510,
     "driver": {
       "name": "Tharaka Jayawardana",
       "licenseNumber": "B2134564",
@@ -3997,7 +3997,7 @@
     "scheduledDeparture": "2025-10-10T06:00:00.000Z",
     "scheduledArrival": "2025-10-10T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 420,
+    "fare": 550,
     "driver": {
       "name": "Damith Jayasinghe",
       "licenseNumber": "B3245675",
@@ -4016,7 +4016,7 @@
     "scheduledDeparture": "2025-10-10T13:00:00.000Z",
     "scheduledArrival": "2025-10-10T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 420,
+    "fare": 550,
     "driver": {
       "name": "Upul Fernando",
       "licenseNumber": "B4356786",
@@ -4035,7 +4035,7 @@
     "scheduledDeparture": "2025-10-10T07:00:00.000Z",
     "scheduledArrival": "2025-10-10T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 680,
+    "fare": 890,
     "driver": {
       "name": "Sampath Gunathilaka",
       "licenseNumber": "B5467897",
@@ -4054,7 +4054,7 @@
     "scheduledDeparture": "2025-10-10T14:00:00.000Z",
     "scheduledArrival": "2025-10-10T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 680,
+    "fare": 890,
     "driver": {
       "name": "Wasantha Silva",
       "licenseNumber": "B6578908",
@@ -4073,7 +4073,7 @@
     "scheduledDeparture": "2025-10-10T08:00:00.000Z",
     "scheduledArrival": "2025-10-10T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1300,
+    "fare": 1710,
     "driver": {
       "name": "Lalith Gunasekara",
       "licenseNumber": "B7689019",
@@ -4092,7 +4092,7 @@
     "scheduledDeparture": "2025-10-10T15:00:00.000Z",
     "scheduledArrival": "2025-10-10T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1300,
+    "fare": 1710,
     "driver": {
       "name": "Sunimal Jayawardana",
       "licenseNumber": "B8790120",
@@ -4111,7 +4111,7 @@
     "scheduledDeparture": "2025-10-10T09:00:00.000Z",
     "scheduledArrival": "2025-10-10T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1300,
+    "fare": 1710,
     "driver": {
       "name": "Buddhika Fernando",
       "licenseNumber": "B9801231",
@@ -4130,7 +4130,7 @@
     "scheduledDeparture": "2025-10-10T16:00:00.000Z",
     "scheduledArrival": "2025-10-10T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1300,
+    "fare": 1710,
     "driver": {
       "name": "Dilshan Wickramasinghe",
       "licenseNumber": "B1912342",
@@ -4149,7 +4149,7 @@
     "scheduledDeparture": "2025-10-10T10:00:00.000Z",
     "scheduledArrival": "2025-10-10T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 680,
+    "fare": 890,
     "driver": {
       "name": "Janith Jayasinghe",
       "licenseNumber": "B2023453",
@@ -4168,7 +4168,7 @@
     "scheduledDeparture": "2025-10-10T17:00:00.000Z",
     "scheduledArrival": "2025-10-10T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 680,
+    "fare": 890,
     "driver": {
       "name": "Thilina Gunasekara",
       "licenseNumber": "B3134564",
@@ -4187,7 +4187,7 @@
     "scheduledDeparture": "2025-10-10T06:00:00.000Z",
     "scheduledArrival": "2025-10-10T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 320,
+    "fare": 550,
     "driver": {
       "name": "Milinda Silva",
       "licenseNumber": "B4245675",
@@ -4206,7 +4206,7 @@
     "scheduledDeparture": "2025-10-10T13:00:00.000Z",
     "scheduledArrival": "2025-10-10T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 320,
+    "fare": 550,
     "driver": {
       "name": "Nuwan Jayawardana",
       "licenseNumber": "B5356786",
@@ -4225,7 +4225,7 @@
     "scheduledDeparture": "2025-10-10T07:00:00.000Z",
     "scheduledArrival": "2025-10-10T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Sandun Wickramasinghe",
       "licenseNumber": "B6467897",
@@ -4244,7 +4244,7 @@
     "scheduledDeparture": "2025-10-10T14:00:00.000Z",
     "scheduledArrival": "2025-10-10T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Amila Gunathilaka",
       "licenseNumber": "B7578908",
@@ -4263,7 +4263,7 @@
     "scheduledDeparture": "2025-10-10T08:00:00.000Z",
     "scheduledArrival": "2025-10-10T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Ravindu Perera",
       "licenseNumber": "B8689019",
@@ -4282,7 +4282,7 @@
     "scheduledDeparture": "2025-10-10T15:00:00.000Z",
     "scheduledArrival": "2025-10-10T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Nimal Perera",
       "licenseNumber": "B2345675",
@@ -4301,7 +4301,7 @@
     "scheduledDeparture": "2025-10-10T09:00:00.000Z",
     "scheduledArrival": "2025-10-10T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1100,
+    "fare": 1445,
     "driver": {
       "name": "Amal Fernando",
       "licenseNumber": "B3456786",
@@ -4320,7 +4320,7 @@
     "scheduledDeparture": "2025-10-10T16:00:00.000Z",
     "scheduledArrival": "2025-10-10T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1100,
+    "fare": 1445,
     "driver": {
       "name": "Thisara Weerasinghe",
       "licenseNumber": "B4567897",
@@ -4339,7 +4339,7 @@
     "scheduledDeparture": "2025-10-10T10:00:00.000Z",
     "scheduledArrival": "2025-10-10T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1100,
+    "fare": 1445,
     "driver": {
       "name": "Chamara Fernando",
       "licenseNumber": "B5678908",
@@ -4358,7 +4358,7 @@
     "scheduledDeparture": "2025-10-10T17:00:00.000Z",
     "scheduledArrival": "2025-10-10T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1100,
+    "fare": 1445,
     "driver": {
       "name": "Kumara Jayasinghe",
       "licenseNumber": "B6789019",
@@ -4377,7 +4377,7 @@
     "scheduledDeparture": "2025-10-10T06:00:00.000Z",
     "scheduledArrival": "2025-10-10T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Mahinda Rajapakse",
       "licenseNumber": "B7890120",
@@ -4396,7 +4396,7 @@
     "scheduledDeparture": "2025-10-10T13:00:00.000Z",
     "scheduledArrival": "2025-10-10T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Saman Silva",
       "licenseNumber": "B8901231",
@@ -4415,7 +4415,7 @@
     "scheduledDeparture": "2025-10-10T07:00:00.000Z",
     "scheduledArrival": "2025-10-10T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 850,
+    "fare": 1115,
     "driver": {
       "name": "Ravi Wickramasinghe",
       "licenseNumber": "B9012342",
@@ -4434,7 +4434,7 @@
     "scheduledDeparture": "2025-10-10T14:00:00.000Z",
     "scheduledArrival": "2025-10-10T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 850,
+    "fare": 1115,
     "driver": {
       "name": "Priyantha Gunasekara",
       "licenseNumber": "B1023453",
@@ -4453,7 +4453,7 @@
     "scheduledDeparture": "2025-10-10T08:00:00.000Z",
     "scheduledArrival": "2025-10-10T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 850,
+    "fare": 1115,
     "driver": {
       "name": "Tharaka Jayawardana",
       "licenseNumber": "B2134564",
@@ -4472,7 +4472,7 @@
     "scheduledDeparture": "2025-10-10T15:00:00.000Z",
     "scheduledArrival": "2025-10-10T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 850,
+    "fare": 1115,
     "driver": {
       "name": "Damith Jayasinghe",
       "licenseNumber": "B3245675",
@@ -4491,7 +4491,7 @@
     "scheduledDeparture": "2025-10-10T09:00:00.000Z",
     "scheduledArrival": "2025-10-10T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1120,
+    "fare": 1470,
     "driver": {
       "name": "Upul Fernando",
       "licenseNumber": "B4356786",
@@ -4510,7 +4510,7 @@
     "scheduledDeparture": "2025-10-10T16:00:00.000Z",
     "scheduledArrival": "2025-10-10T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1120,
+    "fare": 1470,
     "driver": {
       "name": "Sampath Gunathilaka",
       "licenseNumber": "B5467897",
@@ -4529,7 +4529,7 @@
     "scheduledDeparture": "2025-10-10T10:00:00.000Z",
     "scheduledArrival": "2025-10-10T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1600,
+    "fare": 2100,
     "driver": {
       "name": "Wasantha Silva",
       "licenseNumber": "B6578908",
@@ -4548,7 +4548,7 @@
     "scheduledDeparture": "2025-10-10T17:00:00.000Z",
     "scheduledArrival": "2025-10-10T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1600,
+    "fare": 2100,
     "driver": {
       "name": "Lalith Gunasekara",
       "licenseNumber": "B7689019",
@@ -4567,7 +4567,7 @@
     "scheduledDeparture": "2025-10-10T06:00:00.000Z",
     "scheduledArrival": "2025-10-10T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Sunimal Jayawardana",
       "licenseNumber": "B8790120",
@@ -4586,7 +4586,7 @@
     "scheduledDeparture": "2025-10-10T13:00:00.000Z",
     "scheduledArrival": "2025-10-10T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Buddhika Fernando",
       "licenseNumber": "B9801231",
@@ -4605,7 +4605,7 @@
     "scheduledDeparture": "2025-10-10T07:00:00.000Z",
     "scheduledArrival": "2025-10-10T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 950,
+    "fare": 1245,
     "driver": {
       "name": "Dilshan Wickramasinghe",
       "licenseNumber": "B1912342",
@@ -4624,7 +4624,7 @@
     "scheduledDeparture": "2025-10-10T14:00:00.000Z",
     "scheduledArrival": "2025-10-10T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 950,
+    "fare": 1245,
     "driver": {
       "name": "Janith Jayasinghe",
       "licenseNumber": "B2023453",
@@ -4643,7 +4643,7 @@
     "scheduledDeparture": "2025-10-10T08:00:00.000Z",
     "scheduledArrival": "2025-10-10T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 950,
+    "fare": 1245,
     "driver": {
       "name": "Thilina Gunasekara",
       "licenseNumber": "B3134564",
@@ -4662,7 +4662,7 @@
     "scheduledDeparture": "2025-10-10T15:00:00.000Z",
     "scheduledArrival": "2025-10-10T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 950,
+    "fare": 1245,
     "driver": {
       "name": "Milinda Silva",
       "licenseNumber": "B4245675",
@@ -4681,7 +4681,7 @@
     "scheduledDeparture": "2025-10-10T09:00:00.000Z",
     "scheduledArrival": "2025-10-10T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1250,
+    "fare": 1640,
     "driver": {
       "name": "Nuwan Jayawardana",
       "licenseNumber": "B5356786",
@@ -4700,7 +4700,7 @@
     "scheduledDeparture": "2025-10-10T16:00:00.000Z",
     "scheduledArrival": "2025-10-10T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1250,
+    "fare": 1640,
     "driver": {
       "name": "Sandun Wickramasinghe",
       "licenseNumber": "B6467897",
@@ -4719,7 +4719,7 @@
     "scheduledDeparture": "2025-10-10T10:00:00.000Z",
     "scheduledArrival": "2025-10-10T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1250,
+    "fare": 1640,
     "driver": {
       "name": "Amila Gunathilaka",
       "licenseNumber": "B7578908",
@@ -4738,7 +4738,7 @@
     "scheduledDeparture": "2025-10-10T17:00:00.000Z",
     "scheduledArrival": "2025-10-10T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1250,
+    "fare": 1640,
     "driver": {
       "name": "Ravindu Perera",
       "licenseNumber": "B8689019",
@@ -4757,7 +4757,7 @@
     "scheduledDeparture": "2025-10-11T06:00:00.000Z",
     "scheduledArrival": "2025-10-11T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 350,
+    "fare": 460,
     "driver": {
       "name": "Nimal Perera",
       "licenseNumber": "B2345675",
@@ -4776,7 +4776,7 @@
     "scheduledDeparture": "2025-10-11T13:00:00.000Z",
     "scheduledArrival": "2025-10-11T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 350,
+    "fare": 460,
     "driver": {
       "name": "Amal Fernando",
       "licenseNumber": "B3456786",
@@ -4795,7 +4795,7 @@
     "scheduledDeparture": "2025-10-11T07:00:00.000Z",
     "scheduledArrival": "2025-10-11T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Thisara Weerasinghe",
       "licenseNumber": "B4567897",
@@ -4814,7 +4814,7 @@
     "scheduledDeparture": "2025-10-11T14:00:00.000Z",
     "scheduledArrival": "2025-10-11T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Chamara Fernando",
       "licenseNumber": "B5678908",
@@ -4833,7 +4833,7 @@
     "scheduledDeparture": "2025-10-11T08:00:00.000Z",
     "scheduledArrival": "2025-10-11T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Kumara Jayasinghe",
       "licenseNumber": "B6789019",
@@ -4852,7 +4852,7 @@
     "scheduledDeparture": "2025-10-11T15:00:00.000Z",
     "scheduledArrival": "2025-10-11T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Mahinda Rajapakse",
       "licenseNumber": "B7890120",
@@ -4871,7 +4871,7 @@
     "scheduledDeparture": "2025-10-11T09:00:00.000Z",
     "scheduledArrival": "2025-10-11T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 750,
+    "fare": 985,
     "driver": {
       "name": "Saman Silva",
       "licenseNumber": "B8901231",
@@ -4890,7 +4890,7 @@
     "scheduledDeparture": "2025-10-11T16:00:00.000Z",
     "scheduledArrival": "2025-10-11T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 750,
+    "fare": 985,
     "driver": {
       "name": "Ravi Wickramasinghe",
       "licenseNumber": "B9012342",
@@ -4909,7 +4909,7 @@
     "scheduledDeparture": "2025-10-11T10:00:00.000Z",
     "scheduledArrival": "2025-10-11T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1150,
+    "fare": 1510,
     "driver": {
       "name": "Priyantha Gunasekara",
       "licenseNumber": "B1023453",
@@ -4928,7 +4928,7 @@
     "scheduledDeparture": "2025-10-11T17:00:00.000Z",
     "scheduledArrival": "2025-10-11T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1150,
+    "fare": 1510,
     "driver": {
       "name": "Tharaka Jayawardana",
       "licenseNumber": "B2134564",
@@ -4947,7 +4947,7 @@
     "scheduledDeparture": "2025-10-11T06:00:00.000Z",
     "scheduledArrival": "2025-10-11T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 420,
+    "fare": 550,
     "driver": {
       "name": "Damith Jayasinghe",
       "licenseNumber": "B3245675",
@@ -4966,7 +4966,7 @@
     "scheduledDeparture": "2025-10-11T13:00:00.000Z",
     "scheduledArrival": "2025-10-11T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 420,
+    "fare": 550,
     "driver": {
       "name": "Upul Fernando",
       "licenseNumber": "B4356786",
@@ -4985,7 +4985,7 @@
     "scheduledDeparture": "2025-10-11T07:00:00.000Z",
     "scheduledArrival": "2025-10-11T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 680,
+    "fare": 890,
     "driver": {
       "name": "Sampath Gunathilaka",
       "licenseNumber": "B5467897",
@@ -5004,7 +5004,7 @@
     "scheduledDeparture": "2025-10-11T14:00:00.000Z",
     "scheduledArrival": "2025-10-11T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 680,
+    "fare": 890,
     "driver": {
       "name": "Wasantha Silva",
       "licenseNumber": "B6578908",
@@ -5023,7 +5023,7 @@
     "scheduledDeparture": "2025-10-11T08:00:00.000Z",
     "scheduledArrival": "2025-10-11T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1300,
+    "fare": 1710,
     "driver": {
       "name": "Lalith Gunasekara",
       "licenseNumber": "B7689019",
@@ -5042,7 +5042,7 @@
     "scheduledDeparture": "2025-10-11T15:00:00.000Z",
     "scheduledArrival": "2025-10-11T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1300,
+    "fare": 1710,
     "driver": {
       "name": "Sunimal Jayawardana",
       "licenseNumber": "B8790120",
@@ -5061,7 +5061,7 @@
     "scheduledDeparture": "2025-10-11T09:00:00.000Z",
     "scheduledArrival": "2025-10-11T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1300,
+    "fare": 1710,
     "driver": {
       "name": "Buddhika Fernando",
       "licenseNumber": "B9801231",
@@ -5080,7 +5080,7 @@
     "scheduledDeparture": "2025-10-11T16:00:00.000Z",
     "scheduledArrival": "2025-10-11T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1300,
+    "fare": 1710,
     "driver": {
       "name": "Dilshan Wickramasinghe",
       "licenseNumber": "B1912342",
@@ -5099,7 +5099,7 @@
     "scheduledDeparture": "2025-10-11T10:00:00.000Z",
     "scheduledArrival": "2025-10-11T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 680,
+    "fare": 890,
     "driver": {
       "name": "Janith Jayasinghe",
       "licenseNumber": "B2023453",
@@ -5118,7 +5118,7 @@
     "scheduledDeparture": "2025-10-11T17:00:00.000Z",
     "scheduledArrival": "2025-10-11T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 680,
+    "fare": 890,
     "driver": {
       "name": "Thilina Gunasekara",
       "licenseNumber": "B3134564",
@@ -5137,7 +5137,7 @@
     "scheduledDeparture": "2025-10-11T06:00:00.000Z",
     "scheduledArrival": "2025-10-11T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 320,
+    "fare": 550,
     "driver": {
       "name": "Milinda Silva",
       "licenseNumber": "B4245675",
@@ -5156,7 +5156,7 @@
     "scheduledDeparture": "2025-10-11T13:00:00.000Z",
     "scheduledArrival": "2025-10-11T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 320,
+    "fare": 550,
     "driver": {
       "name": "Nuwan Jayawardana",
       "licenseNumber": "B5356786",
@@ -5175,7 +5175,7 @@
     "scheduledDeparture": "2025-10-11T07:00:00.000Z",
     "scheduledArrival": "2025-10-11T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Sandun Wickramasinghe",
       "licenseNumber": "B6467897",
@@ -5194,7 +5194,7 @@
     "scheduledDeparture": "2025-10-11T14:00:00.000Z",
     "scheduledArrival": "2025-10-11T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Amila Gunathilaka",
       "licenseNumber": "B7578908",
@@ -5213,7 +5213,7 @@
     "scheduledDeparture": "2025-10-11T08:00:00.000Z",
     "scheduledArrival": "2025-10-11T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Ravindu Perera",
       "licenseNumber": "B8689019",
@@ -5232,7 +5232,7 @@
     "scheduledDeparture": "2025-10-11T15:00:00.000Z",
     "scheduledArrival": "2025-10-11T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Nimal Perera",
       "licenseNumber": "B2345675",
@@ -5251,7 +5251,7 @@
     "scheduledDeparture": "2025-10-11T09:00:00.000Z",
     "scheduledArrival": "2025-10-11T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1100,
+    "fare": 1445,
     "driver": {
       "name": "Amal Fernando",
       "licenseNumber": "B3456786",
@@ -5270,7 +5270,7 @@
     "scheduledDeparture": "2025-10-11T16:00:00.000Z",
     "scheduledArrival": "2025-10-11T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1100,
+    "fare": 1445,
     "driver": {
       "name": "Thisara Weerasinghe",
       "licenseNumber": "B4567897",
@@ -5289,7 +5289,7 @@
     "scheduledDeparture": "2025-10-11T10:00:00.000Z",
     "scheduledArrival": "2025-10-11T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1100,
+    "fare": 1445,
     "driver": {
       "name": "Chamara Fernando",
       "licenseNumber": "B5678908",
@@ -5308,7 +5308,7 @@
     "scheduledDeparture": "2025-10-11T17:00:00.000Z",
     "scheduledArrival": "2025-10-11T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1100,
+    "fare": 1445,
     "driver": {
       "name": "Kumara Jayasinghe",
       "licenseNumber": "B6789019",
@@ -5327,7 +5327,7 @@
     "scheduledDeparture": "2025-10-11T06:00:00.000Z",
     "scheduledArrival": "2025-10-11T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Mahinda Rajapakse",
       "licenseNumber": "B7890120",
@@ -5346,7 +5346,7 @@
     "scheduledDeparture": "2025-10-11T13:00:00.000Z",
     "scheduledArrival": "2025-10-11T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Saman Silva",
       "licenseNumber": "B8901231",
@@ -5365,7 +5365,7 @@
     "scheduledDeparture": "2025-10-11T07:00:00.000Z",
     "scheduledArrival": "2025-10-11T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 850,
+    "fare": 1115,
     "driver": {
       "name": "Ravi Wickramasinghe",
       "licenseNumber": "B9012342",
@@ -5384,7 +5384,7 @@
     "scheduledDeparture": "2025-10-11T14:00:00.000Z",
     "scheduledArrival": "2025-10-11T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 850,
+    "fare": 1115,
     "driver": {
       "name": "Priyantha Gunasekara",
       "licenseNumber": "B1023453",
@@ -5403,7 +5403,7 @@
     "scheduledDeparture": "2025-10-11T08:00:00.000Z",
     "scheduledArrival": "2025-10-11T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 850,
+    "fare": 1115,
     "driver": {
       "name": "Tharaka Jayawardana",
       "licenseNumber": "B2134564",
@@ -5422,7 +5422,7 @@
     "scheduledDeparture": "2025-10-11T15:00:00.000Z",
     "scheduledArrival": "2025-10-11T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 850,
+    "fare": 1115,
     "driver": {
       "name": "Damith Jayasinghe",
       "licenseNumber": "B3245675",
@@ -5441,7 +5441,7 @@
     "scheduledDeparture": "2025-10-11T09:00:00.000Z",
     "scheduledArrival": "2025-10-11T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1120,
+    "fare": 1470,
     "driver": {
       "name": "Upul Fernando",
       "licenseNumber": "B4356786",
@@ -5460,7 +5460,7 @@
     "scheduledDeparture": "2025-10-11T16:00:00.000Z",
     "scheduledArrival": "2025-10-11T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1120,
+    "fare": 1470,
     "driver": {
       "name": "Sampath Gunathilaka",
       "licenseNumber": "B5467897",
@@ -5479,7 +5479,7 @@
     "scheduledDeparture": "2025-10-11T10:00:00.000Z",
     "scheduledArrival": "2025-10-11T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1600,
+    "fare": 2100,
     "driver": {
       "name": "Wasantha Silva",
       "licenseNumber": "B6578908",
@@ -5498,7 +5498,7 @@
     "scheduledDeparture": "2025-10-11T17:00:00.000Z",
     "scheduledArrival": "2025-10-11T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1600,
+    "fare": 2100,
     "driver": {
       "name": "Lalith Gunasekara",
       "licenseNumber": "B7689019",
@@ -5517,7 +5517,7 @@
     "scheduledDeparture": "2025-10-11T06:00:00.000Z",
     "scheduledArrival": "2025-10-11T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Sunimal Jayawardana",
       "licenseNumber": "B8790120",
@@ -5536,7 +5536,7 @@
     "scheduledDeparture": "2025-10-11T13:00:00.000Z",
     "scheduledArrival": "2025-10-11T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Buddhika Fernando",
       "licenseNumber": "B9801231",
@@ -5555,7 +5555,7 @@
     "scheduledDeparture": "2025-10-11T07:00:00.000Z",
     "scheduledArrival": "2025-10-11T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 950,
+    "fare": 1245,
     "driver": {
       "name": "Dilshan Wickramasinghe",
       "licenseNumber": "B1912342",
@@ -5574,7 +5574,7 @@
     "scheduledDeparture": "2025-10-11T14:00:00.000Z",
     "scheduledArrival": "2025-10-11T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 950,
+    "fare": 1245,
     "driver": {
       "name": "Janith Jayasinghe",
       "licenseNumber": "B2023453",
@@ -5593,7 +5593,7 @@
     "scheduledDeparture": "2025-10-11T08:00:00.000Z",
     "scheduledArrival": "2025-10-11T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 950,
+    "fare": 1245,
     "driver": {
       "name": "Thilina Gunasekara",
       "licenseNumber": "B3134564",
@@ -5612,7 +5612,7 @@
     "scheduledDeparture": "2025-10-11T15:00:00.000Z",
     "scheduledArrival": "2025-10-11T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 950,
+    "fare": 1245,
     "driver": {
       "name": "Milinda Silva",
       "licenseNumber": "B4245675",
@@ -5631,7 +5631,7 @@
     "scheduledDeparture": "2025-10-11T09:00:00.000Z",
     "scheduledArrival": "2025-10-11T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1250,
+    "fare": 1640,
     "driver": {
       "name": "Nuwan Jayawardana",
       "licenseNumber": "B5356786",
@@ -5650,7 +5650,7 @@
     "scheduledDeparture": "2025-10-11T16:00:00.000Z",
     "scheduledArrival": "2025-10-11T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1250,
+    "fare": 1640,
     "driver": {
       "name": "Sandun Wickramasinghe",
       "licenseNumber": "B6467897",
@@ -5669,7 +5669,7 @@
     "scheduledDeparture": "2025-10-11T10:00:00.000Z",
     "scheduledArrival": "2025-10-11T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1250,
+    "fare": 1640,
     "driver": {
       "name": "Amila Gunathilaka",
       "licenseNumber": "B7578908",
@@ -5688,7 +5688,7 @@
     "scheduledDeparture": "2025-10-11T17:00:00.000Z",
     "scheduledArrival": "2025-10-11T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1250,
+    "fare": 1640,
     "driver": {
       "name": "Ravindu Perera",
       "licenseNumber": "B8689019",
@@ -5707,7 +5707,7 @@
     "scheduledDeparture": "2025-10-12T06:00:00.000Z",
     "scheduledArrival": "2025-10-12T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 350,
+    "fare": 460,
     "driver": {
       "name": "Nimal Perera",
       "licenseNumber": "B2345675",
@@ -5726,7 +5726,7 @@
     "scheduledDeparture": "2025-10-12T13:00:00.000Z",
     "scheduledArrival": "2025-10-12T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 350,
+    "fare": 460,
     "driver": {
       "name": "Amal Fernando",
       "licenseNumber": "B3456786",
@@ -5745,7 +5745,7 @@
     "scheduledDeparture": "2025-10-12T07:00:00.000Z",
     "scheduledArrival": "2025-10-12T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Thisara Weerasinghe",
       "licenseNumber": "B4567897",
@@ -5764,7 +5764,7 @@
     "scheduledDeparture": "2025-10-12T14:00:00.000Z",
     "scheduledArrival": "2025-10-12T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Chamara Fernando",
       "licenseNumber": "B5678908",
@@ -5783,7 +5783,7 @@
     "scheduledDeparture": "2025-10-12T08:00:00.000Z",
     "scheduledArrival": "2025-10-12T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Kumara Jayasinghe",
       "licenseNumber": "B6789019",
@@ -5802,7 +5802,7 @@
     "scheduledDeparture": "2025-10-12T15:00:00.000Z",
     "scheduledArrival": "2025-10-12T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Mahinda Rajapakse",
       "licenseNumber": "B7890120",
@@ -5821,7 +5821,7 @@
     "scheduledDeparture": "2025-10-12T09:00:00.000Z",
     "scheduledArrival": "2025-10-12T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 750,
+    "fare": 985,
     "driver": {
       "name": "Saman Silva",
       "licenseNumber": "B8901231",
@@ -5840,7 +5840,7 @@
     "scheduledDeparture": "2025-10-12T16:00:00.000Z",
     "scheduledArrival": "2025-10-12T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 750,
+    "fare": 985,
     "driver": {
       "name": "Ravi Wickramasinghe",
       "licenseNumber": "B9012342",
@@ -5859,7 +5859,7 @@
     "scheduledDeparture": "2025-10-12T10:00:00.000Z",
     "scheduledArrival": "2025-10-12T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1150,
+    "fare": 1510,
     "driver": {
       "name": "Priyantha Gunasekara",
       "licenseNumber": "B1023453",
@@ -5878,7 +5878,7 @@
     "scheduledDeparture": "2025-10-12T17:00:00.000Z",
     "scheduledArrival": "2025-10-12T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1150,
+    "fare": 1510,
     "driver": {
       "name": "Tharaka Jayawardana",
       "licenseNumber": "B2134564",
@@ -5897,7 +5897,7 @@
     "scheduledDeparture": "2025-10-12T06:00:00.000Z",
     "scheduledArrival": "2025-10-12T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 420,
+    "fare": 550,
     "driver": {
       "name": "Damith Jayasinghe",
       "licenseNumber": "B3245675",
@@ -5916,7 +5916,7 @@
     "scheduledDeparture": "2025-10-12T13:00:00.000Z",
     "scheduledArrival": "2025-10-12T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 420,
+    "fare": 550,
     "driver": {
       "name": "Upul Fernando",
       "licenseNumber": "B4356786",
@@ -5935,7 +5935,7 @@
     "scheduledDeparture": "2025-10-12T07:00:00.000Z",
     "scheduledArrival": "2025-10-12T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 680,
+    "fare": 890,
     "driver": {
       "name": "Sampath Gunathilaka",
       "licenseNumber": "B5467897",
@@ -5954,7 +5954,7 @@
     "scheduledDeparture": "2025-10-12T14:00:00.000Z",
     "scheduledArrival": "2025-10-12T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 680,
+    "fare": 890,
     "driver": {
       "name": "Wasantha Silva",
       "licenseNumber": "B6578908",
@@ -5973,7 +5973,7 @@
     "scheduledDeparture": "2025-10-12T08:00:00.000Z",
     "scheduledArrival": "2025-10-12T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1300,
+    "fare": 1710,
     "driver": {
       "name": "Lalith Gunasekara",
       "licenseNumber": "B7689019",
@@ -5992,7 +5992,7 @@
     "scheduledDeparture": "2025-10-12T15:00:00.000Z",
     "scheduledArrival": "2025-10-12T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1300,
+    "fare": 1710,
     "driver": {
       "name": "Sunimal Jayawardana",
       "licenseNumber": "B8790120",
@@ -6011,7 +6011,7 @@
     "scheduledDeparture": "2025-10-12T09:00:00.000Z",
     "scheduledArrival": "2025-10-12T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1300,
+    "fare": 1710,
     "driver": {
       "name": "Buddhika Fernando",
       "licenseNumber": "B9801231",
@@ -6030,7 +6030,7 @@
     "scheduledDeparture": "2025-10-12T16:00:00.000Z",
     "scheduledArrival": "2025-10-12T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1300,
+    "fare": 1710,
     "driver": {
       "name": "Dilshan Wickramasinghe",
       "licenseNumber": "B1912342",
@@ -6049,7 +6049,7 @@
     "scheduledDeparture": "2025-10-12T10:00:00.000Z",
     "scheduledArrival": "2025-10-12T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 680,
+    "fare": 890,
     "driver": {
       "name": "Janith Jayasinghe",
       "licenseNumber": "B2023453",
@@ -6068,7 +6068,7 @@
     "scheduledDeparture": "2025-10-12T17:00:00.000Z",
     "scheduledArrival": "2025-10-12T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 680,
+    "fare": 890,
     "driver": {
       "name": "Thilina Gunasekara",
       "licenseNumber": "B3134564",
@@ -6087,7 +6087,7 @@
     "scheduledDeparture": "2025-10-12T06:00:00.000Z",
     "scheduledArrival": "2025-10-12T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 320,
+    "fare": 550,
     "driver": {
       "name": "Milinda Silva",
       "licenseNumber": "B4245675",
@@ -6106,7 +6106,7 @@
     "scheduledDeparture": "2025-10-12T13:00:00.000Z",
     "scheduledArrival": "2025-10-12T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 320,
+    "fare": 550,
     "driver": {
       "name": "Nuwan Jayawardana",
       "licenseNumber": "B5356786",
@@ -6125,7 +6125,7 @@
     "scheduledDeparture": "2025-10-12T07:00:00.000Z",
     "scheduledArrival": "2025-10-12T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Sandun Wickramasinghe",
       "licenseNumber": "B6467897",
@@ -6144,7 +6144,7 @@
     "scheduledDeparture": "2025-10-12T14:00:00.000Z",
     "scheduledArrival": "2025-10-12T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Amila Gunathilaka",
       "licenseNumber": "B7578908",
@@ -6163,7 +6163,7 @@
     "scheduledDeparture": "2025-10-12T08:00:00.000Z",
     "scheduledArrival": "2025-10-12T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Ravindu Perera",
       "licenseNumber": "B8689019",
@@ -6182,7 +6182,7 @@
     "scheduledDeparture": "2025-10-12T15:00:00.000Z",
     "scheduledArrival": "2025-10-12T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Nimal Perera",
       "licenseNumber": "B2345675",
@@ -6201,7 +6201,7 @@
     "scheduledDeparture": "2025-10-12T09:00:00.000Z",
     "scheduledArrival": "2025-10-12T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1100,
+    "fare": 1445,
     "driver": {
       "name": "Amal Fernando",
       "licenseNumber": "B3456786",
@@ -6220,7 +6220,7 @@
     "scheduledDeparture": "2025-10-12T16:00:00.000Z",
     "scheduledArrival": "2025-10-12T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1100,
+    "fare": 1445,
     "driver": {
       "name": "Thisara Weerasinghe",
       "licenseNumber": "B4567897",
@@ -6239,7 +6239,7 @@
     "scheduledDeparture": "2025-10-12T10:00:00.000Z",
     "scheduledArrival": "2025-10-12T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1100,
+    "fare": 1445,
     "driver": {
       "name": "Chamara Fernando",
       "licenseNumber": "B5678908",
@@ -6258,7 +6258,7 @@
     "scheduledDeparture": "2025-10-12T17:00:00.000Z",
     "scheduledArrival": "2025-10-12T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1100,
+    "fare": 1445,
     "driver": {
       "name": "Kumara Jayasinghe",
       "licenseNumber": "B6789019",
@@ -6277,7 +6277,7 @@
     "scheduledDeparture": "2025-10-12T06:00:00.000Z",
     "scheduledArrival": "2025-10-12T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Mahinda Rajapakse",
       "licenseNumber": "B7890120",
@@ -6296,7 +6296,7 @@
     "scheduledDeparture": "2025-10-12T13:00:00.000Z",
     "scheduledArrival": "2025-10-12T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 520,
+    "fare": 890,
     "driver": {
       "name": "Saman Silva",
       "licenseNumber": "B8901231",
@@ -6315,7 +6315,7 @@
     "scheduledDeparture": "2025-10-12T07:00:00.000Z",
     "scheduledArrival": "2025-10-12T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 850,
+    "fare": 1115,
     "driver": {
       "name": "Ravi Wickramasinghe",
       "licenseNumber": "B9012342",
@@ -6334,7 +6334,7 @@
     "scheduledDeparture": "2025-10-12T14:00:00.000Z",
     "scheduledArrival": "2025-10-12T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 850,
+    "fare": 1115,
     "driver": {
       "name": "Priyantha Gunasekara",
       "licenseNumber": "B1023453",
@@ -6353,7 +6353,7 @@
     "scheduledDeparture": "2025-10-12T08:00:00.000Z",
     "scheduledArrival": "2025-10-12T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 850,
+    "fare": 1115,
     "driver": {
       "name": "Tharaka Jayawardana",
       "licenseNumber": "B2134564",
@@ -6372,7 +6372,7 @@
     "scheduledDeparture": "2025-10-12T15:00:00.000Z",
     "scheduledArrival": "2025-10-12T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 850,
+    "fare": 1115,
     "driver": {
       "name": "Damith Jayasinghe",
       "licenseNumber": "B3245675",
@@ -6391,7 +6391,7 @@
     "scheduledDeparture": "2025-10-12T09:00:00.000Z",
     "scheduledArrival": "2025-10-12T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1120,
+    "fare": 1470,
     "driver": {
       "name": "Upul Fernando",
       "licenseNumber": "B4356786",
@@ -6410,7 +6410,7 @@
     "scheduledDeparture": "2025-10-12T16:00:00.000Z",
     "scheduledArrival": "2025-10-12T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1120,
+    "fare": 1470,
     "driver": {
       "name": "Sampath Gunathilaka",
       "licenseNumber": "B5467897",
@@ -6429,7 +6429,7 @@
     "scheduledDeparture": "2025-10-12T10:00:00.000Z",
     "scheduledArrival": "2025-10-12T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1600,
+    "fare": 2100,
     "driver": {
       "name": "Wasantha Silva",
       "licenseNumber": "B6578908",
@@ -6448,7 +6448,7 @@
     "scheduledDeparture": "2025-10-12T17:00:00.000Z",
     "scheduledArrival": "2025-10-12T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1600,
+    "fare": 2100,
     "driver": {
       "name": "Lalith Gunasekara",
       "licenseNumber": "B7689019",
@@ -6467,7 +6467,7 @@
     "scheduledDeparture": "2025-10-12T06:00:00.000Z",
     "scheduledArrival": "2025-10-12T09:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Sunimal Jayawardana",
       "licenseNumber": "B8790120",
@@ -6486,7 +6486,7 @@
     "scheduledDeparture": "2025-10-12T13:00:00.000Z",
     "scheduledArrival": "2025-10-12T16:00:00.000Z",
     "status": "Scheduled",
-    "fare": 580,
+    "fare": 760,
     "driver": {
       "name": "Buddhika Fernando",
       "licenseNumber": "B9801231",
@@ -6505,7 +6505,7 @@
     "scheduledDeparture": "2025-10-12T07:00:00.000Z",
     "scheduledArrival": "2025-10-12T11:00:00.000Z",
     "status": "Scheduled",
-    "fare": 950,
+    "fare": 1245,
     "driver": {
       "name": "Dilshan Wickramasinghe",
       "licenseNumber": "B1912342",
@@ -6524,7 +6524,7 @@
     "scheduledDeparture": "2025-10-12T14:00:00.000Z",
     "scheduledArrival": "2025-10-12T18:00:00.000Z",
     "status": "Scheduled",
-    "fare": 950,
+    "fare": 1245,
     "driver": {
       "name": "Janith Jayasinghe",
       "licenseNumber": "B2023453",
@@ -6543,7 +6543,7 @@
     "scheduledDeparture": "2025-10-12T08:00:00.000Z",
     "scheduledArrival": "2025-10-12T13:00:00.000Z",
     "status": "Scheduled",
-    "fare": 950,
+    "fare": 1245,
     "driver": {
       "name": "Thilina Gunasekara",
       "licenseNumber": "B3134564",
@@ -6562,7 +6562,7 @@
     "scheduledDeparture": "2025-10-12T15:00:00.000Z",
     "scheduledArrival": "2025-10-12T20:00:00.000Z",
     "status": "Scheduled",
-    "fare": 950,
+    "fare": 1245,
     "driver": {
       "name": "Milinda Silva",
       "licenseNumber": "B4245675",
@@ -6581,7 +6581,7 @@
     "scheduledDeparture": "2025-10-12T09:00:00.000Z",
     "scheduledArrival": "2025-10-12T12:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1250,
+    "fare": 1640,
     "driver": {
       "name": "Nuwan Jayawardana",
       "licenseNumber": "B5356786",
@@ -6600,7 +6600,7 @@
     "scheduledDeparture": "2025-10-12T16:00:00.000Z",
     "scheduledArrival": "2025-10-12T19:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1250,
+    "fare": 1640,
     "driver": {
       "name": "Sandun Wickramasinghe",
       "licenseNumber": "B6467897",
@@ -6619,7 +6619,7 @@
     "scheduledDeparture": "2025-10-12T10:00:00.000Z",
     "scheduledArrival": "2025-10-12T14:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1250,
+    "fare": 1640,
     "driver": {
       "name": "Amila Gunathilaka",
       "licenseNumber": "B7578908",
@@ -6638,7 +6638,7 @@
     "scheduledDeparture": "2025-10-12T17:00:00.000Z",
     "scheduledArrival": "2025-10-12T21:00:00.000Z",
     "status": "Scheduled",
-    "fare": 1250,
+    "fare": 1640,
     "driver": {
       "name": "Ravindu Perera",
       "licenseNumber": "B8689019",
