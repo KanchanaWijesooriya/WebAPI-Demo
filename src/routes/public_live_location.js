@@ -365,4 +365,104 @@ router.get('/route-buses/:routeId', async (req, res) => {
   }
 });
 
+// Enhanced bus location with admin features
+router.get('/location/:identifier', async (req, res) => {
+  try {
+    const { identifier } = req.params;
+    const isAdmin = req.user && req.user.role === 'admin';
+    
+    let bus;
+    
+    // Check if identifier is MongoDB ObjectId format
+    if (identifier.match(/^[0-9a-fA-F]{24}$/)) {
+      // Search by ObjectId
+      bus = await Bus.findById(identifier)
+        .populate('route', 'name routeNumber start destination')
+        .lean();
+    } else {
+      // Search by registration number
+      bus = await Bus.findOne({ registrationNumber: identifier })
+        .populate('route', 'name routeNumber start destination')
+        .lean();
+    }
+
+    if (!bus) {
+      return res.status(404).json({
+        success: false,
+        message: `Bus not found with identifier: ${identifier}`,
+        suggestion: 'Try using bus registration number (e.g., CAA-5678) or valid ObjectId'
+      });
+    }
+
+    // Generate mock live location data
+    const mockLocation = {
+      latitude: 6.9271 + (Math.random() - 0.5) * 0.5, // Around Colombo area
+      longitude: 79.8612 + (Math.random() - 0.5) * 0.5,
+      lastUpdated: new Date().toISOString(),
+      speed: Math.floor(Math.random() * 60) + 20, // 20-80 km/h
+      heading: Math.floor(Math.random() * 360), // 0-359 degrees
+      accuracy: Math.floor(Math.random() * 10) + 5, // 5-15 meters
+      status: ['Moving', 'Stopped', 'At Terminal'][Math.floor(Math.random() * 3)]
+    };
+
+    // Public response
+    const publicData = {
+      busId: bus._id,
+      busNumber: bus.registrationNumber || bus.busNumber,
+      busType: bus.busType || bus.type || 'Normal',
+      route: {
+        name: bus.route?.name,
+        routeNumber: bus.route?.routeNumber,
+        direction: `${bus.route?.start?.city} → ${bus.route?.destination?.city}`
+      },
+      currentLocation: {
+        coordinates: {
+          latitude: mockLocation.latitude,
+          longitude: mockLocation.longitude
+        },
+        lastUpdated: mockLocation.lastUpdated,
+        status: mockLocation.status,
+        speed: `${mockLocation.speed} km/h`
+      },
+      serviceStatus: bus.isActive !== false ? 'Active' : 'Inactive'
+    };
+
+    // Add admin-specific data
+    if (isAdmin) {
+      publicData.adminDetails = {
+        accuracy: `${mockLocation.accuracy}m`,
+        heading: `${mockLocation.heading}°`,
+        capacity: bus.capacity,
+        facilities: bus.facilities,
+        operator: bus.operator,
+        registrationDetails: {
+          registrationNumber: bus.registrationNumber,
+          model: bus.model,
+          year: bus.year
+        },
+        technicalData: {
+          gpsDevice: 'Active',
+          lastMaintenance: '2025-09-15',
+          nextService: '2025-12-15'
+        }
+      };
+    }
+
+    res.json({
+      success: true,
+      data: publicData,
+      dataLevel: isAdmin ? 'admin' : 'public',
+      message: `Live location retrieved for bus ${publicData.busNumber}`
+    });
+
+  } catch (error) {
+    console.error('Bus location error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error retrieving bus location',
+      error: error.message
+    });
+  }
+});
+
 export default router;

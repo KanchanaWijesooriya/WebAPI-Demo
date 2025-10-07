@@ -9,7 +9,9 @@ router.get('/', optionalAuth, TripController.getAllTrips);
 router.get('/live', optionalAuth, TripController.getLiveTrips);
 router.get('/date/:date', optionalAuth, TripController.getTripsByDate);
 router.get('/route/:routeId', optionalAuth, TripController.getTripsByRoute);
-router.get('/:id', optionalAuth, TripController.getTrip);
+
+// Admin-only individual resource access
+router.get('/:id', protect, authorize('admin'), TripController.getTrip);
 
 // Protected routes (admin/operator)
 router.get('/stats', protect, authorize('admin', 'operator'), TripController.getTripStats);

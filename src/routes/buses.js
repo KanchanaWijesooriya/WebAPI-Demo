@@ -6,9 +6,13 @@ const router = express.Router();
 
 // Public routes with optional authentication for role-based filtering
 router.get('/', optionalAuth, BusController.getAllBuses);
-router.get('/:id', optionalAuth, BusController.getBus);
+
+// Public relational endpoints
 router.get('/:id/location', optionalAuth, BusController.getBusLocation);
 router.get('/:id/trips', optionalAuth, BusController.getBusTrips);
+
+// Admin-only individual resource access
+router.get('/:id', protect, authorize('admin'), BusController.getBus);
 
 // Protected routes
 router.use(protect); // All routes below require authentication

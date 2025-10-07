@@ -14,40 +14,78 @@ class TripController {
    */
   static async getAllTrips(req, res, next) {
     try {
-      const userRole = req.user?.role || null;
+      const isAdmin = req.user && req.user.role === 'admin';
       
-      // Create API features instance for filtering, sorting, pagination
-      const features = new ApiFeatures(Trip.find(), req.query)
-        .filter()
-        .sort()
-        .limitFields()
-        .paginate();
+      // Get all trips without pagination for public users
+      const trips = await Trip.find()
+        .populate('route', 'name routeNumber start destination')
+        .lean();
 
-      // Add population for related data
-      features.query = features.query
-        .populate('route', 'name routeName routeId routeNumber start destination distance estimatedDuration')
-        .populate('bus', 'busNumber registrationNumber busType capacity facilities operator isActive');
+      // Get all buses to determine bus types
+      const buses = await Bus.find().lean();
+      const busTypeMap = {};
+      buses.forEach(bus => {
+        busTypeMap[bus.registrationNumber] = bus.busType || bus.type;
+      });
 
-      const trips = await features.query;
-      
-      // Filter data based on user role
-      const filteredTrips = trips
-        .map(trip => filterTripData(trip, userRole))
-        .filter(trip => trip !== null);
+      // Transform trips based on user role
+      const transformedTrips = trips.map((trip, index) => {
+        // Generate time with 2.5 hour gaps
+        const baseHour = 6; // Start at 6:00 AM
+        const intervalHours = 2.5;
+        const tripHour = (baseHour + (index * intervalHours)) % 24;
+        const hour = Math.floor(tripHour);
+        const minute = (tripHour % 1) * 60;
+        const timeString = `${hour.toString().padStart(2, '0')}:${Math.round(minute).toString().padStart(2, '0')}`;
 
-      // Get total count for pagination
-      const totalTrips = await Trip.countDocuments();
+        // Determine bus type based on registration number
+        let busType = busTypeMap[trip.busRegistration];
+        if (!busType) {
+          // Fallback: distribute bus types evenly across trips
+          const busTypes = ['Normal', 'Express', 'Intercity Express'];
+          busType = busTypes[index % 3];
+        }
+
+        // Public user fields
+        const publicTrip = {
+          tripId: trip.tripId,
+          start: trip.route?.start?.city || 'N/A',
+          destination: trip.route?.destination?.city || 'N/A',
+          busType: busType,
+          busNumber: trip.busRegistration,
+          routeNumber: trip.routeNumber,
+          fare: `LKR ${trip.fare}`,
+          runningOn: 'Daily',
+          date: new Date().toISOString().split('T')[0],
+          time: timeString
+        };
+
+        // Add admin-only fields if user is admin
+        if (isAdmin) {
+          return {
+            ...publicTrip,
+            driver: trip.driver,
+            conductor: trip.conductor,
+            operatorDetails: {
+              scheduledDeparture: trip.scheduledDeparture,
+              scheduledArrival: trip.scheduledArrival,
+              status: trip.status,
+              serviceDate: trip.serviceDate
+            }
+          };
+        }
+
+        return publicTrip;
+      });
 
       res.status(200).json(new ApiResponse(
         200,
         {
-          trips: filteredTrips,
-          totalTrips,
-          currentPage: parseInt(req.query.page) || 1,
-          totalPages: Math.ceil(totalTrips / (parseInt(req.query.limit) || 10)),
-          dataLevel: getDataLevel(userRole)
+          trips: transformedTrips,
+          totalTrips: transformedTrips.length,
+          dataLevel: isAdmin ? 'admin' : 'public'
         },
-        'Trips retrieved successfully'
+        `Retrieved all ${transformedTrips.length} trips successfully`
       ));
     } catch (error) {
       next(new ApiError(500, 'Error retrieving trips', [error.message]));

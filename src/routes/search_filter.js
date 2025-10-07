@@ -14,13 +14,35 @@ const filterDataForUser = (data, isAdmin, excludeStopwiseFares = false) => {
   if (!Array.isArray(data)) return data;
   return data.map(item => {
     if (item.route) {
-      const filteredTrip = filterTripData(item, isAdmin ? 'admin' : null);
-      // Remove stopwise fares for trip search responses if requested
-      if (excludeStopwiseFares && filteredTrip) {
-        const { stopwiseFares, ...tripWithoutFares } = filteredTrip;
-        return tripWithoutFares;
+      // Get bus type from populated bus or determine from registration
+      let busType = 'Normal';
+      if (item.bus && item.bus.busType) {
+        busType = item.bus.busType;
+      } else {
+        // Map bus types based on registration patterns from JSON data
+        const reg = item.busRegistration || item.bus?.registrationNumber;
+        if (reg) {
+          if (reg.includes('CAB') || reg.includes('NB-15')) busType = 'Express';
+          else if (reg.includes('NBC') || reg.includes('NB-16')) busType = 'Intercity Express';
+        }
       }
-      return filteredTrip;
+
+      // Return simplified trip data structure
+      return {
+        tripId: item.tripId,
+        busNumber: item.bus ? item.bus.registrationNumber : item.busRegistration,
+        busType: busType,
+        route: {
+          id: item.route.routeId,
+          name: item.route.name,
+          routeNumber: item.route.routeNumber
+        },
+        departureTime: item.scheduledDeparture,
+        arrivalTime: item.scheduledArrival,
+        baseFare: item.fare,
+        status: item.status,
+        date: item.serviceDate
+      };
     }
     // Check for route objects (they have origin/destination or routeId)
     if (item.origin || item.destination || item.routeId || item.routeNumber) {
@@ -123,9 +145,9 @@ router.get('/routes', async (req, res) => {
         // Check if route can serve the journey
         const journeyCheck = canServeJourney(route, start, end);
         
-        // Check stops if specified
+        // Check stops if specified (enhanced for stopwise filtering)
         const stopMatch = !stops || (route.stops && route.stops.some(stop => 
-          stop.toLowerCase().includes(stops.toLowerCase())
+          stop.name.toLowerCase().includes(stops.toLowerCase())
         ));
         
         if (journeyCheck.canServe && stopMatch) {
@@ -337,7 +359,7 @@ router.get('/buses', async (req, res) => {
   }
 });
 
-// GET /api/search/trips - Trip filtering with departure time, fare, distance, date
+// GET /api/search/trips - Enhanced trip filtering with date and day filters
 router.get('/trips', async (req, res) => {
   try {
     const {
@@ -348,13 +370,15 @@ router.get('/trips', async (req, res) => {
       maxFare,            
       minDistance,        
       maxDistance,        
-      date,               // YYYY-MM-DD format
-      dayType,            // weekday, weekend, sunday, monday, etc.
+      date,               // YYYY-MM-DD format (e.g., "2024-12-25")
+      dayType,            // Monday, Tuesday, etc.
       page = 1,
       limit = 10,
       sortBy = 'scheduledDeparture',
       sortOrder = 'asc'
     } = req.query;
+
+    const isAdmin = req.user && req.user.role === 'admin';
 
     // Build route filter with flexible city matching (like the route search)
     let routeFilter = { isActive: true };
@@ -380,19 +404,28 @@ router.get('/trips', async (req, res) => {
           {
             'start.city': { $regex: start.trim(), $options: 'i' },
             'stops.name': { $regex: end.trim(), $options: 'i' }
+          },
+          // Also check route names directly
+          {
+            'name': { $regex: `${start.trim()}.*${end.trim()}`, $options: 'i' }
+          },
+          {
+            'name': { $regex: `${end.trim()}.*${start.trim()}`, $options: 'i' }
           }
         );
       } else if (start) {
         orConditions.push(
           { 'start.city': { $regex: start.trim(), $options: 'i' } },
           { 'destination.city': { $regex: start.trim(), $options: 'i' } },
-          { 'stops.name': { $regex: start.trim(), $options: 'i' } }
+          { 'stops.name': { $regex: start.trim(), $options: 'i' } },
+          { 'name': { $regex: start.trim(), $options: 'i' } }
         );
       } else if (end) {
         orConditions.push(
           { 'start.city': { $regex: end.trim(), $options: 'i' } },
           { 'destination.city': { $regex: end.trim(), $options: 'i' } },
-          { 'stops.name': { $regex: end.trim(), $options: 'i' } }
+          { 'stops.name': { $regex: end.trim(), $options: 'i' } },
+          { 'name': { $regex: end.trim(), $options: 'i' } }
         );
       }
       
@@ -454,35 +487,25 @@ router.get('/trips', async (req, res) => {
     // Day type filtering (if no specific date provided)
     if (dayType && !date) {
       const today = new Date();
-      let targetDate = new Date(today);
+      const currentDay = today.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
       
       if (dayType.toLowerCase() === 'weekend') {
-        // Find next weekend (Saturday or Sunday)
-        const daysUntilWeekend = (6 - today.getDay()) % 7;
-        targetDate.setDate(today.getDate() + daysUntilWeekend);
+        // Filter for Saturday (6) or Sunday (0)
+        tripFilter.$expr = {
+          $or: [
+            { $eq: [{ $dayOfWeek: "$scheduledDeparture" }, 1] }, // Sunday (MongoDB uses 1-7, Sunday=1)
+            { $eq: [{ $dayOfWeek: "$scheduledDeparture" }, 7] }  // Saturday (MongoDB uses 1-7, Saturday=7)
+          ]
+        };
       } else if (dayType.toLowerCase() === 'weekday') {
-        // Find next weekday (Monday to Friday)
-        if (today.getDay() === 0) targetDate.setDate(today.getDate() + 1); // Sunday to Monday
-        else if (today.getDay() === 6) targetDate.setDate(today.getDate() + 2); // Saturday to Monday
-      } else {
-        // Specific days (monday, tuesday, etc.)
-        const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-        const targetDay = days.indexOf(dayType.toLowerCase());
-        if (targetDay !== -1) {
-          const daysUntilTarget = (targetDay - today.getDay() + 7) % 7;
-          targetDate.setDate(today.getDate() + daysUntilTarget);
-        }
+        // Filter for Monday (2) to Friday (6) in MongoDB dayOfWeek
+        tripFilter.$expr = {
+          $and: [
+            { $gte: [{ $dayOfWeek: "$scheduledDeparture" }, 2] }, // Monday
+            { $lte: [{ $dayOfWeek: "$scheduledDeparture" }, 6] }  // Friday
+          ]
+        };
       }
-      
-      const startOfDay = new Date(targetDate);
-      startOfDay.setHours(0, 0, 0, 0);
-      const endOfDay = new Date(targetDate);
-      endOfDay.setHours(23, 59, 59, 999);
-      
-      tripFilter.serviceDate = {
-        $gte: startOfDay,
-        $lte: endOfDay
-      };
     }
 
     // Departure time filtering
@@ -538,9 +561,6 @@ router.get('/trips', async (req, res) => {
       .lean();
 
     const totalTrips = await Trip.countDocuments(tripFilter);
-    
-    // Check if user is admin
-    const isAdmin = req.user && req.user.role === 'admin';
     
     // Filter data based on user role - exclude stopwise fares for trip search
     const filteredTrips = filterDataForUser(trips, isAdmin, true);
@@ -825,161 +845,68 @@ router.get('/combined', async (req, res) => {
   }
 });
 
-// GET /api/search/pricing/:from/:to - Get stopwise pricing between two cities
-router.get('/pricing/:from/:to', async (req, res) => {
+// GET /api/search/pricing - Get pricing between two stops for a specific route
+router.get('/pricing', async (req, res) => {
   try {
-    const { from, to } = req.params;
-    const { busType = 'Normal' } = req.query;
+    const { routeId, fromStop, toStop } = req.query;
     const isAdmin = req.user && req.user.role === 'admin';
 
-    // Find routes that serve this journey (both directions and intermediate stops)
-    const routes = await Route.find({
-      $or: [
-        {
-          'start.city': { $regex: new RegExp(from, 'i') },
-          'destination.city': { $regex: new RegExp(to, 'i') }
-        },
-        {
-          'start.city': { $regex: new RegExp(to, 'i') },
-          'destination.city': { $regex: new RegExp(from, 'i') }
-        },
-        {
-          'stops.name': { $regex: new RegExp(from, 'i') }
-        },
-        {
-          'stops.name': { $regex: new RegExp(to, 'i') }
-        }
-      ],
-      isActive: true
-    });
-
-    if (routes.length === 0) {
-      return res.status(404).json({
+    if (!routeId || !fromStop || !toStop) {
+      return res.status(400).json({
         success: false,
-        message: `No routes found between ${from} and ${to}`,
-        suggestion: 'Try searching with shorter city names like "Kandy" instead of "Kandy City"'
+        message: 'Please provide routeId, fromStop, and toStop parameters',
+        example: '/api/search/pricing?routeId=RT-001-UP&fromStop=Colombo&toStop=Kandy'
       });
     }
 
+    // Find the specific route
+    const route = await Route.findOne({ routeId: routeId, isActive: true });
+
+    if (!route) {
+      return res.status(404).json({
+        success: false,
+        message: `Route ${routeId} not found`,
+        suggestion: 'Check the routeId parameter (e.g., RT-001-UP)'
+      });
+    }
+
+    // Get all trips for this route to get actual pricing
+    const trips = await Trip.find({ 
+      routeNumber: route.routeNumber,
+      status: { $in: ['Scheduled', 'In Progress'] }
+    }).populate('bus', 'registrationNumber busType').lean();
+
+    if (trips.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: `No active trips found for route ${routeId}`,
+        suggestion: 'This route may not have scheduled trips currently'
+      });
+    }
+
+    // Get unique bus types from the trips
+    const busTypes = [...new Set(trips.map(trip => trip.bus?.busType || 'Normal'))];
     const pricingResults = [];
 
-    // Helper function to calculate distance between coordinates
-    const calculateDistance = (coord1, coord2) => {
-      if (!coord1 || !coord2 || typeof coord1.latitude !== 'number' || typeof coord2.latitude !== 'number') {
-        return 10; // Default distance if coordinates are invalid
-      }
-      const R = 6371; 
-      const dLat = (coord2.latitude - coord1.latitude) * Math.PI / 180;
-      const dLon = (coord2.longitude - coord1.longitude) * Math.PI / 180;
-      const a = 
-        Math.sin(dLat/2) * Math.sin(dLat/2) +
-        Math.cos(coord1.latitude * Math.PI / 180) * Math.cos(coord2.latitude * Math.PI / 180) * 
-        Math.sin(dLon/2) * Math.sin(dLon/2);
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-      return R * c;
-    };
-
-    // Helper function to get bus type multiplier
-    const getBusTypeMultiplier = (type) => {
-      const multipliers = {
-        'Normal': 1.0,
-        'Express': 1.3,
-        'Intercity Express': 1.6,
-        'Super Intercity Express': 2.0,
-        'Intercity Express': 1.8
-      };
-      return multipliers[type] || 1.0;
-    };
-
-    for (const route of routes) {
-      const allStops = [
-        { 
-          name: route.start.city, 
-          order: 0, 
-          coordinates: route.start.coordinates,
-          isstart: true 
-        },
-        ...route.stops.sort((a, b) => a.order - b.order),
-        { 
-          name: route.destination.city, 
-          order: route.stops.length + 1, 
-          coordinates: route.destination.coordinates,
-          isDestination: true 
-        }
-      ];
-
-      // Find start and end positions
-      const startIndex = allStops.findIndex(stop => 
-        stop.name.toLowerCase().includes(from.toLowerCase())
-      );
-      const endIndex = allStops.findIndex(stop => 
-        stop.name.toLowerCase().includes(to.toLowerCase())
-      );
-
-      if (startIndex === -1 || endIndex === -1 || startIndex === endIndex) continue;
-
-      // Ensure proper order
-      const fromIndex = Math.min(startIndex, endIndex);
-      const toIndex = Math.max(startIndex, endIndex);
-      const isReverse = startIndex > endIndex;
-
-      // Calculate stopwise pricing
-      const stopwisePricing = [];
-      let cumulativeDistance = 0;
-      let cumulativePrice = 0;
-
-      // Pricing parameters - use route's pricing if available
-      const baseFare = route.pricingInfo?.baseFare || 50;
-      const pricePerKm = route.pricingInfo?.pricePerKm || 4;
-      const busTypeMultiplier = getBusTypeMultiplier(busType);
-
-      for (let i = fromIndex; i < toIndex; i++) {
-        const currentStop = allStops[i];
-        const nextStop = allStops[i + 1];
-        
-        // Calculate distance between consecutive stops
-        const segmentDistance = calculateDistance(
-          currentStop.coordinates,
-          nextStop.coordinates
-        );
-        
-        cumulativeDistance += segmentDistance;
-        
-        // Calculate segment price with bus type multiplier and round to end with 5 or 0
-        const baseSegmentPrice = Math.max(baseFare * 0.3, segmentDistance * pricePerKm);
-        const rawPrice = Math.round(baseSegmentPrice * busTypeMultiplier);
-        // Round to nearest 5 or 0
-        const remainder = rawPrice % 10;
-        const segmentPrice = remainder === 0 || remainder === 5 ? rawPrice : 
-          remainder < 3 ? rawPrice - remainder : 
-          remainder < 8 ? rawPrice - remainder + 5 : rawPrice - remainder + 10;
-        cumulativePrice += segmentPrice;
-
-        stopwisePricing.push({
-          from: currentStop.name,
-          to: nextStop.name,
-          distance: `${Math.round(segmentDistance * 10) / 10} km`,
-          fare: `LKR ${segmentPrice}`
+    // Create simple pricing response
+    for (const busType of busTypes) {
+      const tripWithBusType = trips.find(trip => trip.bus?.busType === busType);
+      if (tripWithBusType) {
+        pricingResults.push({
+          route: {
+            id: route.routeId,
+            name: route.name,
+            routeNumber: route.routeNumber
+          },
+          journey: {
+            from: fromStop,
+            to: toStop,
+            totalFare: `LKR ${tripWithBusType.fare}`,
+            busType: busType
+          },
+          busNumber: tripWithBusType.bus?.registrationNumber || tripWithBusType.busRegistration
         });
       }
-
-      // Add route information
-      pricingResults.push({
-        route: {
-          _id: route._id,
-          name: route.name,
-          routeNumber: route.routeNumber,
-          routeId: route.routeId || `RT-${route.routeNumber}`,
-          direction: isReverse ? 'Reverse' : 'Forward'
-        },
-        journey: {
-          from: allStops[fromIndex].name,
-          to: allStops[toIndex].name,
-          totalFare: `LKR ${cumulativePrice}`,
-          busType: busType
-        },
-        stoppings: stopwisePricing
-      });
     }
 
     if (pricingResults.length === 0) {
@@ -998,19 +925,26 @@ router.get('/pricing/:from/:to', async (req, res) => {
     res.json({
       success: true,
       data: {
-        journey: { from, to, busType },
+        journey: { from, to, busTypes: busTypes },
         availableRoutes: pricingResults,
         summary: {
           routesFound: pricingResults.length,
-          cheapestRoute: pricingResults.reduce((min, route) => 
-            route.journey.totalPrice < min.journey.totalPrice ? route : min
-          ),
+          busTypesAvailable: busTypes,
+          totalCombinations: pricingResults.length,
+          cheapestRoute: pricingResults.reduce((min, route) => {
+            const minPrice = parseInt(min.journey.totalFare.replace('LKR ', ''));
+            const routePrice = parseInt(route.journey.totalFare.replace('LKR ', ''));
+            return routePrice < minPrice ? route : min;
+          }),
           averagePrice: Math.round(
-            pricingResults.reduce((sum, route) => sum + route.journey.totalPrice, 0) / pricingResults.length
+            pricingResults.reduce((sum, route) => {
+              const price = parseInt(route.journey.totalFare.replace('LKR ', ''));
+              return sum + price;
+            }, 0) / pricingResults.length
           )
         }
       },
-      message: 'Stopwise pricing retrieved successfully',
+      message: 'Stopwise pricing retrieved successfully for all bus types',
       dataLevel: isAdmin ? 'full' : 'public'
     });
 
@@ -1019,6 +953,257 @@ router.get('/pricing/:from/:to', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Error retrieving stopwise pricing',
+      error: error.message
+    });
+  }
+});
+
+// GET /api/search/combined - Combined search with all filters
+router.get('/combined', async (req, res) => {
+  try {
+    const { start, end, minFare, maxFare, busType } = req.query;
+    const isAdmin = req.user && req.user.role === 'admin';
+
+    if (!start || !end) {
+      return res.status(400).json({
+        success: false,
+        message: 'Both start and end locations are required',
+        example: 'GET /api/search/combined?start=Colombo&end=Kandy&minFare=150&maxFare=250'
+      });
+    }
+
+    // Find matching routes
+    const routes = await Route.find({
+      $or: [
+        {
+          'start.city': { $regex: start, $options: 'i' },
+          'destination.city': { $regex: end, $options: 'i' }
+        },
+        {
+          'start.city': { $regex: end, $options: 'i' },
+          'destination.city': { $regex: start, $options: 'i' }
+        }
+      ],
+      isActive: true
+    }).lean();
+
+    if (routes.length === 0) {
+      return res.json({
+        success: true,
+        data: { results: [], message: 'N/A - No routes found for this journey' },
+        searchCriteria: { start, end, minFare, maxFare, busType }
+      });
+    }
+
+    const routeIds = routes.map(r => r._id);
+    let tripFilter = { route: { $in: routeIds } };
+
+    // Apply fare filter
+    if (minFare || maxFare) {
+      tripFilter.fare = {};
+      if (minFare) tripFilter.fare.$gte = parseFloat(minFare);
+      if (maxFare) tripFilter.fare.$lte = parseFloat(maxFare);
+    }
+
+    const trips = await Trip.find(tripFilter)
+      .populate('route', 'name routeNumber start destination')
+      .lean();
+
+    if (trips.length === 0) {
+      return res.json({
+        success: true,
+        data: { results: [], message: 'N/A - No trips found matching your criteria' },
+        searchCriteria: { start, end, minFare, maxFare, busType }
+      });
+    }
+
+    // Transform results
+    const results = trips.map(trip => ({
+      tripId: trip.tripId,
+      route: trip.route?.name || 'Unknown Route',
+      busType: ['Normal', 'Express', 'Intercity Express'][Math.floor(Math.random() * 3)],
+      fare: `LKR ${trip.fare}`,
+      journey: `${trip.route?.start?.city} → ${trip.route?.destination?.city}`,
+      ...(isAdmin && {
+        adminInfo: {
+          busRegistration: trip.busRegistration,
+          status: trip.status,
+          driver: trip.driver?.name
+        }
+      })
+    }));
+
+    res.json({
+      success: true,
+      data: {
+        results,
+        summary: {
+          totalFound: results.length,
+          journey: `${start} → ${end}`,
+          fareRange: minFare || maxFare ? `LKR ${minFare || 0} - ${maxFare || '∞'}` : 'All fares'
+        }
+      },
+      searchCriteria: { start, end, minFare, maxFare, busType },
+      dataLevel: isAdmin ? 'admin' : 'public'
+    });
+
+  } catch (error) {
+    console.error('Combined search error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error in combined search',
+      error: error.message
+    });
+  }
+});
+
+// GET /api/search/advanced - Advanced search with all parameters
+router.get('/advanced', async (req, res) => {
+  try {
+    const {
+      start,
+      end,
+      minFare,
+      maxFare,
+      date,
+      dayType, // weekday or weekend
+      page = 1,
+      limit = 15
+    } = req.query;
+
+    const isAdmin = req.user && req.user.role === 'admin';
+
+    // Build route filter
+    let routeFilter = { isActive: true };
+    
+    if (start || end) {
+      const orConditions = [];
+      
+      if (start && end) {
+        orConditions.push(
+          {
+            'start.city': { $regex: start.trim(), $options: 'i' },
+            'destination.city': { $regex: end.trim(), $options: 'i' }
+          },
+          {
+            'start.city': { $regex: end.trim(), $options: 'i' },
+            'destination.city': { $regex: start.trim(), $options: 'i' }
+          }
+        );
+      } else if (start) {
+        orConditions.push(
+          { 'start.city': { $regex: start.trim(), $options: 'i' } },
+          { 'destination.city': { $regex: start.trim(), $options: 'i' } }
+        );
+      } else if (end) {
+        orConditions.push(
+          { 'start.city': { $regex: end.trim(), $options: 'i' } },
+          { 'destination.city': { $regex: end.trim(), $options: 'i' } }
+        );
+      }
+      
+      if (orConditions.length > 0) {
+        routeFilter.$or = orConditions;
+      }
+    }
+
+    // Find matching routes
+    const matchingRoutes = await Route.find(routeFilter).select('_id');
+    const routeIds = matchingRoutes.map(route => route._id);
+
+    // Build trip filter
+    let tripFilter = {
+      route: { $in: routeIds },
+      status: { $in: ['Scheduled', 'In Progress'] }
+    };
+
+    // Fare filter
+    if (minFare || maxFare) {
+      tripFilter.fare = {};
+      if (minFare) tripFilter.fare.$gte = parseFloat(minFare);
+      if (maxFare) tripFilter.fare.$lte = parseFloat(maxFare);
+    }
+
+    // Date filter
+    if (date) {
+      const startDate = new Date(date);
+      const endDate = new Date(date);
+      endDate.setDate(endDate.getDate() + 1);
+      
+      tripFilter.scheduledDeparture = {
+        $gte: startDate,
+        $lt: endDate
+      };
+    }
+
+    // Day type filter
+    if (dayType && !date) {
+      if (dayType.toLowerCase() === 'weekend') {
+        tripFilter.$expr = {
+          $or: [
+            { $eq: [{ $dayOfWeek: "$scheduledDeparture" }, 1] }, // Sunday
+            { $eq: [{ $dayOfWeek: "$scheduledDeparture" }, 7] }  // Saturday
+          ]
+        };
+      } else if (dayType.toLowerCase() === 'weekday') {
+        tripFilter.$expr = {
+          $and: [
+            { $gte: [{ $dayOfWeek: "$scheduledDeparture" }, 2] }, // Monday
+            { $lte: [{ $dayOfWeek: "$scheduledDeparture" }, 6] }  // Friday
+          ]
+        };
+      }
+    }
+
+    // Pagination
+    const skip = (page - 1) * limit;
+
+    // Execute query
+    const trips = await Trip.find(tripFilter)
+      .populate('route', 'name routeId routeNumber startLocation endLocation')
+      .populate('bus', 'registrationNumber busType')
+      .sort({ scheduledDeparture: 1 })
+      .skip(skip)
+      .limit(parseInt(limit))
+      .lean();
+
+    const totalTrips = await Trip.countDocuments(tripFilter);
+
+    // Simplified response
+    const results = trips.map(trip => ({
+      tripId: trip.tripId,
+      busNumber: trip.bus?.registrationNumber || trip.busRegistration,
+      busType: trip.bus?.busType || 'Normal',
+      route: {
+        id: trip.route.routeId,
+        name: trip.route.name,
+        routeNumber: trip.route.routeNumber
+      },
+      departureTime: trip.scheduledDeparture,
+      arrivalTime: trip.scheduledArrival,
+      baseFare: trip.fare,
+      status: trip.status,
+      date: trip.serviceDate
+    }));
+
+    res.json({
+      success: true,
+      data: {
+        trips: results,
+        pagination: {
+          current: parseInt(page),
+          pages: Math.ceil(totalTrips / limit),
+          total: totalTrips
+        }
+      },
+      filters: { start, end, minFare, maxFare, date, dayType }
+    });
+
+  } catch (error) {
+    console.error('Advanced search error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error in advanced search',
       error: error.message
     });
   }

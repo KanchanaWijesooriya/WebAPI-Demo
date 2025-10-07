@@ -315,11 +315,6 @@ export function filterTripData(trip, userRole = null) {
       arrivalTime: formatTime(tripObj.arrivalTime),
       baseFare: tripObj.fare ? `LKR ${tripObj.fare}` : generateBaseFare(tripObj.routeId, busType),
       stopwiseFares: stopwiseFares.length > 0 ? stopwiseFares : generateStopwiseFares(tripObj.routeId, busType),
-      seating: {
-        available: availableSeats,
-        total: totalCapacity,
-        occupancy: `${Math.round(((totalCapacity - availableSeats) / totalCapacity) * 100)}%`
-      },
       status: tripObj.status || 'Scheduled',
       date: tripObj.date || new Date().toISOString().split('T')[0]
     };
