@@ -36,14 +36,14 @@ router.get('/bus-info/:busId', authenticate, authorize(['admin']), async (req, r
       bus: bus._id,
       status: 'In Progress'
     })
-    .populate('route', 'routeNumber name origin destination distance')
+    .populate('route', 'routeNumber name start destination distance')
     .lean();
     
     // Get recent trip history
     const recentTrips = await Trip.find({
       bus: bus._id
     })
-    .populate('route', 'routeNumber name origin destination')
+    .populate('route', 'routeNumber name start destination')
     .sort({ scheduledDeparture: -1 })
     .limit(10)
     .lean();
@@ -90,7 +90,7 @@ router.get('/bus-info/:busId', authenticate, authorize(['admin']), async (req, r
           tripId: currentTrip.tripId,
           route: currentTrip.route?.name,
           routeNumber: currentTrip.route?.routeNumber,
-          origin: currentTrip.route?.origin?.city,
+          start: currentTrip.route?.start?.city,
           destination: currentTrip.route?.destination?.city,
           scheduledDeparture: currentTrip.scheduledDeparture,
           status: currentTrip.status,
@@ -177,7 +177,7 @@ router.get('/operator-contacts', authenticate, authorize(['admin']), async (req,
         'driver.licenseNumber': { $regex: licenseNumber, $options: 'i' }
       })
       .populate('bus', 'registrationNumber operator operatorContact isActive type capacity features')
-      .populate('route', 'routeNumber name origin destination distance')
+      .populate('route', 'routeNumber name start destination distance')
       .sort({ scheduledDeparture: -1 })
       .lean();
       
@@ -232,7 +232,7 @@ router.get('/operator-contacts', authenticate, authorize(['admin']), async (req,
           tripId: trip.tripId,
           route: trip.route?.name,
           routeNumber: trip.route?.routeNumber,
-          origin: trip.route?.origin?.city,
+          start: trip.route?.start?.city,
           destination: trip.route?.destination?.city,
           serviceDate: trip.serviceDate,
           scheduledDeparture: trip.scheduledDeparture,
@@ -299,7 +299,7 @@ router.get('/operator-contacts', authenticate, authorize(['admin']), async (req,
         ]
       })
       .populate('bus', 'registrationNumber operator operatorContact isActive')
-      .populate('route', 'routeNumber name origin destination')
+      .populate('route', 'routeNumber name start destination')
       .lean();
       
       if (trip && trip.bus) {
@@ -309,7 +309,7 @@ router.get('/operator-contacts', authenticate, authorize(['admin']), async (req,
             tripId: trip.tripId,
             route: trip.route?.name,
             routeNumber: trip.route?.routeNumber,
-            origin: trip.route?.origin?.city,
+            start: trip.route?.start?.city,
             destination: trip.route?.destination?.city,
             scheduledDeparture: trip.scheduledDeparture,
             scheduledArrival: trip.scheduledArrival,
@@ -379,7 +379,7 @@ router.get('/operator-contacts', authenticate, authorize(['admin']), async (req,
         'driver.name': { $regex: driverName, $options: 'i' }
       })
       .populate('bus', 'registrationNumber operator operatorContact isActive')
-      .populate('route', 'routeNumber name origin destination')
+      .populate('route', 'routeNumber name start destination')
       .limit(parseInt(limit))
       .lean();
       
@@ -445,7 +445,7 @@ router.get('/operator-contacts', authenticate, authorize(['admin']), async (req,
     // Get trip history for each bus (for enhanced details)
     const busIds = buses.map(bus => bus._id);
     const recentTrips = await Trip.find({ bus: { $in: busIds } })
-      .populate('route', 'routeNumber name origin destination')
+      .populate('route', 'routeNumber name start destination')
       .sort({ scheduledDeparture: -1 })
       .limit(50)
       .lean();
@@ -496,7 +496,7 @@ router.get('/operator-contacts', authenticate, authorize(['admin']), async (req,
           tripId: trip.tripId,
           route: trip.route?.name,
           routeNumber: trip.route?.routeNumber,
-          origin: trip.route?.origin?.city,
+          start: trip.route?.start?.city,
           destination: trip.route?.destination?.city,
           status: trip.status,
           scheduledDeparture: trip.scheduledDeparture,

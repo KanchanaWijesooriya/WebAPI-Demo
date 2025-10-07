@@ -3,7 +3,7 @@
     "routeId": "RT-001-UP",
     "routeNumber": "001",
     "name": "Colombo Fort - Kandy",
-    "origin": {
+    "start": {
       "city": "Colombo Fort",
       "province": "Western",
       "coordinates": { "latitude": 6.9344, "longitude": 79.8428 }
@@ -88,7 +88,7 @@
     "routeId": "RT-001-DOWN",
     "routeNumber": "001",
     "name": "Kandy - Colombo Fort",
-    "origin": {
+    "start": {
       "city": "Kandy",
       "province": "Central",
       "coordinates": { "latitude": 7.2906, "longitude": 80.6337 }
@@ -173,7 +173,7 @@
     "routeId": "RT-002-DOWN",
     "routeNumber": "002",
     "name": "Galle - Colombo",
-    "origin": {
+    "start": {
       "city": "Colombo Fort",
       "province": "Western",
       "coordinates": { "latitude": 6.9344, "longitude": 79.8428 }
@@ -233,7 +233,7 @@
     "routeId": "RT-002-UP",
     "routeNumber": "002",
     "name": "Matara - Colombo Fort",
-    "origin": {
+    "start": {
       "city": "Matara",
       "province": "Southern",
       "coordinates": { "latitude": 5.9549, "longitude": 80.5550 }
@@ -293,7 +293,7 @@
     "routeId": "RT-002-1-UP",
     "routeNumber": "002-1",
     "name": "Colombo - Matara",
-    "origin": {
+    "start": {
       "city": "Colombo Fort",
       "province": "Western",
       "coordinates": { "latitude": 6.9344, "longitude": 79.8428 }
@@ -328,7 +328,7 @@
     "routeId": "RT-002-1-DOWN",
     "routeNumber": "002-1",
     "name": "Galle - Colombo Fort Express",
-    "origin": {
+    "start": {
       "city": "Galle",
       "province": "Southern",
       "coordinates": { "latitude": 6.0535, "longitude": 80.2210 }
@@ -363,7 +363,7 @@
     "routeId": "RT-004-UP",
     "routeNumber": "004",
     "name": "Colombo Fort - Anuradhapura",
-    "origin": {
+    "start": {
       "city": "Colombo Fort",
       "province": "Western",
       "coordinates": { "latitude": 6.9344, "longitude": 79.8428 }
@@ -408,7 +408,7 @@
     "routeId": "RT-004-DOWN",
     "routeNumber": "004",
     "name": "Anuradhapura - Colombo Fort",
-    "origin": {
+    "start": {
       "city": "Anuradhapura",
       "province": "North Central",
       "coordinates": { "latitude": 8.3114, "longitude": 80.4037 }
@@ -453,7 +453,7 @@
     "routeId": "RT-099-UP",
     "routeNumber": "099",
     "name": "Colombo Fort - Badulla",
-    "origin": {
+    "start": {
       "city": "Colombo Fort",
       "province": "Western",
       "coordinates": { "latitude": 6.9344, "longitude": 79.8428 }
@@ -503,7 +503,7 @@
     "routeId": "RT-099-DOWN",
     "routeNumber": "099",
     "name": "Badulla - Colombo Fort",
-    "origin": {
+    "start": {
       "city": "Badulla",
       "province": "Uva",
       "coordinates": { "latitude": 6.9895, "longitude": 81.0567 }

@@ -19,15 +19,15 @@ const routeSchema = new mongoose.Schema({
     required: [true, 'Route name is required'],
     trim: true
   },
-  origin: {
+  start: {
     city: {
       type: String,
-      required: [true, 'Origin city is required'],
+      required: [true, 'start city is required'],
       trim: true
     },
     province: {
       type: String,
-      required: [true, 'Origin province is required'],
+      required: [true, 'start province is required'],
       trim: true
     },
     coordinates: {
@@ -68,7 +68,7 @@ const routeSchema = new mongoose.Schema({
       longitude: { type: Number, required: true }
     },
     order: { type: Number, required: true },
-    distanceFromOrigin: { type: Number, default: 0 }, // km from origin
+    distanceFromstart: { type: Number, default: 0 }, // km from start
     cumulativeDistance: { type: Number, default: 0 }  // total distance covered
   }],
   // Stopwise pricing information
@@ -100,13 +100,13 @@ const routeSchema = new mongoose.Schema({
 });
 
 // Indexes for performance
-routeSchema.index({ 'origin.city': 1, 'destination.city': 1 });
-routeSchema.index({ 'origin.province': 1, 'destination.province': 1 });
+routeSchema.index({ 'start.city': 1, 'destination.city': 1 });
+routeSchema.index({ 'start.province': 1, 'destination.province': 1 });
 routeSchema.index({ isActive: 1 });
 
 // Virtual for route display name
 routeSchema.virtual('displayName').get(function() {
-  return `${this.origin.city} - ${this.destination.city}`;
+  return `${this.start.city} - ${this.destination.city}`;
 });
 
 export default mongoose.model('Route', routeSchema);

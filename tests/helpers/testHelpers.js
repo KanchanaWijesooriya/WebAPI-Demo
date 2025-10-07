@@ -91,7 +91,7 @@ export const testData = {
   validRoute: {
     routeNumber: 'R-TEST-001',
     name: 'Test Route',
-    origin: {
+    start: {
       city: 'Colombo',
       coordinates: [79.8612, 6.9271]
     },
@@ -140,7 +140,7 @@ export const testData = {
   invalidRoute: {
     routeNumber: '', // Empty route number
     name: '',
-    origin: {},
+    start: {},
     destination: {},
     distance: -10, // Negative distance
     estimatedDuration: -5

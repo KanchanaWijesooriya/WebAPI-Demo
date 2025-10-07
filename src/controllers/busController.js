@@ -11,28 +11,55 @@ class BusController {
       // Get user role
       const userRole = req.user?.role || null;
       
-      const features = new ApiFeatures(Bus.find(), req.query)
+      // Set default limit to show all buses if not specified
+      const queryWithDefaults = {
+        ...req.query,
+        limit: req.query.limit || 50 // Show up to 50 buses by default instead of 10
+      };
+      
+      const features = new ApiFeatures(Bus.find(), queryWithDefaults)
         .filter()
         .sort()
         .limitFields()
         .paginate();
 
-      // Populate route information
-      const buses = await features.query.populate('route');
+      // Populate route information with start and destination details
+      const buses = await features.query.populate({
+        path: 'route',
+        select: 'routeNumber name start destination'
+      });
       const total = await Bus.countDocuments();
       
-      // Filter data based on user role
+      // Filter data based on user role and add route from-to info
       const filteredBuses = buses
-        .map(bus => filterBusData(bus, userRole))
+        .map(bus => {
+          const filteredBus = filterBusData(bus, userRole);
+          if (filteredBus) {
+            // Add from-to information based on actual route direction from route name
+            if (bus.route && typeof bus.route === 'object' && bus.route.name) {
+              const routeName = bus.route.name;
+              // Extract from and to from route name (e.g., "Colombo Fort - Badulla" or "Badulla - Colombo Fort")
+              const parts = routeName.split(' - ');
+              if (parts.length === 2) {
+                filteredBus.fromTo = `${parts[0]}-->${parts[1]}`;
+              } else {
+                filteredBus.fromTo = routeName;
+              }
+            } else {
+              filteredBus.fromTo = 'Route not assigned';
+            }
+          }
+          return filteredBus;
+        })
         .filter(bus => bus !== null);
 
       res.status(200).json(new ApiResponse(200, {
         buses: filteredBuses,
         pagination: {
           total,
-          page: req.query.page * 1 || 1,
-          limit: req.query.limit * 1 || 10,
-          pages: Math.ceil(total / (req.query.limit * 1 || 10))
+          page: queryWithDefaults.page * 1 || 1,
+          limit: queryWithDefaults.limit * 1 || 50,
+          pages: Math.ceil(total / (queryWithDefaults.limit * 1 || 50))
         },
         dataLevel: getDataLevel(userRole)
       }, 'Buses retrieved successfully'));
@@ -51,7 +78,7 @@ class BusController {
         // It's a valid MongoDB ObjectId
         bus = await Bus.findById(req.params.id).populate({
           path: 'route',
-          select: 'routeNumber name origin destination distance estimatedDuration stops',
+          select: 'routeNumber name start destination distance estimatedDuration stops',
           populate: {
             path: 'stops',
             select: 'name coordinates order'
@@ -68,7 +95,7 @@ class BusController {
           ]
         }).populate({
           path: 'route',
-          select: 'routeNumber name origin destination distance estimatedDuration stops',
+          select: 'routeNumber name start destination distance estimatedDuration stops',
           populate: {
             path: 'stops',
             select: 'name coordinates order'

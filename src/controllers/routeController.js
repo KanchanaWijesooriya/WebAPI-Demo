@@ -230,7 +230,7 @@ class RouteController {
       
       // Find buses that serve any of these routes
       const buses = await Bus.find({ route: { $in: routeIds } })
-        .populate('route', 'routeNumber name origin destination distance');
+        .populate('route', 'routeNumber name start destination distance');
       
       // Filter buses data based on user role
       const filteredBuses = buses
@@ -259,11 +259,11 @@ class RouteController {
       const routes = await Route.find({
         $or: [
           {
-            'origin.city': { $regex: new RegExp(from, 'i') },
+            'start.city': { $regex: new RegExp(from, 'i') },
             'destination.city': { $regex: new RegExp(to, 'i') }
           },
           {
-            'origin.city': { $regex: new RegExp(to, 'i') },
+            'start.city': { $regex: new RegExp(to, 'i') },
             'destination.city': { $regex: new RegExp(from, 'i') }
           },
           {
@@ -271,7 +271,7 @@ class RouteController {
             'destination.city': { $regex: new RegExp(to, 'i') }
           },
           {
-            'origin.city': { $regex: new RegExp(from, 'i') },
+            'start.city': { $regex: new RegExp(from, 'i') },
             'stops.name': { $regex: new RegExp(to, 'i') }
           },
           {
@@ -289,7 +289,7 @@ class RouteController {
 
       for (const route of routes) {
         const routeStops = [
-          { name: route.origin.city, order: 0, coordinates: route.origin.coordinates },
+          { name: route.start.city, order: 0, coordinates: route.start.coordinates },
           ...route.stops.sort((a, b) => a.order - b.order),
           { name: route.destination.city, order: route.stops.length + 1, coordinates: route.destination.coordinates }
         ];

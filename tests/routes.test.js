@@ -40,7 +40,7 @@ describe('Route Management Tests', () => {
       const routeData = {
         routeNumber: 'TEST-001',
         name: 'Test Route',
-        origin: { city: 'Colombo', coordinates: { latitude: 6.9271, longitude: 79.8612 } },
+        start: { city: 'Colombo', coordinates: { latitude: 6.9271, longitude: 79.8612 } },
         destination: { city: 'Kandy', coordinates: { latitude: 7.2906, longitude: 80.6337 } }
       };
 
@@ -100,9 +100,9 @@ describe('Route Management Tests', () => {
   });
 
   describe('Route Operations', () => {
-    test('Should handle route search by origin', async () => {
+    test('Should handle route search by start', async () => {
       const response = await request(app)
-        .get('/api/routes?origin=Colombo');
+        .get('/api/routes?start=Colombo');
       
       expect([200, 401, 403]).toContain(response.status);
     });

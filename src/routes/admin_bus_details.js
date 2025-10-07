@@ -14,7 +14,7 @@ router.get('/bus-details/:busId', authenticate, authorize(['admin']), async (req
     
     // Find bus with all details including route information
     const bus = await Bus.findById(busId)
-      .populate('route', 'routeNumber name origin destination distance stops')
+      .populate('route', 'routeNumber name start destination distance stops')
       .lean();
     
     if (!bus) {
@@ -61,7 +61,7 @@ router.get('/bus-details/:busId', authenticate, authorize(['admin']), async (req
         id: bus.route._id,
         routeNumber: bus.route.routeNumber,
         name: bus.route.name,
-        origin: bus.route.origin,
+        start: bus.route.start,
         destination: bus.route.destination,
         distance: bus.route.distance,
         totalStops: bus.route.stops?.length || 0

@@ -20,8 +20,8 @@ export function filterRouteData(route, userRole = null, options = {}) {
     // Convert route ID to simple number format
     const routeNumber = routeObj.routeId?.replace(/[^0-9]/g, '') || routeObj.routeNumber?.replace(/[^0-9]/g, '') || '001';
     
-    // Get direction from route ID or default
-    const direction = routeObj.routeId?.includes('DOWN') ? 'Down line' : 'Up line';
+    // Get direction from route ID or default (forward = Down line, reverse = Up line)
+    const direction = routeObj.routeId?.includes('UP') ? 'Up line' : 'Down line';
     
     // Extract stops based on context and bus type
     const allStops = [];
@@ -45,8 +45,8 @@ export function filterRouteData(route, userRole = null, options = {}) {
       });
     }
     
-    // Get start and end from origin/destination objects
-    const start = routeObj.origin?.city || routeObj.startLocation || 'N/A';
+    // Get start and end from start/destination objects
+    const start = routeObj.start?.city || routeObj.startLocation || 'N/A';
     const end = routeObj.destination?.city || routeObj.endLocation || 'N/A';
     
     // Ensure start and end are in stops list
@@ -67,7 +67,6 @@ export function filterRouteData(route, userRole = null, options = {}) {
       direction: direction,
       duration: routeObj.estimatedDuration ? `${Math.round(routeObj.estimatedDuration / 60)} hours` : null,
       distance: routeObj.distance ? `${routeObj.distance} km` : null
-      // Removed stopCount - users can see stop count from stops array length
     };
   }
   
@@ -141,7 +140,7 @@ export function filterBusData(bus, userRole = null) {
       busNumber: busObj.busNumber || 'Unknown',
       type: busObj.busType || busObj.type || 'Normal',
       capacity: `${busObj.capacity || 0} seats`,
-      facilities: facilities.length > 0 ? facilities : ['Basic Service'],
+      facilities: facilities.length > 0 ? facilities : ['n/a'],
       route: route,
       availability: availability,
       operator: busObj.operator?.name || 'NTC',
@@ -179,6 +178,17 @@ export function filterBusData(bus, userRole = null) {
 }
 
 /**
+ * Round price to nearest 5 or 0
+ */
+function roundPrice(price) {
+  const remainder = price % 10;
+  if (remainder === 0 || remainder === 5) return price;
+  if (remainder < 3) return price - remainder;
+  if (remainder < 8) return price - remainder + 5;
+  return price - remainder + 10;
+}
+
+/**
  * Generate realistic base fare based on route and bus type
  */
 function generateBaseFare(routeId, busType) {
@@ -190,7 +200,7 @@ function generateBaseFare(routeId, busType) {
   };
   
   const routeNum = routeId?.substring(0, 3) || '001';
-  const fare = baseFares[routeNum] || 300;
+  const fare = roundPrice(baseFares[routeNum] || 300);
   return `LKR ${fare}`;
 }
 
@@ -203,22 +213,22 @@ function generateStopwiseFares(routeId, busType) {
   
   const fareStructures = {
     '099': [
-      { fromStop: 'Colombo Fort', toStop: 'Avissawella', fare: Math.round(280 * multiplier) },
-      { fromStop: 'Avissawella', toStop: 'Ratnapura', fare: Math.round(350 * multiplier) },
-      { fromStop: 'Ratnapura', toStop: 'Balangoda', fare: Math.round(420 * multiplier) },
-      { fromStop: 'Balangoda', toStop: 'Haputale', fare: Math.round(380 * multiplier) },
-      { fromStop: 'Haputale', toStop: 'Badulla', fare: Math.round(210 * multiplier) }
+      { fromStop: 'Colombo Fort', toStop: 'Avissawella', fare: roundPrice(Math.round(280 * multiplier)) },
+      { fromStop: 'Avissawella', toStop: 'Ratnapura', fare: roundPrice(Math.round(350 * multiplier)) },
+      { fromStop: 'Ratnapura', toStop: 'Balangoda', fare: roundPrice(Math.round(420 * multiplier)) },
+      { fromStop: 'Balangoda', toStop: 'Haputale', fare: roundPrice(Math.round(380 * multiplier)) },
+      { fromStop: 'Haputale', toStop: 'Badulla', fare: roundPrice(Math.round(210 * multiplier)) }
     ],
     '004': [
-      { fromStop: 'Anuradhapura', toStop: 'Dambulla', fare: Math.round(180 * multiplier) },
-      { fromStop: 'Dambulla', toStop: 'Kurunegala', fare: Math.round(200 * multiplier) },
-      { fromStop: 'Kurunegala', toStop: 'Negombo', fare: Math.round(150 * multiplier) },
-      { fromStop: 'Negombo', toStop: 'Colombo Fort', fare: Math.round(120 * multiplier) }
+      { fromStop: 'Anuradhapura', toStop: 'Dambulla', fare: roundPrice(Math.round(180 * multiplier)) },
+      { fromStop: 'Dambulla', toStop: 'Kurunegala', fare: roundPrice(Math.round(200 * multiplier)) },
+      { fromStop: 'Kurunegala', toStop: 'Negombo', fare: roundPrice(Math.round(150 * multiplier)) },
+      { fromStop: 'Negombo', toStop: 'Colombo Fort', fare: roundPrice(Math.round(120 * multiplier)) }
     ]
   };
   
   const fares = fareStructures[routeNum] || [
-    { fromStop: 'Origin', toStop: 'Destination', fare: Math.round(300 * multiplier) }
+    { fromStop: 'start', toStop: 'Destination', fare: roundPrice(Math.round(300 * multiplier)) }
   ];
   
   return fares.map(f => ({ ...f, fare: `LKR ${f.fare}` }));
@@ -272,7 +282,20 @@ export function filterTripData(trip, userRole = null) {
                      busInfo.busNumber || 
                      busInfo.registrationNumber || 
                      `NB-${String(Math.floor(Math.random() * 9000) + 1000)}`;
-    const busType = busInfo.busType || busInfo.type || 'Normal';
+    
+    // Enhanced bus type detection - try multiple approaches to get diverse bus types
+    let busType = busInfo.busType || busInfo.type;
+    if (!busType || busType === 'Normal') {
+      // Generate realistic bus types based on route patterns for better diversity
+      const routeId = tripObj.routeId || tripObj.route?.routeId || '';
+      const busNum = busNumber.match(/\d+/)?.[0] || '1000';
+      const lastDigit = parseInt(busNum.slice(-1));
+      
+      if (routeId.includes('099') || lastDigit > 7) busType = 'Intercity Express';
+      else if (routeId.includes('004') || (lastDigit >= 5 && lastDigit <= 7)) busType = 'Express';
+      else busType = 'Normal';
+    }
+    
     const totalCapacity = busInfo.capacity || tripObj.totalSeats || 50;
     const availableSeats = tripObj.availableSeats !== undefined ? tripObj.availableSeats : Math.floor(totalCapacity * 0.6);
     
@@ -292,11 +315,6 @@ export function filterTripData(trip, userRole = null) {
       arrivalTime: formatTime(tripObj.arrivalTime),
       baseFare: tripObj.fare ? `LKR ${tripObj.fare}` : generateBaseFare(tripObj.routeId, busType),
       stopwiseFares: stopwiseFares.length > 0 ? stopwiseFares : generateStopwiseFares(tripObj.routeId, busType),
-      seating: {
-        available: availableSeats,
-        total: totalCapacity,
-        occupancy: `${Math.round(((totalCapacity - availableSeats) / totalCapacity) * 100)}%`
-      },
       status: tripObj.status || 'Scheduled',
       date: tripObj.date || new Date().toISOString().split('T')[0]
     };

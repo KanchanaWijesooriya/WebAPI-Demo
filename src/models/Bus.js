@@ -50,7 +50,7 @@ const busSchema = new mongoose.Schema({
   },
   facilities: [{
     type: String,
-    enum: ['WiFi', 'AC', 'Premium AC', 'Charging Ports', 'Entertainment System', 'Washroom', 'Onboard Service']
+    enum: ['WiFi', 'AC', 'Charging Ports']
   }],
   currentLocation: {
     coordinates: {

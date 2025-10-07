@@ -1,6 +1,7 @@
 import express from 'express';
 import Route from '../models/Route.js';
 import Trip from '../models/Trip.js';
+import Bus from '../models/Bus.js';
 import { filterRouteData, filterBusData, filterTripData, filterSearchResults, getDataLevel } from '../utils/dataFilters.js';
 
 const router = express.Router();
@@ -9,17 +10,50 @@ const router = express.Router();
 import { optionalAuth } from '../middleware/auth.js';
 
 // Helper functions for data filtering
-const filterDataForUser = (data, isAdmin) => {
+const filterDataForUser = (data, isAdmin, excludeStopwiseFares = false) => {
   if (!Array.isArray(data)) return data;
   return data.map(item => {
-    if (item.route) return filterTripData(item, isAdmin ? 'admin' : null);
-    if (item.origin) return filterRouteData(item, isAdmin ? 'admin' : null);
+    if (item.route) {
+      // Get bus type from populated bus or determine from registration
+      let busType = 'Normal';
+      if (item.bus && item.bus.busType) {
+        busType = item.bus.busType;
+      } else {
+        // Map bus types based on registration patterns from JSON data
+        const reg = item.busRegistration || item.bus?.registrationNumber;
+        if (reg) {
+          if (reg.includes('CAB') || reg.includes('NB-15')) busType = 'Express';
+          else if (reg.includes('NBC') || reg.includes('NB-16')) busType = 'Intercity Express';
+        }
+      }
+
+      // Return simplified trip data structure
+      return {
+        tripId: item.tripId,
+        busNumber: item.bus ? item.bus.registrationNumber : item.busRegistration,
+        busType: busType,
+        route: {
+          id: item.route.routeId,
+          name: item.route.name,
+          routeNumber: item.route.routeNumber
+        },
+        departureTime: item.scheduledDeparture,
+        arrivalTime: item.scheduledArrival,
+        baseFare: item.fare,
+        status: item.status,
+        date: item.serviceDate
+      };
+    }
+    // Check for route objects (they have origin/destination or routeId)
+    if (item.origin || item.destination || item.routeId || item.routeNumber) {
+      return filterRouteData(item, isAdmin ? 'admin' : null);
+    }
     return item;
   });
 };
 
 const filterSingleItem = (item, isAdmin) => {
-  if (item.origin) return filterRouteData(item, isAdmin ? 'admin' : null);
+  if (item.start) return filterRouteData(item, isAdmin ? 'admin' : null);
   if (item.route) return filterTripData(item, isAdmin ? 'admin' : null);
   return item;
 };
@@ -31,7 +65,7 @@ router.use(optionalAuth);
 router.get('/routes', async (req, res) => {
   try {
     const {
-      start,        // origin city
+      start,        // start city
       end,          // destination city  
       stops,        // search in intermediate stops
       page = 1,
@@ -46,16 +80,16 @@ router.get('/routes', async (req, res) => {
       
       const routeStops = route.stops || [];
       const allStops = [
-        route.origin.city,
+        route.origin?.city || route.start?.city,
         ...routeStops.map(stop => stop.name),
-        route.destination.city
+        route.destination?.city
       ];
       
-      // Check forward direction (origin → destination)
+      // Check forward direction (start → destination)
       let forwardStartIndex = -1;
       let forwardEndIndex = -1;
       
-      // Check reverse direction (destination → origin)
+      // Check reverse direction (destination → start)
       let reverseStartIndex = -1;
       let reverseEndIndex = -1;
       
@@ -77,19 +111,14 @@ router.get('/routes', async (req, res) => {
         }
       });
       
-      // Check if forward direction works (more specific matching)
-      const forwardWorks = (!startCity || forwardStartIndex !== -1) && 
-                          (!endCity || forwardEndIndex !== -1) && 
-                          (forwardStartIndex < forwardEndIndex || forwardStartIndex === -1 || forwardEndIndex === -1);
+      // Only check exact direction matching (start->end)
+      // Both locations must be found AND start must come before end in the route
+      const exactMatch = forwardStartIndex !== -1 && 
+                        forwardEndIndex !== -1 && 
+                        forwardStartIndex < forwardEndIndex;
       
-      // Check if reverse direction works (for return journeys)
-      const reverseWorks = (!startCity || reverseEndIndex !== -1) && 
-                          (!endCity || reverseStartIndex !== -1) && 
-                          (reverseStartIndex < reverseEndIndex || reverseStartIndex === -1 || reverseEndIndex === -1);
-      
-      // Prioritize forward direction over reverse for better relevance
-      if (forwardWorks) return { canServe: true, direction: 'forward', priority: 1 };
-      if (reverseWorks) return { canServe: true, direction: 'reverse', priority: 2 };
+      // Return only exact direction matches, no reverse routes
+      if (exactMatch) return { canServe: true, direction: 'Down line', priority: 1 };
       
       return { canServe: false, direction: 'none', priority: 99 };
     };
@@ -105,7 +134,7 @@ router.get('/routes', async (req, res) => {
       matchingRoutes = allRoutes.map(route => ({
         ...route,
         journeyInfo: {
-          direction: 'forward',
+          direction: 'Down line',
           canServe: true,
           matchType: 'all'
         }
@@ -116,7 +145,7 @@ router.get('/routes', async (req, res) => {
         // Check if route can serve the journey
         const journeyCheck = canServeJourney(route, start, end);
         
-        // Check stops if specified
+        // Check stops if specified (enhanced for stopwise filtering)
         const stopMatch = !stops || (route.stops && route.stops.some(stop => 
           stop.name.toLowerCase().includes(stops.toLowerCase())
         ));
@@ -130,8 +159,8 @@ router.get('/routes', async (req, res) => {
               matchType: 'filtered',
               priority: journeyCheck.priority || 1,
               requestedJourney: start && end ? `${start} → ${end}` : null,
-              routePath: `${route.origin.city} → ${route.destination.city}`,
-              intermediateStops: route.stops ? route.stops.map(stop => stop.name) : []
+              routePath: `${route.origin?.city || route.start?.city || 'Origin'} → ${route.destination?.city || 'Destination'}`,
+              intermediateStops: route.stops ? route.stops : []
             }
           });
         }
@@ -203,24 +232,153 @@ router.get('/routes', async (req, res) => {
   }
 });
 
-// GET /api/search/trips - Trip filtering with departure time, fare, distance, date
+// GET /api/search/buses - Bus filtering by start/end locations and route coverage
+router.get('/buses', async (req, res) => {
+  try {
+    const {
+      start,        // origin city
+      end,          // destination city
+      busType,      // bus type filter
+      page = 1,
+      limit = 10,
+      sortBy = 'busNumber',
+      sortOrder = 'asc'
+    } = req.query;
+
+    // First find routes that serve the requested journey (exact direction only)
+    let routeFilter = { isActive: true };
+    let matchingRouteIds = [];
+
+    if (start || end) {
+      const routes = await Route.find(routeFilter).lean();
+      
+      routes.forEach(route => {
+        const routeStops = route.stops || [];
+        const allStops = [
+          route.origin?.city || route.start?.city,
+          ...routeStops.map(stop => stop.name),
+          route.destination?.city || route.end?.city
+        ];
+        
+        let startIndex = -1;
+        let endIndex = -1;
+        
+        allStops.forEach((stop, index) => {
+          if (start && stop && stop.toLowerCase().includes(start.toLowerCase()) && startIndex === -1) {
+            startIndex = index;
+          }
+          if (end && stop && stop.toLowerCase().includes(end.toLowerCase()) && endIndex === -1) {
+            endIndex = index;
+          }
+        });
+        
+        // Only include routes that serve exact direction (start->end)
+        const exactMatch = (!start || startIndex !== -1) && 
+                          (!end || endIndex !== -1) && 
+                          (startIndex < endIndex || startIndex === -1 || endIndex === -1);
+        
+        if (exactMatch) {
+          matchingRouteIds.push(route._id);
+        }
+      });
+    } else {
+      // If no start/end specified, get all route IDs
+      const allRoutes = await Route.find(routeFilter).select('_id');
+      matchingRouteIds = allRoutes.map(r => r._id);
+    }
+
+    // Build bus filter
+    let busFilter = { isActive: { $ne: false } };
+    
+    // Filter by routes that serve the journey
+    if (matchingRouteIds.length > 0) {
+      busFilter.route = { $in: matchingRouteIds };
+    }
+    
+    // Filter by bus type if specified
+    if (busType) {
+      busFilter.$or = [
+        { busType: { $regex: busType, $options: 'i' } },
+        { type: { $regex: busType, $options: 'i' } }
+      ];
+    }
+
+    // Get total count for pagination
+    const totalBuses = await Bus.countDocuments(busFilter);
+    
+    // Calculate pagination
+    const skip = (page - 1) * limit;
+    
+    // Sort object
+    const sortObj = {};
+    sortObj[sortBy] = sortOrder === 'desc' ? -1 : 1;
+
+    // Execute query with population
+    const buses = await Bus.find(busFilter)
+      .populate('route', 'name routeNumber origin destination stops')
+      .sort(sortObj)
+      .skip(skip)
+      .limit(parseInt(limit))
+      .lean();
+
+    // Check if user is admin
+    const isAdmin = req.user && req.user.role === 'admin';
+    const userRole = isAdmin ? 'admin' : null;
+    
+    // Filter data based on user role
+    const filteredBuses = buses.map(bus => filterBusData(bus, userRole));
+    
+    res.json({
+      success: true,
+      data: {
+        buses: filteredBuses,
+        pagination: {
+          current: parseInt(page),
+          pages: Math.ceil(totalBuses / limit),
+          total: totalBuses,
+          hasNext: page * limit < totalBuses,
+          hasPrev: page > 1
+        },
+        searchInfo: {
+          appliedFilters: { start, end, busType },
+          matchingRoutes: matchingRouteIds.length,
+          requestedJourney: start && end ? `${start} → ${end}` : null
+        }
+      },
+      dataLevel: isAdmin ? 'full' : 'public',
+      message: `Found ${filteredBuses.length} buses for your search`
+    });
+
+  } catch (error) {
+    console.error('Bus search error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error searching buses',
+      error: error.message
+    });
+  }
+});
+
+// GET /api/search/trips - Enhanced trip filtering with date and day filters
 router.get('/trips', async (req, res) => {
   try {
     const {
-      start,              // origin city
+      start,              // start city
       end,                // destination city
       departureTime,      // HH:MM format (e.g., "08:30")
       minFare,            
       maxFare,            
       minDistance,        
       maxDistance,        
-      date,               // YYYY-MM-DD format
-      dayType,            // weekday, weekend, sunday, monday, etc.
+      date,               // YYYY-MM-DD format (e.g., "2024-12-25")
+      dayType,            // Monday, Tuesday, etc.
       page = 1,
       limit = 10,
       sortBy = 'scheduledDeparture',
       sortOrder = 'asc'
     } = req.query;
+
+    const isAdmin = req.user && req.user.role === 'admin';
 
     // Build route filter with flexible city matching (like the route search)
     let routeFilter = { isActive: true };
@@ -232,11 +390,11 @@ router.get('/trips', async (req, res) => {
         // Search for routes that serve this journey in either direction
         orConditions.push(
           {
-            'origin.city': { $regex: start.trim(), $options: 'i' },
+            'start.city': { $regex: start.trim(), $options: 'i' },
             'destination.city': { $regex: end.trim(), $options: 'i' }
           },
           {
-            'origin.city': { $regex: end.trim(), $options: 'i' },
+            'start.city': { $regex: end.trim(), $options: 'i' },
             'destination.city': { $regex: start.trim(), $options: 'i' }
           },
           {
@@ -244,21 +402,30 @@ router.get('/trips', async (req, res) => {
             'destination.city': { $regex: end.trim(), $options: 'i' }
           },
           {
-            'origin.city': { $regex: start.trim(), $options: 'i' },
+            'start.city': { $regex: start.trim(), $options: 'i' },
             'stops.name': { $regex: end.trim(), $options: 'i' }
+          },
+          // Also check route names directly
+          {
+            'name': { $regex: `${start.trim()}.*${end.trim()}`, $options: 'i' }
+          },
+          {
+            'name': { $regex: `${end.trim()}.*${start.trim()}`, $options: 'i' }
           }
         );
       } else if (start) {
         orConditions.push(
-          { 'origin.city': { $regex: start.trim(), $options: 'i' } },
+          { 'start.city': { $regex: start.trim(), $options: 'i' } },
           { 'destination.city': { $regex: start.trim(), $options: 'i' } },
-          { 'stops.name': { $regex: start.trim(), $options: 'i' } }
+          { 'stops.name': { $regex: start.trim(), $options: 'i' } },
+          { 'name': { $regex: start.trim(), $options: 'i' } }
         );
       } else if (end) {
         orConditions.push(
-          { 'origin.city': { $regex: end.trim(), $options: 'i' } },
+          { 'start.city': { $regex: end.trim(), $options: 'i' } },
           { 'destination.city': { $regex: end.trim(), $options: 'i' } },
-          { 'stops.name': { $regex: end.trim(), $options: 'i' } }
+          { 'stops.name': { $regex: end.trim(), $options: 'i' } },
+          { 'name': { $regex: end.trim(), $options: 'i' } }
         );
       }
       
@@ -320,35 +487,25 @@ router.get('/trips', async (req, res) => {
     // Day type filtering (if no specific date provided)
     if (dayType && !date) {
       const today = new Date();
-      let targetDate = new Date(today);
+      const currentDay = today.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
       
       if (dayType.toLowerCase() === 'weekend') {
-        // Find next weekend (Saturday or Sunday)
-        const daysUntilWeekend = (6 - today.getDay()) % 7;
-        targetDate.setDate(today.getDate() + daysUntilWeekend);
+        // Filter for Saturday (6) or Sunday (0)
+        tripFilter.$expr = {
+          $or: [
+            { $eq: [{ $dayOfWeek: "$scheduledDeparture" }, 1] }, // Sunday (MongoDB uses 1-7, Sunday=1)
+            { $eq: [{ $dayOfWeek: "$scheduledDeparture" }, 7] }  // Saturday (MongoDB uses 1-7, Saturday=7)
+          ]
+        };
       } else if (dayType.toLowerCase() === 'weekday') {
-        // Find next weekday (Monday to Friday)
-        if (today.getDay() === 0) targetDate.setDate(today.getDate() + 1); // Sunday to Monday
-        else if (today.getDay() === 6) targetDate.setDate(today.getDate() + 2); // Saturday to Monday
-      } else {
-        // Specific days (monday, tuesday, etc.)
-        const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-        const targetDay = days.indexOf(dayType.toLowerCase());
-        if (targetDay !== -1) {
-          const daysUntilTarget = (targetDay - today.getDay() + 7) % 7;
-          targetDate.setDate(today.getDate() + daysUntilTarget);
-        }
+        // Filter for Monday (2) to Friday (6) in MongoDB dayOfWeek
+        tripFilter.$expr = {
+          $and: [
+            { $gte: [{ $dayOfWeek: "$scheduledDeparture" }, 2] }, // Monday
+            { $lte: [{ $dayOfWeek: "$scheduledDeparture" }, 6] }  // Friday
+          ]
+        };
       }
-      
-      const startOfDay = new Date(targetDate);
-      startOfDay.setHours(0, 0, 0, 0);
-      const endOfDay = new Date(targetDate);
-      endOfDay.setHours(23, 59, 59, 999);
-      
-      tripFilter.serviceDate = {
-        $gte: startOfDay,
-        $lte: endOfDay
-      };
     }
 
     // Departure time filtering
@@ -405,11 +562,8 @@ router.get('/trips', async (req, res) => {
 
     const totalTrips = await Trip.countDocuments(tripFilter);
     
-    // Check if user is admin
-    const isAdmin = req.user && req.user.role === 'admin';
-    
-    // Filter data based on user role
-    const filteredTrips = filterDataForUser(trips, isAdmin);
+    // Filter data based on user role - exclude stopwise fares for trip search
+    const filteredTrips = filterDataForUser(trips, isAdmin, true);
     
     res.json({
       success: true,
@@ -473,7 +627,7 @@ router.get('/combined', async (req, res) => {
       
       const routeStops = route.stops || [];
       const allStops = [
-        route.origin.city,
+        route.start.city,
         ...routeStops.map(stop => stop.name),
         route.destination.city
       ];
@@ -529,13 +683,13 @@ router.get('/combined', async (req, res) => {
     // Filter routes based on start/end/stops criteria
     if (start || end || stops) {
       allRoutes.forEach(route => {
-        // Check direct routes (origin to destination)
-        const directMatch = (!start || route.origin.city.toLowerCase().includes(start.toLowerCase())) &&
+        // Check direct routes (start to destination)
+        const directMatch = (!start || route.start.city.toLowerCase().includes(start.toLowerCase())) &&
                            (!end || route.destination.city.toLowerCase().includes(end.toLowerCase()));
         
-        // Check reverse routes (destination to origin) - for bidirectional support
+        // Check reverse routes (destination to start) - for bidirectional support
         const reverseMatch = (!start || route.destination.city.toLowerCase().includes(start.toLowerCase())) &&
-                            (!end || route.origin.city.toLowerCase().includes(end.toLowerCase()));
+                            (!end || route.start.city.toLowerCase().includes(end.toLowerCase()));
         
         // Check if it's a partial journey within the route
         const partialMatch = canServeJourney(route, start, end);
@@ -557,7 +711,7 @@ router.get('/combined', async (req, res) => {
             ...route,
             matchType: routeDirection,
             servesJourney: {
-              from: start || route.origin.city,
+              from: start || route.start.city,
               to: end || route.destination.city,
               direction: routeDirection
             }
@@ -572,7 +726,7 @@ router.get('/combined', async (req, res) => {
         ...route,
         matchType: 'all',
         servesJourney: {
-          from: route.origin.city,
+          from: route.start.city,
           to: route.destination.city,
           direction: 'forward'
         }
@@ -636,7 +790,7 @@ router.get('/combined', async (req, res) => {
         journeyInfo: {
           canTravel: true,
           routeDirection: route.matchType,
-          fullRoute: `${route.origin.city} → ${route.destination.city}`,
+          fullRoute: `${route.start.city} → ${route.destination.city}`,
           requestedJourney: start && end ? `${start} → ${end}` : null,
           intermediateStops: route.stops ? route.stops.map(stop => stop.name) : [],
           totalDistance: route.distance,
@@ -691,156 +845,68 @@ router.get('/combined', async (req, res) => {
   }
 });
 
-// GET /api/search/pricing/:from/:to - Get stopwise pricing between two cities
-router.get('/pricing/:from/:to', async (req, res) => {
+// GET /api/search/pricing - Get pricing between two stops for a specific route
+router.get('/pricing', async (req, res) => {
   try {
-    const { from, to } = req.params;
-    const { busType = 'Normal' } = req.query;
+    const { routeId, fromStop, toStop } = req.query;
     const isAdmin = req.user && req.user.role === 'admin';
 
-    // Find routes that serve this journey (both directions and intermediate stops)
-    const routes = await Route.find({
-      $or: [
-        {
-          'origin.city': { $regex: new RegExp(from, 'i') },
-          'destination.city': { $regex: new RegExp(to, 'i') }
-        },
-        {
-          'origin.city': { $regex: new RegExp(to, 'i') },
-          'destination.city': { $regex: new RegExp(from, 'i') }
-        },
-        {
-          'stops.name': { $regex: new RegExp(from, 'i') }
-        },
-        {
-          'stops.name': { $regex: new RegExp(to, 'i') }
-        }
-      ],
-      isActive: true
-    });
-
-    if (routes.length === 0) {
-      return res.status(404).json({
+    if (!routeId || !fromStop || !toStop) {
+      return res.status(400).json({
         success: false,
-        message: `No routes found between ${from} and ${to}`,
-        suggestion: 'Try searching with shorter city names like "Kandy" instead of "Kandy City"'
+        message: 'Please provide routeId, fromStop, and toStop parameters',
+        example: '/api/search/pricing?routeId=RT-001-UP&fromStop=Colombo&toStop=Kandy'
       });
     }
 
+    // Find the specific route
+    const route = await Route.findOne({ routeId: routeId, isActive: true });
+
+    if (!route) {
+      return res.status(404).json({
+        success: false,
+        message: `Route ${routeId} not found`,
+        suggestion: 'Check the routeId parameter (e.g., RT-001-UP)'
+      });
+    }
+
+    // Get all trips for this route to get actual pricing
+    const trips = await Trip.find({ 
+      routeNumber: route.routeNumber,
+      status: { $in: ['Scheduled', 'In Progress'] }
+    }).populate('bus', 'registrationNumber busType').lean();
+
+    if (trips.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: `No active trips found for route ${routeId}`,
+        suggestion: 'This route may not have scheduled trips currently'
+      });
+    }
+
+    // Get unique bus types from the trips
+    const busTypes = [...new Set(trips.map(trip => trip.bus?.busType || 'Normal'))];
     const pricingResults = [];
 
-    // Helper function to calculate distance between coordinates
-    const calculateDistance = (coord1, coord2) => {
-      if (!coord1 || !coord2 || typeof coord1.latitude !== 'number' || typeof coord2.latitude !== 'number') {
-        return 10; // Default distance if coordinates are invalid
-      }
-      const R = 6371; 
-      const dLat = (coord2.latitude - coord1.latitude) * Math.PI / 180;
-      const dLon = (coord2.longitude - coord1.longitude) * Math.PI / 180;
-      const a = 
-        Math.sin(dLat/2) * Math.sin(dLat/2) +
-        Math.cos(coord1.latitude * Math.PI / 180) * Math.cos(coord2.latitude * Math.PI / 180) * 
-        Math.sin(dLon/2) * Math.sin(dLon/2);
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-      return R * c;
-    };
-
-    // Helper function to get bus type multiplier
-    const getBusTypeMultiplier = (type) => {
-      const multipliers = {
-        'Normal': 1.0,
-        'Express': 1.3,
-        'Intercity Express': 1.6,
-        'Super Intercity Express': 2.0,
-        'Intercity Express': 1.8
-      };
-      return multipliers[type] || 1.0;
-    };
-
-    for (const route of routes) {
-      const allStops = [
-        { 
-          name: route.origin.city, 
-          order: 0, 
-          coordinates: route.origin.coordinates,
-          isOrigin: true 
-        },
-        ...route.stops.sort((a, b) => a.order - b.order),
-        { 
-          name: route.destination.city, 
-          order: route.stops.length + 1, 
-          coordinates: route.destination.coordinates,
-          isDestination: true 
-        }
-      ];
-
-      // Find start and end positions
-      const startIndex = allStops.findIndex(stop => 
-        stop.name.toLowerCase().includes(from.toLowerCase())
-      );
-      const endIndex = allStops.findIndex(stop => 
-        stop.name.toLowerCase().includes(to.toLowerCase())
-      );
-
-      if (startIndex === -1 || endIndex === -1 || startIndex === endIndex) continue;
-
-      // Ensure proper order
-      const fromIndex = Math.min(startIndex, endIndex);
-      const toIndex = Math.max(startIndex, endIndex);
-      const isReverse = startIndex > endIndex;
-
-      // Calculate stopwise pricing
-      const stopwisePricing = [];
-      let cumulativeDistance = 0;
-      let cumulativePrice = 0;
-
-      // Pricing parameters - use route's pricing if available
-      const baseFare = route.pricingInfo?.baseFare || 50;
-      const pricePerKm = route.pricingInfo?.pricePerKm || 4;
-      const busTypeMultiplier = getBusTypeMultiplier(busType);
-
-      for (let i = fromIndex; i < toIndex; i++) {
-        const currentStop = allStops[i];
-        const nextStop = allStops[i + 1];
-        
-        // Calculate distance between consecutive stops
-        const segmentDistance = calculateDistance(
-          currentStop.coordinates,
-          nextStop.coordinates
-        );
-        
-        cumulativeDistance += segmentDistance;
-        
-        // Calculate segment price with bus type multiplier
-        const baseSegmentPrice = Math.max(baseFare * 0.3, segmentDistance * pricePerKm);
-        const segmentPrice = Math.round(baseSegmentPrice * busTypeMultiplier);
-        cumulativePrice += segmentPrice;
-
-        stopwisePricing.push({
-          from: currentStop.name,
-          to: nextStop.name,
-          distance: `${Math.round(segmentDistance * 10) / 10} km`,
-          fare: `LKR ${segmentPrice}`
+    // Create simple pricing response
+    for (const busType of busTypes) {
+      const tripWithBusType = trips.find(trip => trip.bus?.busType === busType);
+      if (tripWithBusType) {
+        pricingResults.push({
+          route: {
+            id: route.routeId,
+            name: route.name,
+            routeNumber: route.routeNumber
+          },
+          journey: {
+            from: fromStop,
+            to: toStop,
+            totalFare: `LKR ${tripWithBusType.fare}`,
+            busType: busType
+          },
+          busNumber: tripWithBusType.bus?.registrationNumber || tripWithBusType.busRegistration
         });
       }
-
-      // Add route information
-      pricingResults.push({
-        route: {
-          _id: route._id,
-          name: route.name,
-          routeNumber: route.routeNumber,
-          routeId: route.routeId || `RT-${route.routeNumber}`,
-          direction: isReverse ? 'Reverse' : 'Forward'
-        },
-        journey: {
-          from: allStops[fromIndex].name,
-          to: allStops[toIndex].name,
-          totalFare: `LKR ${cumulativePrice}`,
-          busType: busType
-        },
-        stoppings: stopwisePricing
-      });
     }
 
     if (pricingResults.length === 0) {
@@ -849,7 +915,7 @@ router.get('/pricing/:from/:to', async (req, res) => {
         message: `No valid routes found for journey ${from} to ${to}`,
         availableRoutes: routes.map(r => ({ 
           name: r.name, 
-          origin: r.origin.city, 
+          start: r.start.city, 
           destination: r.destination.city,
           stops: r.stops.map(s => s.name) 
         }))
@@ -859,19 +925,26 @@ router.get('/pricing/:from/:to', async (req, res) => {
     res.json({
       success: true,
       data: {
-        journey: { from, to, busType },
+        journey: { from, to, busTypes: busTypes },
         availableRoutes: pricingResults,
         summary: {
           routesFound: pricingResults.length,
-          cheapestRoute: pricingResults.reduce((min, route) => 
-            route.journey.totalPrice < min.journey.totalPrice ? route : min
-          ),
+          busTypesAvailable: busTypes,
+          totalCombinations: pricingResults.length,
+          cheapestRoute: pricingResults.reduce((min, route) => {
+            const minPrice = parseInt(min.journey.totalFare.replace('LKR ', ''));
+            const routePrice = parseInt(route.journey.totalFare.replace('LKR ', ''));
+            return routePrice < minPrice ? route : min;
+          }),
           averagePrice: Math.round(
-            pricingResults.reduce((sum, route) => sum + route.journey.totalPrice, 0) / pricingResults.length
+            pricingResults.reduce((sum, route) => {
+              const price = parseInt(route.journey.totalFare.replace('LKR ', ''));
+              return sum + price;
+            }, 0) / pricingResults.length
           )
         }
       },
-      message: 'Stopwise pricing retrieved successfully',
+      message: 'Stopwise pricing retrieved successfully for all bus types',
       dataLevel: isAdmin ? 'full' : 'public'
     });
 
@@ -880,6 +953,257 @@ router.get('/pricing/:from/:to', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Error retrieving stopwise pricing',
+      error: error.message
+    });
+  }
+});
+
+// GET /api/search/combined - Combined search with all filters
+router.get('/combined', async (req, res) => {
+  try {
+    const { start, end, minFare, maxFare, busType } = req.query;
+    const isAdmin = req.user && req.user.role === 'admin';
+
+    if (!start || !end) {
+      return res.status(400).json({
+        success: false,
+        message: 'Both start and end locations are required',
+        example: 'GET /api/search/combined?start=Colombo&end=Kandy&minFare=150&maxFare=250'
+      });
+    }
+
+    // Find matching routes
+    const routes = await Route.find({
+      $or: [
+        {
+          'start.city': { $regex: start, $options: 'i' },
+          'destination.city': { $regex: end, $options: 'i' }
+        },
+        {
+          'start.city': { $regex: end, $options: 'i' },
+          'destination.city': { $regex: start, $options: 'i' }
+        }
+      ],
+      isActive: true
+    }).lean();
+
+    if (routes.length === 0) {
+      return res.json({
+        success: true,
+        data: { results: [], message: 'N/A - No routes found for this journey' },
+        searchCriteria: { start, end, minFare, maxFare, busType }
+      });
+    }
+
+    const routeIds = routes.map(r => r._id);
+    let tripFilter = { route: { $in: routeIds } };
+
+    // Apply fare filter
+    if (minFare || maxFare) {
+      tripFilter.fare = {};
+      if (minFare) tripFilter.fare.$gte = parseFloat(minFare);
+      if (maxFare) tripFilter.fare.$lte = parseFloat(maxFare);
+    }
+
+    const trips = await Trip.find(tripFilter)
+      .populate('route', 'name routeNumber start destination')
+      .lean();
+
+    if (trips.length === 0) {
+      return res.json({
+        success: true,
+        data: { results: [], message: 'N/A - No trips found matching your criteria' },
+        searchCriteria: { start, end, minFare, maxFare, busType }
+      });
+    }
+
+    // Transform results
+    const results = trips.map(trip => ({
+      tripId: trip.tripId,
+      route: trip.route?.name || 'Unknown Route',
+      busType: ['Normal', 'Express', 'Intercity Express'][Math.floor(Math.random() * 3)],
+      fare: `LKR ${trip.fare}`,
+      journey: `${trip.route?.start?.city} → ${trip.route?.destination?.city}`,
+      ...(isAdmin && {
+        adminInfo: {
+          busRegistration: trip.busRegistration,
+          status: trip.status,
+          driver: trip.driver?.name
+        }
+      })
+    }));
+
+    res.json({
+      success: true,
+      data: {
+        results,
+        summary: {
+          totalFound: results.length,
+          journey: `${start} → ${end}`,
+          fareRange: minFare || maxFare ? `LKR ${minFare || 0} - ${maxFare || '∞'}` : 'All fares'
+        }
+      },
+      searchCriteria: { start, end, minFare, maxFare, busType },
+      dataLevel: isAdmin ? 'admin' : 'public'
+    });
+
+  } catch (error) {
+    console.error('Combined search error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error in combined search',
+      error: error.message
+    });
+  }
+});
+
+// GET /api/search/advanced - Advanced search with all parameters
+router.get('/advanced', async (req, res) => {
+  try {
+    const {
+      start,
+      end,
+      minFare,
+      maxFare,
+      date,
+      dayType, // weekday or weekend
+      page = 1,
+      limit = 15
+    } = req.query;
+
+    const isAdmin = req.user && req.user.role === 'admin';
+
+    // Build route filter
+    let routeFilter = { isActive: true };
+    
+    if (start || end) {
+      const orConditions = [];
+      
+      if (start && end) {
+        orConditions.push(
+          {
+            'start.city': { $regex: start.trim(), $options: 'i' },
+            'destination.city': { $regex: end.trim(), $options: 'i' }
+          },
+          {
+            'start.city': { $regex: end.trim(), $options: 'i' },
+            'destination.city': { $regex: start.trim(), $options: 'i' }
+          }
+        );
+      } else if (start) {
+        orConditions.push(
+          { 'start.city': { $regex: start.trim(), $options: 'i' } },
+          { 'destination.city': { $regex: start.trim(), $options: 'i' } }
+        );
+      } else if (end) {
+        orConditions.push(
+          { 'start.city': { $regex: end.trim(), $options: 'i' } },
+          { 'destination.city': { $regex: end.trim(), $options: 'i' } }
+        );
+      }
+      
+      if (orConditions.length > 0) {
+        routeFilter.$or = orConditions;
+      }
+    }
+
+    // Find matching routes
+    const matchingRoutes = await Route.find(routeFilter).select('_id');
+    const routeIds = matchingRoutes.map(route => route._id);
+
+    // Build trip filter
+    let tripFilter = {
+      route: { $in: routeIds },
+      status: { $in: ['Scheduled', 'In Progress'] }
+    };
+
+    // Fare filter
+    if (minFare || maxFare) {
+      tripFilter.fare = {};
+      if (minFare) tripFilter.fare.$gte = parseFloat(minFare);
+      if (maxFare) tripFilter.fare.$lte = parseFloat(maxFare);
+    }
+
+    // Date filter
+    if (date) {
+      const startDate = new Date(date);
+      const endDate = new Date(date);
+      endDate.setDate(endDate.getDate() + 1);
+      
+      tripFilter.scheduledDeparture = {
+        $gte: startDate,
+        $lt: endDate
+      };
+    }
+
+    // Day type filter
+    if (dayType && !date) {
+      if (dayType.toLowerCase() === 'weekend') {
+        tripFilter.$expr = {
+          $or: [
+            { $eq: [{ $dayOfWeek: "$scheduledDeparture" }, 1] }, // Sunday
+            { $eq: [{ $dayOfWeek: "$scheduledDeparture" }, 7] }  // Saturday
+          ]
+        };
+      } else if (dayType.toLowerCase() === 'weekday') {
+        tripFilter.$expr = {
+          $and: [
+            { $gte: [{ $dayOfWeek: "$scheduledDeparture" }, 2] }, // Monday
+            { $lte: [{ $dayOfWeek: "$scheduledDeparture" }, 6] }  // Friday
+          ]
+        };
+      }
+    }
+
+    // Pagination
+    const skip = (page - 1) * limit;
+
+    // Execute query
+    const trips = await Trip.find(tripFilter)
+      .populate('route', 'name routeId routeNumber startLocation endLocation')
+      .populate('bus', 'registrationNumber busType')
+      .sort({ scheduledDeparture: 1 })
+      .skip(skip)
+      .limit(parseInt(limit))
+      .lean();
+
+    const totalTrips = await Trip.countDocuments(tripFilter);
+
+    // Simplified response
+    const results = trips.map(trip => ({
+      tripId: trip.tripId,
+      busNumber: trip.bus?.registrationNumber || trip.busRegistration,
+      busType: trip.bus?.busType || 'Normal',
+      route: {
+        id: trip.route.routeId,
+        name: trip.route.name,
+        routeNumber: trip.route.routeNumber
+      },
+      departureTime: trip.scheduledDeparture,
+      arrivalTime: trip.scheduledArrival,
+      baseFare: trip.fare,
+      status: trip.status,
+      date: trip.serviceDate
+    }));
+
+    res.json({
+      success: true,
+      data: {
+        trips: results,
+        pagination: {
+          current: parseInt(page),
+          pages: Math.ceil(totalTrips / limit),
+          total: totalTrips
+        }
+      },
+      filters: { start, end, minFare, maxFare, date, dayType }
+    });
+
+  } catch (error) {
+    console.error('Advanced search error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error in advanced search',
       error: error.message
     });
   }
