@@ -333,14 +333,22 @@ router.put('/:id/profile',
   async (req, res) => {
     try {
       const User = (await import('../models/User.js')).default;
-      const { profile } = req.body;
       
-      // Users can only update profile information, not role or permissions
+      // Handle both wrapped profile object and direct profile fields
+      const profileData = req.body.profile || req.body;
+      
+      // Build update object with profile fields
       const updateData = {
-        profile,
         updatedBy: req.user.id,
         updatedAt: new Date()
       };
+      
+      // Add profile fields with dot notation for partial updates
+      Object.keys(profileData).forEach(key => {
+        if (['firstName', 'lastName', 'contactNumber', 'organization', 'licenseNumber', 'employeeId', 'department'].includes(key)) {
+          updateData[`profile.${key}`] = profileData[key];
+        }
+      });
       
       const updatedUser = await User.findByIdAndUpdate(
         req.params.id,
