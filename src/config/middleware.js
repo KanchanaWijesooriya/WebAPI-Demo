@@ -10,11 +10,11 @@ import express from 'express';
  */
 export const configureCORS = () => {
   const corsOptions = {
-    origin: process.env.CORS_ORIGINS?.split(',') || ['http://localhost:3000'],
+    start: process.env.CORS_startS?.split(',') || ['http://localhost:3000'],
     credentials: true,
     optionsSuccessStatus: 200,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin']
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'start']
   };
   return cors(corsOptions);
 };
@@ -24,7 +24,7 @@ export const configureCORS = () => {
  */
 export const configureSecurity = () => {
   return helmet({
-    crossOriginResourcePolicy: { policy: 'cross-origin' }
+    crossstartResourcePolicy: { policy: 'cross-start' }
   });
 };
 

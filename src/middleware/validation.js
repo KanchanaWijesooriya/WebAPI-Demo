@@ -30,7 +30,7 @@ export const errorHandler = (err, req, res, next) => {
   console.error('API Error:', {
     message: err.message,
     stack: err.stack,
-    url: req.originalUrl,
+    url: req.startalUrl,
     method: req.method,
     ip: req.ip,
     userAgent: req.get('User-Agent'),
@@ -81,14 +81,14 @@ export const errorHandler = (err, req, res, next) => {
     message: error.message || 'Internal server error',
     ...(process.env.NODE_ENV === 'development' && { 
       stack: err.stack,
-      originalError: err 
+      startalError: err 
     })
   });
 };
 
 // 404 handler
 export const notFound = (req, res, next) => {
-  const error = new Error(`Route ${req.originalUrl} not found`);
+  const error = new Error(`Route ${req.startalUrl} not found`);
   error.statusCode = 404;
   next(error);
 };
@@ -98,14 +98,14 @@ export const requestLogger = (req, res, next) => {
   const start = Date.now();
   
   // Override res.json to log response
-  const originalJson = res.json;
+  const startalJson = res.json;
   res.json = function(body) {
     const duration = Date.now() - start;
     
     // Log request details
     console.log({
       method: req.method,
-      url: req.originalUrl,
+      url: req.startalUrl,
       status: res.statusCode,
       duration: `${duration}ms`,
       ip: req.ip,
@@ -113,7 +113,7 @@ export const requestLogger = (req, res, next) => {
       timestamp: new Date().toISOString()
     });
     
-    return originalJson.call(this, body);
+    return startalJson.call(this, body);
   };
   
   next();
@@ -122,9 +122,9 @@ export const requestLogger = (req, res, next) => {
 // CORS preflight handler
 export const handlePreflight = (req, res, next) => {
   if (req.method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+    res.header('Access-Control-Allow-start', req.headers.start || '*');
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept, Origin');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept, start');
     res.header('Access-Control-Max-Age', '86400'); // 24 hours
     return res.status(200).end();
   }

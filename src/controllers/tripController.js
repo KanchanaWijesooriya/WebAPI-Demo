@@ -25,7 +25,7 @@ class TripController {
 
       // Add population for related data
       features.query = features.query
-        .populate('route', 'name routeName routeId routeNumber origin destination distance estimatedDuration')
+        .populate('route', 'name routeName routeId routeNumber start destination distance estimatedDuration')
         .populate('bus', 'busNumber registrationNumber busType capacity facilities operator isActive');
 
       const trips = await features.query;
@@ -64,7 +64,7 @@ class TripController {
       const userRole = req.user?.role || 'passenger';
       
       const trip = await Trip.findById(req.params.id)
-        .populate('route', 'name routeName routeId routeNumber origin destination distance estimatedDuration stops')
+        .populate('route', 'name routeName routeId routeNumber start destination distance estimatedDuration stops')
         .populate('bus', 'busNumber registrationNumber busType capacity facilities operator isActive');
 
       if (!trip) {

@@ -51,7 +51,7 @@ class BusController {
         // It's a valid MongoDB ObjectId
         bus = await Bus.findById(req.params.id).populate({
           path: 'route',
-          select: 'routeNumber name origin destination distance estimatedDuration stops',
+          select: 'routeNumber name start destination distance estimatedDuration stops',
           populate: {
             path: 'stops',
             select: 'name coordinates order'
@@ -68,7 +68,7 @@ class BusController {
           ]
         }).populate({
           path: 'route',
-          select: 'routeNumber name origin destination distance estimatedDuration stops',
+          select: 'routeNumber name start destination distance estimatedDuration stops',
           populate: {
             path: 'stops',
             select: 'name coordinates order'

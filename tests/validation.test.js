@@ -32,7 +32,7 @@ describe('Validation Middleware Tests', () => {
     
     // Setup mock request, response, and next function
     req = {
-      originalUrl: '/api/test',
+      startalUrl: '/api/test',
       method: 'GET',
       ip: '127.0.0.1',
       get: jest.fn().mockReturnValue('Mozilla/5.0'),
@@ -309,7 +309,7 @@ describe('Validation Middleware Tests', () => {
         status: 'error',
         message: 'Development error',
         stack: expect.any(String),
-        originalError: error
+        startalError: error
       });
     });
 
@@ -359,7 +359,7 @@ describe('Validation Middleware Tests', () => {
 
   describe('notFound middleware', () => {
     test('Should create and pass 404 error', () => {
-      req.originalUrl = '/api/nonexistent';
+      req.startalUrl = '/api/nonexistent';
       
       notFound(req, res, next);
       
@@ -371,7 +371,7 @@ describe('Validation Middleware Tests', () => {
     });
 
     test('Should handle different route paths', () => {
-      req.originalUrl = '/api/users/123/posts';
+      req.startalUrl = '/api/users/123/posts';
       
       notFound(req, res, next);
       
@@ -381,22 +381,22 @@ describe('Validation Middleware Tests', () => {
   });
 
   describe('requestLogger middleware', () => {
-    let originalDateNow;
+    let startalDateNow;
     
     beforeEach(() => {
-      originalDateNow = Date.now;
+      startalDateNow = Date.now;
       Date.now = jest.fn()
         .mockReturnValueOnce(1000000) // Start time
         .mockReturnValueOnce(1000100); // End time (100ms later)
     });
 
     afterEach(() => {
-      Date.now = originalDateNow;
+      Date.now = startalDateNow;
     });
 
     test('Should log request details on response', () => {
       req.method = 'POST';
-      req.originalUrl = '/api/users';
+      req.startalUrl = '/api/users';
       req.ip = '192.168.1.1';
       req.get = jest.fn().mockReturnValue('Chrome/91.0');
       
@@ -437,21 +437,21 @@ describe('Validation Middleware Tests', () => {
       });
     });
 
-    test('Should preserve original json functionality', () => {
-      const originalJson = res.json;
+    test('Should preserve startal json functionality', () => {
+      const startalJson = res.json;
       const testData = { message: 'test response' };
       
       requestLogger(req, res, next);
       
       res.json(testData);
       
-      // Verify original json was called with correct context and data
+      // Verify startal json was called with correct context and data
       expect(console.log).toHaveBeenCalled();
     });
 
     test('Should handle different HTTP methods and status codes', () => {
       req.method = 'DELETE';
-      req.originalUrl = '/api/users/123';
+      req.startalUrl = '/api/users/123';
       
       requestLogger(req, res, next);
       
@@ -473,26 +473,26 @@ describe('Validation Middleware Tests', () => {
   describe('handlePreflight middleware', () => {
     test('Should handle OPTIONS request (preflight)', () => {
       req.method = 'OPTIONS';
-      req.headers.origin = 'https://example.com';
+      req.headers.start = 'https://example.com';
       
       handlePreflight(req, res, next);
       
-      expect(res.header).toHaveBeenCalledWith('Access-Control-Allow-Origin', 'https://example.com');
+      expect(res.header).toHaveBeenCalledWith('Access-Control-Allow-start', 'https://example.com');
       expect(res.header).toHaveBeenCalledWith('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-      expect(res.header).toHaveBeenCalledWith('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept, Origin');
+      expect(res.header).toHaveBeenCalledWith('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept, start');
       expect(res.header).toHaveBeenCalledWith('Access-Control-Max-Age', '86400');
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.end).toHaveBeenCalledTimes(1);
       expect(next).not.toHaveBeenCalled();
     });
 
-    test('Should use wildcard origin when no origin header', () => {
+    test('Should use wildcard start when no start header', () => {
       req.method = 'OPTIONS';
-      // No origin header
+      // No start header
       
       handlePreflight(req, res, next);
       
-      expect(res.header).toHaveBeenCalledWith('Access-Control-Allow-Origin', '*');
+      expect(res.header).toHaveBeenCalledWith('Access-Control-Allow-start', '*');
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.end).toHaveBeenCalledTimes(1);
       expect(next).not.toHaveBeenCalled();
@@ -592,7 +592,7 @@ describe('Validation Middleware Tests', () => {
 
     test('Should handle error logging with missing request properties', () => {
       const minimalReq = {
-        originalUrl: '/test',
+        startalUrl: '/test',
         method: 'GET',
         get: jest.fn().mockReturnValue(undefined)
       };

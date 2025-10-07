@@ -55,7 +55,7 @@ router.get('/bus-location/:busId', async (req, res) => {
       bus: bus._id,
       status: 'In Progress'
     })
-    .populate('route', 'routeNumber name origin destination')
+    .populate('route', 'routeNumber name start destination')
     .select('tripId route scheduledDeparture status passengers')
     .lean();
     
@@ -106,7 +106,7 @@ router.get('/bus-location/:busId', async (req, res) => {
         route: {
           routeNumber: currentTrip.route?.routeNumber,
           routeName: currentTrip.route?.name,
-          origin: currentTrip.route?.origin?.city,
+          start: currentTrip.route?.start?.city,
           destination: currentTrip.route?.destination?.city
         },
         scheduledDeparture: currentTrip.scheduledDeparture,
@@ -214,7 +214,7 @@ router.get('/buses-near', async (req, res) => {
       bus: { $in: busIds },
       status: 'In Progress'
     })
-    .populate('route', 'routeNumber name origin destination')
+    .populate('route', 'routeNumber name start destination')
     .lean();
     
     // Combine location and trip data
@@ -238,7 +238,7 @@ router.get('/buses-near', async (req, res) => {
         currentTrip: currentTrip ? {
           routeNumber: currentTrip.route?.routeNumber,
           routeName: currentTrip.route?.name,
-          origin: currentTrip.route?.origin?.city,
+          start: currentTrip.route?.start?.city,
           destination: currentTrip.route?.destination?.city,
           status: currentTrip.status
         } : null
@@ -277,7 +277,7 @@ router.get('/route-buses/:routeId', async (req, res) => {
       status: 'In Progress'
     })
     .populate('bus', 'registrationNumber operator type capacity')
-    .populate('route', 'routeNumber name origin destination distance')
+    .populate('route', 'routeNumber name start destination distance')
     .lean();
     
     if (currentTrips.length === 0) {
@@ -332,7 +332,7 @@ router.get('/route-buses/:routeId', async (req, res) => {
         route: {
           routeNumber: trip.route.routeNumber,
           routeName: trip.route.name,
-          origin: trip.route.origin?.city,
+          start: trip.route.start?.city,
           destination: trip.route.destination?.city,
           totalDistance: trip.route.distance
         }
@@ -347,7 +347,7 @@ router.get('/route-buses/:routeId', async (req, res) => {
         routeInfo: currentTrips[0]?.route ? {
           routeNumber: currentTrips[0].route.routeNumber,
           routeName: currentTrips[0].route.name,
-          origin: currentTrips[0].route.origin?.city,
+          start: currentTrips[0].route.start?.city,
           destination: currentTrips[0].route.destination?.city
         } : null,
         activeBuses,

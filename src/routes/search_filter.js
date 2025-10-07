@@ -1,6 +1,7 @@
 import express from 'express';
 import Route from '../models/Route.js';
 import Trip from '../models/Trip.js';
+import Bus from '../models/Bus.js';
 import { filterRouteData, filterBusData, filterTripData, filterSearchResults, getDataLevel } from '../utils/dataFilters.js';
 
 const router = express.Router();
@@ -9,17 +10,28 @@ const router = express.Router();
 import { optionalAuth } from '../middleware/auth.js';
 
 // Helper functions for data filtering
-const filterDataForUser = (data, isAdmin) => {
+const filterDataForUser = (data, isAdmin, excludeStopwiseFares = false) => {
   if (!Array.isArray(data)) return data;
   return data.map(item => {
-    if (item.route) return filterTripData(item, isAdmin ? 'admin' : null);
-    if (item.origin) return filterRouteData(item, isAdmin ? 'admin' : null);
+    if (item.route) {
+      const filteredTrip = filterTripData(item, isAdmin ? 'admin' : null);
+      // Remove stopwise fares for trip search responses if requested
+      if (excludeStopwiseFares && filteredTrip) {
+        const { stopwiseFares, ...tripWithoutFares } = filteredTrip;
+        return tripWithoutFares;
+      }
+      return filteredTrip;
+    }
+    // Check for route objects (they have origin/destination or routeId)
+    if (item.origin || item.destination || item.routeId || item.routeNumber) {
+      return filterRouteData(item, isAdmin ? 'admin' : null);
+    }
     return item;
   });
 };
 
 const filterSingleItem = (item, isAdmin) => {
-  if (item.origin) return filterRouteData(item, isAdmin ? 'admin' : null);
+  if (item.start) return filterRouteData(item, isAdmin ? 'admin' : null);
   if (item.route) return filterTripData(item, isAdmin ? 'admin' : null);
   return item;
 };
@@ -31,7 +43,7 @@ router.use(optionalAuth);
 router.get('/routes', async (req, res) => {
   try {
     const {
-      start,        // origin city
+      start,        // start city
       end,          // destination city  
       stops,        // search in intermediate stops
       page = 1,
@@ -46,16 +58,16 @@ router.get('/routes', async (req, res) => {
       
       const routeStops = route.stops || [];
       const allStops = [
-        route.origin.city,
+        route.origin?.city || route.start?.city,
         ...routeStops.map(stop => stop.name),
-        route.destination.city
+        route.destination?.city
       ];
       
-      // Check forward direction (origin → destination)
+      // Check forward direction (start → destination)
       let forwardStartIndex = -1;
       let forwardEndIndex = -1;
       
-      // Check reverse direction (destination → origin)
+      // Check reverse direction (destination → start)
       let reverseStartIndex = -1;
       let reverseEndIndex = -1;
       
@@ -77,19 +89,14 @@ router.get('/routes', async (req, res) => {
         }
       });
       
-      // Check if forward direction works (more specific matching)
-      const forwardWorks = (!startCity || forwardStartIndex !== -1) && 
-                          (!endCity || forwardEndIndex !== -1) && 
-                          (forwardStartIndex < forwardEndIndex || forwardStartIndex === -1 || forwardEndIndex === -1);
+      // Only check exact direction matching (start->end)
+      // Both locations must be found AND start must come before end in the route
+      const exactMatch = forwardStartIndex !== -1 && 
+                        forwardEndIndex !== -1 && 
+                        forwardStartIndex < forwardEndIndex;
       
-      // Check if reverse direction works (for return journeys)
-      const reverseWorks = (!startCity || reverseEndIndex !== -1) && 
-                          (!endCity || reverseStartIndex !== -1) && 
-                          (reverseStartIndex < reverseEndIndex || reverseStartIndex === -1 || reverseEndIndex === -1);
-      
-      // Prioritize forward direction over reverse for better relevance
-      if (forwardWorks) return { canServe: true, direction: 'forward', priority: 1 };
-      if (reverseWorks) return { canServe: true, direction: 'reverse', priority: 2 };
+      // Return only exact direction matches, no reverse routes
+      if (exactMatch) return { canServe: true, direction: 'Down line', priority: 1 };
       
       return { canServe: false, direction: 'none', priority: 99 };
     };
@@ -105,7 +112,7 @@ router.get('/routes', async (req, res) => {
       matchingRoutes = allRoutes.map(route => ({
         ...route,
         journeyInfo: {
-          direction: 'forward',
+          direction: 'Down line',
           canServe: true,
           matchType: 'all'
         }
@@ -118,7 +125,7 @@ router.get('/routes', async (req, res) => {
         
         // Check stops if specified
         const stopMatch = !stops || (route.stops && route.stops.some(stop => 
-          stop.name.toLowerCase().includes(stops.toLowerCase())
+          stop.toLowerCase().includes(stops.toLowerCase())
         ));
         
         if (journeyCheck.canServe && stopMatch) {
@@ -130,8 +137,8 @@ router.get('/routes', async (req, res) => {
               matchType: 'filtered',
               priority: journeyCheck.priority || 1,
               requestedJourney: start && end ? `${start} → ${end}` : null,
-              routePath: `${route.origin.city} → ${route.destination.city}`,
-              intermediateStops: route.stops ? route.stops.map(stop => stop.name) : []
+              routePath: `${route.origin?.city || route.start?.city || 'Origin'} → ${route.destination?.city || 'Destination'}`,
+              intermediateStops: route.stops ? route.stops : []
             }
           });
         }
@@ -203,11 +210,138 @@ router.get('/routes', async (req, res) => {
   }
 });
 
+// GET /api/search/buses - Bus filtering by start/end locations and route coverage
+router.get('/buses', async (req, res) => {
+  try {
+    const {
+      start,        // origin city
+      end,          // destination city
+      busType,      // bus type filter
+      page = 1,
+      limit = 10,
+      sortBy = 'busNumber',
+      sortOrder = 'asc'
+    } = req.query;
+
+    // First find routes that serve the requested journey (exact direction only)
+    let routeFilter = { isActive: true };
+    let matchingRouteIds = [];
+
+    if (start || end) {
+      const routes = await Route.find(routeFilter).lean();
+      
+      routes.forEach(route => {
+        const routeStops = route.stops || [];
+        const allStops = [
+          route.origin?.city || route.start?.city,
+          ...routeStops.map(stop => stop.name),
+          route.destination?.city || route.end?.city
+        ];
+        
+        let startIndex = -1;
+        let endIndex = -1;
+        
+        allStops.forEach((stop, index) => {
+          if (start && stop && stop.toLowerCase().includes(start.toLowerCase()) && startIndex === -1) {
+            startIndex = index;
+          }
+          if (end && stop && stop.toLowerCase().includes(end.toLowerCase()) && endIndex === -1) {
+            endIndex = index;
+          }
+        });
+        
+        // Only include routes that serve exact direction (start->end)
+        const exactMatch = (!start || startIndex !== -1) && 
+                          (!end || endIndex !== -1) && 
+                          (startIndex < endIndex || startIndex === -1 || endIndex === -1);
+        
+        if (exactMatch) {
+          matchingRouteIds.push(route._id);
+        }
+      });
+    } else {
+      // If no start/end specified, get all route IDs
+      const allRoutes = await Route.find(routeFilter).select('_id');
+      matchingRouteIds = allRoutes.map(r => r._id);
+    }
+
+    // Build bus filter
+    let busFilter = { isActive: { $ne: false } };
+    
+    // Filter by routes that serve the journey
+    if (matchingRouteIds.length > 0) {
+      busFilter.route = { $in: matchingRouteIds };
+    }
+    
+    // Filter by bus type if specified
+    if (busType) {
+      busFilter.$or = [
+        { busType: { $regex: busType, $options: 'i' } },
+        { type: { $regex: busType, $options: 'i' } }
+      ];
+    }
+
+    // Get total count for pagination
+    const totalBuses = await Bus.countDocuments(busFilter);
+    
+    // Calculate pagination
+    const skip = (page - 1) * limit;
+    
+    // Sort object
+    const sortObj = {};
+    sortObj[sortBy] = sortOrder === 'desc' ? -1 : 1;
+
+    // Execute query with population
+    const buses = await Bus.find(busFilter)
+      .populate('route', 'name routeNumber origin destination stops')
+      .sort(sortObj)
+      .skip(skip)
+      .limit(parseInt(limit))
+      .lean();
+
+    // Check if user is admin
+    const isAdmin = req.user && req.user.role === 'admin';
+    const userRole = isAdmin ? 'admin' : null;
+    
+    // Filter data based on user role
+    const filteredBuses = buses.map(bus => filterBusData(bus, userRole));
+    
+    res.json({
+      success: true,
+      data: {
+        buses: filteredBuses,
+        pagination: {
+          current: parseInt(page),
+          pages: Math.ceil(totalBuses / limit),
+          total: totalBuses,
+          hasNext: page * limit < totalBuses,
+          hasPrev: page > 1
+        },
+        searchInfo: {
+          appliedFilters: { start, end, busType },
+          matchingRoutes: matchingRouteIds.length,
+          requestedJourney: start && end ? `${start} → ${end}` : null
+        }
+      },
+      dataLevel: isAdmin ? 'full' : 'public',
+      message: `Found ${filteredBuses.length} buses for your search`
+    });
+
+  } catch (error) {
+    console.error('Bus search error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error searching buses',
+      error: error.message
+    });
+  }
+});
+
 // GET /api/search/trips - Trip filtering with departure time, fare, distance, date
 router.get('/trips', async (req, res) => {
   try {
     const {
-      start,              // origin city
+      start,              // start city
       end,                // destination city
       departureTime,      // HH:MM format (e.g., "08:30")
       minFare,            
@@ -232,11 +366,11 @@ router.get('/trips', async (req, res) => {
         // Search for routes that serve this journey in either direction
         orConditions.push(
           {
-            'origin.city': { $regex: start.trim(), $options: 'i' },
+            'start.city': { $regex: start.trim(), $options: 'i' },
             'destination.city': { $regex: end.trim(), $options: 'i' }
           },
           {
-            'origin.city': { $regex: end.trim(), $options: 'i' },
+            'start.city': { $regex: end.trim(), $options: 'i' },
             'destination.city': { $regex: start.trim(), $options: 'i' }
           },
           {
@@ -244,19 +378,19 @@ router.get('/trips', async (req, res) => {
             'destination.city': { $regex: end.trim(), $options: 'i' }
           },
           {
-            'origin.city': { $regex: start.trim(), $options: 'i' },
+            'start.city': { $regex: start.trim(), $options: 'i' },
             'stops.name': { $regex: end.trim(), $options: 'i' }
           }
         );
       } else if (start) {
         orConditions.push(
-          { 'origin.city': { $regex: start.trim(), $options: 'i' } },
+          { 'start.city': { $regex: start.trim(), $options: 'i' } },
           { 'destination.city': { $regex: start.trim(), $options: 'i' } },
           { 'stops.name': { $regex: start.trim(), $options: 'i' } }
         );
       } else if (end) {
         orConditions.push(
-          { 'origin.city': { $regex: end.trim(), $options: 'i' } },
+          { 'start.city': { $regex: end.trim(), $options: 'i' } },
           { 'destination.city': { $regex: end.trim(), $options: 'i' } },
           { 'stops.name': { $regex: end.trim(), $options: 'i' } }
         );
@@ -408,8 +542,8 @@ router.get('/trips', async (req, res) => {
     // Check if user is admin
     const isAdmin = req.user && req.user.role === 'admin';
     
-    // Filter data based on user role
-    const filteredTrips = filterDataForUser(trips, isAdmin);
+    // Filter data based on user role - exclude stopwise fares for trip search
+    const filteredTrips = filterDataForUser(trips, isAdmin, true);
     
     res.json({
       success: true,
@@ -473,7 +607,7 @@ router.get('/combined', async (req, res) => {
       
       const routeStops = route.stops || [];
       const allStops = [
-        route.origin.city,
+        route.start.city,
         ...routeStops.map(stop => stop.name),
         route.destination.city
       ];
@@ -529,13 +663,13 @@ router.get('/combined', async (req, res) => {
     // Filter routes based on start/end/stops criteria
     if (start || end || stops) {
       allRoutes.forEach(route => {
-        // Check direct routes (origin to destination)
-        const directMatch = (!start || route.origin.city.toLowerCase().includes(start.toLowerCase())) &&
+        // Check direct routes (start to destination)
+        const directMatch = (!start || route.start.city.toLowerCase().includes(start.toLowerCase())) &&
                            (!end || route.destination.city.toLowerCase().includes(end.toLowerCase()));
         
-        // Check reverse routes (destination to origin) - for bidirectional support
+        // Check reverse routes (destination to start) - for bidirectional support
         const reverseMatch = (!start || route.destination.city.toLowerCase().includes(start.toLowerCase())) &&
-                            (!end || route.origin.city.toLowerCase().includes(end.toLowerCase()));
+                            (!end || route.start.city.toLowerCase().includes(end.toLowerCase()));
         
         // Check if it's a partial journey within the route
         const partialMatch = canServeJourney(route, start, end);
@@ -557,7 +691,7 @@ router.get('/combined', async (req, res) => {
             ...route,
             matchType: routeDirection,
             servesJourney: {
-              from: start || route.origin.city,
+              from: start || route.start.city,
               to: end || route.destination.city,
               direction: routeDirection
             }
@@ -572,7 +706,7 @@ router.get('/combined', async (req, res) => {
         ...route,
         matchType: 'all',
         servesJourney: {
-          from: route.origin.city,
+          from: route.start.city,
           to: route.destination.city,
           direction: 'forward'
         }
@@ -636,7 +770,7 @@ router.get('/combined', async (req, res) => {
         journeyInfo: {
           canTravel: true,
           routeDirection: route.matchType,
-          fullRoute: `${route.origin.city} → ${route.destination.city}`,
+          fullRoute: `${route.start.city} → ${route.destination.city}`,
           requestedJourney: start && end ? `${start} → ${end}` : null,
           intermediateStops: route.stops ? route.stops.map(stop => stop.name) : [],
           totalDistance: route.distance,
@@ -702,11 +836,11 @@ router.get('/pricing/:from/:to', async (req, res) => {
     const routes = await Route.find({
       $or: [
         {
-          'origin.city': { $regex: new RegExp(from, 'i') },
+          'start.city': { $regex: new RegExp(from, 'i') },
           'destination.city': { $regex: new RegExp(to, 'i') }
         },
         {
-          'origin.city': { $regex: new RegExp(to, 'i') },
+          'start.city': { $regex: new RegExp(to, 'i') },
           'destination.city': { $regex: new RegExp(from, 'i') }
         },
         {
@@ -760,10 +894,10 @@ router.get('/pricing/:from/:to', async (req, res) => {
     for (const route of routes) {
       const allStops = [
         { 
-          name: route.origin.city, 
+          name: route.start.city, 
           order: 0, 
-          coordinates: route.origin.coordinates,
-          isOrigin: true 
+          coordinates: route.start.coordinates,
+          isstart: true 
         },
         ...route.stops.sort((a, b) => a.order - b.order),
         { 
@@ -811,9 +945,14 @@ router.get('/pricing/:from/:to', async (req, res) => {
         
         cumulativeDistance += segmentDistance;
         
-        // Calculate segment price with bus type multiplier
+        // Calculate segment price with bus type multiplier and round to end with 5 or 0
         const baseSegmentPrice = Math.max(baseFare * 0.3, segmentDistance * pricePerKm);
-        const segmentPrice = Math.round(baseSegmentPrice * busTypeMultiplier);
+        const rawPrice = Math.round(baseSegmentPrice * busTypeMultiplier);
+        // Round to nearest 5 or 0
+        const remainder = rawPrice % 10;
+        const segmentPrice = remainder === 0 || remainder === 5 ? rawPrice : 
+          remainder < 3 ? rawPrice - remainder : 
+          remainder < 8 ? rawPrice - remainder + 5 : rawPrice - remainder + 10;
         cumulativePrice += segmentPrice;
 
         stopwisePricing.push({
@@ -849,7 +988,7 @@ router.get('/pricing/:from/:to', async (req, res) => {
         message: `No valid routes found for journey ${from} to ${to}`,
         availableRoutes: routes.map(r => ({ 
           name: r.name, 
-          origin: r.origin.city, 
+          start: r.start.city, 
           destination: r.destination.city,
           stops: r.stops.map(s => s.name) 
         }))

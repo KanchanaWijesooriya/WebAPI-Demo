@@ -137,7 +137,7 @@ describe('Protected Routes Real Implementation Tests', () => {
       const routeData = {
         routeNumber: 'R003',
         name: 'Test Route',
-        origin: 'Test Origin',
+        start: 'Test start',
         destination: 'Test Destination'
       };
 

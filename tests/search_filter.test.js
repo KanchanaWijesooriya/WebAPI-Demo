@@ -82,7 +82,7 @@ describe('Search Filter Routes', () => {
           _id: '507f1f77bcf86cd799439011',
           routeNumber: 'R001',
           name: 'Colombo - Kandy',
-          origin: { city: 'Colombo', province: 'Western' },
+          start: { city: 'Colombo', province: 'Western' },
           destination: { city: 'Kandy', province: 'Central' },
           distance: 115,
           isActive: true
@@ -117,7 +117,7 @@ describe('Search Filter Routes', () => {
 
       expect(mockRoute.find).toHaveBeenCalledWith({
         isActive: true,
-        'origin.city': { $regex: 'Colombo', $options: 'i' }
+        'start.city': { $regex: 'Colombo', $options: 'i' }
       });
     });
 
@@ -153,7 +153,7 @@ describe('Search Filter Routes', () => {
 
       expect(mockRoute.find).toHaveBeenCalledWith({
         isActive: true,
-        'origin.city': { $regex: 'Colombo', $options: 'i' },
+        'start.city': { $regex: 'Colombo', $options: 'i' },
         'destination.city': { $regex: 'Kandy', $options: 'i' },
         'stops.name': { $regex: 'Kegalle', $options: 'i' }
       });
@@ -257,7 +257,7 @@ describe('Search Filter Routes', () => {
 
       expect(mockRoute.find).toHaveBeenCalledWith({
         isActive: true,
-        'origin.city': { $regex: 'Colombo', $options: 'i' },
+        'start.city': { $regex: 'Colombo', $options: 'i' },
         'destination.city': { $regex: 'Kandy', $options: 'i' }
       });
     });
@@ -365,7 +365,7 @@ describe('Search Filter Routes', () => {
         .get('/api/search/trips')
         .expect(200);
 
-      expect(mockChain.populate).toHaveBeenCalledWith('route', 'routeNumber name origin destination distance stops');
+      expect(mockChain.populate).toHaveBeenCalledWith('route', 'routeNumber name start destination distance stops');
       expect(mockChain.populate).toHaveBeenCalledWith('bus', 'registrationNumber operator type capacity');
     });
 
@@ -392,7 +392,7 @@ describe('Search Filter Routes', () => {
           _id: 'route1',
           routeNumber: 'R001',
           name: 'Colombo - Kandy',
-          origin: { city: 'Colombo' },
+          start: { city: 'Colombo' },
           destination: { city: 'Kandy' },
           distance: 120
         }
@@ -436,7 +436,7 @@ describe('Search Filter Routes', () => {
 
       expect(mockRoute.find).toHaveBeenCalledWith({
         isActive: true,
-        'origin.city': { $regex: 'Colombo', $options: 'i' },
+        'start.city': { $regex: 'Colombo', $options: 'i' },
         'destination.city': { $regex: 'Kandy', $options: 'i' }
       });
     });

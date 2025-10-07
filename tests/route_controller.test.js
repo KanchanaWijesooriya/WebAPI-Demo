@@ -38,7 +38,7 @@ describe('Route Controller Tests', () => {
         .post('/api/routes')
         .send({
           routeNumber: '999-TEST',
-          origin: 'Test Origin',
+          start: 'Test start',
           destination: 'Test Destination'
         });
 
@@ -79,7 +79,7 @@ describe('Route Controller Tests', () => {
     test('Should validate complete route data', async () => {
       const completeRouteData = {
         routeNumber: '201-FULL',
-        origin: 'Colombo Central',
+        start: 'Colombo Central',
         destination: 'Kandy City',
         distance: 115,
         estimatedDuration: 180,
@@ -113,7 +113,7 @@ describe('Route Controller Tests', () => {
     test('Should handle minimal route data', async () => {
       const minimalRouteData = {
         routeNumber: '202-MIN',
-        origin: 'Point A',
+        start: 'Point A',
         destination: 'Point B'
       };
 
@@ -127,7 +127,7 @@ describe('Route Controller Tests', () => {
     test('Should reject empty route number', async () => {
       const invalidData = {
         routeNumber: '',
-        origin: 'Colombo',
+        start: 'Colombo',
         destination: 'Kandy'
       };
 
@@ -138,9 +138,9 @@ describe('Route Controller Tests', () => {
       expect(response.status).not.toBe(404);
     });
 
-    test('Should reject missing origin', async () => {
+    test('Should reject missing start', async () => {
       const invalidData = {
-        routeNumber: '203-NO-ORIGIN',
+        routeNumber: '203-NO-start',
         destination: 'Kandy'
       };
 
@@ -154,7 +154,7 @@ describe('Route Controller Tests', () => {
     test('Should reject missing destination', async () => {
       const invalidData = {
         routeNumber: '204-NO-DEST',
-        origin: 'Colombo'
+        start: 'Colombo'
       };
 
       const response = await request(app)
@@ -169,7 +169,7 @@ describe('Route Controller Tests', () => {
     test('Should validate numeric distance values', async () => {
       const numericDistanceData = {
         routeNumber: '205-NUMERIC',
-        origin: 'Colombo',
+        start: 'Colombo',
         destination: 'Kandy',
         distance: 115.5
       };
@@ -184,7 +184,7 @@ describe('Route Controller Tests', () => {
     test('Should handle string distance values', async () => {
       const stringDistanceData = {
         routeNumber: '206-STRING',
-        origin: 'Colombo',
+        start: 'Colombo',
         destination: 'Kandy',
         distance: '115.5'
       };
@@ -199,7 +199,7 @@ describe('Route Controller Tests', () => {
     test('Should handle negative distance values', async () => {
       const negativeDistanceData = {
         routeNumber: '207-NEGATIVE',
-        origin: 'Colombo',
+        start: 'Colombo',
         destination: 'Kandy',
         distance: -50
       };
@@ -214,7 +214,7 @@ describe('Route Controller Tests', () => {
     test('Should validate duration data types', async () => {
       const durationData = {
         routeNumber: '208-DURATION',
-        origin: 'Colombo',
+        start: 'Colombo',
         destination: 'Kandy',
         estimatedDuration: 180
       };
@@ -231,7 +231,7 @@ describe('Route Controller Tests', () => {
     test('Should handle valid stops array', async () => {
       const validStopsData = {
         routeNumber: '209-STOPS',
-        origin: 'Colombo',
+        start: 'Colombo',
         destination: 'Galle',
         stops: [
           'Colombo',
@@ -254,7 +254,7 @@ describe('Route Controller Tests', () => {
     test('Should handle single stop array', async () => {
       const singleStopData = {
         routeNumber: '210-SINGLE',
-        origin: 'Colombo',
+        start: 'Colombo',
         destination: 'Kandy',
         stops: ['Colombo']
       };
@@ -269,7 +269,7 @@ describe('Route Controller Tests', () => {
     test('Should handle empty stops array', async () => {
       const emptyStopsData = {
         routeNumber: '211-EMPTY',
-        origin: 'Colombo',
+        start: 'Colombo',
         destination: 'Kandy',
         stops: []
       };
@@ -284,7 +284,7 @@ describe('Route Controller Tests', () => {
     test('Should handle non-array stops data', async () => {
       const nonArrayStopsData = {
         routeNumber: '212-NON-ARRAY',
-        origin: 'Colombo',
+        start: 'Colombo',
         destination: 'Kandy',
         stops: 'Colombo, Kandy'
       };
@@ -301,7 +301,7 @@ describe('Route Controller Tests', () => {
     test('Should handle valid operating hours', async () => {
       const validHoursData = {
         routeNumber: '213-HOURS',
-        origin: 'Colombo',
+        start: 'Colombo',
         destination: 'Kandy',
         operatingHours: {
           start: '05:30',
@@ -319,7 +319,7 @@ describe('Route Controller Tests', () => {
     test('Should handle 24-hour format', async () => {
       const twentyFourHourData = {
         routeNumber: '214-24HR',
-        origin: 'Colombo',
+        start: 'Colombo',
         destination: 'Kandy',
         operatingHours: {
           start: '00:00',
@@ -337,7 +337,7 @@ describe('Route Controller Tests', () => {
     test('Should handle invalid time format', async () => {
       const invalidTimeData = {
         routeNumber: '215-INVALID',
-        origin: 'Colombo',
+        start: 'Colombo',
         destination: 'Kandy',
         operatingHours: {
           start: '25:00',
@@ -355,7 +355,7 @@ describe('Route Controller Tests', () => {
     test('Should handle missing operating hours fields', async () => {
       const missingFieldsData = {
         routeNumber: '216-MISSING',
-        origin: 'Colombo',
+        start: 'Colombo',
         destination: 'Kandy',
         operatingHours: {
           start: '06:00'
@@ -372,9 +372,9 @@ describe('Route Controller Tests', () => {
   });
 
   describe('Route Query Parameter Tests', () => {
-    test('Should handle origin query parameter', async () => {
+    test('Should handle start query parameter', async () => {
       const response = await request(app)
-        .get('/api/routes?origin=Colombo');
+        .get('/api/routes?start=Colombo');
 
       expect(response.status).not.toBe(404);
     });
