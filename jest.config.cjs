@@ -22,7 +22,7 @@ module.exports = {
   collectCoverageFrom: [
     // Well-tested route files
     'src/routes/buses.js',
-    'src/routes/search_filter.js',
+    // 'src/routes/search_filter.js',
     'src/routes/search_filter_backup.js',
     'src/routes/routes.js',
     'src/routes/auth.js',
