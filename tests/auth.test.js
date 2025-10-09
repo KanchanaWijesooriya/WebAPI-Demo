@@ -17,7 +17,7 @@ describe('Authentication Tests', () => {
     
     // Import and mount auth routes
     try {
-      const authRoutes = await import('../src/routes/auth_working.js');
+      const authRoutes = await import('../src/routes/auth.js');
       app.use('/api/auth', authRoutes.default);
     } catch (error) {
       console.error('Failed to import auth routes:', error.message);
