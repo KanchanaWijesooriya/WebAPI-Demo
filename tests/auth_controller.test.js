@@ -1,5 +1,6 @@
 import request from 'supertest';
 import express from 'express';
+import { clearTestDB } from './helpers/testDb.js';
 
 // Auth Controller Tests - targeting authController.js
 describe('Auth Controller Tests', () => {
@@ -8,7 +9,10 @@ describe('Auth Controller Tests', () => {
   beforeAll(async () => {
     // Create test app
     app = express();
+    
+    // Basic middleware
     app.use(express.json());
+    app.use(express.urlencoded({ extended: true }));
     
     // Test endpoint
     app.get('/test', (req, res) => {
@@ -17,11 +21,24 @@ describe('Auth Controller Tests', () => {
     
     // Import and mount auth routes
     try {
-      const authRoutes = await import('../src/routes/auth_working.js');
+      const authRoutes = await import('../src/routes/auth.js');
       app.use('/api/auth', authRoutes.default);
     } catch (error) {
       console.error('Failed to import auth routes:', error.message);
     }
+    
+    // Basic error handler
+    app.use((error, req, res, next) => {
+      res.status(error.statusCode || 500).json({
+        success: false,
+        message: error.message || 'Internal server error'
+      });
+    });
+  });
+
+  beforeEach(async () => {
+    // Clear database before each test
+    await clearTestDB();
   });
 
   describe('Auth Controller Access Tests', () => {

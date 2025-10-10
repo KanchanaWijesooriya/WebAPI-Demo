@@ -30,12 +30,15 @@ export const connectTestDB = async () => {
  */
 export const disconnectTestDB = async () => {
   try {
+    // Close all active connections first
     if (mongoose.connection.readyState !== 0) {
-      await mongoose.disconnect();
+      await mongoose.connection.close();
     }
     
+    // Stop the MongoDB Memory Server
     if (mongoServer) {
       await mongoServer.stop();
+      mongoServer = null;
     }
     
     console.log('Disconnected from test database');
