@@ -24,10 +24,25 @@ router.get('/bus-info/:busId', authenticate, authorize(['admin']), async (req, r
     }
     
     if (!bus) {
+      // Get some available bus IDs for debugging
+      const availableBuses = await Bus.find({})
+        .select('_id registrationNumber operator')
+        .limit(5)
+        .lean();
+      
+      const busIds = availableBuses.map(b => ({
+        id: b._id,
+        registration: b.registrationNumber,
+        operator: b.operator?.name || b.operator
+      }));
+      
       return res.status(404).json({
         success: false,
         message: `Bus not found with ID/Registration: ${busId}`,
-        availableBuses: 'Use CAA-5678, CAB-9012, CAC-3456, CAD-7890, or CAE-2468'
+        requestedId: busId,
+        idFormat: busId.match(/^[0-9a-fA-F]{24}$/) ? 'Valid ObjectId format' : 'Invalid ObjectId format',
+        availableBuses: busIds.length > 0 ? busIds : 'No buses found in database',
+        suggestion: 'Use one of the available bus IDs from the list above'
       });
     }
     
@@ -424,13 +439,25 @@ router.get('/operator-contacts', authenticate, authorize(['admin']), async (req,
       }
     }
     
-    // Execute bus search with pagination
-    const skip = (page - 1) * limit;
-    const buses = await Bus.find(busFilter)
-      .select('registrationNumber operator operatorContact isActive features lastMaintenance')
-      .skip(skip)
-      .limit(parseInt(limit))
-      .lean();
+    // Execute bus search with conditional pagination
+    // If no specific search criteria, show ALL operators (no pagination)
+    const isGeneralSearch = !operator && !licenseNumber && !tripId && !driverName && !registrationNumber;
+    
+    let buses;
+    if (isGeneralSearch) {
+      // Show ALL operators when no search criteria provided
+      buses = await Bus.find(busFilter)
+        .select('registrationNumber operator operatorContact isActive features lastMaintenance')
+        .lean();
+    } else {
+      // Apply pagination only for specific searches
+      const skip = (page - 1) * limit;
+      buses = await Bus.find(busFilter)
+        .select('registrationNumber operator operatorContact isActive features lastMaintenance')
+        .skip(skip)
+        .limit(parseInt(limit))
+        .lean();
+    }
     
     if (buses.length === 0) {
       return res.status(404).json({
@@ -511,22 +538,34 @@ router.get('/operator-contacts', authenticate, authorize(['admin']), async (req,
     
     const total = await Bus.countDocuments(busFilter);
     
+    // Prepare response based on whether it's a general search or specific search
+    const responseData = {
+      operators: Object.values(operatorContacts),
+      searchQuery: req.query,
+      resultsFound: Object.keys(operatorContacts).length
+    };
+
+    // Add pagination info only for specific searches
+    if (!isGeneralSearch) {
+      responseData.pagination = {
+        current: parseInt(page),
+        pages: Math.ceil(total / limit),
+        total,
+        hasNext: page * limit < total,
+        hasPrev: page > 1
+      };
+    } else {
+      responseData.totalOperators = Object.keys(operatorContacts).length;
+      responseData.displayMode = 'all_operators';
+    }
+    
     res.json({
       success: true,
-      message: `Operator contacts retrieved successfully (Search: ${searchType})`,
-      searchType,
-      data: {
-        operators: Object.values(operatorContacts),
-        pagination: {
-          current: parseInt(page),
-          pages: Math.ceil(total / limit),
-          total,
-          hasNext: page * limit < total,
-          hasPrev: page > 1
-        },
-        searchQuery: req.query,
-        resultsFound: Object.keys(operatorContacts).length
-      },
+      message: isGeneralSearch 
+        ? `All available operators retrieved (${Object.keys(operatorContacts).length} operators found)` 
+        : `Operator contacts retrieved successfully (Search: ${searchType})`,
+      searchType: isGeneralSearch ? 'all_operators' : searchType,
+      data: responseData,
       retrievedAt: new Date().toISOString()
     });
     

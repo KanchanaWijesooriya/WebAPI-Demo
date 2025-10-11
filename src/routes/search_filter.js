@@ -623,10 +623,27 @@ router.get('/combined', async (req, res) => {
       return { ...trip, routeInfo: route, busInfo: bus };
     });
 
+    // Deduplicate trips - show only one trip per unique bus
+    // Priority: earliest departure time for each bus
+    const uniqueTripsMap = new Map();
+    
+    tripsWithDetails.forEach(trip => {
+      const busKey = trip.busRegistration;
+      const existingTrip = uniqueTripsMap.get(busKey);
+      
+      if (!existingTrip || new Date(trip.scheduledDeparture) < new Date(existingTrip.scheduledDeparture)) {
+        uniqueTripsMap.set(busKey, trip);
+      }
+    });
+
+    // Convert map back to array and sort by departure time
+    const uniqueTrips = Array.from(uniqueTripsMap.values())
+      .sort((a, b) => new Date(a.scheduledDeparture) - new Date(b.scheduledDeparture));
+
     // Pagination
-    const totalTrips = tripsWithDetails.length;
+    const totalTrips = uniqueTrips.length;
     const skip = (page - 1) * limit;
-    const paginatedTrips = tripsWithDetails.slice(skip, skip + parseInt(limit));
+    const paginatedTrips = uniqueTrips.slice(skip, skip + parseInt(limit));
 
     // Format results
     const combinedResults = paginatedTrips.map(trip => ({

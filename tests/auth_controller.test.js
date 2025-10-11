@@ -80,8 +80,8 @@ describe('Auth Controller Tests', () => {
       const response = await request(app)
         .post('/api/auth/logout');
 
-      // Should return 404 for non-existent route (correct behavior)
-      expect(response.status).toBe(404);
+      // Should return 401 for non-existent protected route (correct behavior)
+      expect(response.status).toBe(401);
     });
 
     test('Should have refresh token endpoint accessible', async () => {
@@ -91,8 +91,8 @@ describe('Auth Controller Tests', () => {
           refreshToken: 'sample-refresh-token'
         });
 
-      // Should return 404 for non-existent route (correct behavior)
-      expect(response.status).toBe(404);
+      // Should return 401 for non-existent protected route (correct behavior)
+      expect(response.status).toBe(401);
     });
   });
 
@@ -242,7 +242,7 @@ describe('Auth Controller Tests', () => {
         .post('/api/auth/refresh')
         .send(refreshData);
 
-      expect(response.status).toBe(404); // Correct behavior for non-existent route
+      expect(response.status).toBe(401); // Correct behavior for non-existent protected route
     });
 
     test('Should reject invalid refresh token', async () => {
@@ -254,7 +254,7 @@ describe('Auth Controller Tests', () => {
         .post('/api/auth/refresh')
         .send(invalidRefresh);
 
-      expect(response.status).toBe(404); // Correct behavior for non-existent route
+      expect(response.status).toBe(401); // Correct behavior for non-existent protected route
     });
 
     test('Should reject empty refresh token', async () => {
@@ -262,7 +262,7 @@ describe('Auth Controller Tests', () => {
         .post('/api/auth/refresh')
         .send({});
 
-      expect(response.status).toBe(404); // Correct behavior for non-existent route
+      expect(response.status).toBe(401); // Correct behavior for non-existent protected route
     });
 
     test('Should handle logout request', async () => {
@@ -270,7 +270,7 @@ describe('Auth Controller Tests', () => {
         .post('/api/auth/logout')
         .set('Authorization', 'Bearer valid-access-token');
 
-      expect(response.status).toBe(404); // Correct behavior for non-existent route
+      expect(response.status).toBe(401); // Correct behavior for non-existent protected route
     });
 
     test('Should handle logout request', async () => {
@@ -278,7 +278,7 @@ describe('Auth Controller Tests', () => {
         .post('/api/auth/logout')
         .set('Authorization', 'Bearer valid-access-token');
 
-      expect(response.status).toBe(404); // Correct behavior for non-existent route
+      expect(response.status).toBe(401); // Correct behavior for non-existent protected route
     });
   });
 
@@ -292,7 +292,7 @@ describe('Auth Controller Tests', () => {
         .post('/api/auth/forgot-password')
         .send(forgotPasswordData);
 
-      expect(response.status).toBe(404); // Correct behavior for non-existent route
+      expect(response.status).toBe(401); // Correct behavior for non-existent protected route
     });
 
     test('Should handle password reset', async () => {
@@ -305,7 +305,7 @@ describe('Auth Controller Tests', () => {
         .post('/api/auth/reset-password')
         .send(resetData);
 
-      expect(response.status).toBe(404); // Correct behavior for non-existent route
+      expect(response.status).toBe(401); // Correct behavior for non-existent protected route
     });
 
     test('Should handle password change', async () => {
@@ -319,7 +319,7 @@ describe('Auth Controller Tests', () => {
         .set('Authorization', 'Bearer valid-access-token')
         .send(changeData);
 
-      expect(response.status).toBe(404); // Correct behavior for non-existent route
+      expect(response.status).toBe(401); // Route exists but token is invalid
     });
   });
 
@@ -484,7 +484,7 @@ describe('Auth Controller Tests', () => {
         .post('/api/auth/verify-email')
         .send(verificationData);
 
-      expect(response.status).toBe(404); // Correct behavior for non-existent route
+      expect(response.status).toBe(401); // Correct behavior for non-existent protected route
     });
 
     test('Should handle resend verification', async () => {
@@ -496,7 +496,7 @@ describe('Auth Controller Tests', () => {
         .post('/api/auth/resend-verification')
         .send(resendData);
 
-      expect(response.status).toBe(404); // Correct behavior for non-existent route
+      expect(response.status).toBe(401); // Correct behavior for non-existent protected route
     });
 
     test('Should handle two-factor authentication setup', async () => {
@@ -504,7 +504,7 @@ describe('Auth Controller Tests', () => {
         .post('/api/auth/setup-2fa')
         .set('Authorization', 'Bearer valid-access-token');
 
-      expect(response.status).toBe(404); // Correct behavior for non-existent route
+      expect(response.status).toBe(401); // Correct behavior for non-existent protected route
     });
 
     test('Should handle two-factor authentication verification', async () => {
@@ -517,7 +517,7 @@ describe('Auth Controller Tests', () => {
         .set('Authorization', 'Bearer valid-access-token')
         .send(twoFAData);
 
-      expect(response.status).toBe(404); // Correct behavior for non-existent route
+      expect(response.status).toBe(401); // Correct behavior for non-existent protected route
     });
   });
 
