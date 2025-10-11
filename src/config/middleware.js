@@ -4,6 +4,9 @@ import morgan from 'morgan';
 import compression from 'compression';
 import rateLimit from 'express-rate-limit';
 import express from 'express';
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
+import cookieParser from 'cookie-parser';
 import { 
   advancedDDoSProtection, 
   requestSizeProtection,
@@ -183,6 +186,29 @@ export const applyMiddleware = (app) => {
   // Body parsing middleware with size limits to prevent payload attacks
   configureBodyParsing(app);
   
+  // Cookie parser middleware
+  app.use(cookieParser());
+  
+  // Session middleware
+  app.use(session({
+    secret: process.env.SESSION_SECRET || 'ntc-bus-tracking-session-secret-key',
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGODB_URI,
+      collectionName: 'sessions',
+      ttl: 60 * 60 // 1 hour
+    }),
+    cookie: {
+      secure: process.env.NODE_ENV === 'production',
+      httpOnly: true,
+      maxAge: 60 * 60 * 1000, // 1 hour
+      sameSite: 'strict'
+    },
+    name: 'ntc.sid'
+  }));
+  
+  console.log('Session management configured with MongoDB store');
   console.log('Comprehensive DDoS protection enabled');
   console.log('   - Advanced threat detection active');
   console.log('   - Request size monitoring: 10MB limit');

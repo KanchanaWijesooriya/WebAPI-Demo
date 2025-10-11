@@ -159,6 +159,99 @@ class AuthController {
       next(new ApiError(500, 'Error changing password'));
     }
   }
+
+  // POST /api/auth/login-session - Session-based login
+  static async loginSession(req, res, next) {
+    try {
+      const { email, password } = req.body;
+
+      if (!email || !password) {
+        return next(new ApiError(400, 'Please provide email and password'));
+      }
+
+      // Find user with password
+      const user = await User.findOne({ email }).select('+password');
+
+      if (!user || !(await user.comparePassword(password))) {
+        return next(new ApiError(401, 'Invalid email or password'));
+      }
+
+      // Create session
+      req.session.userId = user._id;
+      req.session.role = user.role;
+      req.session.isAuthenticated = true;
+
+      // Remove password from response
+      user.password = undefined;
+
+      res.status(200).json(new ApiResponse(200, {
+        user: {
+          id: user._id,
+          username: user.username,
+          email: user.email,
+          role: user.role,
+          profile: user.profile
+        },
+        sessionId: req.session.id
+      }, 'Logged in successfully with session'));
+    } catch (error) {
+      next(new ApiError(500, 'Error during session login'));
+    }
+  }
+
+  // POST /api/auth/logout-session - Session logout
+  static async logoutSession(req, res, next) {
+    try {
+      if (!req.session) {
+        return next(new ApiError(400, 'No active session found'));
+      }
+
+      req.session.destroy((err) => {
+        if (err) {
+          return next(new ApiError(500, 'Error during logout'));
+        }
+        
+        res.clearCookie('ntc.sid');
+        res.status(200).json(new ApiResponse(200, null, 'Logged out successfully'));
+      });
+    } catch (error) {
+      next(new ApiError(500, 'Error during session logout'));
+    }
+  }
+
+  // GET /api/auth/session-status - Check session status
+  static async getSessionStatus(req, res, next) {
+    try {
+      if (req.session && req.session.isAuthenticated) {
+        const user = await User.findById(req.session.userId);
+        
+        if (user) {
+          res.status(200).json(new ApiResponse(200, {
+            isAuthenticated: true,
+            user: {
+              id: user._id,
+              username: user.username,
+              email: user.email,
+              role: user.role
+            },
+            sessionId: req.session.id
+          }, 'Session is active'));
+        } else {
+          // User not found, destroy invalid session
+          req.session.destroy();
+          res.status(401).json(new ApiResponse(401, {
+            isAuthenticated: false
+          }, 'Invalid session - user not found'));
+        }
+      } else {
+        res.status(200).json(new ApiResponse(200, {
+          isAuthenticated: false
+        }, 'No active session'));
+      }
+    } catch (error) {
+      next(new ApiError(500, 'Error checking session status'));
+    }
+  }
 }
 
 export default AuthController;
