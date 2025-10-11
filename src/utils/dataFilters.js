@@ -45,9 +45,9 @@ export function filterRouteData(route, userRole = null, options = {}) {
       });
     }
     
-    // Get start and end from start/destination objects
-    const start = routeObj.start?.city || routeObj.startLocation || 'N/A';
-    const end = routeObj.destination?.city || routeObj.endLocation || 'N/A';
+    // Get start and end from start/destination objects (handle multiple formats)
+    const start = routeObj.start?.city || routeObj.start || routeObj.startLocation || 'N/A';
+    const end = routeObj.destination?.city || routeObj.end || routeObj.endLocation || 'N/A';
     
     // Ensure start and end are in stops list
     if (start && start !== 'N/A' && !allStops.includes(start)) {
@@ -56,9 +56,46 @@ export function filterRouteData(route, userRole = null, options = {}) {
     if (end && end !== 'N/A' && !allStops.includes(end)) {
       allStops.push(end);
     }
+
+    // Prepare location coordinates if available (handle multiple coordinate formats)
+    let startLocation = null;
+    let endLocation = null;
     
-    return {
-      _id: routeObj._id, // Include route ID for API consistency
+    // Check for coordinates in start object
+    if (routeObj.start?.coordinates) {
+      if (routeObj.start.coordinates.latitude && routeObj.start.coordinates.longitude) {
+        // Format: { latitude: x, longitude: y }
+        startLocation = {
+          latitude: routeObj.start.coordinates.latitude,
+          longitude: routeObj.start.coordinates.longitude
+        };
+      } else if (Array.isArray(routeObj.start.coordinates) && routeObj.start.coordinates.length === 2) {
+        // Format: [longitude, latitude] (GeoJSON format)
+        startLocation = {
+          latitude: routeObj.start.coordinates[1],
+          longitude: routeObj.start.coordinates[0]
+        };
+      }
+    }
+    
+    // Check for coordinates in destination object
+    if (routeObj.destination?.coordinates) {
+      if (routeObj.destination.coordinates.latitude && routeObj.destination.coordinates.longitude) {
+        // Format: { latitude: x, longitude: y }
+        endLocation = {
+          latitude: routeObj.destination.coordinates.latitude,
+          longitude: routeObj.destination.coordinates.longitude
+        };
+      } else if (Array.isArray(routeObj.destination.coordinates) && routeObj.destination.coordinates.length === 2) {
+        // Format: [longitude, latitude] (GeoJSON format)
+        endLocation = {
+          latitude: routeObj.destination.coordinates[1],
+          longitude: routeObj.destination.coordinates[0]
+        };
+      }
+    }
+    
+    const publicRouteData = {
       routeNumber: routeNumber,
       name: `${start} - ${end}`,
       start: start,
@@ -68,6 +105,16 @@ export function filterRouteData(route, userRole = null, options = {}) {
       duration: routeObj.estimatedDuration ? `${Math.round(routeObj.estimatedDuration / 60)} hours` : null,
       distance: routeObj.distance ? `${routeObj.distance} km` : null
     };
+
+    // Add location coordinates if available
+    if (startLocation) {
+      publicRouteData.startLocation = startLocation;
+    }
+    if (endLocation) {
+      publicRouteData.endLocation = endLocation;
+    }
+
+    return publicRouteData;
   }
   
   // Operator - more details but not internal fields
@@ -136,7 +183,12 @@ export function filterBusData(bus, userRole = null) {
       ? busObj.availabilityDays
       : ['Daily']; // Default to daily if no specific days
 
-    return {
+    // Prepare current location if available
+    const currentLocation = busObj.currentLocation && busObj.currentLocation.coordinates
+      ? { latitude: busObj.currentLocation.coordinates[1], longitude: busObj.currentLocation.coordinates[0] }
+      : null;
+
+    const publicBusData = {
       busNumber: busObj.busNumber || 'Unknown',
       type: busObj.busType || busObj.type || 'Normal',
       capacity: `${busObj.capacity || 0} seats`,
@@ -146,6 +198,13 @@ export function filterBusData(bus, userRole = null) {
       operator: busObj.operator?.name || 'NTC',
       status: busObj.isActive !== false ? 'In Service' : 'Out of Service'
     };
+
+    // Add current location if available
+    if (currentLocation) {
+      publicBusData.currentLocation = currentLocation;
+    }
+
+    return publicBusData;
   }
   
   // Operator - more details but not sensitive information
@@ -303,7 +362,12 @@ export function filterTripData(trip, userRole = null) {
     const routeInfo = tripObj.route || {};
     const routeName = routeInfo.name || routeInfo.routeName || `Route ${tripObj.routeId || 'Unknown'}`;
 
-    return {
+    // Prepare current location if available
+    const currentLocation = tripObj.currentLocation && tripObj.currentLocation.coordinates
+      ? { latitude: tripObj.currentLocation.coordinates[1], longitude: tripObj.currentLocation.coordinates[0] }
+      : null;
+
+    const publicTripData = {
       tripId: tripObj.tripId || tripObj._id?.toString(),
       busNumber: busNumber,
       busType: busType,
@@ -318,6 +382,13 @@ export function filterTripData(trip, userRole = null) {
       status: tripObj.status || 'Scheduled',
       date: tripObj.date || new Date().toISOString().split('T')[0]
     };
+
+    // Add current location if available
+    if (currentLocation) {
+      publicTripData.currentLocation = currentLocation;
+    }
+
+    return publicTripData;
   }
   
   // Operator - more details for operational needs

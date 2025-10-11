@@ -641,19 +641,53 @@ router.get('/routes', async (req, res) => {
 
     const paginatedRoutes = sortedRoutes.slice(skip, skip + parseInt(limit));
     
-    // Filter sensitive data for public users
+    // Filter sensitive data for public users using standard filtering
+    const userRole = req.user?.role || null;
     const publicFilteredRoutes = paginatedRoutes.map(route => {
-      if (isRouteAdmin) {
-        // Full data for admin
+      // Use the standardized filtering function
+      const filteredRoute = filterRouteData(route, userRole, { limitStops: false });
+      
+      // Add location coordinates if available
+      if (!userRole || userRole === 'passenger') {
+        if (route.start?.coordinates) {
+          if (route.start.coordinates.latitude && route.start.coordinates.longitude) {
+            // Format: { latitude: x, longitude: y }
+            filteredRoute.startLocation = {
+              latitude: route.start.coordinates.latitude,
+              longitude: route.start.coordinates.longitude
+            };
+          } else if (Array.isArray(route.start.coordinates) && route.start.coordinates.length === 2) {
+            // Format: [longitude, latitude] (GeoJSON format)
+            filteredRoute.startLocation = {
+              latitude: route.start.coordinates[1],
+              longitude: route.start.coordinates[0]
+            };
+          }
+        }
+        if (route.destination?.coordinates) {
+          if (route.destination.coordinates.latitude && route.destination.coordinates.longitude) {
+            // Format: { latitude: x, longitude: y }
+            filteredRoute.endLocation = {
+              latitude: route.destination.coordinates.latitude,
+              longitude: route.destination.coordinates.longitude
+            };
+          } else if (Array.isArray(route.destination.coordinates) && route.destination.coordinates.length === 2) {
+            // Format: [longitude, latitude] (GeoJSON format)
+            filteredRoute.endLocation = {
+              latitude: route.destination.coordinates[1],
+              longitude: route.destination.coordinates[0]
+            };
+          }
+        }
+        
+        // Include intermediate stops when searching by stops parameter
+        if (stops && route.stops && route.stops.length > 0) {
+          filteredRoute.intermediateStops = route.stops.map(stop => stop.name);
+        }
+      } else if (userRole === 'admin') {
+        // Full data for admin including internal IDs and operational details
         return {
-          routeId: route.routeId,
-          routeNumber: route.routeNumber,
-          name: route.name,
-          start: route.start,
-          destination: route.destination,
-          distance: route.distance,
-          estimatedDuration: route.estimatedDuration,
-          stops: route.stops,
+          ...route,
           journeyInfo: route.journeyInfo,
           operationalDetails: {
             frequency: route.frequency,
@@ -661,27 +695,9 @@ router.get('/routes', async (req, res) => {
             isActive: route.isActive
           }
         };
-      } else {
-        // Minimal data for public, but include stops when searching by stops
-        const publicRoute = {
-          routeNumber: route.routeNumber,
-          name: route.name,
-          start: {
-            city: route.start?.city
-          },
-          destination: {
-            city: route.destination?.city
-          },
-          distance: route.distance
-        };
-        
-        // Include intermediate stops when searching by stops parameter
-        if (stops && route.stops && route.stops.length > 0) {
-          publicRoute.intermediateStops = route.stops.map(stop => stop.name);
-        }
-        
-        return publicRoute;
       }
+      
+      return filteredRoute;
     });
     
     res.json({
@@ -703,7 +719,7 @@ router.get('/routes', async (req, res) => {
           distanceFiltering: 'JSON-based strict filtering'
         }
       },
-      dataLevel: isRouteAdmin ? 'full' : 'public'
+      dataLevel: getDataLevel(userRole)
     });
 
   } catch (error) {
@@ -805,11 +821,10 @@ router.get('/buses', async (req, res) => {
       .limit(parseInt(limit))
       .lean();
 
-    // Check if user is admin
-    const isAdmin = req.user && req.user.role === 'admin';
-    const userRole = isAdmin ? 'admin' : null;
+    // Get user role for filtering
+    const userRole = req.user?.role || null;
     
-    // Filter data based on user role
+    // Filter data based on user role using standardized filtering
     const filteredBuses = buses.map(bus => filterBusData(bus, userRole));
     
     res.json({
@@ -829,7 +844,7 @@ router.get('/buses', async (req, res) => {
           requestedJourney: start && end ? `${start} → ${end}` : null
         }
       },
-      dataLevel: isAdmin ? 'full' : 'public',
+      dataLevel: getDataLevel(userRole),
       message: `Found ${filteredBuses.length} buses for your search`
     });
 
@@ -937,38 +952,34 @@ router.get('/trips', async (req, res) => {
     const skip = (page - 1) * limit;
     const paginatedTrips = tripsWithDetails.slice(skip, skip + parseInt(limit));
 
-    // Step 5: Format results with security filtering
+    // Step 5: Format results with security filtering using standard filtering
+    const userRole = req.user?.role || null;
     const results = paginatedTrips.map(trip => {
-      const publicData = {
-        tripId: trip.tripId,
-        busNumber: trip.busRegistration,
-        busType: trip.busInfo?.busType || 'Normal',
-        route: {
-          id: trip.routeInfo?.routeId || `RT-${trip.routeNumber}`,
-          name: trip.routeInfo?.name || 'Unknown Route',
-          routeNumber: trip.routeNumber
-        },
-        departureTime: trip.scheduledDeparture,
-        arrivalTime: trip.scheduledArrival,
-        baseFare: trip.fare,
-        status: trip.status,
-        date: trip.serviceDate
-      };
-
-      // Only show sensitive data to admin users
-      if (isAdmin) {
-        publicData.driverInfo = {
+      // Use standardized trip filtering function
+      const filteredTrip = filterTripData(trip, userRole);
+      
+      // Add location coordinates for public users if available
+      if (!userRole || userRole === 'passenger') {
+        if (trip.currentLocation && trip.currentLocation.coordinates) {
+          filteredTrip.currentLocation = {
+            latitude: trip.currentLocation.coordinates[1],
+            longitude: trip.currentLocation.coordinates[0]
+          };
+        }
+      } else if (userRole === 'admin') {
+        // Add sensitive admin data
+        filteredTrip.driverInfo = {
           name: trip.driver?.name,
           license: trip.driver?.licenseNumber,
           contact: trip.driver?.contactNumber
         };
-        publicData.conductorInfo = {
+        filteredTrip.conductorInfo = {
           name: trip.conductor?.name,
           contact: trip.conductor?.contactNumber
         };
       }
 
-      return publicData;
+      return filteredTrip;
     });
 
     res.json({
@@ -988,7 +999,7 @@ router.get('/trips', async (req, res) => {
         }
       },
       source: 'JSON files only',
-      dataLevel: isAdmin ? 'full' : 'public'
+      dataLevel: getDataLevel(userRole)
     });
 
   } catch (error) {

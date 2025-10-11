@@ -149,18 +149,25 @@ class TripController {
         .populate('bus', 'registrationNumber busType capacity');
 
       const trips = await features.query;
-      const filteredTrips = trips.map(trip => filterTripDataForUser(trip, userRole));
+      const filteredTrips = trips.map(trip => filterTripData(trip, userRole));
+
+      // Filter route data for response (remove _id for public users)
+      const filteredRoute = userRole ? {
+        _id: route._id,
+        name: route.name,
+        routeId: route.routeId,
+        routeNumber: route.routeNumber
+      } : {
+        name: route.name,
+        routeId: route.routeId,
+        routeNumber: route.routeNumber
+      };
 
       res.status(200).json(new ApiResponse(
         200,
         {
           trips: filteredTrips,
-          route: {
-            _id: route._id,
-            name: route.name,
-            routeId: route.routeId,
-            routeNumber: route.routeNumber
-          }
+          route: filteredRoute
         },
         'Route trips retrieved successfully'
       ));
@@ -209,7 +216,7 @@ class TripController {
         .populate('bus', 'registrationNumber busType capacity');
 
       const trips = await features.query;
-      const filteredTrips = trips.map(trip => filterTripDataForUser(trip, userRole));
+      const filteredTrips = trips.map(trip => filterTripData(trip, userRole));
 
       res.status(200).json(new ApiResponse(
         200,
@@ -248,7 +255,7 @@ class TripController {
         .populate('bus', 'registrationNumber busType capacity features');
 
       const trips = await features.query;
-      const filteredTrips = trips.map(trip => filterTripDataForUser(trip, userRole));
+      const filteredTrips = trips.map(trip => filterTripData(trip, userRole));
 
       res.status(200).json(new ApiResponse(
         200,

@@ -314,7 +314,7 @@ class RouteController {
 
         // Base pricing logic
         const baseFare = route.pricingInfo?.baseFare || 50;
-        const pricePerKm = route.pricingInfo?.pricePerKm || 3;
+        const pricePerKm = route.pricingInfo?.pricePerKm || 7;
         const busTypeMultiplier = getBusTypeMultiplier(busType);
 
         for (let i = fromIndex; i < toIndex; i++) {
