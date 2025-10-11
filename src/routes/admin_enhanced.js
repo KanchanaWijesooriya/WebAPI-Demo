@@ -5,6 +5,89 @@ import { authenticate, authorize } from '../middleware/rbac.js';
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * tags:
+ *   name: Admin Enhanced
+ *   description: Enhanced administrative operations with detailed information
+ */
+
+/**
+ * @swagger
+ * /admin/bus-info/{busId}:
+ *   get:
+ *     tags: [Admin Enhanced]
+ *     summary: Get enhanced bus information
+ *     description: Retrieve comprehensive bus information including operator contacts (Admin only)
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - name: busId
+ *         in: path
+ *         required: true
+ *         description: Bus ID or registration number
+ *         schema:
+ *           type: string
+ *           example: "507f1f77bcf86cd799439011"
+ *     responses:
+ *       200:
+ *         description: Enhanced bus information retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/ApiResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         bus:
+ *                           allOf:
+ *                             - $ref: '#/components/schemas/Bus'
+ *                             - type: object
+ *                               properties:
+ *                                 operatorContacts:
+ *                                   type: object
+ *                                   properties:
+ *                                     primaryContact:
+ *                                       type: string
+ *                                     secondaryContact:
+ *                                       type: string
+ *                                     emergencyContact:
+ *                                       type: string
+ *                                     email:
+ *                                       type: string
+ *                         currentTrip:
+ *                           $ref: '#/components/schemas/Trip'
+ *                         tripHistory:
+ *                           type: array
+ *                           items:
+ *                             $ref: '#/components/schemas/Trip'
+ *                         maintenanceRecords:
+ *                           type: array
+ *                           items:
+ *                             type: object
+ *                             properties:
+ *                               date:
+ *                                 type: string
+ *                                 format: date
+ *                               type:
+ *                                 type: string
+ *                               description:
+ *                                 type: string
+ *                               cost:
+ *                                 type: number
+ *       401:
+ *         $ref: '#/components/responses/UnauthorizedError'
+ *       403:
+ *         $ref: '#/components/responses/ForbiddenError'
+ *       404:
+ *         description: Bus not found
+ *       429:
+ *         $ref: '#/components/responses/RateLimitError'
+ */
+
 // GET /api/admin/bus-info/:busId - Enhanced admin bus information with operator contacts
 router.get('/bus-info/:busId', authenticate, authorize(['admin']), async (req, res) => {
   try {

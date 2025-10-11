@@ -10,11 +10,87 @@ import {
 const router = express.Router();
 
 /**
+ * @swagger
+ * tags:
+ *   name: User Management
+ *   description: User account management operations with role-based access control
+ */
+
+/**
  * USER MANAGEMENT ROUTES WITH ROLE-BASED ACCESS CONTROL
  * These routes manage user accounts with strict permission controls
  */
 
 // ==================== ADMIN-ONLY USER MANAGEMENT ====================
+
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     tags: [User Management]
+ *     summary: List all users
+ *     description: Retrieve all system users (Admin only)
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - $ref: '#/components/parameters/PageParam'
+ *       - $ref: '#/components/parameters/LimitParam'
+ *       - name: role
+ *         in: query
+ *         description: Filter users by role
+ *         schema:
+ *           type: string
+ *           enum: [admin, operator, driver, passenger]
+ *       - name: isActive
+ *         in: query
+ *         description: Filter by active status
+ *         schema:
+ *           type: boolean
+ *       - name: search
+ *         in: query
+ *         description: Search by name, email or phone
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Users retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/PaginatedResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         users:
+ *                           type: array
+ *                           items:
+ *                             allOf:
+ *                               - $ref: '#/components/schemas/User'
+ *                               - type: object
+ *                                 properties:
+ *                                   password:
+ *                                     type: string
+ *                                     readOnly: true
+ *                                     description: Password field excluded from response
+ *                         statistics:
+ *                           type: object
+ *                           properties:
+ *                             totalUsers:
+ *                               type: integer
+ *                             activeUsers:
+ *                               type: integer
+ *                             usersByRole:
+ *                               type: object
+ *       401:
+ *         $ref: '#/components/responses/UnauthorizedError'
+ *       403:
+ *         $ref: '#/components/responses/ForbiddenError'
+ *       429:
+ *         $ref: '#/components/responses/RateLimitError'
+ */
 
 /**
  * GET /api/users - List all users (Admin only)

@@ -3,6 +3,57 @@ import express from 'express';
 const router = express.Router();
 
 /**
+ * @swagger
+ * tags:
+ *   name: System
+ *   description: System health and monitoring endpoints
+ */
+
+/**
+ * @swagger
+ * /health:
+ *   get:
+ *     tags: [System]
+ *     summary: API health check
+ *     description: Check if the API is running and get system status
+ *     responses:
+ *       200:
+ *         description: API is healthy and running
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: success
+ *                 message:
+ *                   type: string
+ *                   example: "NTC Bus Tracking API is running"
+ *                 timestamp:
+ *                   type: string
+ *                   format: date-time
+ *                 environment:
+ *                   type: string
+ *                   example: production
+ *                 version:
+ *                   type: string
+ *                   example: "2.0.0"
+ *                 uptime:
+ *                   type: number
+ *                   description: Server uptime in seconds
+ *                 memory:
+ *                   type: object
+ *                   properties:
+ *                     used:
+ *                       type: string
+ *                       example: "45 MB"
+ *                     total:
+ *                       type: string
+ *                       example: "128 MB"
+ */
+
+/**
  * API Health Check endpoint
  * @route GET /api/health
  * @access Public
