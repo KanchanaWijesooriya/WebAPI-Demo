@@ -73,8 +73,8 @@ const routeSchema = new mongoose.Schema({
   }],
   // Stopwise pricing information
   pricingInfo: {
-    baseFare: { type: Number, default: 50 }, // minimum fare
-    pricePerKm: { type: Number, default: 3 }, // rate per kilometer
+    // baseFare: { type: Number, default: 50 }, // minimum fare
+    // pricePerKm: { type: Number, default: 7 }, // rate per kilometer
     stopwisePricing: [{
       fromStop: { type: String, required: true },
       toStop: { type: String, required: true },
@@ -82,9 +82,7 @@ const routeSchema = new mongoose.Schema({
       price: { type: Number, required: true }, // in LKR
       busTypeMultipliers: {
         Normal: { type: Number, default: 1.0 },
-        'Express': { type: Number, default: 1.3 },
-        'Intercity Express': { type: Number, default: 1.6 },
-        'Super Intercity Express': { type: Number, default: 2.0 },
+        'Express': { type: Number, default: 1.6 },
         'Intercity Express': { type: Number, default: 1.8 }
       }
     }]

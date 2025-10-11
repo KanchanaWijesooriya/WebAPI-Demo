@@ -51,6 +51,12 @@ module.exports = {
   // Silent mode - suppress console.log/error output during tests but keep test results
   silent: true,
   
+  // Force Jest to exit after tests complete
+  forceExit: true,
+  
+  // Detect open handles to help identify async operations
+  detectOpenHandles: true,
+  
   // Module file extensions
   moduleFileExtensions: ['js', 'json'],
   

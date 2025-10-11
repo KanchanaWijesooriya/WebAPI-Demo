@@ -9,6 +9,460 @@ const router = express.Router();
 // Import optional auth middleware for role-based filtering
 import { optionalAuth } from '../middleware/auth.js';
 
+/**
+ * @swagger
+ * /search/routes:
+ *   get:
+ *     tags: [Search]
+ *     summary: Search routes
+ *     description: Search and filter bus routes with various criteria
+ *     security:
+ *       - BearerAuth: []
+ *       - {}
+ *     parameters:
+ *       - name: start
+ *         in: query
+ *         description: Starting location/city
+ *         schema:
+ *           type: string
+ *           example: "Colombo"
+ *       - name: destination
+ *         in: query  
+ *         description: Destination location/city
+ *         schema:
+ *           type: string
+ *           example: "Kandy"
+ *       - name: stops
+ *         in: query
+ *         description: Intermediate stops
+ *         schema:
+ *           type: string
+ *           example: "Kelaniya"
+ *       - name: routeNumber
+ *         in: query
+ *         description: Route identification number
+ *         schema:
+ *           type: string
+ *           example: "001"
+ *       - name: distance
+ *         in: query
+ *         description: Maximum route distance in km
+ *         schema:
+ *           type: number
+ *           example: 100
+ *       - $ref: '#/components/parameters/PageParam'
+ *       - $ref: '#/components/parameters/LimitParam'
+ *     responses:
+ *       200:
+ *         description: Routes found successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/PaginatedResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         routes:
+ *                           type: array
+ *                           items:
+ *                             $ref: '#/components/schemas/Route'
+ *                         searchCriteria:
+ *                           type: object
+ *                           description: Applied search filters
+ *       429:
+ *         $ref: '#/components/responses/RateLimitError'
+ */
+
+/**
+ * @swagger
+ * /search/trips:
+ *   get:
+ *     tags: [Search]
+ *     summary: Search trips
+ *     description: Search scheduled and active bus trips
+ *     security:
+ *       - BearerAuth: []
+ *       - {}
+ *     parameters:
+ *       - name: date
+ *         in: query
+ *         description: Trip date (YYYY-MM-DD)
+ *         schema:
+ *           type: string
+ *           format: date
+ *           example: "2023-12-01"
+ *       - name: start
+ *         in: query
+ *         description: Starting city
+ *         schema:
+ *           type: string
+ *           example: "Colombo"
+ *       - name: destination
+ *         in: query
+ *         description: Destination city
+ *         schema:
+ *           type: string
+ *           example: "Galle"
+ *       - name: minFare
+ *         in: query
+ *         description: Minimum fare amount
+ *         schema:
+ *           type: number
+ *           example: 50
+ *       - name: maxFare
+ *         in: query
+ *         description: Maximum fare amount
+ *         schema:
+ *           type: number
+ *           example: 200
+ *       - name: status
+ *         in: query
+ *         description: Trip status filter
+ *         schema:
+ *           type: string
+ *           enum: [Scheduled, In Progress, Completed, Cancelled, Delayed]
+ *       - name: dayType
+ *         in: query
+ *         description: Day type filter
+ *         schema:
+ *           type: string
+ *           enum: [weekday, weekend]
+ *       - $ref: '#/components/parameters/PageParam'
+ *       - $ref: '#/components/parameters/LimitParam'
+ *     responses:
+ *       200:
+ *         description: Trips found successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/PaginatedResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         trips:
+ *                           type: array
+ *                           items:
+ *                             $ref: '#/components/schemas/Trip'
+ *       429:
+ *         $ref: '#/components/responses/RateLimitError'
+ */
+
+/**
+ * @swagger
+ * /search/buses:
+ *   get:
+ *     tags: [Search]
+ *     summary: Search buses
+ *     description: Search buses by various criteria
+ *     security:
+ *       - BearerAuth: []
+ *       - {}
+ *     parameters:
+ *       - name: registrationNumber
+ *         in: query
+ *         description: Bus registration number
+ *         schema:
+ *           type: string
+ *           example: "CAA-5678"
+ *       - name: routeNumber
+ *         in: query
+ *         description: Route number filter
+ *         schema:
+ *           type: string
+ *           example: "001"
+ *       - name: busType
+ *         in: query
+ *         description: Bus type filter
+ *         schema:
+ *           type: string
+ *           enum: [Normal, Semi-Luxury, Luxury, Express, Intercity]
+ *       - name: status
+ *         in: query
+ *         description: Bus status filter
+ *         schema:
+ *           type: string
+ *           enum: [Active, Maintenance, Out of Service]
+ *       - name: operator
+ *         in: query
+ *         description: Bus operator name
+ *         schema:
+ *           type: string
+ *       - $ref: '#/components/parameters/PageParam'
+ *       - $ref: '#/components/parameters/LimitParam'
+ *     responses:
+ *       200:
+ *         description: Buses found successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/PaginatedResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         buses:
+ *                           type: array
+ *                           items:
+ *                             $ref: '#/components/schemas/Bus'
+ *       429:
+ *         $ref: '#/components/responses/RateLimitError'
+ */
+
+/**
+ * @swagger
+ * /search/combined:
+ *   get:
+ *     tags: [Search]
+ *     summary: Combined search
+ *     description: Advanced search across routes, trips, and buses with comprehensive filtering
+ *     security:
+ *       - BearerAuth: []
+ *       - {}
+ *     parameters:
+ *       - name: q
+ *         in: query
+ *         description: General search query (searches across multiple fields)
+ *         schema:
+ *           type: string
+ *           example: "Colombo to Kandy"
+ *       - name: from
+ *         in: query
+ *         description: Starting location
+ *         schema:
+ *           type: string
+ *           example: "Colombo"
+ *       - name: to
+ *         in: query
+ *         description: Destination location
+ *         schema:
+ *           type: string
+ *           example: "Kandy"
+ *       - name: date
+ *         in: query
+ *         description: Travel date
+ *         schema:
+ *           type: string
+ *           format: date
+ *       - name: busType
+ *         in: query
+ *         description: Preferred bus type
+ *         schema:
+ *           type: string
+ *           enum: [Normal, Semi-Luxury, Luxury, Express, Intercity]
+ *       - name: minFare
+ *         in: query
+ *         description: Minimum acceptable fare
+ *         schema:
+ *           type: number
+ *       - name: maxFare
+ *         in: query
+ *         description: Maximum acceptable fare
+ *         schema:
+ *           type: number
+ *       - name: departureTime
+ *         in: query
+ *         description: Preferred departure time range
+ *         schema:
+ *           type: string
+ *           example: "morning"
+ *           enum: [morning, afternoon, evening, night]
+ *       - $ref: '#/components/parameters/PageParam'
+ *       - $ref: '#/components/parameters/LimitParam'
+ *     responses:
+ *       200:
+ *         description: Combined search results
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/ApiResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         routes:
+ *                           type: array
+ *                           items:
+ *                             $ref: '#/components/schemas/Route'
+ *                         trips:
+ *                           type: array
+ *                           items:
+ *                             $ref: '#/components/schemas/Trip'
+ *                         buses:
+ *                           type: array
+ *                           items:
+ *                             $ref: '#/components/schemas/Bus'
+ *                         totalResults:
+ *                           type: integer
+ *                         searchQuery:
+ *                           type: object
+ *                           description: Applied search parameters
+ *       429:
+ *         $ref: '#/components/responses/RateLimitError'
+ */
+
+/**
+ * @swagger
+ * /search/pricing:
+ *   get:
+ *     tags: [Search]
+ *     summary: Get fare pricing
+ *     description: Calculate and retrieve fare pricing between locations
+ *     security:
+ *       - BearerAuth: []
+ *       - {}
+ *     parameters:
+ *       - name: from
+ *         in: query
+ *         required: true
+ *         description: Starting location
+ *         schema:
+ *           type: string
+ *           example: "Colombo"
+ *       - name: to
+ *         in: query
+ *         required: true
+ *         description: Destination location
+ *         schema:
+ *           type: string
+ *           example: "Kandy"
+ *       - name: busType
+ *         in: query
+ *         description: Bus type for fare calculation
+ *         schema:
+ *           type: string
+ *           enum: [Normal, Semi-Luxury, Luxury, Express, Intercity]
+ *       - name: date
+ *         in: query
+ *         description: Travel date for dynamic pricing
+ *         schema:
+ *           type: string
+ *           format: date
+ *     responses:
+ *       200:
+ *         description: Pricing information retrieved
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/ApiResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         baseFare:
+ *                           type: number
+ *                           description: Base fare amount
+ *                         serviceCharges:
+ *                           type: number
+ *                           description: Additional service charges
+ *                         totalFare:
+ *                           type: number
+ *                           description: Total fare amount
+ *                         currency:
+ *                           type: string
+ *                           default: "LKR"
+ *                         fareBreakdown:
+ *                           type: object
+ *                           description: Detailed fare calculation
+ *                         availableRoutes:
+ *                           type: array
+ *                           items:
+ *                             type: object
+ *                             properties:
+ *                               routeNumber:
+ *                                 type: string
+ *                               distance:
+ *                                 type: number
+ *                               fare:
+ *                                 type: number
+ *       400:
+ *         description: Invalid pricing parameters
+ *       429:
+ *         $ref: '#/components/responses/RateLimitError'
+ */
+
+/**
+ * @swagger
+ * /search/advanced:
+ *   get:
+ *     tags: [Search]
+ *     summary: Advanced search with filters
+ *     description: Comprehensive search with advanced filtering options and sorting
+ *     security:
+ *       - BearerAuth: []
+ *       - {}
+ *     parameters:
+ *       - name: query
+ *         in: query
+ *         description: Main search query
+ *         schema:
+ *           type: string
+ *       - name: filters
+ *         in: query
+ *         description: JSON string of advanced filters
+ *         schema:
+ *           type: string
+ *           example: '{"busType":["Express","Luxury"],"priceRange":[50,200]}'
+ *       - name: sortBy
+ *         in: query
+ *         description: Sort field
+ *         schema:
+ *           type: string
+ *           enum: [fare, departureTime, duration, popularity]
+ *       - name: sortOrder
+ *         in: query
+ *         description: Sort order
+ *         schema:
+ *           type: string
+ *           enum: [asc, desc]
+ *           default: asc
+ *       - name: includeInactive
+ *         in: query
+ *         description: Include inactive routes/buses in results
+ *         schema:
+ *           type: boolean
+ *           default: false
+ *       - $ref: '#/components/parameters/PageParam'
+ *       - $ref: '#/components/parameters/LimitParam'
+ *     responses:
+ *       200:
+ *         description: Advanced search results
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/PaginatedResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         results:
+ *                           type: array
+ *                           items:
+ *                             type: object
+ *                         appliedFilters:
+ *                           type: object
+ *                         totalMatches:
+ *                           type: integer
+ *                         searchTime:
+ *                           type: number
+ *                           description: Search execution time in milliseconds
+ *       429:
+ *         $ref: '#/components/responses/RateLimitError'
+ */
+
 // Helper functions for data filtering
 const filterDataForUser = (data, isAdmin, excludeStopwiseFares = false) => {
   if (!Array.isArray(data)) return data;
@@ -187,19 +641,53 @@ router.get('/routes', async (req, res) => {
 
     const paginatedRoutes = sortedRoutes.slice(skip, skip + parseInt(limit));
     
-    // Filter sensitive data for public users
+    // Filter sensitive data for public users using standard filtering
+    const userRole = req.user?.role || null;
     const publicFilteredRoutes = paginatedRoutes.map(route => {
-      if (isRouteAdmin) {
-        // Full data for admin
+      // Use the standardized filtering function
+      const filteredRoute = filterRouteData(route, userRole, { limitStops: false });
+      
+      // Add location coordinates if available
+      if (!userRole || userRole === 'passenger') {
+        if (route.start?.coordinates) {
+          if (route.start.coordinates.latitude && route.start.coordinates.longitude) {
+            // Format: { latitude: x, longitude: y }
+            filteredRoute.startLocation = {
+              latitude: route.start.coordinates.latitude,
+              longitude: route.start.coordinates.longitude
+            };
+          } else if (Array.isArray(route.start.coordinates) && route.start.coordinates.length === 2) {
+            // Format: [longitude, latitude] (GeoJSON format)
+            filteredRoute.startLocation = {
+              latitude: route.start.coordinates[1],
+              longitude: route.start.coordinates[0]
+            };
+          }
+        }
+        if (route.destination?.coordinates) {
+          if (route.destination.coordinates.latitude && route.destination.coordinates.longitude) {
+            // Format: { latitude: x, longitude: y }
+            filteredRoute.endLocation = {
+              latitude: route.destination.coordinates.latitude,
+              longitude: route.destination.coordinates.longitude
+            };
+          } else if (Array.isArray(route.destination.coordinates) && route.destination.coordinates.length === 2) {
+            // Format: [longitude, latitude] (GeoJSON format)
+            filteredRoute.endLocation = {
+              latitude: route.destination.coordinates[1],
+              longitude: route.destination.coordinates[0]
+            };
+          }
+        }
+        
+        // Include intermediate stops when searching by stops parameter
+        if (stops && route.stops && route.stops.length > 0) {
+          filteredRoute.intermediateStops = route.stops.map(stop => stop.name);
+        }
+      } else if (userRole === 'admin') {
+        // Full data for admin including internal IDs and operational details
         return {
-          routeId: route.routeId,
-          routeNumber: route.routeNumber,
-          name: route.name,
-          start: route.start,
-          destination: route.destination,
-          distance: route.distance,
-          estimatedDuration: route.estimatedDuration,
-          stops: route.stops,
+          ...route,
           journeyInfo: route.journeyInfo,
           operationalDetails: {
             frequency: route.frequency,
@@ -207,27 +695,9 @@ router.get('/routes', async (req, res) => {
             isActive: route.isActive
           }
         };
-      } else {
-        // Minimal data for public, but include stops when searching by stops
-        const publicRoute = {
-          routeNumber: route.routeNumber,
-          name: route.name,
-          start: {
-            city: route.start?.city
-          },
-          destination: {
-            city: route.destination?.city
-          },
-          distance: route.distance
-        };
-        
-        // Include intermediate stops when searching by stops parameter
-        if (stops && route.stops && route.stops.length > 0) {
-          publicRoute.intermediateStops = route.stops.map(stop => stop.name);
-        }
-        
-        return publicRoute;
       }
+      
+      return filteredRoute;
     });
     
     res.json({
@@ -249,7 +719,7 @@ router.get('/routes', async (req, res) => {
           distanceFiltering: 'JSON-based strict filtering'
         }
       },
-      dataLevel: isRouteAdmin ? 'full' : 'public'
+      dataLevel: getDataLevel(userRole)
     });
 
   } catch (error) {
@@ -351,11 +821,10 @@ router.get('/buses', async (req, res) => {
       .limit(parseInt(limit))
       .lean();
 
-    // Check if user is admin
-    const isAdmin = req.user && req.user.role === 'admin';
-    const userRole = isAdmin ? 'admin' : null;
+    // Get user role for filtering
+    const userRole = req.user?.role || null;
     
-    // Filter data based on user role
+    // Filter data based on user role using standardized filtering
     const filteredBuses = buses.map(bus => filterBusData(bus, userRole));
     
     res.json({
@@ -375,7 +844,7 @@ router.get('/buses', async (req, res) => {
           requestedJourney: start && end ? `${start} → ${end}` : null
         }
       },
-      dataLevel: isAdmin ? 'full' : 'public',
+      dataLevel: getDataLevel(userRole),
       message: `Found ${filteredBuses.length} buses for your search`
     });
 
@@ -483,38 +952,34 @@ router.get('/trips', async (req, res) => {
     const skip = (page - 1) * limit;
     const paginatedTrips = tripsWithDetails.slice(skip, skip + parseInt(limit));
 
-    // Step 5: Format results with security filtering
+    // Step 5: Format results with security filtering using standard filtering
+    const userRole = req.user?.role || null;
     const results = paginatedTrips.map(trip => {
-      const publicData = {
-        tripId: trip.tripId,
-        busNumber: trip.busRegistration,
-        busType: trip.busInfo?.busType || 'Normal',
-        route: {
-          id: trip.routeInfo?.routeId || `RT-${trip.routeNumber}`,
-          name: trip.routeInfo?.name || 'Unknown Route',
-          routeNumber: trip.routeNumber
-        },
-        departureTime: trip.scheduledDeparture,
-        arrivalTime: trip.scheduledArrival,
-        baseFare: trip.fare,
-        status: trip.status,
-        date: trip.serviceDate
-      };
-
-      // Only show sensitive data to admin users
-      if (isAdmin) {
-        publicData.driverInfo = {
+      // Use standardized trip filtering function
+      const filteredTrip = filterTripData(trip, userRole);
+      
+      // Add location coordinates for public users if available
+      if (!userRole || userRole === 'passenger') {
+        if (trip.currentLocation && trip.currentLocation.coordinates) {
+          filteredTrip.currentLocation = {
+            latitude: trip.currentLocation.coordinates[1],
+            longitude: trip.currentLocation.coordinates[0]
+          };
+        }
+      } else if (userRole === 'admin') {
+        // Add sensitive admin data
+        filteredTrip.driverInfo = {
           name: trip.driver?.name,
           license: trip.driver?.licenseNumber,
           contact: trip.driver?.contactNumber
         };
-        publicData.conductorInfo = {
+        filteredTrip.conductorInfo = {
           name: trip.conductor?.name,
           contact: trip.conductor?.contactNumber
         };
       }
 
-      return publicData;
+      return filteredTrip;
     });
 
     res.json({
@@ -534,7 +999,7 @@ router.get('/trips', async (req, res) => {
         }
       },
       source: 'JSON files only',
-      dataLevel: isAdmin ? 'full' : 'public'
+      dataLevel: getDataLevel(userRole)
     });
 
   } catch (error) {
@@ -623,10 +1088,27 @@ router.get('/combined', async (req, res) => {
       return { ...trip, routeInfo: route, busInfo: bus };
     });
 
+    // Deduplicate trips - show only one trip per unique bus
+    // Priority: earliest departure time for each bus
+    const uniqueTripsMap = new Map();
+    
+    tripsWithDetails.forEach(trip => {
+      const busKey = trip.busRegistration;
+      const existingTrip = uniqueTripsMap.get(busKey);
+      
+      if (!existingTrip || new Date(trip.scheduledDeparture) < new Date(existingTrip.scheduledDeparture)) {
+        uniqueTripsMap.set(busKey, trip);
+      }
+    });
+
+    // Convert map back to array and sort by departure time
+    const uniqueTrips = Array.from(uniqueTripsMap.values())
+      .sort((a, b) => new Date(a.scheduledDeparture) - new Date(b.scheduledDeparture));
+
     // Pagination
-    const totalTrips = tripsWithDetails.length;
+    const totalTrips = uniqueTrips.length;
     const skip = (page - 1) * limit;
-    const paginatedTrips = tripsWithDetails.slice(skip, skip + parseInt(limit));
+    const paginatedTrips = uniqueTrips.slice(skip, skip + parseInt(limit));
 
     // Format results
     const combinedResults = paginatedTrips.map(trip => ({

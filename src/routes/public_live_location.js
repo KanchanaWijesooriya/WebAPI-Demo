@@ -5,6 +5,85 @@ import LocationHistory from '../models/LocationHistory.js';
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * tags:
+ *   name: Public Live Tracking
+ *   description: Public endpoints for live bus location tracking
+ */
+
+/**
+ * @swagger
+ * /public/bus-location/{busId}:
+ *   get:
+ *     tags: [Public Live Tracking]
+ *     summary: Get live bus location
+ *     description: Retrieve real-time location of a specific bus (Public endpoint)
+ *     parameters:
+ *       - name: busId
+ *         in: path
+ *         required: true
+ *         description: Bus ID or registration number
+ *         schema:
+ *           type: string
+ *           example: "CAA-5678"
+ *     responses:
+ *       200:
+ *         description: Bus location retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/ApiResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         bus:
+ *                           type: object
+ *                           properties:
+ *                             registrationNumber:
+ *                               type: string
+ *                             operator:
+ *                               type: string
+ *                             type:
+ *                               type: string
+ *                         currentLocation:
+ *                           type: object
+ *                           properties:
+ *                             coordinates:
+ *                               type: array
+ *                               items:
+ *                                 type: number
+ *                               example: [79.8612, 6.9271]
+ *                             timestamp:
+ *                               type: string
+ *                               format: date-time
+ *                             speed:
+ *                               type: number
+ *                             heading:
+ *                               type: number
+ *                         currentTrip:
+ *                           $ref: '#/components/schemas/Trip'
+ *                         locationHistory:
+ *                           type: array
+ *                           items:
+ *                             type: object
+ *                             properties:
+ *                               coordinates:
+ *                                 type: array
+ *                                 items:
+ *                                   type: number
+ *                               timestamp:
+ *                                 type: string
+ *                                 format: date-time
+ *       404:
+ *         description: Bus not found
+ *       429:
+ *         $ref: '#/components/responses/RateLimitError'
+ */
+
 // GET /api/public/bus-location/:busId - Public endpoint to get live bus location
 router.get('/bus-location/:busId', async (req, res) => {
   try {

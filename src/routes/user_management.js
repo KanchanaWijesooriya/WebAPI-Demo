@@ -10,11 +10,87 @@ import {
 const router = express.Router();
 
 /**
+ * @swagger
+ * tags:
+ *   name: User Management
+ *   description: User account management operations with role-based access control
+ */
+
+/**
  * USER MANAGEMENT ROUTES WITH ROLE-BASED ACCESS CONTROL
  * These routes manage user accounts with strict permission controls
  */
 
 // ==================== ADMIN-ONLY USER MANAGEMENT ====================
+
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     tags: [User Management]
+ *     summary: List all users
+ *     description: Retrieve all system users (Admin only)
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - $ref: '#/components/parameters/PageParam'
+ *       - $ref: '#/components/parameters/LimitParam'
+ *       - name: role
+ *         in: query
+ *         description: Filter users by role
+ *         schema:
+ *           type: string
+ *           enum: [admin, operator, driver, passenger]
+ *       - name: isActive
+ *         in: query
+ *         description: Filter by active status
+ *         schema:
+ *           type: boolean
+ *       - name: search
+ *         in: query
+ *         description: Search by name, email or phone
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Users retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/PaginatedResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         users:
+ *                           type: array
+ *                           items:
+ *                             allOf:
+ *                               - $ref: '#/components/schemas/User'
+ *                               - type: object
+ *                                 properties:
+ *                                   password:
+ *                                     type: string
+ *                                     readOnly: true
+ *                                     description: Password field excluded from response
+ *                         statistics:
+ *                           type: object
+ *                           properties:
+ *                             totalUsers:
+ *                               type: integer
+ *                             activeUsers:
+ *                               type: integer
+ *                             usersByRole:
+ *                               type: object
+ *       401:
+ *         $ref: '#/components/responses/UnauthorizedError'
+ *       403:
+ *         $ref: '#/components/responses/ForbiddenError'
+ *       429:
+ *         $ref: '#/components/responses/RateLimitError'
+ */
 
 /**
  * GET /api/users - List all users (Admin only)
@@ -453,6 +529,73 @@ router.put('/:id/password',
         statusCode: 400,
         success: false,
         message: 'Failed to update password',
+        error: error.message
+      });
+    }
+  }
+);
+
+/**
+ * DELETE /api/users/:id - Delete user account (Admin only)
+ * Permanently removes a user account from the system
+ */
+router.delete('/:id',
+  authenticate,              // Must be logged in
+  adminOnly,                // Must be admin role
+  async (req, res) => {
+    try {
+      const User = (await import('../models/User.js')).default;
+      const { id } = req.params;
+      
+      // Find the user to be deleted
+      const userToDelete = await User.findById(id).select('-password');
+      
+      if (!userToDelete) {
+        return res.status(404).json({
+          statusCode: 404,
+          success: false,
+          message: 'User not found',
+          error: 'USER_NOT_FOUND'
+        });
+      }
+      
+      // Prevent admin from deleting themselves
+      if (userToDelete._id.toString() === req.user.id.toString()) {
+        return res.status(400).json({
+          statusCode: 400,
+          success: false,
+          message: 'Cannot delete your own account',
+          error: 'CANNOT_DELETE_SELF'
+        });
+      }
+      
+      // Delete the user
+      await User.findByIdAndDelete(id);
+      
+      res.status(200).json({
+        statusCode: 200,
+        success: true,
+        message: 'User account deleted successfully',
+        data: {
+          deletedUser: {
+            id: userToDelete._id,
+            username: userToDelete.username,
+            email: userToDelete.email,
+            role: userToDelete.role
+          },
+          deletedBy: {
+            userId: req.user.id,
+            username: req.user.username,
+            role: req.user.role
+          },
+          deletedAt: new Date().toISOString()
+        }
+      });
+    } catch (error) {
+      res.status(500).json({
+        statusCode: 500,
+        success: false,
+        message: 'Failed to delete user account',
         error: error.message
       });
     }

@@ -4,9 +4,12 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
+import swaggerJsdoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
 import connectDB from './config/database.js';
 import { applyMiddleware } from './config/middleware.js';
 import { loadRoutes } from './utils/routeLoader.js';
+import swaggerConfig from './config/swagger.js';
 import { 
   handle404, 
   globalErrorHandler, 
@@ -85,6 +88,35 @@ const initializeApp = async () => {
     
     // Apply middleware configuration
     applyMiddleware(app);
+    
+    // Generate Swagger documentation
+    console.log('✅ Generating Swagger documentation...');
+    const swaggerSpec = swaggerJsdoc(swaggerConfig.options);
+    
+    // Setup Swagger UI
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+      explorer: true,
+      customSiteTitle: 'NTC Bus Tracking API Documentation',
+      customfavIcon: '/favicon.ico',
+      customCss: `
+        .swagger-ui .topbar { display: none }
+        .swagger-ui .info .title { color: #1f2937; }
+      `,
+      swaggerOptions: {
+        persistAuthorization: true,
+        displayRequestDuration: true,
+        filter: true,
+        showRequestHeaders: true
+      }
+    }));
+    
+    // Swagger JSON endpoint
+    app.get('/api-docs.json', (req, res) => {
+      res.setHeader('Content-Type', 'application/json');
+      res.send(swaggerSpec);
+    });
+    
+    console.log('✅ Swagger documentation configured at /api-docs');
     
     // Load all routes
     await loadRoutes(app);

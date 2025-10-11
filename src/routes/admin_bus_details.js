@@ -5,6 +5,106 @@ import { authenticate, authorize } from '../middleware/rbac.js';
 const router = express.Router();
 
 /**
+ * @swagger
+ * tags:
+ *   name: Admin Bus Details
+ *   description: Detailed bus information for administrative purposes
+ */
+
+/**
+ * @swagger
+ * /admin/bus-details/{busId}:
+ *   get:
+ *     tags: [Admin Bus Details]
+ *     summary: Get comprehensive bus details
+ *     description: Retrieve detailed bus information including operator contacts and maintenance history (Admin only)
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - name: busId
+ *         in: path
+ *         required: true
+ *         description: Bus ID
+ *         schema:
+ *           type: string
+ *           example: "507f1f77bcf86cd799439011"
+ *     responses:
+ *       200:
+ *         description: Comprehensive bus details retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/ApiResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         bus:
+ *                           allOf:
+ *                             - $ref: '#/components/schemas/Bus'
+ *                             - type: object
+ *                               properties:
+ *                                 route:
+ *                                   $ref: '#/components/schemas/Route'
+ *                         operatorDetails:
+ *                           type: object
+ *                           properties:
+ *                             name:
+ *                               type: string
+ *                             licenseNumber:
+ *                               type: string
+ *                             contactInfo:
+ *                               type: object
+ *                               properties:
+ *                                 primary:
+ *                                   type: string
+ *                                 secondary:
+ *                                   type: string
+ *                                 emergency:
+ *                                   type: string
+ *                                 email:
+ *                                   type: string
+ *                         maintenanceHistory:
+ *                           type: array
+ *                           items:
+ *                             type: object
+ *                             properties:
+ *                               date:
+ *                                 type: string
+ *                                 format: date
+ *                               type:
+ *                                 type: string
+ *                               description:
+ *                                 type: string
+ *                               cost:
+ *                                 type: number
+ *                               nextServiceDue:
+ *                                 type: string
+ *                                 format: date
+ *                         performanceMetrics:
+ *                           type: object
+ *                           properties:
+ *                             totalTrips:
+ *                               type: integer
+ *                             onTimePerformance:
+ *                               type: number
+ *                             fuelEfficiency:
+ *                               type: number
+ *                             customerRating:
+ *                               type: number
+ *       401:
+ *         $ref: '#/components/responses/UnauthorizedError'
+ *       403:
+ *         $ref: '#/components/responses/ForbiddenError'
+ *       404:
+ *         description: Bus not found
+ *       429:
+ *         $ref: '#/components/responses/RateLimitError'
+ */
+
+/**
  * Admin-only endpoint to get comprehensive bus information including operator contact details
  * GET /api/admin/bus-details/:busId
  */
