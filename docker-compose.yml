@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  ntc_bus_tracking_api:
+    build: .
+    container_name: ntc_bus_api_container
+    ports:
+      - "3443:3443"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - /home/ec2-user/ssl:/app/ssl:ro
+      - /home/ec2-user/.env:/app/.env:ro
+    restart: unless-stopped
+    networks:
+      - ntc_network
+
+networks:
+  ntc_network:
+    driver: bridge
