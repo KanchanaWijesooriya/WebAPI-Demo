@@ -57,6 +57,6 @@ jobs:
     - name: Deployment Status
       if: github.ref == 'refs/heads/prod'
       run: |
-        echo "🚀 Deployment completed!"
-        echo "✅ API should be available at: https://ntc-bustracking.me"
-        echo "✅ Health check: https://ntc-bustracking.me/api/health"
+        echo "Deployment completed!"
+        echo "API should be available at: https://ntc-bustracking.me"
+        echo "Health check: https://ntc-bustracking.me/api/health"
