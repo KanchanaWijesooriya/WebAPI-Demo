@@ -30,11 +30,19 @@ const options = {
         - Advanced threat detection
         - Request size monitoring
         - Suspicious pattern recognition
+        
+        **Academic Project Information:**
+        - **Developer:** Chanuka Wijesooriya
+        - **Student ID:** COBSCCOMP24.1P - 020
+        - **Institution:** Coventry University
+        - **Course:** Web API CW - Academic Project
+        - **System:** NTC Bus Tracking API
+        - **Rights:** All rights reserved
       `,
       contact: {
-        name: 'NTC Development Team',
-        email: 'dev@ntc.gov.lk',
-        url: 'https://ntc.gov.lk'
+        name: 'Chanuka Wijesooriya - Academic Project',
+        email: 'chanuka.wijesooriya@student.coventry.ac.uk',
+        url: 'https://coventry.ac.uk'
       },
       license: {
         name: 'MIT',
@@ -63,6 +71,12 @@ const options = {
           scheme: 'bearer',
           bearerFormat: 'JWT',
           description: 'JWT Authorization header using the Bearer scheme.'
+        },
+        sessionAuth: {
+          type: 'apiKey',
+          in: 'cookie',
+          name: 'ntc.sid',
+          description: 'Session authentication using ntc.sid cookie. Paste your session cookie value here.'
         }
       },
       schemas: {
@@ -158,7 +172,7 @@ const options = {
             },
             busType: {
               type: 'string',
-              enum: ['Normal', 'Semi-Luxury', 'Luxury', 'Express', 'Intercity'],
+              enum: ['Normal', 'Express', 'Intercity Express'],
               description: 'Type of bus service'
             },
             capacity: {
@@ -756,13 +770,475 @@ const options = {
         name: 'System',
         description: 'System health and utility endpoints'
       }
-    ]
+    ],
+    
+    paths: {
+      // Admin Endpoints
+      '/admin/operator-contacts': {
+        get: {
+          tags: ['Admin'],
+          summary: 'Get operator contacts',
+          security: [{ BearerAuth: [] }, { sessionAuth: [] }],
+          responses: {
+            200: { description: 'Success', content: { 'application/json': { schema: { $ref: '#/components/schemas/ApiResponse' } } } },
+            401: { $ref: '#/components/responses/UnauthorizedError' }
+          }
+        }
+      },
+      '/admin/bus-info/{id}': {
+        get: {
+          tags: ['Admin'],
+          summary: 'Get bus information by ID or registration number',
+          security: [{ BearerAuth: [] }, { sessionAuth: [] }],
+          parameters: [
+            {
+              name: 'id',
+              in: 'path',
+              required: true,
+              description: 'Bus ObjectId or registration number (e.g., 68e4c9d45ffe5feaaf9ed2b9 or CAA-5678)',
+              schema: { type: 'string' }
+            }
+          ],
+          responses: {
+            200: { description: 'Success', content: { 'application/json': { schema: { $ref: '#/components/schemas/Bus' } } } },
+            401: { $ref: '#/components/responses/UnauthorizedError' },
+            404: { $ref: '#/components/responses/NotFoundError' }
+          }
+        }
+      },
+      
+      // User Management Endpoints
+      '/users/{id}': {
+        get: {
+          tags: ['Users'],
+          summary: 'Get user by ID',
+          security: [{ BearerAuth: [] }],
+          parameters: [
+            {
+              name: 'id',
+              in: 'path',
+              required: true,
+              description: 'User ObjectId',
+              schema: { type: 'string', pattern: '^[a-fA-F0-9]{24}$' }
+            }
+          ],
+          responses: {
+            200: { description: 'Success', content: { 'application/json': { schema: { $ref: '#/components/schemas/User' } } } },
+            401: { $ref: '#/components/responses/UnauthorizedError' },
+            404: { $ref: '#/components/responses/NotFoundError' }
+          }
+        }
+      },
+      '/users/{id}/profile': {
+        put: {
+          tags: ['Users'],
+          summary: 'Update user profile',
+          security: [{ BearerAuth: [] }],
+          parameters: [
+            {
+              name: 'id',
+              in: 'path',
+              required: true,
+              description: 'User ObjectId',
+              schema: { type: 'string', pattern: '^[a-fA-F0-9]{24}$' }
+            }
+          ],
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: { $ref: '#/components/schemas/UserProfile' }
+              }
+            }
+          },
+          responses: {
+            200: { description: 'Profile updated successfully' },
+            401: { $ref: '#/components/responses/UnauthorizedError' },
+            400: { $ref: '#/components/responses/ValidationError' }
+          }
+        }
+      },
+      '/users': {
+        post: {
+          tags: ['Users'],
+          summary: 'Create new user',
+          security: [{ BearerAuth: [] }],
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    username: { type: 'string', example: 'john_doe' },
+                    email: { type: 'string', format: 'email', example: 'john@example.com' },
+                    password: { type: 'string', example: 'password123' },
+                    role: { type: 'string', enum: ['admin', 'operator', 'driver', 'passenger'], example: 'passenger' }
+                  },
+                  required: ['username', 'email', 'password', 'role']
+                }
+              }
+            }
+          },
+          responses: {
+            201: { description: 'User created successfully' },
+            400: { $ref: '#/components/responses/ValidationError' },
+            401: { $ref: '#/components/responses/UnauthorizedError' }
+          }
+        }
+      },
+      
+      // Authentication Endpoints
+      '/auth/login': {
+        post: {
+          tags: ['Authentication', 'Public'],
+          summary: 'User login (JWT)',
+          security: [],
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    email: { type: 'string', format: 'email', example: 'user@example.com' },
+                    password: { type: 'string', example: 'password123' }
+                  },
+                  required: ['email', 'password']
+                }
+              }
+            }
+          },
+          responses: {
+            200: { description: 'Login successful', content: { 'application/json': { schema: { $ref: '#/components/schemas/ApiResponse' } } } },
+            401: { description: 'Invalid credentials' }
+          }
+        }
+      },
+      '/auth/login-session': {
+        post: {
+          tags: ['Authentication', 'Session Management', 'Public'],
+          summary: 'Session-based login',
+          security: [],
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    email: { type: 'string', format: 'email', example: 'user@example.com' },
+                    password: { type: 'string', example: 'password123' }
+                  },
+                  required: ['email', 'password']
+                }
+              }
+            }
+          },
+          responses: {
+            200: { 
+              description: 'Session login successful',
+              headers: {
+                'Set-Cookie': {
+                  schema: { type: 'string' },
+                  example: 'ntc.sid=s%3A...; Path=/; HttpOnly; Secure; SameSite=Strict'
+                }
+              }
+            },
+            401: { description: 'Invalid credentials' }
+          }
+        }
+      },
+      '/auth/logout-session': {
+        post: {
+          tags: ['Authentication', 'Session Management'],
+          summary: 'Session logout',
+          security: [{ sessionAuth: [] }],
+          responses: {
+            200: { description: 'Logout successful' },
+            401: { description: 'No active session' }
+          }
+        }
+      },
+      '/auth/session-status': {
+        get: {
+          tags: ['Authentication', 'Session Management'],
+          summary: 'Check session status',
+          security: [{ sessionAuth: [] }],
+          responses: {
+            200: { description: 'Session status retrieved' },
+            401: { description: 'No active session' }
+          }
+        }
+      },
+      '/register': {
+        post: {
+          tags: ['Authentication', 'Public'],
+          summary: 'User registration',
+          security: [],
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    username: { type: 'string', example: 'john_doe' },
+                    email: { type: 'string', format: 'email', example: 'john@example.com' },
+                    password: { type: 'string', example: 'password123' }
+                  },
+                  required: ['username', 'email', 'password']
+                }
+              }
+            }
+          },
+          responses: {
+            201: { description: 'Registration successful' },
+            400: { $ref: '#/components/responses/ValidationError' }
+          }
+        }
+      },
+      
+      // Bus Endpoints
+      '/buses': {
+        get: {
+          tags: ['Buses'],
+          summary: 'Get all buses',
+          security: [{ BearerAuth: [] }],
+          parameters: [
+            { $ref: '#/components/parameters/PageParam' },
+            { $ref: '#/components/parameters/LimitParam' }
+          ],
+          responses: {
+            200: { description: 'Success', content: { 'application/json': { schema: { $ref: '#/components/schemas/PaginatedResponse' } } } }
+          }
+        },
+        post: {
+          tags: ['Buses'],
+          summary: 'Create new bus',
+          security: [{ BearerAuth: [] }],
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: { $ref: '#/components/schemas/Bus' }
+              }
+            }
+          },
+          responses: {
+            201: { description: 'Bus created successfully' },
+            400: { $ref: '#/components/responses/ValidationError' }
+          }
+        }
+      },
+      
+      // Route Endpoints
+      '/routes': {
+        get: {
+          tags: ['Routes'],
+          summary: 'Get all routes',
+          security: [{ BearerAuth: [] }],
+          parameters: [
+            { $ref: '#/components/parameters/PageParam' },
+            { $ref: '#/components/parameters/LimitParam' }
+          ],
+          responses: {
+            200: { description: 'Success', content: { 'application/json': { schema: { $ref: '#/components/schemas/PaginatedResponse' } } } }
+          }
+        },
+        post: {
+          tags: ['Routes'],
+          summary: 'Create new route',
+          security: [{ BearerAuth: [] }],
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: { $ref: '#/components/schemas/Route' }
+              }
+            }
+          },
+          responses: {
+            201: { description: 'Route created successfully' },
+            400: { $ref: '#/components/responses/ValidationError' }
+          }
+        },
+        delete: {
+          tags: ['Routes'],
+          summary: 'Delete routes (bulk operation)',
+          security: [{ BearerAuth: [] }],
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    ids: { type: 'array', items: { type: 'string' } }
+                  }
+                }
+              }
+            }
+          },
+          responses: {
+            200: { description: 'Routes deleted successfully' },
+            400: { $ref: '#/components/responses/ValidationError' }
+          }
+        }
+      },
+      '/routes/{routeNumber}/buses': {
+        get: {
+          tags: ['Routes'],
+          summary: 'Get buses operating on specific route',
+          security: [{ BearerAuth: [] }],
+          parameters: [
+            {
+              name: 'routeNumber',
+              in: 'path',
+              required: true,
+              description: 'Route number (e.g., 001, 138)',
+              schema: { type: 'string' }
+            }
+          ],
+          responses: {
+            200: { description: 'Success', content: { 'application/json': { schema: { $ref: '#/components/schemas/ApiResponse' } } } },
+            404: { $ref: '#/components/responses/NotFoundError' }
+          }
+        }
+      },
+      
+      // Trip Endpoints
+      '/trips/{id}': {
+        get: {
+          tags: ['Trips'],
+          summary: 'Get trip by ID',
+          security: [{ BearerAuth: [] }],
+          parameters: [
+            {
+              name: 'id',
+              in: 'path',
+              required: true,
+              description: 'Trip ObjectId',
+              schema: { type: 'string', pattern: '^[a-fA-F0-9]{24}$' }
+            }
+          ],
+          responses: {
+            200: { description: 'Success', content: { 'application/json': { schema: { $ref: '#/components/schemas/Trip' } } } },
+            404: { $ref: '#/components/responses/NotFoundError' }
+          }
+        }
+      },
+      
+      // Search Endpoints
+      '/search/combined': {
+        get: {
+          tags: ['Search', 'Public'],
+          summary: 'Combined search with advanced filters',
+          security: [],
+          parameters: [
+            { name: 'start', in: 'query', required: true, schema: { type: 'string', enum: ['Colombo Fort', 'Kandy', 'Galle', 'Matara', 'Badulla', 'Anuradhapura'] }, example: 'Colombo Fort' },
+            { name: 'end', in: 'query', required: false, schema: { type: 'string', enum: ['Colombo Fort', 'Kandy', 'Galle', 'Matara', 'Badulla', 'Anuradhapura'] }, example: 'Kandy' },
+            { name: 'limit', in: 'query', required: false, schema: { type: 'integer', default: 10 } },
+            { name: 'minFare', in: 'query', required: false, schema: { type: 'number', minimum: 460, maximum: 2100 }, example: 500 },
+            { name: 'maxFare', in: 'query', required: false, schema: { type: 'number', minimum: 460, maximum: 2100 }, example: 2000 },
+            { name: 'date', in: 'query', required: false, schema: { type: 'string', format: 'date' }, example: '2025-10-10' },
+            { name: 'busType', in: 'query', required: false, schema: { type: 'string', enum: ['Normal', 'Express', 'Intercity Express'] }, example: 'Express' }
+          ],
+          responses: {
+            200: { description: 'Search results', content: { 'application/json': { schema: { $ref: '#/components/schemas/ApiResponse' } } } }
+          }
+        }
+      },
+      '/search/routes': {
+        get: {
+          tags: ['Search', 'Public'],
+          summary: 'Search routes with filters',
+          security: [],
+          parameters: [
+            { name: 'page', in: 'query', required: false, schema: { type: 'integer', default: 1 } },
+            { name: 'limit', in: 'query', required: false, schema: { type: 'integer', default: 10 } },
+            { name: 'start', in: 'query', required: false, schema: { type: 'string', enum: ['Colombo Fort', 'Kandy', 'Galle', 'Matara', 'Badulla', 'Anuradhapura'] }, example: 'Colombo Fort' },
+            { name: 'minDistance', in: 'query', required: false, schema: { type: 'number', minimum: 0, maximum: 500 }, example: 100 },
+            { name: 'maxDistance', in: 'query', required: false, schema: { type: 'number', minimum: 0, maximum: 500 }, example: 200 },
+            { name: 'sortBy', in: 'query', required: false, schema: { type: 'string', enum: ['distance', 'duration', 'name'] }, example: 'distance' },
+            { name: 'sortOrder', in: 'query', required: false, schema: { type: 'string', enum: ['asc', 'desc'] }, example: 'desc' },
+            { name: 'stops', in: 'query', required: false, schema: { type: 'string', enum: ['Haputale', 'Kadugannawa', 'Gampaha', 'Aluthgama', 'Hikkaduwa', 'Balangoda', 'Dambulla', 'Avissawella'] }, example: 'Haputale' }
+          ],
+          responses: {
+            200: { description: 'Route search results', content: { 'application/json': { schema: { $ref: '#/components/schemas/PaginatedResponse' } } } }
+          }
+        }
+      },
+      '/search/advanced': {
+        get: {
+          tags: ['Search', 'Public'],
+          summary: 'Advanced search with multiple criteria',
+          security: [],
+          parameters: [
+            { name: 'start', in: 'query', required: true, schema: { type: 'string', enum: ['Colombo Fort', 'Kandy', 'Galle', 'Matara', 'Badulla', 'Anuradhapura'] }, example: 'Colombo Fort' },
+            { name: 'end', in: 'query', required: true, schema: { type: 'string', enum: ['Colombo Fort', 'Kandy', 'Galle', 'Matara', 'Badulla', 'Anuradhapura'] }, example: 'Kandy' },
+            { name: 'minFare', in: 'query', required: false, schema: { type: 'number', minimum: 460, maximum: 2100 }, example: 500 },
+            { name: 'maxFare', in: 'query', required: false, schema: { type: 'number', minimum: 460, maximum: 2100 }, example: 2000 }
+          ],
+          responses: {
+            200: { description: 'Advanced search results', content: { 'application/json': { schema: { $ref: '#/components/schemas/ApiResponse' } } } }
+          }
+        }
+      },
+      '/search/trips': {
+        get: {
+          tags: ['Search', 'Public'],
+          summary: 'Search trips with filters',
+          security: [],
+          parameters: [
+            { name: 'date', in: 'query', required: false, schema: { type: 'string', format: 'date' }, example: '2025-10-10' },
+            { name: 'minFare', in: 'query', required: false, schema: { type: 'number', minimum: 460, maximum: 2100 }, example: 500 },
+            { name: 'maxFare', in: 'query', required: false, schema: { type: 'number', minimum: 460, maximum: 2100 }, example: 2000 }
+          ],
+          responses: {
+            200: { description: 'Trip search results', content: { 'application/json': { schema: { $ref: '#/components/schemas/ApiResponse' } } } }
+          }
+        }
+      },
+      
+      // System Endpoints
+      '/health': {
+        get: {
+          tags: ['System', 'Public'],
+          summary: 'Health check endpoint',
+          security: [],
+          responses: {
+            200: { 
+              description: 'Service is healthy',
+              content: {
+                'application/json': {
+                  schema: {
+                    type: 'object',
+                    properties: {
+                      status: { type: 'string', example: 'OK' },
+                      timestamp: { type: 'string', format: 'date-time' },
+                      uptime: { type: 'number' }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      '/docs': {
+        get: {
+          tags: ['System', 'Public'],
+          summary: 'API Documentation',
+          security: [],
+          responses: {
+            200: { description: 'API documentation page' }
+          }
+        }
+      }
+    }
   },
-  apis: [
-    './src/routes/*.js',
-    './src/controllers/*.js',
-    './src/models/*.js'
-  ]
+  apis: []
 };
 
 const specs = swaggerJsdoc(options);

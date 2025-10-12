@@ -598,7 +598,7 @@ router.get('/routes', async (req, res) => {
       return true;
     });
 
-    console.log(`🔍 Routes filtered: ${filteredRoutes.length} (minDistance: ${minDistance}, maxDistance: ${maxDistance})`);
+    console.log(` Routes filtered: ${filteredRoutes.length} (minDistance: ${minDistance}, maxDistance: ${maxDistance})`);
 
     // Add journey info to filtered routes
     let matchingRoutes = filteredRoutes.map(route => ({
@@ -886,7 +886,7 @@ router.get('/trips', async (req, res) => {
     const tripsData = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data/trips.json'), 'utf8'));
     const busesData = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data/buses.json'), 'utf8'));
 
-    console.log(`🔍 TRIPS JSON-ONLY Search - date: ${date}, start: ${start}, end: ${end}, limit: ${limit}`);
+    console.log(` TRIPS JSON-ONLY Search - date: ${date}, start: ${start}, end: ${end}, limit: ${limit}`);
 
     // Step 1: Get all route numbers - show ALL trips by default
     let matchingRouteNumbers = routesData.map(route => route.routeNumber);
@@ -930,8 +930,8 @@ router.get('/trips', async (req, res) => {
       return true;
     });
 
-    console.log(`🔍 Filtered trips from JSON: ${jsonFilteredTrips.length} trips found`);
-    console.log(`🔍 Route breakdown:`, jsonFilteredTrips.reduce((acc, trip) => {
+    console.log(` Filtered trips from JSON: ${jsonFilteredTrips.length} trips found`);
+    console.log(` Route breakdown:`, jsonFilteredTrips.reduce((acc, trip) => {
       acc[trip.routeNumber] = (acc[trip.routeNumber] || 0) + 1;
       return acc;
     }, {}));
@@ -1003,7 +1003,7 @@ router.get('/trips', async (req, res) => {
     });
 
   } catch (error) {
-    console.error('🔍 Trip search error:', error);
+    console.error(' Trip search error:', error);
     res.status(500).json({
       success: false,
       message: 'Error in trip search',
@@ -1296,7 +1296,7 @@ router.get('/advanced', async (req, res) => {
     const tripsData = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data/trips.json'), 'utf8'));
     const busesData = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data/buses.json'), 'utf8'));
     
-    console.log(`🔍 JSON-ONLY Search - start: ${start}, end: ${end}, minFare: ${minFare}, maxFare: ${maxFare}`);
+    console.log(` JSON-ONLY Search - start: ${start}, end: ${end}, minFare: ${minFare}, maxFare: ${maxFare}`);
 
     // Step 1: Find EXACT matching routes from JSON
     let matchingRouteNumbers = [];
@@ -1328,10 +1328,10 @@ router.get('/advanced', async (req, res) => {
       matchingRouteNumbers = routesData.map(route => route.routeNumber);
     }
 
-    console.log(`🔍 Matching route numbers from JSON:`, matchingRouteNumbers);
+    console.log(` Matching route numbers from JSON:`, matchingRouteNumbers);
 
     if (matchingRouteNumbers.length === 0) {
-      console.log(`🔍 No routes found for ${start} -> ${end}`);
+      console.log(` No routes found for ${start} -> ${end}`);
       return res.json({
         success: true,
         data: { trips: [], pagination: { current: 1, pages: 0, total: 0 } },
@@ -1357,7 +1357,7 @@ router.get('/advanced', async (req, res) => {
       return true;
     });
 
-    console.log(`🔍 Filtered trips from JSON: ${filteredTrips.length}`);
+    console.log(` Filtered trips from JSON: ${filteredTrips.length}`);
 
     // Step 3: Add route and bus information to trips
     const tripsWithRoutes = filteredTrips.map(trip => {
@@ -1409,7 +1409,7 @@ router.get('/advanced', async (req, res) => {
       return publicData;
     });
 
-    console.log(`🔍 Returning ${results.length} JSON-verified results`);
+    console.log(` Returning ${results.length} JSON-verified results`);
 
     res.json({
       success: true,
@@ -1426,7 +1426,7 @@ router.get('/advanced', async (req, res) => {
     });
 
   } catch (error) {
-    console.error('🔍 JSON-only search error:', error);
+    console.error(' JSON-only search error:', error);
     res.status(500).json({
       success: false,
       message: 'Error in JSON-only search',

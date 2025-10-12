@@ -1,6 +1,6 @@
 import express from 'express';
 import AuthController from '../controllers/authController.js';
-import { protect } from '../middleware/auth.js';
+import { authenticate } from '../middleware/rbac.js';
 
 const router = express.Router();
 
@@ -230,8 +230,13 @@ const router = express.Router();
 router.post('/register', AuthController.register);
 router.post('/login', AuthController.login);
 
+// Session-based authentication routes
+router.post('/login-session', AuthController.loginSession);
+router.post('/logout-session', AuthController.logoutSession);
+router.get('/session-status', AuthController.getSessionStatus);
+
 // Protected routes
-router.use(protect); // All routes below require authentication
+router.use(authenticate); // All routes below require authentication
 router.get('/profile', AuthController.getProfile);
 router.put('/profile', AuthController.updateProfile);
 router.post('/change-password', AuthController.changePassword);
