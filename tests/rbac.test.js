@@ -112,8 +112,8 @@ describe('RBAC Middleware Tests', () => {
       expect(res.json).toHaveBeenCalledWith({
         statusCode: 401,
         success: false,
-        message: 'Access denied. Authentication token is required.',
-        error: 'NO_TOKEN_PROVIDED'
+        message: 'Access denied. Malformed authentication token.',
+        error: 'MALFORMED_TOKEN'
       });
     });
 
