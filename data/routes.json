@@ -1,0 +1,552 @@
+[
+  {
+    "routeId": "RT-001-UP",
+    "routeNumber": "001",
+    "name": "Colombo Fort - Kandy",
+    "start": {
+      "city": "Colombo Fort",
+      "province": "Western",
+      "coordinates": { "latitude": 6.9344, "longitude": 79.8428 }
+    },
+    "destination": {
+      "city": "Kandy",
+      "province": "Central",
+      "coordinates": { "latitude": 7.2906, "longitude": 80.6337 }
+    },
+    "distance": 120,
+    "estimatedDuration": 180,
+    "stops": [
+      {
+        "name": "Colombo Fort",
+        "coordinates": { "latitude": 6.9344, "longitude": 79.8428 },
+        "order": 1
+      },
+      {
+        "name": "Kiribathgoda",
+        "coordinates": { "latitude": 6.9788, "longitude": 79.9292 },
+        "order": 2
+      },
+      {
+        "name": "Gampaha",
+        "coordinates": { "latitude": 7.0873, "longitude": 79.9924 },
+        "order": 3
+      },
+      {
+        "name": "Veyangoda",
+        "coordinates": { "latitude": 7.1547, "longitude": 80.0389 },
+        "order": 4
+      },
+      {
+        "name": "Mirigama",
+        "coordinates": { "latitude": 7.2417, "longitude": 80.1167 },
+        "order": 5
+      },
+      {
+        "name": "Pasyala",
+        "coordinates": { "latitude": 7.1667, "longitude": 80.1167 },
+        "order": 6
+      },
+      {
+        "name": "Nittambuwa",
+        "coordinates": { "latitude": 7.1408, "longitude": 80.0906 },
+        "order": 7
+      },
+      {
+        "name": "Warakapola",
+        "coordinates": { "latitude": 7.2292, "longitude": 80.2042 },
+        "order": 8
+      },
+      {
+        "name": "Kegalle",
+        "coordinates": { "latitude": 7.2513, "longitude": 80.3436 },
+        "order": 9
+      },
+      {
+        "name": "Mawanella",
+        "coordinates": { "latitude": 7.2551, "longitude": 80.4539 },
+        "order": 10
+      },
+      {
+        "name": "Kadugannawa",
+        "coordinates": { "latitude": 7.2575, "longitude": 80.5289 },
+        "order": 11
+      },
+      {
+        "name": "Peradeniya",
+        "coordinates": { "latitude": 7.2599, "longitude": 80.5977 },
+        "order": 12
+      },
+      {
+        "name": "Kandy",
+        "coordinates": { "latitude": 7.2906, "longitude": 80.6337 },
+        "order": 13
+      }
+    ],
+    "isActive": true
+  },
+  {
+    "routeId": "RT-001-DOWN",
+    "routeNumber": "001",
+    "name": "Kandy - Colombo Fort",
+    "start": {
+      "city": "Kandy",
+      "province": "Central",
+      "coordinates": { "latitude": 7.2906, "longitude": 80.6337 }
+    },
+    "destination": {
+      "city": "Colombo Fort",
+      "province": "Western",
+      "coordinates": { "latitude": 6.9344, "longitude": 79.8428 }
+    },
+    "distance": 120,
+    "estimatedDuration": 180,
+    "stops": [
+      {
+        "name": "Kandy",
+        "coordinates": { "latitude": 7.2906, "longitude": 80.6337 },
+        "order": 1
+      },
+      {
+        "name": "Peradeniya",
+        "coordinates": { "latitude": 7.2599, "longitude": 80.5977 },
+        "order": 2
+      },
+      {
+        "name": "Kadugannawa",
+        "coordinates": { "latitude": 7.2575, "longitude": 80.5289 },
+        "order": 3
+      },
+      {
+        "name": "Mawanella",
+        "coordinates": { "latitude": 7.2551, "longitude": 80.4539 },
+        "order": 4
+      },
+      {
+        "name": "Kegalle",
+        "coordinates": { "latitude": 7.2513, "longitude": 80.3436 },
+        "order": 5
+      },
+      {
+        "name": "Warakapola",
+        "coordinates": { "latitude": 7.2292, "longitude": 80.2042 },
+        "order": 6
+      },
+      {
+        "name": "Nittambuwa",
+        "coordinates": { "latitude": 7.1408, "longitude": 80.0906 },
+        "order": 7
+      },
+      {
+        "name": "Pasyala",
+        "coordinates": { "latitude": 7.1667, "longitude": 80.1167 },
+        "order": 8
+      },
+      {
+        "name": "Mirigama",
+        "coordinates": { "latitude": 7.2417, "longitude": 80.1167 },
+        "order": 9
+      },
+      {
+        "name": "Veyangoda",
+        "coordinates": { "latitude": 7.1547, "longitude": 80.0389 },
+        "order": 10
+      },
+      {
+        "name": "Gampaha",
+        "coordinates": { "latitude": 7.0873, "longitude": 79.9924 },
+        "order": 11
+      },
+      {
+        "name": "Kiribathgoda",
+        "coordinates": { "latitude": 6.9788, "longitude": 79.9292 },
+        "order": 12
+      },
+      {
+        "name": "Colombo Fort",
+        "coordinates": { "latitude": 6.9344, "longitude": 79.8428 },
+        "order": 13
+      }
+    ],
+    "isActive": true
+  },
+  {
+    "routeId": "RT-002-DOWN",
+    "routeNumber": "002",
+    "name": "Galle - Colombo",
+    "start": {
+      "city": "Colombo Fort",
+      "province": "Western",
+      "coordinates": { "latitude": 6.9344, "longitude": 79.8428 }
+    },
+    "destination": {
+      "city": "Matara",
+      "province": "Southern",
+      "coordinates": { "latitude": 5.9549, "longitude": 80.5550 }
+    },
+    "distance": 160,
+    "estimatedDuration": 240,
+    "stops": [
+      {
+        "name": "Colombo Fort",
+        "coordinates": { "latitude": 6.9344, "longitude": 79.8428 },
+        "order": 1
+      },
+      {
+        "name": "Mount Lavinia",
+        "coordinates": { "latitude": 6.8293, "longitude": 79.8650 },
+        "order": 2
+      },
+      {
+        "name": "Panadura",
+        "coordinates": { "latitude": 6.7132, "longitude": 79.9026 },
+        "order": 3
+      },
+      {
+        "name": "Kalutara",
+        "coordinates": { "latitude": 6.5854, "longitude": 79.9607 },
+        "order": 4
+      },
+      {
+        "name": "Aluthgama",
+        "coordinates": { "latitude": 6.4258, "longitude": 79.9901 },
+        "order": 5
+      },
+      {
+        "name": "Hikkaduwa",
+        "coordinates": { "latitude": 6.1408, "longitude": 80.1031 },
+        "order": 6
+      },
+      {
+        "name": "Galle",
+        "coordinates": { "latitude": 6.0535, "longitude": 80.2210 },
+        "order": 7
+      },
+      {
+        "name": "Matara",
+        "coordinates": { "latitude": 5.9549, "longitude": 80.5550 },
+        "order": 8
+      }
+    ],
+    "isActive": true
+  },
+  {
+    "routeId": "RT-002-UP",
+    "routeNumber": "002",
+    "name": "Matara - Colombo Fort",
+    "start": {
+      "city": "Matara",
+      "province": "Southern",
+      "coordinates": { "latitude": 5.9549, "longitude": 80.5550 }
+    },
+    "destination": {
+      "city": "Colombo Fort",
+      "province": "Western",
+      "coordinates": { "latitude": 6.9344, "longitude": 79.8428 }
+    },
+    "distance": 160,
+    "estimatedDuration": 240,
+    "stops": [
+      {
+        "name": "Matara",
+        "coordinates": { "latitude": 5.9549, "longitude": 80.5550 },
+        "order": 1
+      },
+      {
+        "name": "Galle",
+        "coordinates": { "latitude": 6.0535, "longitude": 80.2210 },
+        "order": 2
+      },
+      {
+        "name": "Hikkaduwa",
+        "coordinates": { "latitude": 6.1408, "longitude": 80.1031 },
+        "order": 3
+      },
+      {
+        "name": "Aluthgama",
+        "coordinates": { "latitude": 6.4258, "longitude": 79.9901 },
+        "order": 4
+      },
+      {
+        "name": "Kalutara",
+        "coordinates": { "latitude": 6.5854, "longitude": 79.9607 },
+        "order": 5
+      },
+      {
+        "name": "Panadura",
+        "coordinates": { "latitude": 6.7132, "longitude": 79.9026 },
+        "order": 6
+      },
+      {
+        "name": "Mount Lavinia",
+        "coordinates": { "latitude": 6.8293, "longitude": 79.8650 },
+        "order": 7
+      },
+      {
+        "name": "Colombo Fort",
+        "coordinates": { "latitude": 6.9344, "longitude": 79.8428 },
+        "order": 8
+      }
+    ],
+    "isActive": true
+  },
+  {
+    "routeId": "RT-002-1-UP",
+    "routeNumber": "002-1",
+    "name": "Colombo - Matara",
+    "start": {
+      "city": "Colombo Fort",
+      "province": "Western",
+      "coordinates": { "latitude": 6.9344, "longitude": 79.8428 }
+    },
+    "destination": {
+      "city": "Galle",
+      "province": "Southern",
+      "coordinates": { "latitude": 6.0535, "longitude": 80.2210 }
+    },
+    "distance": 115,
+    "estimatedDuration": 120,
+    "stops": [
+      {
+        "name": "Colombo Fort",
+        "coordinates": { "latitude": 6.9344, "longitude": 79.8428 },
+        "order": 1
+      },
+      {
+        "name": "Kalutara",
+        "coordinates": { "latitude": 6.5854, "longitude": 79.9607 },
+        "order": 2
+      },
+      {
+        "name": "Galle",
+        "coordinates": { "latitude": 6.0535, "longitude": 80.2210 },
+        "order": 3
+      }
+    ],
+    "isActive": true
+  },
+  {
+    "routeId": "RT-002-1-DOWN",
+    "routeNumber": "002-1",
+    "name": "Galle - Colombo Fort Express",
+    "start": {
+      "city": "Galle",
+      "province": "Southern",
+      "coordinates": { "latitude": 6.0535, "longitude": 80.2210 }
+    },
+    "destination": {
+      "city": "Colombo Fort",
+      "province": "Western",
+      "coordinates": { "latitude": 6.9344, "longitude": 79.8428 }
+    },
+    "distance": 115,
+    "estimatedDuration": 120,
+    "stops": [
+      {
+        "name": "Galle",
+        "coordinates": { "latitude": 6.0535, "longitude": 80.2210 },
+        "order": 1
+      },
+      {
+        "name": "Kalutara",
+        "coordinates": { "latitude": 6.5854, "longitude": 79.9607 },
+        "order": 2
+      },
+      {
+        "name": "Colombo Fort",
+        "coordinates": { "latitude": 6.9344, "longitude": 79.8428 },
+        "order": 3
+      }
+    ],
+    "isActive": true
+  },
+  {
+    "routeId": "RT-004-UP",
+    "routeNumber": "004",
+    "name": "Colombo Fort - Anuradhapura",
+    "start": {
+      "city": "Colombo Fort",
+      "province": "Western",
+      "coordinates": { "latitude": 6.9344, "longitude": 79.8428 }
+    },
+    "destination": {
+      "city": "Anuradhapura",
+      "province": "North Central",
+      "coordinates": { "latitude": 8.3114, "longitude": 80.4037 }
+    },
+    "distance": 205,
+    "estimatedDuration": 330,
+    "stops": [
+      {
+        "name": "Colombo Fort",
+        "coordinates": { "latitude": 6.9344, "longitude": 79.8428 },
+        "order": 1
+      },
+      {
+        "name": "Negombo",
+        "coordinates": { "latitude": 7.2083, "longitude": 79.8358 },
+        "order": 2
+      },
+      {
+        "name": "Kurunegala",
+        "coordinates": { "latitude": 7.4818, "longitude": 80.3653 },
+        "order": 3
+      },
+      {
+        "name": "Dambulla",
+        "coordinates": { "latitude": 7.8603, "longitude": 80.6518 },
+        "order": 4
+      },
+      {
+        "name": "Anuradhapura",
+        "coordinates": { "latitude": 8.3114, "longitude": 80.4037 },
+        "order": 5
+      }
+    ],
+    "isActive": true
+  },
+  {
+    "routeId": "RT-004-DOWN",
+    "routeNumber": "004",
+    "name": "Anuradhapura - Colombo Fort",
+    "start": {
+      "city": "Anuradhapura",
+      "province": "North Central",
+      "coordinates": { "latitude": 8.3114, "longitude": 80.4037 }
+    },
+    "destination": {
+      "city": "Colombo Fort",
+      "province": "Western",
+      "coordinates": { "latitude": 6.9344, "longitude": 79.8428 }
+    },
+    "distance": 205,
+    "estimatedDuration": 330,
+    "stops": [
+      {
+        "name": "Anuradhapura",
+        "coordinates": { "latitude": 8.3114, "longitude": 80.4037 },
+        "order": 1
+      },
+      {
+        "name": "Dambulla",
+        "coordinates": { "latitude": 7.8603, "longitude": 80.6518 },
+        "order": 2
+      },
+      {
+        "name": "Kurunegala",
+        "coordinates": { "latitude": 7.4818, "longitude": 80.3653 },
+        "order": 3
+      },
+      {
+        "name": "Negombo",
+        "coordinates": { "latitude": 7.2083, "longitude": 79.8358 },
+        "order": 4
+      },
+      {
+        "name": "Colombo Fort",
+        "coordinates": { "latitude": 6.9344, "longitude": 79.8428 },
+        "order": 5
+      }
+    ],
+    "isActive": true
+  },
+  {
+    "routeId": "RT-099-UP",
+    "routeNumber": "099",
+    "name": "Colombo Fort - Badulla",
+    "start": {
+      "city": "Colombo Fort",
+      "province": "Western",
+      "coordinates": { "latitude": 6.9344, "longitude": 79.8428 }
+    },
+    "destination": {
+      "city": "Badulla",
+      "province": "Uva",
+      "coordinates": { "latitude": 6.9895, "longitude": 81.0567 }
+    },
+    "distance": 230,
+    "estimatedDuration": 420,
+    "stops": [
+      {
+        "name": "Colombo Fort",
+        "coordinates": { "latitude": 6.9344, "longitude": 79.8428 },
+        "order": 1
+      },
+      {
+        "name": "Avissawella",
+        "coordinates": { "latitude": 6.9515, "longitude": 80.2113 },
+        "order": 2
+      },
+      {
+        "name": "Ratnapura",
+        "coordinates": { "latitude": 6.6828, "longitude": 80.3992 },
+        "order": 3
+      },
+      {
+        "name": "Balangoda",
+        "coordinates": { "latitude": 6.6542, "longitude": 80.6804 },
+        "order": 4
+      },
+      {
+        "name": "Haputale",
+        "coordinates": { "latitude": 6.7674, "longitude": 80.9540 },
+        "order": 5
+      },
+      {
+        "name": "Badulla",
+        "coordinates": { "latitude": 6.9895, "longitude": 81.0567 },
+        "order": 6
+      }
+    ],
+    "isActive": true
+  },
+  {
+    "routeId": "RT-099-DOWN",
+    "routeNumber": "099",
+    "name": "Badulla - Colombo Fort",
+    "start": {
+      "city": "Badulla",
+      "province": "Uva",
+      "coordinates": { "latitude": 6.9895, "longitude": 81.0567 }
+    },
+    "destination": {
+      "city": "Colombo Fort",
+      "province": "Western",
+      "coordinates": { "latitude": 6.9344, "longitude": 79.8428 }
+    },
+    "distance": 230,
+    "estimatedDuration": 420,
+    "stops": [
+      {
+        "name": "Badulla",
+        "coordinates": { "latitude": 6.9895, "longitude": 81.0567 },
+        "order": 1
+      },
+      {
+        "name": "Haputale",
+        "coordinates": { "latitude": 6.7674, "longitude": 80.9540 },
+        "order": 2
+      },
+      {
+        "name": "Balangoda",
+        "coordinates": { "latitude": 6.6542, "longitude": 80.6804 },
+        "order": 3
+      },
+      {
+        "name": "Ratnapura",
+        "coordinates": { "latitude": 6.6828, "longitude": 80.3992 },
+        "order": 4
+      },
+      {
+        "name": "Avissawella",
+        "coordinates": { "latitude": 6.9515, "longitude": 80.2113 },
+        "order": 5
+      },
+      {
+        "name": "Colombo Fort",
+        "coordinates": { "latitude": 6.9344, "longitude": 79.8428 },
+        "order": 6
+      }
+    ],
+    "isActive": true
+  }
+]
