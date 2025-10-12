@@ -9,26 +9,83 @@ import User from '../models/User.js';
 export const authenticate = async (req, res, next) => {
   try {
     let user = null;
+    let jwtError = null;
     
     // First, try JWT authentication
     let token;
     const authHeader = req.headers.authorization;
     
-    if (authHeader && authHeader.startsWith('Bearer ')) {
+    // Check if authorization header exists
+    if (!authHeader) {
+      // Try session authentication first before returning NO_TOKEN_PROVIDED
+      if (req.session && req.session.isAuthenticated && req.session.userId) {
+        user = await User.findById(req.session.userId).select('+permissions');
+      }
+      
+      if (!user) {
+        return res.status(401).json({
+          statusCode: 401,
+          success: false,
+          message: 'Access denied. Authentication token is required.',
+          error: 'NO_TOKEN_PROVIDED'
+        });
+      }
+    } else if (!authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({
+        statusCode: 401,
+        success: false,
+        message: 'Access denied. Malformed authentication token.',
+        error: 'MALFORMED_TOKEN'
+      });
+    } else {
       token = authHeader.substring(7);
-    }
+      
+      if (!token) {
+        return res.status(401).json({
+          statusCode: 401,
+          success: false,
+          message: 'Access denied. Authentication token is required.',
+          error: 'NO_TOKEN_PROVIDED'
+        });
+      }
 
-    if (token) {
       try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         user = await User.findById(decoded.userId).select('+permissions');
-      } catch (jwtError) {
-        // JWT failed, will try session next
+        
+        if (!user) {
+          return res.status(401).json({
+            statusCode: 401,
+            success: false,
+            message: 'Access denied. User account not found.',
+            error: 'USER_NOT_FOUND'
+          });
+        }
+      } catch (error) {
+        // Handle specific JWT errors
+        if (error.name === 'TokenExpiredError') {
+          return res.status(401).json({
+            statusCode: 401,
+            success: false,
+            message: 'Access denied. Authentication token has expired.',
+            error: 'TOKEN_EXPIRED'
+          });
+        } else if (error.name === 'JsonWebTokenError') {
+          return res.status(401).json({
+            statusCode: 401,
+            success: false,
+            message: 'Access denied. Malformed authentication token.',
+            error: 'MALFORMED_TOKEN'
+          });
+        }
+        
+        // Store JWT error for later handling
+        jwtError = error;
       }
     }
     
-    // If no valid JWT, try session authentication
-    if (!user && req.session && req.session.isAuthenticated && req.session.userId) {
+    // If JWT failed, try session authentication
+    if (!user && jwtError && req.session && req.session.isAuthenticated && req.session.userId) {
       user = await User.findById(req.session.userId).select('+permissions');
     }
 
