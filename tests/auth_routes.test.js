@@ -16,7 +16,10 @@ const mockAuthController = {
   login: jest.fn(),
   getProfile: jest.fn(),
   updateProfile: jest.fn(),
-  changePassword: jest.fn()
+  changePassword: jest.fn(),
+  loginSession: jest.fn(),
+  logoutSession: jest.fn(),
+  getSessionStatus: jest.fn()
 };
 
 // Mock the protect middleware
@@ -32,8 +35,8 @@ beforeAll(async () => {
     default: mockAuthController
   }));
   
-  jest.unstable_mockModule('../src/middleware/auth.js', () => ({
-    protect: mockProtect
+  jest.unstable_mockModule('../src/middleware/rbac.js', () => ({
+    authenticate: mockProtect
   }));
   
   // Import and use the auth routes after mocking
@@ -81,6 +84,28 @@ beforeEach(() => {
     res.status(200).json({
       success: true,
       message: 'Password changed successfully'
+    });
+  });
+  
+  mockAuthController.loginSession.mockImplementation((req, res) => {
+    res.status(200).json({
+      success: true,
+      message: 'Session login successful',
+      data: { sessionId: 'mock-session-id', user: { id: 'mock-user-id' } }
+    });
+  });
+  
+  mockAuthController.logoutSession.mockImplementation((req, res) => {
+    res.status(200).json({
+      success: true,
+      message: 'Session logout successful'
+    });
+  });
+  
+  mockAuthController.getSessionStatus.mockImplementation((req, res) => {
+    res.status(200).json({
+      success: true,
+      data: { authenticated: true, user: { id: 'mock-user-id' } }
     });
   });
   
