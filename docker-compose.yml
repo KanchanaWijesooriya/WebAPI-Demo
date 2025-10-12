@@ -18,3 +18,4 @@ services:
 networks:
   ntc_network:
     driver: bridge
+    
