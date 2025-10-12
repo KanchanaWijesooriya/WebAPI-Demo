@@ -1,0 +1,62 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches: [ prod ]
+  pull_request:
+    branches: [ prod ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run tests
+      run: npm test
+      
+    - name: Deploy to EC2
+      if: github.ref == 'refs/heads/prod'
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.EC2_PRIVATE_KEY }}
+        script: |
+          # Navigate to project directory
+          cd ntc-bus-tracking-api
+          
+          # Pull latest changes
+          git pull origin prod
+          
+          # Rebuild and restart containers
+          docker-compose down
+          docker-compose build --no-cache
+          docker-compose up -d
+          
+          # Wait for container to start
+          sleep 10
+          
+          # Verify deployment
+          curl -k https://localhost:443/api/health
+          
+          # Show container status
+          docker-compose ps
+          
+    - name: Deployment Status
+      if: github.ref == 'refs/heads/prod'
+      run: |
+        echo "🚀 Deployment completed!"
+        echo "✅ API should be available at: https://ntc-bustracking.me"
+        echo "✅ Health check: https://ntc-bustracking.me/api/health"
