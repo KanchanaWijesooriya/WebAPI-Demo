@@ -746,6 +746,10 @@ const options = {
         description: 'Trip scheduling and tracking'
       },
       {
+        name: 'Location Management',
+        description: 'Real-time GPS location tracking and history for buses'
+      },
+      {
         name: 'Search',
         description: 'Advanced search and filtering capabilities'
       },
@@ -1192,6 +1196,285 @@ const options = {
         }
       },
       
+      // Location Endpoints
+      '/locations/update': {
+        post: {
+          tags: ['Location Management'],
+          summary: 'Update bus location (Driver/Operator)',
+          description: 'Allows drivers and operators to update real-time GPS coordinates for their assigned buses',
+          security: [{ BearerAuth: [] }],
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  required: ['busId', 'latitude', 'longitude'],
+                  properties: {
+                    busId: {
+                      type: 'string',
+                      format: 'ObjectId',
+                      description: 'MongoDB ObjectId of the bus',
+                      example: '60d21b4667d0d8992e610c85'
+                    },
+                    latitude: {
+                      type: 'number',
+                      minimum: -90,
+                      maximum: 90,
+                      description: 'GPS latitude coordinate',
+                      example: 6.9271
+                    },
+                    longitude: {
+                      type: 'number',
+                      minimum: -180,
+                      maximum: 180,
+                      description: 'GPS longitude coordinate',
+                      example: 79.8612
+                    }
+                  }
+                }
+              }
+            }
+          },
+          responses: {
+            200: {
+              description: 'Location updated successfully',
+              content: {
+                'application/json': {
+                  schema: {
+                    $ref: '#/components/schemas/ApiResponse'
+                  },
+                  example: {
+                    statusCode: 200,
+                    success: true,
+                    message: 'Location updated successfully',
+                    data: {
+                      locationId: '60d21b4667d0d8992e610c86',
+                      busId: '60d21b4667d0d8992e610c85',
+                      coordinates: {
+                        latitude: 6.9271,
+                        longitude: 79.8612
+                      },
+                      timestamp: '2024-01-15T10:30:00.000Z',
+                      updatedBy: '60d21b4667d0d8992e610c84'
+                    },
+                    timestamp: '2024-01-15T10:30:00.000Z'
+                  }
+                }
+              }
+            },
+            400: {
+              description: 'Invalid request data',
+              content: {
+                'application/json': {
+                  schema: {
+                    $ref: '#/components/schemas/ErrorResponse'
+                  },
+                  example: {
+                    statusCode: 400,
+                    success: false,
+                    message: 'Validation failed',
+                    error: 'Invalid coordinates provided'
+                  }
+                }
+              }
+            },
+            401: {
+              $ref: '#/components/responses/UnauthorizedError'
+            },
+            403: {
+              description: 'Insufficient permissions',
+              content: {
+                'application/json': {
+                  schema: {
+                    $ref: '#/components/schemas/ErrorResponse'
+                  },
+                  example: {
+                    statusCode: 403,
+                    success: false,
+                    message: 'Access denied',
+                    error: 'Only drivers and operators can update locations'
+                  }
+                }
+              }
+            },
+            404: {
+              description: 'Bus not found',
+              content: {
+                'application/json': {
+                  schema: {
+                    $ref: '#/components/schemas/ErrorResponse'
+                  },
+                  example: {
+                    statusCode: 404,
+                    success: false,
+                    message: 'Bus not found'
+                  }
+                }
+              }
+            },
+            500: {
+              description: 'Server error',
+              content: {
+                'application/json': {
+                  schema: {
+                    $ref: '#/components/schemas/ErrorResponse'
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      '/locations/{busId}/history': {
+        get: {
+          tags: ['Location Management'],
+          summary: 'Get bus location history',
+          description: 'Retrieve historical location data for a specific bus',
+          security: [{ BearerAuth: [] }],
+          parameters: [
+            {
+              name: 'busId',
+              in: 'path',
+              required: true,
+              description: 'Bus MongoDB ObjectId',
+              schema: {
+                type: 'string',
+                format: 'ObjectId',
+                pattern: '^[a-fA-F0-9]{24}$'
+              },
+              example: '60d21b4667d0d8992e610c85'
+            },
+            {
+              name: 'limit',
+              in: 'query',
+              required: false,
+              description: 'Number of records to return',
+              schema: {
+                type: 'integer',
+                minimum: 1,
+                maximum: 100,
+                default: 50
+              }
+            },
+            {
+              name: 'startDate',
+              in: 'query',
+              required: false,
+              description: 'Start date for filtering (ISO 8601)',
+              schema: {
+                type: 'string',
+                format: 'date-time'
+              },
+              example: '2024-01-15T00:00:00.000Z'
+            },
+            {
+              name: 'endDate',
+              in: 'query',
+              required: false,
+              description: 'End date for filtering (ISO 8601)',
+              schema: {
+                type: 'string',
+                format: 'date-time'
+              },
+              example: '2024-01-15T23:59:59.999Z'
+            }
+          ],
+          responses: {
+            200: {
+              description: 'Location history retrieved successfully',
+              content: {
+                'application/json': {
+                  schema: {
+                    $ref: '#/components/schemas/ApiResponse'
+                  },
+                  example: {
+                    statusCode: 200,
+                    success: true,
+                    message: 'Location history retrieved successfully',
+                    data: [
+                      {
+                        _id: '60d21b4667d0d8992e610c86',
+                        bus: '60d21b4667d0d8992e610c85',
+                        coordinates: {
+                          latitude: 6.9271,
+                          longitude: 79.8612
+                        },
+                        timestamp: '2024-01-15T10:30:00.000Z',
+                        updatedBy: '60d21b4667d0d8992e610c84'
+                      }
+                    ],
+                    count: 1,
+                    timestamp: '2024-01-15T10:30:00.000Z'
+                  }
+                }
+              }
+            },
+            401: {
+              $ref: '#/components/responses/UnauthorizedError'
+            },
+            404: {
+              description: 'Bus not found',
+              content: {
+                'application/json': {
+                  schema: {
+                    $ref: '#/components/schemas/ErrorResponse'
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      '/locations/current': {
+        get: {
+          tags: ['Location Management', 'Public'],
+          summary: 'Get current locations of all buses',
+          description: 'Public endpoint to retrieve latest location data for all active buses',
+          security: [],
+          responses: {
+            200: {
+              description: 'Current locations retrieved successfully',
+              content: {
+                'application/json': {
+                  schema: {
+                    $ref: '#/components/schemas/ApiResponse'
+                  },
+                  example: {
+                    statusCode: 200,
+                    success: true,
+                    message: 'Current locations retrieved successfully',
+                    data: [
+                      {
+                        busId: '60d21b4667d0d8992e610c85',
+                        busNumber: 'NTC-001',
+                        coordinates: {
+                          latitude: 6.9271,
+                          longitude: 79.8612
+                        },
+                        lastUpdated: '2024-01-15T10:30:00.000Z'
+                      }
+                    ],
+                    count: 1,
+                    timestamp: '2024-01-15T10:30:00.000Z'
+                  }
+                }
+              }
+            },
+            500: {
+              description: 'Server error',
+              content: {
+                'application/json': {
+                  schema: {
+                    $ref: '#/components/schemas/ErrorResponse'
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+
       // System Endpoints
       '/health': {
         get: {
