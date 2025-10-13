@@ -226,10 +226,12 @@ Trigger: Push to main branch
 
 | Method | Endpoint | Description | Auth Required | Response |
 |--------|----------|-------------|---------------|----------|
-| `GET` | `/api/locations` | List location history | ❌ | Array of locations |
-| `GET` | `/api/locations/:busId` | Get bus location history | ❌ | Location history |
-| `POST` | `/api/locations/update` | Update bus location | ✅ Driver | Updated location |
-| `GET` | `/api/locations/nearby` | Find nearby buses | ❌ | Nearby buses |
+| `POST` | `/api/locations/update` | Update bus location | ✅ Driver/Operator | Updated location |
+| `GET` | `/api/locations/:busId/history` | Get bus location history | ✅ Driver/Operator/Admin | Location history |
+| `GET` | `/api/locations/current` | Get all current bus locations | ❌ | Current locations |
+| `GET` | `/api/public/live-location` | Get real-time bus locations | ❌ | Live location data |
+| `GET` | `/api/public/bus-location/:busId` | Get specific bus location | ❌ | Bus location history |
+| `GET` | `/api/buses/:id/location` | Get bus current location | ❌ | Current location |
 
 ### **🔍 Search & Discovery**
 
