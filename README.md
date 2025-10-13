@@ -256,29 +256,10 @@ Trigger: Push to main branch
 | `GET` | `/api/health` | System status and diagnostics | ❌ | Health status |
 | `GET` | `/api/docs` | Interactive API documentation (Swagger) | ❌ | Documentation UI |
 | `GET` | `/api/system/metrics` | Performance metrics | ✅ Admin | System metrics |
-GET    /api/search/routes        # Smart route search with bidirectional support
-GET    /api/search/trips         # Trip search with filters (time, fare, date)
-GET    /api/search/combined      # Multi-modal journey planning
-GET    /api/search/pricing/{from}/{to}  # Comprehensive fare comparison
-```
 
-### **👥 User Management (Admin)**
-```http
-GET    /api/users                # User directory and role management
-POST   /api/users                # Create user account with role
-PUT    /api/users/{id}           # Update user profile
-DELETE /api/users/{id}           # Deactivate user account
-PUT    /api/users/{id}/role      # Change user permissions
-PUT    /api/users/{id}/status    # Account activation control
-```
+---
 
-### **🔧 System Operations**
-```http
-GET    /api/health               # System status and diagnostics
-GET    /api/docs                 # Interactive API documentation (Swagger)
-GET    /api/system/metrics       # Performance metrics (Admin only)
-```
-
+## 🔐 Authentication & Authorization
 ---
 
 ## 🔐 Authentication & Authorization
