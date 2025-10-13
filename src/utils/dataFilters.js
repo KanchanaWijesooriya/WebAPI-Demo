@@ -18,7 +18,7 @@ export function filterRouteData(route, userRole = null, options = {}) {
   // Public user - clean, end-user focused format
   if (!userRole || userRole === 'passenger') {
     // Convert route ID to simple number format
-    const routeNumber = routeObj.routeId?.replace(/[^0-9]/g, '') || routeObj.routeNumber?.replace(/[^0-9]/g, '') || '001';
+    const routeNumber = routeObj.routeNumber || routeObj.routeId?.replace(/^RT-/, '').replace(/-(UP|DOWN)$/, '') || '001';
     
     // Get direction from route ID or default (forward = Down line, reverse = Up line)
     const direction = routeObj.routeId?.includes('UP') ? 'Up line' : 'Down line';
