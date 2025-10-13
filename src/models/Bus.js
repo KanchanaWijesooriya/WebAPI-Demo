@@ -45,12 +45,12 @@ const busSchema = new mongoose.Schema({
   },
   busType: {
     type: String,
-    enum: ['Normal', 'Semi-Luxury', 'Luxury', 'Air-Conditioned'],
+    enum: ['Normal', 'Express', 'Intercity Express', 'Intercity Express', 'Air-Conditioned'],
     default: 'Normal'
   },
   facilities: [{
     type: String,
-    enum: ['WiFi', 'AC', 'Charging Ports', 'Entertainment System', 'Washroom']
+    enum: ['WiFi', 'AC', 'Charging Ports']
   }],
   currentLocation: {
     coordinates: {
@@ -72,6 +72,15 @@ const busSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
     index: true
+  },
+  availability: {
+    monday: { type: Boolean, default: true },
+    tuesday: { type: Boolean, default: true },
+    wednesday: { type: Boolean, default: true },
+    thursday: { type: Boolean, default: true },
+    friday: { type: Boolean, default: true },
+    saturday: { type: Boolean, default: true },
+    sunday: { type: Boolean, default: true }
   }
 }, {
   timestamps: true,

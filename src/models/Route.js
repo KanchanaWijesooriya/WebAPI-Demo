@@ -1,10 +1,16 @@
 import mongoose from 'mongoose';
 
 const routeSchema = new mongoose.Schema({
+  routeId: {
+    type: String,
+    required: [true, 'Route ID is required'],
+    unique: true,
+    trim: true,
+    index: true
+  },
   routeNumber: {
     type: String,
     required: [true, 'Route number is required'],
-    unique: true,
     trim: true,
     index: true
   },
@@ -13,15 +19,15 @@ const routeSchema = new mongoose.Schema({
     required: [true, 'Route name is required'],
     trim: true
   },
-  origin: {
+  start: {
     city: {
       type: String,
-      required: [true, 'Origin city is required'],
+      required: [true, 'start city is required'],
       trim: true
     },
     province: {
       type: String,
-      required: [true, 'Origin province is required'],
+      required: [true, 'start province is required'],
       trim: true
     },
     coordinates: {
@@ -61,8 +67,28 @@ const routeSchema = new mongoose.Schema({
       latitude: { type: Number, required: true },
       longitude: { type: Number, required: true }
     },
-    order: { type: Number, required: true }
+    order: { type: Number, required: true },
+    distanceFromstart: { type: Number, default: 0 }, // km from start
+    cumulativeDistance: { type: Number, default: 0 }  // total distance covered
   }],
+  // Stopwise pricing information
+  pricingInfo: {
+    baseFare: { type: Number, default: 50 }, // minimum fare
+    pricePerKm: { type: Number, default: 3 }, // rate per kilometer
+    stopwisePricing: [{
+      fromStop: { type: String, required: true },
+      toStop: { type: String, required: true },
+      distance: { type: Number, required: true }, // in km
+      price: { type: Number, required: true }, // in LKR
+      busTypeMultipliers: {
+        Normal: { type: Number, default: 1.0 },
+        'Express': { type: Number, default: 1.3 },
+        'Intercity Express': { type: Number, default: 1.6 },
+        'Super Intercity Express': { type: Number, default: 2.0 },
+        'Intercity Express': { type: Number, default: 1.8 }
+      }
+    }]
+  },
   isActive: {
     type: Boolean,
     default: true
@@ -74,13 +100,13 @@ const routeSchema = new mongoose.Schema({
 });
 
 // Indexes for performance
-routeSchema.index({ 'origin.city': 1, 'destination.city': 1 });
-routeSchema.index({ 'origin.province': 1, 'destination.province': 1 });
+routeSchema.index({ 'start.city': 1, 'destination.city': 1 });
+routeSchema.index({ 'start.province': 1, 'destination.province': 1 });
 routeSchema.index({ isActive: 1 });
 
 // Virtual for route display name
 routeSchema.virtual('displayName').get(function() {
-  return `${this.origin.city} - ${this.destination.city}`;
+  return `${this.start.city} - ${this.destination.city}`;
 });
 
 export default mongoose.model('Route', routeSchema);

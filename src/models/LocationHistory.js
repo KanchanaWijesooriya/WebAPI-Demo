@@ -12,6 +12,21 @@ const locationHistorySchema = new mongoose.Schema({
     ref: 'Trip',
     index: true
   },
+  route: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Route',
+    index: true
+  },
+  busRegistration: {
+    type: String,
+    trim: true,
+    index: true
+  },
+  routeNumber: {
+    type: String,
+    trim: true,
+    index: true
+  },
   coordinates: {
     latitude: {
       type: Number,

@@ -1,14 +1,18 @@
 import express from 'express';
 import BusController from '../controllers/busController.js';
-import { protect, authorize } from '../middleware/auth.js';
+import { protect, authorize, optionalAuth } from '../middleware/auth.js';
 
 const router = express.Router();
 
-// Public routes
-router.get('/', BusController.getAllBuses);
-router.get('/:id', BusController.getBus);
-router.get('/:id/location', BusController.getBusLocation);
-router.get('/:id/trips', BusController.getBusTrips);
+// Public routes with optional authentication for role-based filtering
+router.get('/', optionalAuth, BusController.getAllBuses);
+
+// Public relational endpoints
+router.get('/:id/location', optionalAuth, BusController.getBusLocation);
+router.get('/:id/trips', optionalAuth, BusController.getBusTrips);
+
+// Admin-only individual resource access
+router.get('/:id', protect, authorize('admin'), BusController.getBus);
 
 // Protected routes
 router.use(protect); // All routes below require authentication
