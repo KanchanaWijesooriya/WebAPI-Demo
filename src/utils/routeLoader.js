@@ -32,6 +32,10 @@ export const loadRoutes = async (app) => {
     const searchRoutes = (await import('../routes/search_filter.js')).default;
     app.use('/api/search', searchRoutes);
 
+    // Location management routes
+    const locationRoutes = (await import('../routes/locations.js')).default;
+    app.use('/api/locations', locationRoutes);
+
     // Admin and public routes
     const adminRoutes = (await import('../routes/admin_enhanced.js')).default;
     const adminBusRoutes = (await import('../routes/admin_bus_details.js')).default;
@@ -54,6 +58,7 @@ export const loadRoutes = async (app) => {
         { path: '/api/buses', description: 'Bus management routes' },
         { path: '/api/trips', description: 'Trip management routes' },
         { path: '/api/search', description: 'Search and filtering routes' },
+        { path: '/api/locations', description: 'Real-time location management routes' },
         { path: '/api/admin', description: 'Admin-specific routes' },
         { path: '/api/public', description: 'Public access routes' }
       ]
@@ -70,12 +75,13 @@ export const loadRoutes = async (app) => {
  */
 export const getRouteSummary = () => {
   return {
-    totalRouteFiles: 9,
+    totalRouteFiles: 10,
     routeCategories: [
       'System (health, docs)',
       'Authentication & Users', 
       'Core API (routes, buses, trips)',
       'Search & Filtering',
+      'Location Management',
       'Admin & Public Access'
     ],
     loadingMethod: 'Dynamic ES modules import',
