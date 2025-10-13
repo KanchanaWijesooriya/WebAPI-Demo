@@ -10,7 +10,7 @@
 
 **A comprehensive REST API for Sri Lanka's National Transport Commission (NTC) bus tracking system with real-time location tracking, route management, and user authentication.**
 
-[Live API](https://ntc-bustracking.me) • [Documentation](https://ntc-bustracking.me/api/docs) • [Health Check](https://ntc-bustracking.me/api/health)
+[🎨 Swagger UI](https://ntc-bustracking.me) • [📋 Documentation](https://ntc-bustracking.me/api-docs/) • [❤️ Health Check](https://ntc-bustracking.me/api/health)
 
 </div>
 
@@ -24,8 +24,8 @@
 **Assignment**: Web API Development Coursework  
 **University**: Coventry University  
 
-**Production URL**: [https://ntc-bustracking.me](https://ntc-bustracking.me)  
-**API Documentation**: [https://ntc-bustracking.me/api/docs](https://ntc-bustracking.me/api/docs)
+**Interactive Swagger UI**: [https://ntc-bustracking.me](https://ntc-bustracking.me)  
+**Alternative Documentation**: [https://ntc-bustracking.me/api-docs/](https://ntc-bustracking.me/api-docs/)
 
 ---
 
@@ -145,8 +145,8 @@ graph TB
 
 | Service | URL | Status |
 |---------|-----|--------|
-| **Main API** | [https://ntc-bustracking.me](https://ntc-bustracking.me) | ✅ Active |
-| **API Documentation** | [https://ntc-bustracking.me/api/docs](https://ntc-bustracking.me/api/docs) | ✅ Active |
+| **Swagger UI (Primary)** | [https://ntc-bustracking.me](https://ntc-bustracking.me) | ✅ Active |
+| **Swagger UI (Alternative)** | [https://ntc-bustracking.me/api-docs/](https://ntc-bustracking.me/api-docs/) | ✅ Active |
 | **Health Check** | [https://ntc-bustracking.me/api/health](https://ntc-bustracking.me/api/health) | ✅ Active |
 
 ### **Deployment Architecture**
@@ -256,29 +256,10 @@ Trigger: Push to main branch
 | `GET` | `/api/health` | System status and diagnostics | ❌ | Health status |
 | `GET` | `/api/docs` | Interactive API documentation (Swagger) | ❌ | Documentation UI |
 | `GET` | `/api/system/metrics` | Performance metrics | ✅ Admin | System metrics |
-GET    /api/search/routes        # Smart route search with bidirectional support
-GET    /api/search/trips         # Trip search with filters (time, fare, date)
-GET    /api/search/combined      # Multi-modal journey planning
-GET    /api/search/pricing/{from}/{to}  # Comprehensive fare comparison
-```
 
-### **👥 User Management (Admin)**
-```http
-GET    /api/users                # User directory and role management
-POST   /api/users                # Create user account with role
-PUT    /api/users/{id}           # Update user profile
-DELETE /api/users/{id}           # Deactivate user account
-PUT    /api/users/{id}/role      # Change user permissions
-PUT    /api/users/{id}/status    # Account activation control
-```
+---
 
-### **🔧 System Operations**
-```http
-GET    /api/health               # System status and diagnostics
-GET    /api/docs                 # Interactive API documentation (Swagger)
-GET    /api/system/metrics       # Performance metrics (Admin only)
-```
-
+## 🔐 Authentication & Authorization
 ---
 
 ## 🔐 Authentication & Authorization
@@ -617,7 +598,7 @@ npm run deploy     # Deploy to production (CI/CD)
 ## 📚 Documentation & Support
 
 ### **Documentation Resources**
-- **Interactive API Docs**: [https://ntc-bustracking.me/api-docs](https://ntc-bustracking.me/api-docs) (Swagger UI)
+- **Interactive API Docs**: [https://ntc-bustracking.me/api-docs/](https://ntc-bustracking.me/api-docs/) (Swagger UI)
 - **Postman Collection**: Available in `/docs` folder
 - **API Health Check**: [https://ntc-bustracking.me/api/health](https://ntc-bustracking.me/api/health)
 
@@ -717,7 +698,7 @@ npm run deploy     # Deploy to production (CI/CD)
 ✅ **Optimized** - Performance tuned with efficient data handling  
 
 **🌐 Live API**: [https://ntc-bustracking.me](https://ntc-bustracking.me)  
-**📖 Documentation**: [https://ntc-bustracking.me/api/docs](https://ntc-bustracking.me/api/docs)  
+**📖 Documentation**: [https://ntc-bustracking.me/api-docs/](https://ntc-bustracking.me/api-docs/)  
 **❤️ Health Check**: [https://ntc-bustracking.me/api/health](https://ntc-bustracking.me/api/health)
 
 </div>
