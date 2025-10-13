@@ -90,20 +90,22 @@
 
 ### **Production Infrastructure**
 
-```mermaid
-graph TB
-    A[User Request] --> B[Namecheap Domain]
-    B --> C[AWS EC2 Instance]
-    C --> D[Docker Container]
-    D --> E[Node.js HTTPS Server]
-    E --> F[MongoDB Atlas]
-    
-    G[GitHub Repository] --> H[GitHub Actions]
-    H --> I[Automated Deployment]
-    I --> C
-    
-    J[SSL Certificate] --> B
-    K[CloudWatch] --> C
+```
+🌐 User Request
+    ↓
+🔗 Namecheap Domain (ntc-bustracking.me)
+    ↓
+☁️ AWS EC2 Instance (56.228.29.8)
+    ↓
+🐳 Docker Container
+    ↓
+⚡ Node.js HTTPS Server
+    ↓
+📊 MongoDB Atlas Database
+
+📦 GitHub → 🔄 GitHub Actions → 🚀 Auto Deploy
+🔒 SSL Certificate → 🌐 Domain
+📈 CloudWatch → ☁️ EC2 Monitoring
 ```
 
 ### **Technology Stack**
@@ -668,7 +670,7 @@ npm run deploy     # Deploy to production (CI/CD)
 
 | **Metric** | **Value** | **Status** |
 |------------|-----------|------------|
-| **🌐 API Version** | `v2.0.0` | ✅ Latest |
+| **🌐 API Version** | `v1.0.0` | ✅ Latest |
 | **🏥 Health Status** | `Healthy` | ✅ Active |
 | **⏱️ Uptime** | `38+ minutes` | ✅ Stable |
 | **💾 Memory Usage** | `30 MB / 32 MB` | ✅ Optimal |
