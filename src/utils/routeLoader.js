@@ -8,6 +8,34 @@
  */
 export const loadRoutes = async (app) => {
   try {
+    // Root welcome route
+    app.get('/', (req, res) => {
+      res.json({
+        status: 'success',
+        message: '🚌 Welcome to NTC Bus Tracking API',
+        version: '2.0.0',
+        student: {
+          name: 'W.M.G.C.K. Wijesooriya',
+          studentId: 'COBSCCOMP24.1P-020',
+          coventryIndex: '15386722'
+        },
+        endpoints: {
+          health: '/api/health',
+          documentation: '/api/docs',
+          routes: '/api/routes',
+          buses: '/api/buses',
+          trips: '/api/trips',
+          auth: '/api/auth'
+        },
+        links: {
+          apiDocs: `${req.protocol}://${req.get('host')}/api/docs`,
+          healthCheck: `${req.protocol}://${req.get('host')}/api/health`,
+          github: 'https://github.com/KanchanaWijesooriya/WebAPI-Demo'
+        },
+        timestamp: new Date().toISOString()
+      });
+    });
+
     // System routes (health, docs)
     const systemRoutes = (await import('../routes/system.js')).default;
     app.use('/api', systemRoutes);
@@ -46,6 +74,7 @@ export const loadRoutes = async (app) => {
     
     return {
       routes: [
+        { path: '/', description: 'Welcome page and API information' },
         { path: '/api', description: 'System routes (health, docs)' },
         { path: '/api/auth', description: 'Authentication routes' },
         { path: '/api/users', description: 'User management routes' },
