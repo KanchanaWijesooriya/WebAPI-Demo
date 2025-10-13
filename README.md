@@ -10,7 +10,7 @@
 
 **A comprehensive REST API for Sri Lanka's National Transport Commission (NTC) bus tracking system with real-time location tracking, route management, and user authentication.**
 
-[Live API](https://ntc-bustracking.me) • [Documentation](https://ntc-bustracking.me/api/docs) • [Health Check](https://ntc-bustracking.me/api/health)
+[🎨 Swagger UI](https://ntc-bustracking.me) • [📋 Documentation](https://ntc-bustracking.me/api-docs/) • [❤️ Health Check](https://ntc-bustracking.me/api/health)
 
 </div>
 
@@ -24,8 +24,8 @@
 **Assignment**: Web API Development Coursework  
 **University**: Coventry University  
 
-**Production URL**: [https://ntc-bustracking.me](https://ntc-bustracking.me)  
-**API Documentation**: [https://ntc-bustracking.me/api/docs](https://ntc-bustracking.me/api/docs)
+**Interactive Swagger UI**: [https://ntc-bustracking.me](https://ntc-bustracking.me)  
+**Alternative Documentation**: [https://ntc-bustracking.me/api-docs/](https://ntc-bustracking.me/api-docs/)
 
 ---
 
@@ -145,8 +145,8 @@ graph TB
 
 | Service | URL | Status |
 |---------|-----|--------|
-| **Main API** | [https://ntc-bustracking.me](https://ntc-bustracking.me) | ✅ Active |
-| **API Documentation** | [https://ntc-bustracking.me/api/docs](https://ntc-bustracking.me/api/docs) | ✅ Active |
+| **Swagger UI (Primary)** | [https://ntc-bustracking.me](https://ntc-bustracking.me) | ✅ Active |
+| **Swagger UI (Alternative)** | [https://ntc-bustracking.me/api-docs/](https://ntc-bustracking.me/api-docs/) | ✅ Active |
 | **Health Check** | [https://ntc-bustracking.me/api/health](https://ntc-bustracking.me/api/health) | ✅ Active |
 
 ### **Deployment Architecture**
@@ -617,7 +617,7 @@ npm run deploy     # Deploy to production (CI/CD)
 ## 📚 Documentation & Support
 
 ### **Documentation Resources**
-- **Interactive API Docs**: [https://ntc-bustracking.me/api-docs](https://ntc-bustracking.me/api-docs) (Swagger UI)
+- **Interactive API Docs**: [https://ntc-bustracking.me/api-docs/](https://ntc-bustracking.me/api-docs/) (Swagger UI)
 - **Postman Collection**: Available in `/docs` folder
 - **API Health Check**: [https://ntc-bustracking.me/api/health](https://ntc-bustracking.me/api/health)
 
@@ -717,7 +717,7 @@ npm run deploy     # Deploy to production (CI/CD)
 ✅ **Optimized** - Performance tuned with efficient data handling  
 
 **🌐 Live API**: [https://ntc-bustracking.me](https://ntc-bustracking.me)  
-**📖 Documentation**: [https://ntc-bustracking.me/api/docs](https://ntc-bustracking.me/api/docs)  
+**📖 Documentation**: [https://ntc-bustracking.me/api-docs/](https://ntc-bustracking.me/api-docs/)  
 **❤️ Health Check**: [https://ntc-bustracking.me/api/health](https://ntc-bustracking.me/api/health)
 
 </div>

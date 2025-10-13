@@ -133,6 +133,41 @@ const initializeApp = async () => {
     
     console.log('✅ Swagger documentation configured at /api-docs');
     
+    // Setup root path to also serve Swagger UI (additional access point)
+    app.use('/', swaggerUi.serve);
+    app.get('/', swaggerUi.setup(swaggerSpec, {
+      explorer: true,
+      customSiteTitle: 'NTC Bus Tracking API - Chanuka Wijesooriya',
+      customCss: `
+        .swagger-ui .info:after {
+          content: "\\A\\A👨‍🎓 Developer Information\\A\\A📝 Name: Chanuka Wijesooriya\\A🆔 Student ID: COBSCCOMP24.1P - 020\\A🏫 Institution: Coventry University\\A📚 Project: Web API CW - Academic Project\\A🚌 System: NTC Bus Tracking API\\A© All rights reserved\\A\\A🔗 Alternative Access: /api-docs";
+          white-space: pre;
+          display: block;
+          margin-top: 20px;
+          padding: 15px;
+          background-color: #f8f9fa;
+          border: 1px solid #dee2e6;
+          border-radius: 6px;
+          font-family: monospace;
+          font-size: 14px;
+          line-height: 1.6;
+          color: #495057;
+        }
+        .swagger-ui .info .title {
+          color: #2c3e50;
+          margin-bottom: 10px;
+        }
+      `,
+      swaggerOptions: {
+        persistAuthorization: true,
+        displayRequestDuration: true,
+        filter: true,
+        showRequestHeaders: true
+      }
+    }));
+    
+    console.log('✅ Root path (/) also configured to serve Swagger UI');
+    
     // Load all routes
     await loadRoutes(app);
     
@@ -184,6 +219,8 @@ if (isMainModule) {
     console.log(`✅ Environment: ${process.env.NODE_ENV || 'development'}`);
     console.log(`✅ Local test: https://localhost:${SSL_CONFIG.HTTPS_PORT}/api/health`);
     console.log(`✅ Production URL: https://${SSL_CONFIG.DOMAIN}/api/health`);
+    console.log(`✅ Swagger UI (Primary): https://${SSL_CONFIG.DOMAIN}/`);
+    console.log(`✅ Swagger UI (Alternative): https://${SSL_CONFIG.DOMAIN}/api-docs`);
     console.log(`✅ Started at: ${new Date().toISOString()}`);
     console.log('='.repeat(60));
   });
