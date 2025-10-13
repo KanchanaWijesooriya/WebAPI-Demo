@@ -39,18 +39,13 @@ const options = {
         - **System:** NTC Bus Tracking API
         - **Rights:** All rights reserved
       `,
-      contact: {
-        name: 'Chanuka Wijesooriya - Academic Project',
-        email: 'chanuka.wijesooriya@student.coventry.ac.uk',
-        url: 'https://coventry.ac.uk'
-      },
-      license: {
-        name: 'MIT',
-        url: 'https://opensource.org/licenses/MIT'
-      },
-      termsOfService: 'https://ntc.gov.lk/terms'
+
     },
     servers: [
+      {
+        url: 'https://ntc-bustracking.me/api',
+        description: 'Production Server'
+      },
       {
         url: 'https://localhost:3443/api',
         description: 'Development HTTPS Server'
@@ -58,10 +53,6 @@ const options = {
       {
         url: 'http://localhost:3000/api',
         description: 'Development HTTP Server'
-      },
-      {
-        url: 'https://ntc-bustracking.me/api',
-        description: 'Production Server'
       }
     ],
     components: {
