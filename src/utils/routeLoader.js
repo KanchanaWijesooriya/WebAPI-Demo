@@ -12,7 +12,7 @@ export const loadRoutes = async (app) => {
     app.get('/', (req, res) => {
       res.json({
         status: 'success',
-        message: '🚌 Welcome to NTC Bus Tracking API',
+        message: 'Welcome to NTC Bus Tracking API',
         version: '2.0.0',
         student: {
           name: 'W.M.G.C.K. Wijesooriya',
