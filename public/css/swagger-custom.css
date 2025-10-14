@@ -1,0 +1,307 @@
+.swagger-ui .topbar,
+.swagger-ui .topbar-wrapper {
+    display: none !important;
+}
+
+.swagger-ui .info .version,
+.swagger-ui .info hgroup .version,
+.swagger-ui .info h1 .version,
+.swagger-ui .version {
+    display: none !important;
+}
+
+.swagger-ui .info h1::after,
+.swagger-ui .info .title::after {
+    display: none !important;
+}
+
+:root {
+    --primary-color: #2563eb;
+    --primary-dark: #1e40af;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+    --info-color: #06b6d4;
+    --dark-bg: #1f2937;
+    --light-bg: #f8fafc;
+    --card-bg: #ffffff;
+    --border-color: #e5e7eb;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== BODY AND WRAPPER ===== */
+.swagger-ui {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    min-height: 100vh;
+}
+
+.swagger-ui .wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 3rem;
+}
+
+/* ===== HEADER SECTION ===== */
+.swagger-ui .info {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+}
+
+.swagger-ui .info .title {
+    color: var(--primary-color) !important;
+    font-size: 2.5rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 1rem !important;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--info-color) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.swagger-ui .info .description {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* ===== ACADEMIC PROJECT INFO ===== */
+.swagger-ui .info:after {
+    content: "👨‍🎓 Academic Project Information\A\A📝 Developer: Chanuka Wijesooriya\A🆔 Student ID: COBSCCOMP24.1P - 020\A🏫 Institution: Coventry University\A📚 Course: Web API CW - Academic Project\A🚌 System: NTC Bus Tracking API\A⚡ Features: Real-time tracking, RBAC, Advanced search\A\A🔗 Alternative Access: /api-docs";
+    white-space: pre;
+    display: block;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, var(--light-bg) 0%, #f1f5f9 100%);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: var(--text-primary);
+    border-left: 4px solid var(--primary-color);
+}
+
+/* ===== OPERATION BLOCKS ===== */
+.swagger-ui .opblock {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.swagger-ui .opblock:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== HTTP METHOD COLORS ===== */
+.swagger-ui .opblock.opblock-get { border-color: var(--success-color); }
+.swagger-ui .opblock.opblock-get .opblock-summary {
+    background: linear-gradient(135deg, var(--success-color) 0%, #059669 100%);
+}
+
+.swagger-ui .opblock.opblock-post { border-color: var(--primary-color); }
+.swagger-ui .opblock.opblock-post .opblock-summary {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+}
+
+.swagger-ui .opblock.opblock-put { border-color: var(--warning-color); }
+.swagger-ui .opblock.opblock-put .opblock-summary {
+    background: linear-gradient(135deg, var(--warning-color) 0%, #d97706 100%);
+}
+
+.swagger-ui .opblock.opblock-delete { border-color: var(--danger-color); }
+.swagger-ui .opblock.opblock-delete .opblock-summary {
+    background: linear-gradient(135deg, var(--danger-color) 0%, #dc2626 100%);
+}
+
+.swagger-ui .opblock.opblock-patch { border-color: var(--info-color); }
+.swagger-ui .opblock.opblock-patch .opblock-summary {
+    background: linear-gradient(135deg, var(--info-color) 0%, #0891b2 100%);
+}
+
+/* ===== OPERATION SUMMARY ===== */
+.swagger-ui .opblock .opblock-summary {
+    padding: 1rem 1.5rem;
+    color: white;
+    font-weight: 600;
+    position: relative;
+}
+
+.swagger-ui .opblock .opblock-summary .opblock-summary-method {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-radius: 6px !important;
+    padding: 0.4rem 1rem !important;
+    font-weight: 700 !important;
+    margin-right: 1rem !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Method badges - Keep original colors */
+.swagger-ui .opblock.opblock-get .opblock-summary .opblock-summary-method { color: var(--success-color) !important; }
+.swagger-ui .opblock.opblock-post .opblock-summary .opblock-summary-method { color: var(--primary-color) !important; }
+.swagger-ui .opblock.opblock-put .opblock-summary .opblock-summary-method { color: var(--warning-color) !important; }
+.swagger-ui .opblock.opblock-delete .opblock-summary .opblock-summary-method { color: var(--danger-color) !important; }
+.swagger-ui .opblock.opblock-patch .opblock-summary .opblock-summary-method { color: var(--info-color) !important; }
+
+/* Path and summary description text - Make them white */
+.swagger-ui .opblock .opblock-summary-path {
+    color: white !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+}
+
+.swagger-ui .opblock .opblock-summary-description {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-style: italic !important;
+    margin-left: 1rem !important;
+    font-weight: 400 !important;
+}
+
+/* ===== OPERATION BODY ===== */
+.swagger-ui .opblock .opblock-body {
+    background: var(--card-bg);
+    padding: 1.5rem;
+}
+
+/* ===== BUTTONS ===== */
+.swagger-ui .btn {
+    border-radius: 6px;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.swagger-ui .btn.execute {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.swagger-ui .btn.execute:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+}
+
+/* ===== RESPONSE SECTION ===== */
+.swagger-ui .responses-wrapper {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    margin-top: 1rem;
+}
+
+/* ===== PARAMETERS ===== */
+.swagger-ui .parameters-col_description input,
+.swagger-ui .parameters-col_description textarea {
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+}
+
+/* ===== MODELS ===== */
+.swagger-ui .model-box {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.swagger-ui .model-title {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+/* ===== SECURITY AUTH ===== */
+.swagger-ui .auth-wrapper {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+/* ===== TAG SECTIONS (FIXED ALIGNMENT) ===== */
+.swagger-ui .opblock-tag {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+/* Tag header aligned with GET badge */
+.swagger-ui .opblock-tag .opblock-tag-section {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding-left: 1.5rem !important;   /* aligns to GET box start */
+    padding-right: 3.5rem !important;  /* space for arrow */
+    position: relative !important;
+    border-bottom: 2px solid var(--border-color);
+    min-height: 60px;
+}
+
+/* Tag title */
+.swagger-ui .opblock-tag .opblock-tag-section h4 {
+    padding-left: 3.25rem !important;
+    margin: 0 !important;
+    font-size: 1.35rem !important;
+    font-weight: 700 !important;
+    color: var(--text-primary) !important;
+}
+
+/* Tag description */
+.swagger-ui .opblock-tag .opblock-tag-section small {
+    margin-left: 1rem !important;
+    font-size: 0.95rem !important;
+    color: var(--text-secondary) !important;
+}
+
+/* Arrow alignment */
+.swagger-ui .opblock-tag .opblock-tag-section svg {
+    position: absolute !important;
+    right: 1.25rem !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+}
+
+/* ===== SMOOTH TAG EXPAND TRANSITION ===== */
+.swagger-ui .opblock-tag ~ .opblock {
+    transition: all 0.25s ease-in-out !important;
+}
+.swagger-ui .opblock-tag ~ .opblock.is-open {
+    transform: translateY(0);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .swagger-ui .wrapper {
+        padding: 1rem;
+    }
+
+    .swagger-ui .info {
+        padding: 1.5rem;
+    }
+
+    .swagger-ui .info .title {
+        font-size: 2rem !important;
+    }
+
+    .swagger-ui .opblock-tag .opblock-tag-section h4 {
+        padding-left: 2.5rem !important;
+    }
+}

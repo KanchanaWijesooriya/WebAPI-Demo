@@ -89,41 +89,15 @@ const initializeApp = async () => {
     // Apply middleware configuration
     applyMiddleware(app);
     
+    // Serve static files (CSS, images, etc.)
+    app.use(express.static('public'));
+    
     // Generate Swagger documentation
     console.log('✅ Generating Swagger documentation...');
     const swaggerSpec = swaggerJsdoc(swaggerConfig.options);
     
-    // Setup Swagger UI
-    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
-      explorer: true,
-      customSiteTitle: 'NTC Bus Tracking API - Chanuka Wijesooriya',
-      customCss: `
-        .swagger-ui .info:after {
-          content: "\\A\\A👨‍🎓 Developer Information\\A\\A📝 Name: Chanuka Wijesooriya\\A🆔 Student ID: COBSCCOMP24.1P - 020\\A🏫 Institution: Coventry University\\A📚 Project: Web API CW - Academic Project\\A🚌 System: NTC Bus Tracking API\\A© All rights reserved";
-          white-space: pre;
-          display: block;
-          margin-top: 20px;
-          padding: 15px;
-          background-color: #f8f9fa;
-          border: 1px solid #dee2e6;
-          border-radius: 6px;
-          font-family: monospace;
-          font-size: 14px;
-          line-height: 1.6;
-          color: #495057;
-        }
-        .swagger-ui .info .title {
-          color: #2c3e50;
-          margin-bottom: 10px;
-        }
-      `,
-      swaggerOptions: {
-        persistAuthorization: true,
-        displayRequestDuration: true,
-        filter: true,
-        showRequestHeaders: true
-      }
-    }));
+    // Setup Swagger UI with external CSS
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, swaggerConfig.swaggerUiOptions));
     
     // Swagger JSON endpoint
     app.get('/api-docs.json', (req, res) => {
@@ -135,36 +109,7 @@ const initializeApp = async () => {
     
     // Setup root path to also serve Swagger UI (additional access point)
     app.use('/', swaggerUi.serve);
-    app.get('/', swaggerUi.setup(swaggerSpec, {
-      explorer: true,
-      customSiteTitle: 'NTC Bus Tracking API - Chanuka Wijesooriya',
-      customCss: `
-        .swagger-ui .info:after {
-          content: "\\A\\A👨‍🎓 Developer Information\\A\\A📝 Name: Chanuka Wijesooriya\\A🆔 Student ID: COBSCCOMP24.1P - 020\\A🏫 Institution: Coventry University\\A📚 Project: Web API CW - Academic Project\\A🚌 System: NTC Bus Tracking API\\A© All rights reserved\\A\\A🔗 Alternative Access: /api-docs";
-          white-space: pre;
-          display: block;
-          margin-top: 20px;
-          padding: 15px;
-          background-color: #f8f9fa;
-          border: 1px solid #dee2e6;
-          border-radius: 6px;
-          font-family: monospace;
-          font-size: 14px;
-          line-height: 1.6;
-          color: #495057;
-        }
-        .swagger-ui .info .title {
-          color: #2c3e50;
-          margin-bottom: 10px;
-        }
-      `,
-      swaggerOptions: {
-        persistAuthorization: true,
-        displayRequestDuration: true,
-        filter: true,
-        showRequestHeaders: true
-      }
-    }));
+    app.get('/', swaggerUi.setup(swaggerSpec, swaggerConfig.swaggerUiOptions));
     
     console.log('✅ Root path (/) also configured to serve Swagger UI');
     
