@@ -764,6 +764,10 @@ const options = {
       {
         name: 'System',
         description: 'System health and utility endpoints'
+      },
+      {
+        name: 'Session Management',
+        description: 'Session creation, validation, and termination endpoints'
       }
     ],
     
@@ -1517,4 +1521,22 @@ const options = {
 
 const specs = swaggerJsdoc(options);
 
-export default { options, specs, swaggerUi };
+// Swagger UI Options with external CSS
+const swaggerUiOptions = {
+  explorer: true,
+  customSiteTitle: 'NTC Bus Tracking API - Chanuka Wijesooriya',
+  customCssUrl: '/css/swagger-custom.css',
+  swaggerOptions: {
+    persistAuthorization: true,
+    displayRequestDuration: true,
+    filter: true,
+    showRequestHeaders: true,
+    tryItOutEnabled: true,
+    displayOperationId: false,
+    showExtensions: false,
+    showCommonExtensions: false
+  },
+  customfavIcon: '/favicon.ico'
+};
+
+export default { options, specs, swaggerUi, swaggerUiOptions };
