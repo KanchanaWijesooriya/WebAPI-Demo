@@ -232,17 +232,58 @@ class RouteController {
       const buses = await Bus.find({ route: { $in: routeIds } })
         .populate('route', 'routeNumber name start destination distance');
       
-      // Filter buses data based on user role
+      // Filter buses data based on user role and remove sensitive data for this endpoint
       const filteredBuses = buses
-        .map(bus => filterBusData(bus, userRole))
+        .map(bus => {
+          const filteredBus = filterBusData(bus, userRole);
+          if (filteredBus && filteredBus.currentLocation !== undefined) {
+            delete filteredBus.currentLocation;
+          }
+          // Remove _id and other sensitive data for non-admin users
+          if (!isAdmin && filteredBus) {
+            delete filteredBus._id;
+            delete filteredBus.__v;
+            if (filteredBus.route && filteredBus.route._id) {
+              delete filteredBus.route._id;
+            }
+          }
+          return filteredBus;
+        })
         .filter(bus => bus !== null);
 
-      res.status(200).json(new ApiResponse(200, {
-        buses: filteredBuses,
-        routeIds: routeIds, // For debugging
+      // Get route information for from/to display
+      const routeInfo = await Route.findOne({ _id: { $in: routeIds } })
+        .select('routeNumber name start destination');
+
+      // Add start/end information to each bus after route field
+      const busesWithRouteInfo = filteredBuses.map(bus => {
+        const { route, ...busData } = bus;
+        return {
+          ...busData,
+          route: route || req.params.id,
+          start: routeInfo?.start?.city || 'Unknown',
+          end: routeInfo?.destination?.city || 'Unknown'
+        };
+      });
+
+      // Prepare response data with route from/to information (without name field)
+      const responseData = {
+        route: routeInfo ? {
+          routeNumber: routeInfo.routeNumber,
+          from: routeInfo.start?.city || 'Unknown',
+          to: routeInfo.destination?.city || 'Unknown'
+        } : null,
+        buses: busesWithRouteInfo,
         searchParameter: req.params.id,
         dataLevel: getDataLevel(userRole)
-      }, `Route buses retrieved successfully for ${req.params.id}`));
+      };
+      
+      // Add routeIds only for admin users
+      if (isAdmin) {
+        responseData.routeIds = routeIds;
+      }
+
+      res.status(200).json(new ApiResponse(200, responseData, `Route buses retrieved successfully for ${req.params.id}`));
     } catch (error) {
       console.error('Error in getRouteBuses:', error);
       next(new ApiError(500, `Error retrieving route buses: ${error.message}`));

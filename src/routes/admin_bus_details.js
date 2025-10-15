@@ -347,4 +347,273 @@ router.get('/buses-by-contact/:contactNumber', authenticate, authorize(['admin']
   }
 });
 
+/**
+ * @swagger
+ * /admin/operator-contacts:
+ *   get:
+ *     tags: [Admin]
+ *     summary: Get all operator contacts
+ *     description: Retrieve all bus operator contact information (Admin only)
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - name: page
+ *         in: query
+ *         description: Page number
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *       - name: limit
+ *         in: query
+ *         description: Items per page
+ *         schema:
+ *           type: integer
+ *           default: 20
+ *     responses:
+ *       200:
+ *         description: Operator contacts retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/ApiResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         operators:
+ *                           type: array
+ *                           items:
+ *                             type: object
+ *                             properties:
+ *                               operatorName:
+ *                                 type: string
+ *                               contactNumber:
+ *                                 type: string
+ *                               licenseNumber:
+ *                                 type: string
+ *                               busNumber:
+ *                                 type: string
+ *                               registrationNumber:
+ *                                 type: string
+ *                               totalBuses:
+ *                                 type: integer
+ *       401:
+ *         $ref: '#/components/responses/UnauthorizedError'
+ *       403:
+ *         $ref: '#/components/responses/ForbiddenError'
+ */
+
+/**
+ * Admin endpoint to get all operator contacts with bus numbers
+ * GET /api/admin/operator-contacts
+ */
+router.get('/operator-contacts', authenticate, authorize(['admin']), async (req, res) => {
+  try {
+    const { page = 1, limit = 20 } = req.query;
+    const skip = (page - 1) * limit;
+
+    // Get all buses with operator information
+    const buses = await Bus.find({})
+      .select('busNumber registrationNumber operator status')
+      .sort({ 'operator.name': 1, busNumber: 1 })
+      .skip(skip)
+      .limit(parseInt(limit))
+      .lean();
+
+    const totalBuses = await Bus.countDocuments({});
+
+    // Group by operator and include bus numbers
+    const operatorMap = {};
+    buses.forEach(bus => {
+      const operatorName = bus.operator.name;
+      if (!operatorMap[operatorName]) {
+        operatorMap[operatorName] = {
+          operatorName,
+          contactNumber: bus.operator.contactNumber,
+          licenseNumber: bus.operator.licenseNumber,
+          buses: [],
+          totalBuses: 0
+        };
+      }
+      operatorMap[operatorName].buses.push({
+        busNumber: bus.busNumber,
+        registrationNumber: bus.registrationNumber,
+        status: bus.status
+      });
+      operatorMap[operatorName].totalBuses++;
+    });
+
+    res.json({
+      success: true,
+      message: 'Operator contacts retrieved successfully',
+      data: {
+        operators: Object.values(operatorMap),
+        pagination: {
+          current: parseInt(page),
+          pages: Math.ceil(totalBuses / limit),
+          total: totalBuses,
+          hasNext: page * limit < totalBuses,
+          hasPrev: page > 1
+        }
+      },
+      adminNote: 'This endpoint provides operator contact information including bus numbers for administrative purposes only.'
+    });
+
+  } catch (error) {
+    console.error('Admin operator contacts error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error retrieving operator contacts',
+      error: error.message
+    });
+  }
+});
+
+/**
+ * @swagger
+ * /admin/bus-info/{id}:
+ *   get:
+ *     tags: [Admin]
+ *     summary: Get bus information by ID or registration number
+ *     description: Retrieve bus information using MongoDB ObjectId or registration number (Admin only)
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: Bus ObjectId or registration number (e.g., 68e4c9d45ffe5feaaf9ed2b9 or CAA-5678)
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Bus information retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/ApiResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         bus:
+ *                           $ref: '#/components/schemas/Bus'
+ *       401:
+ *         $ref: '#/components/responses/UnauthorizedError'
+ *       403:
+ *         $ref: '#/components/responses/ForbiddenError'
+ *       404:
+ *         description: Bus not found
+ */
+
+/**
+ * Admin endpoint to get bus information by ID or registration number
+ * GET /api/admin/bus-info/:id
+ */
+router.get('/bus-info/:id', authenticate, authorize(['admin']), async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    let bus;
+    
+    // Check if id is a valid MongoDB ObjectId format
+    const isObjectId = /^[a-fA-F0-9]{24}$/.test(id);
+    
+    if (isObjectId) {
+      // Search by MongoDB ObjectId
+      bus = await Bus.findById(id)
+        .populate('route', 'routeNumber name start destination distance')
+        .lean();
+    } else {
+      // Search by registration number
+      bus = await Bus.findOne({ registrationNumber: id.toUpperCase() })
+        .populate('route', 'routeNumber name start destination distance')
+        .lean();
+    }
+
+    if (!bus) {
+      return res.status(404).json({
+        success: false,
+        message: 'Bus not found',
+        searchedFor: id,
+        searchType: isObjectId ? 'ObjectId' : 'Registration Number'
+      });
+    }
+
+    // Generate consistent bus number
+    const busNumber = bus.busNumber || (() => {
+      const regNum = bus.registrationNumber || 'DEFAULT';
+      const hash = regNum.split('').reduce((a, b) => {
+        a = ((a << 5) - a) + b.charCodeAt(0);
+        return a & a;
+      }, 0);
+      return `NB-${Math.abs(hash % 9000) + 1000}`;
+    })();
+
+    // Format response for admin
+    const busInfo = {
+      id: bus._id,
+      busNumber: busNumber,
+      registrationNumber: bus.registrationNumber,
+      busType: bus.busType,
+      capacity: bus.capacity,
+      status: bus.status,
+      isOnline: bus.isOnline,
+      
+      // Operator information
+      operator: {
+        name: bus.operator?.name,
+        contactNumber: bus.operator?.contactNumber,
+        licenseNumber: bus.operator?.licenseNumber,
+        email: bus.operator?.email
+      },
+      
+      // Route information
+      route: bus.route ? {
+        id: bus.route._id,
+        routeNumber: bus.route.routeNumber,
+        name: bus.route.name,
+        start: bus.route.start?.city,
+        destination: bus.route.destination?.city,
+        distance: bus.route.distance
+      } : null,
+      
+      // Additional admin details
+      facilities: bus.facilities,
+      lastMaintenance: bus.lastMaintenance,
+      currentLocation: bus.currentLocation,
+      
+      // Timestamps
+      createdAt: bus.createdAt,
+      updatedAt: bus.updatedAt
+    };
+
+    res.json({
+      success: true,
+      message: 'Bus information retrieved successfully',
+      data: {
+        bus: busInfo
+      },
+      searchInfo: {
+        searchedFor: id,
+        searchType: isObjectId ? 'MongoDB ObjectId' : 'Registration Number',
+        found: true
+      },
+      adminNote: 'This endpoint supports both MongoDB ObjectId and registration number searches for administrative access.'
+    });
+
+  } catch (error) {
+    console.error('Admin bus info error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error retrieving bus information',
+      error: error.message
+    });
+  }
+});
+
 export default router;

@@ -274,7 +274,7 @@ router.get('/operator-contacts', authenticate, authorize(['admin']), async (req,
       const tripsWithLicense = await Trip.find({
         'driver.licenseNumber': { $regex: licenseNumber, $options: 'i' }
       })
-      .populate('bus', 'registrationNumber operator operatorContact isActive type capacity features')
+      .populate('bus', 'registrationNumber busNumber operator operatorContact isActive type capacity features')
       .populate('route', 'routeNumber name start destination distance')
       .sort({ scheduledDeparture: -1 })
       .lean();
@@ -314,8 +314,16 @@ router.get('/operator-contacts', authenticate, authorize(['admin']), async (req,
         }
         
         if (!tripsByOperator[operatorKey].buses[busReg]) {
+          // Ensure proper bus number format (NB-XXXX)
+          let busNumber = trip.bus?.busNumber;
+          if (!busNumber || busNumber === busReg) {
+            // Generate NB-XXXX format if not available or using registration
+            busNumber = `NB-${Math.floor(Math.random() * 9000) + 1000}`;
+          }
+          
           tripsByOperator[operatorKey].buses[busReg] = {
             registrationNumber: busReg,
+            busNumber: busNumber,
             operator: operatorKey,
             type: trip.bus?.type,
             capacity: trip.bus?.capacity,
@@ -332,9 +340,22 @@ router.get('/operator-contacts', authenticate, authorize(['admin']), async (req,
           routeNumber: trip.route?.routeNumber,
           start: trip.route?.start?.city,
           destination: trip.route?.destination?.city,
-          serviceDate: trip.serviceDate,
+          serviceDate: new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Colombo' }),
           scheduledDeparture: trip.scheduledDeparture,
           scheduledArrival: trip.scheduledArrival,
+          // Add time-only format for better readability
+          departureTime: trip.scheduledDeparture ? new Date(trip.scheduledDeparture).toLocaleTimeString('en-GB', { 
+            hour: '2-digit', 
+            minute: '2-digit', 
+            timeZone: 'Asia/Colombo',
+            hour12: false 
+          }) : null,
+          arrivalTime: trip.scheduledArrival ? new Date(trip.scheduledArrival).toLocaleTimeString('en-GB', { 
+            hour: '2-digit', 
+            minute: '2-digit', 
+            timeZone: 'Asia/Colombo',
+            hour12: false 
+          }) : null,
           status: trip.status,
           fare: trip.fare,
           actualDeparture: trip.actualDeparture,
@@ -411,12 +432,26 @@ router.get('/operator-contacts', authenticate, authorize(['admin']), async (req,
             destination: trip.route?.destination?.city,
             scheduledDeparture: trip.scheduledDeparture,
             scheduledArrival: trip.scheduledArrival,
+            // Add time-only format for better readability
+            departureTime: trip.scheduledDeparture ? new Date(trip.scheduledDeparture).toLocaleTimeString('en-GB', { 
+              hour: '2-digit', 
+              minute: '2-digit', 
+              timeZone: 'Asia/Colombo',
+              hour12: false 
+            }) : null,
+            arrivalTime: trip.scheduledArrival ? new Date(trip.scheduledArrival).toLocaleTimeString('en-GB', { 
+              hour: '2-digit', 
+              minute: '2-digit', 
+              timeZone: 'Asia/Colombo',
+              hour12: false 
+            }) : null,
             status: trip.status,
             fare: trip.fare,
             estimatedDuration: trip.estimatedDuration
           },
           busDetails: {
             registrationNumber: trip.bus.registrationNumber,
+            busNumber: trip.bus.busNumber || `NB-${Math.floor(Math.random() * 9000) + 1000}`,
             operator: trip.bus.operator?.name || trip.bus.operator,
             type: trip.bus.type,
             capacity: trip.bus.capacity,
@@ -530,13 +565,13 @@ router.get('/operator-contacts', authenticate, authorize(['admin']), async (req,
     if (isGeneralSearch) {
       // Show ALL operators when no search criteria provided
       buses = await Bus.find(busFilter)
-        .select('registrationNumber operator operatorContact isActive features lastMaintenance')
+        .select('registrationNumber busNumber operator operatorContact isActive features lastMaintenance')
         .lean();
     } else {
       // Apply pagination only for specific searches
       const skip = (page - 1) * limit;
       buses = await Bus.find(busFilter)
-        .select('registrationNumber operator operatorContact isActive features lastMaintenance')
+        .select('registrationNumber busNumber operator operatorContact isActive features lastMaintenance')
         .skip(skip)
         .limit(parseInt(limit))
         .lean();
@@ -597,22 +632,12 @@ router.get('/operator-contacts', authenticate, authorize(['admin']), async (req,
       // Add detailed bus information
       operatorContacts[operatorKey].buses.push({
         registrationNumber: bus.registrationNumber,
+        busNumber: bus.busNumber || `NB-${Math.floor(Math.random() * 9000) + 1000}`,
         isActive: bus.isActive,
         type: bus.type,
         capacity: bus.capacity,
         features: bus.features,
-        lastMaintenance: bus.lastMaintenance,
-        recentTrips: busTrips.slice(0, 3).map(trip => ({
-          tripId: trip.tripId,
-          route: trip.route?.name,
-          routeNumber: trip.route?.routeNumber,
-          start: trip.route?.start?.city,
-          destination: trip.route?.destination?.city,
-          status: trip.status,
-          scheduledDeparture: trip.scheduledDeparture,
-          driverName: trip.driver?.name || `Driver-${Math.floor(Math.random() * 900) + 100}`
-        })),
-        tripCount: busTrips.length
+        lastMaintenance: bus.lastMaintenance
       });
       
       operatorContacts[operatorKey].totalTrips += busTrips.length;

@@ -172,7 +172,7 @@
   {
     "routeId": "RT-002-DOWN",
     "routeNumber": "002",
-    "name": "Galle - Colombo",
+    "name": "Colombo Fort - Matara",
     "start": {
       "city": "Colombo Fort",
       "province": "Western",
@@ -299,12 +299,12 @@
       "coordinates": { "latitude": 6.9344, "longitude": 79.8428 }
     },
     "destination": {
-      "city": "Galle",
+      "city": "Matara",
       "province": "Southern",
-      "coordinates": { "latitude": 6.0535, "longitude": 80.2210 }
+      "coordinates": { "latitude": 5.9549, "longitude": 80.5550 }
     },
-    "distance": 115,
-    "estimatedDuration": 120,
+    "distance": 160,
+    "estimatedDuration": 180,
     "stops": [
       {
         "name": "Colombo Fort",
@@ -320,6 +320,11 @@
         "name": "Galle",
         "coordinates": { "latitude": 6.0535, "longitude": 80.2210 },
         "order": 3
+      },
+      {
+        "name": "Matara",
+        "coordinates": { "latitude": 5.9549, "longitude": 80.5550 },
+        "order": 4
       }
     ],
     "isActive": true
@@ -327,34 +332,39 @@
   {
     "routeId": "RT-002-1-DOWN",
     "routeNumber": "002-1",
-    "name": "Galle - Colombo Fort Express",
+    "name": "Matara - Colombo Fort",
     "start": {
-      "city": "Galle",
+      "city": "Matara",
       "province": "Southern",
-      "coordinates": { "latitude": 6.0535, "longitude": 80.2210 }
+      "coordinates": { "latitude": 5.9549, "longitude": 80.5550 }
     },
     "destination": {
       "city": "Colombo Fort",
       "province": "Western",
       "coordinates": { "latitude": 6.9344, "longitude": 79.8428 }
     },
-    "distance": 115,
-    "estimatedDuration": 120,
+    "distance": 160,
+    "estimatedDuration": 180,
     "stops": [
+      {
+        "name": "Matara",
+        "coordinates": { "latitude": 5.9549, "longitude": 80.5550 },
+        "order": 1
+      },
       {
         "name": "Galle",
         "coordinates": { "latitude": 6.0535, "longitude": 80.2210 },
-        "order": 1
+        "order": 2
       },
       {
         "name": "Kalutara",
         "coordinates": { "latitude": 6.5854, "longitude": 79.9607 },
-        "order": 2
+        "order": 3
       },
       {
         "name": "Colombo Fort",
         "coordinates": { "latitude": 6.9344, "longitude": 79.8428 },
-        "order": 3
+        "order": 4
       }
     ],
     "isActive": true

@@ -21,29 +21,52 @@ class TripController {
         .populate('route', 'name routeNumber start destination')
         .lean();
 
-      // Get all buses to determine bus types
+      // Get all buses to determine bus types and numbers
       const buses = await Bus.find().lean();
-      const busTypeMap = {};
+      const busDataMap = {};
       buses.forEach(bus => {
-        busTypeMap[bus.registrationNumber] = bus.busType || bus.type;
+        busDataMap[bus.registrationNumber] = {
+          busType: bus.busType || bus.type,
+          busNumber: bus.busNumber
+        };
       });
 
-      // Transform trips based on user role
+      // Transform trips based on user role with proper 7-day scheduling
       const transformedTrips = trips.map((trip, index) => {
-        // Generate time with 2.5 hour gaps
-        const baseHour = 6; // Start at 6:00 AM
-        const intervalHours = 2.5;
-        const tripHour = (baseHour + (index * intervalHours)) % 24;
-        const hour = Math.floor(tripHour);
-        const minute = (tripHour % 1) * 60;
-        const timeString = `${hour.toString().padStart(2, '0')}:${Math.round(minute).toString().padStart(2, '0')}`;
+        // Calculate which day this trip belongs to (0-6 for next 7 days)
+        const dayOffset = Math.floor(index / 50); // 50 trips per day (5 routes × 5 buses × 2 directions)
+        const tripWithinDay = index % 50;
+        
+        // Get Sri Lankan date for this trip
+        const today = new Date();
+        const tripDate = new Date(today.getTime() + (dayOffset * 24 * 60 * 60 * 1000));
+        const slDate = tripDate.toLocaleDateString('en-CA', { timeZone: 'Asia/Colombo' });
 
-        // Determine bus type based on registration number
-        let busType = busTypeMap[trip.busRegistration];
+        // Extract exact time from scheduledDeparture (HH:MM format)
+        let timeString = '06:00'; // default time
+        if (trip.scheduledDeparture) {
+          if (typeof trip.scheduledDeparture === 'string') {
+            timeString = trip.scheduledDeparture.substring(11, 16);
+          } else if (trip.scheduledDeparture instanceof Date) {
+            timeString = trip.scheduledDeparture.toISOString().substring(11, 16);
+          }
+        }
+
+        // Get bus data based on registration number
+        const busData = busDataMap[trip.busRegistration];
+        let busType = busData?.busType;
+        let busNumber = busData?.busNumber;
+
         if (!busType) {
-          // Fallback: distribute bus types evenly across trips
+          // Distribute bus types based on route patterns
           const busTypes = ['Normal', 'Express', 'Intercity Express'];
-          busType = busTypes[index % 3];
+          busType = busTypes[Math.floor(tripWithinDay / 17) % 3]; // Change type every ~17 trips
+        }
+
+        if (!busNumber) {
+          // Generate sequential NB format bus numbers
+          const busIndex = (tripWithinDay % 25) + 1; // 25 buses cycling
+          busNumber = `NB-${(1500 + busIndex).toString()}`;
         }
 
         // Public user fields
@@ -52,11 +75,11 @@ class TripController {
           start: trip.route?.start?.city || 'N/A',
           destination: trip.route?.destination?.city || 'N/A',
           busType: busType,
-          busNumber: trip.busRegistration,
+          busNumber: busNumber,
           routeNumber: trip.routeNumber,
           fare: `LKR ${trip.fare}`,
           runningOn: 'Daily',
-          date: new Date().toISOString().split('T')[0],
+          date: slDate,
           time: timeString
         };
 
@@ -151,13 +174,8 @@ class TripController {
       const trips = await features.query;
       const filteredTrips = trips.map(trip => filterTripData(trip, userRole));
 
-      // Filter route data for response (remove _id for public users)
-      const filteredRoute = userRole ? {
-        _id: route._id,
-        name: route.name,
-        routeId: route.routeId,
-        routeNumber: route.routeNumber
-      } : {
+      // Filter route data for response (never expose MongoDB _id to any public endpoint)
+      const filteredRoute = {
         name: route.name,
         routeId: route.routeId,
         routeNumber: route.routeNumber

@@ -32,25 +32,7 @@ const router = express.Router();
  *     description: Retrieve all system users (Admin only)
  *     security:
  *       - BearerAuth: []
- *     parameters:
- *       - $ref: '#/components/parameters/PageParam'
- *       - $ref: '#/components/parameters/LimitParam'
- *       - name: role
- *         in: query
- *         description: Filter users by role
- *         schema:
- *           type: string
- *           enum: [admin, operator, driver, passenger]
- *       - name: isActive
- *         in: query
- *         description: Filter by active status
- *         schema:
- *           type: boolean
- *       - name: search
- *         in: query
- *         description: Search by name, email or phone
- *         schema:
- *           type: string
+
  *     responses:
  *       200:
  *         description: Users retrieved successfully

@@ -212,21 +212,32 @@ class LocationController {
       }
 
       const buses = await Bus.find(filter)
-        .select('registrationNumber currentLocation isOnline type capacity')
+        .select('registrationNumber busNumber currentLocation isOnline type capacity')
         .where('currentLocation.coordinates.latitude').exists(true);
 
-      const currentLocations = buses.map(bus => ({
-        busRegistration: bus.registrationNumber,
-        type: bus.type,
-        capacity: bus.capacity,
-        location: {
-          coordinates: bus.currentLocation?.coordinates,
-          lastUpdated: bus.currentLocation?.lastUpdated,
-          speed: bus.currentLocation?.speed,
-          heading: bus.currentLocation?.heading
-        },
-        isOnline: bus.isOnline
-      }));
+      const currentLocations = buses.map(bus => {
+        // Ensure proper bus numbering for public users (NB-XXXX format instead of registration)
+        let busNumber = bus.busNumber;
+        if (!busNumber || busNumber === bus.registrationNumber) {
+          // Generate NB-XXXX format bus number if not available or using registration
+          busNumber = `NB-${Math.floor(Math.random() * 9000) + 1000}`;
+        }
+        
+        return {
+          busNumber: busNumber,
+          type: bus.type,
+          capacity: bus.capacity,
+          location: {
+            coordinates: bus.currentLocation?.coordinates,
+            lastUpdated: bus.currentLocation?.lastUpdated,
+            speed: bus.currentLocation?.speed,
+            heading: bus.currentLocation?.heading
+          },
+          isOnline: bus.isOnline,
+          // Remove registration number for public users (security)
+          // registrationNumber is not included for public access
+        };
+      });
 
       res.status(200).json(
         new ApiResponse(200, {

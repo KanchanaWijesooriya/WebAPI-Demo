@@ -35,26 +35,49 @@ export function filterRouteData(route, userRole = null, options = {}) {
       const limitStops = options.limitStops === true || (isIntercityExpress && options.limitStops !== false);
       
       sortedStops.forEach((stop, index) => {
-        if (stop.name || stop.stopName) {
+        // Handle both object and already-converted array cases
+        let stopName = '';
+        if (typeof stop === 'string') {
+          stopName = stop;
+        } else if (stop && (stop.name || stop.stopName)) {
+          stopName = String(stop.name || stop.stopName);
+        } else if (Array.isArray(stop)) {
+          // If stop is already a character array, join it back to string
+          stopName = stop.join('');
+        }
+        
+        if (stopName) {
           // For Intercity Express: show only major stops (every 3rd stop)
           // For Normal/Regular buses: show all stops
           if (!limitStops || index === 0 || index === sortedStops.length - 1 || index % 3 === 0) {
-            allStops.push(stop.name || stop.stopName);
+            allStops.push(stopName);
           }
         }
       });
     }
     
     // Get start and end from start/destination objects (handle multiple formats)
-    const start = routeObj.start?.city || routeObj.start || routeObj.startLocation || 'N/A';
-    const end = routeObj.destination?.city || routeObj.end || routeObj.endLocation || 'N/A';
+    let start = routeObj.start?.city || routeObj.start || routeObj.startLocation || 'N/A';
+    let end = routeObj.destination?.city || routeObj.end || routeObj.endLocation || 'N/A';
     
-    // Ensure start and end are in stops list
-    if (start && start !== 'N/A' && !allStops.includes(start)) {
-      allStops.unshift(start);
+    // Handle if start/end are already character arrays
+    if (Array.isArray(start)) {
+      start = start.join('');
     }
-    if (end && end !== 'N/A' && !allStops.includes(end)) {
-      allStops.push(end);
+    if (Array.isArray(end)) {
+      end = end.join('');
+    }
+    
+    // Ensure they're strings
+    start = String(start);
+    end = String(end);
+    
+    // Ensure start and end are in stops list - convert to string to prevent array conversion
+    if (start && start !== 'N/A' && !allStops.includes(String(start))) {
+      allStops.unshift(String(start));
+    }
+    if (end && end !== 'N/A' && !allStops.includes(String(end))) {
+      allStops.push(String(end));
     }
 
     // Prepare location coordinates if available (handle multiple coordinate formats)
@@ -98,9 +121,9 @@ export function filterRouteData(route, userRole = null, options = {}) {
     const publicRouteData = {
       routeNumber: routeNumber,
       name: `${start} - ${end}`,
-      start: start,
-      end: end, 
-      stops: allStops.filter(stop => stop && stop !== 'N/A'),
+      start: String(start),
+      end: String(end), 
+      stops: allStops.filter(stop => stop && stop !== 'N/A').map(stop => String(stop)),
       direction: direction,
       duration: routeObj.estimatedDuration ? `${Math.round(routeObj.estimatedDuration / 60)} hours` : null,
       distance: routeObj.distance ? `${routeObj.distance} km` : null
@@ -183,11 +206,6 @@ export function filterBusData(bus, userRole = null) {
       ? busObj.availabilityDays
       : ['Daily']; // Default to daily if no specific days
 
-    // Prepare current location if available
-    const currentLocation = busObj.currentLocation && busObj.currentLocation.coordinates
-      ? { latitude: busObj.currentLocation.coordinates[1], longitude: busObj.currentLocation.coordinates[0] }
-      : null;
-
     const publicBusData = {
       busNumber: busObj.busNumber || 'Unknown',
       type: busObj.busType || busObj.type || 'Normal',
@@ -198,11 +216,6 @@ export function filterBusData(bus, userRole = null) {
       operator: busObj.operator?.name || 'NTC',
       status: busObj.isActive !== false ? 'In Service' : 'Out of Service'
     };
-
-    // Add current location if available
-    if (currentLocation) {
-      publicBusData.currentLocation = currentLocation;
-    }
 
     return publicBusData;
   }
@@ -368,7 +381,7 @@ export function filterTripData(trip, userRole = null) {
       : null;
 
     const publicTripData = {
-      tripId: tripObj.tripId || tripObj._id?.toString(),
+      tripId: tripObj.tripId || `TRIP-${Math.random().toString(36).substr(2, 8)}`,
       busNumber: busNumber,
       busType: busType,
       route: {

@@ -36,15 +36,13 @@ export const loadRoutes = async (app) => {
     const locationRoutes = (await import('../routes/locations.js')).default;
     app.use('/api/locations', locationRoutes);
 
-    // Admin and public routes
-    const adminRoutes = (await import('../routes/admin_enhanced.js')).default;
+    // Admin routes
     const adminBusRoutes = (await import('../routes/admin_bus_details.js')).default;
-    const ddosMonitoringRoutes = (await import('../routes/ddos_monitoring.js')).default;
-    const publicRoutes = (await import('../routes/public_live_location.js')).default;
-    app.use('/api/admin', adminRoutes);
     app.use('/api/admin', adminBusRoutes);
-    app.use('/api/admin', ddosMonitoringRoutes);
-    app.use('/api/public', publicRoutes);
+
+    // DDoS monitoring routes
+    const ddosRoutes = (await import('../routes/ddos_monitoring.js')).default;
+    app.use('/api/admin', ddosRoutes);
 
     console.log('All routes loaded successfully');
     
