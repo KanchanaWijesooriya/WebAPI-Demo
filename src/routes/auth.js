@@ -98,14 +98,10 @@ const router = express.Router();
  *               email:
  *                 type: string
  *                 format: email
- *                 example: "admin@ntc.gov.lk"
- *               username:
- *                 type: string
- *                 description: "Alternative to email"
- *                 example: "ntc_admin"
+ *                 example: "example@domain.com"
  *               password:
  *                 type: string
- *                 example: "admin123"
+ *                 example: "example123"
  *     responses:
  *       200:
  *         description: Login successful
