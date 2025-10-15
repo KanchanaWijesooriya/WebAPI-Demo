@@ -5,16 +5,8 @@
 
 import rateLimit from 'express-rate-limit';
 
-// Import monitoring functions (will be imported after module loads)
+// DDoS monitoring disabled - monitoring routes removed
 let updateStats = null;
-setTimeout(async () => {
-  try {
-    const monitoring = await import('../routes/ddos_monitoring.js');
-    updateStats = monitoring.updateDDoSStats;
-  } catch (error) {
-    console.warn('DDoS monitoring not available:', error.message);
-  }
-}, 1000);
 
 /**
  * IP Whitelist for trusted sources (can be configured via environment)

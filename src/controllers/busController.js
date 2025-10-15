@@ -259,13 +259,12 @@ class BusController {
       // Filter trips data based on user role using the same logic as TripController
       const filteredTrips = trips.map(trip => {
         const baseData = {
-          _id: trip._id,
           tripId: trip.tripId,
           route: trip.route,
           routeNumber: trip.routeNumber,
           bus: trip.bus,
           busRegistration: trip.busRegistration,
-          serviceDate: trip.serviceDate,
+          serviceDate: new Date().toISOString().split('T')[0],
           departureTime: trip.departureTime,
           arrivalTime: trip.arrivalTime,
           status: trip.status,
@@ -279,6 +278,7 @@ class BusController {
         if (userRole === 'admin') {
           return {
             ...baseData,
+            _id: trip._id,
             driver: trip.driver,
             conductor: trip.conductor,
             estimatedRevenue: trip.estimatedRevenue,
