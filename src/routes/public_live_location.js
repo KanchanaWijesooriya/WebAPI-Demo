@@ -1,5 +1,6 @@
 import express from 'express';
 import Bus from '../models/Bus.js';
+import Route from '../models/Route.js';
 import Trip from '../models/Trip.js';
 import LocationHistory from '../models/LocationHistory.js';
 
@@ -14,19 +15,19 @@ const router = express.Router();
 
 /**
  * @swagger
- * /public/bus-location/{busId}:
+ * /public/bus-location/{busNumber}:
  *   get:
  *     tags: [Public Live Tracking]
  *     summary: Get live bus location
- *     description: Retrieve real-time location of a specific bus (Public endpoint)
+ *     description: Retrieve real-time location of a specific bus using bus number (Public endpoint)
  *     parameters:
- *       - name: busId
+ *       - name: busNumber
  *         in: path
  *         required: true
- *         description: Bus ID or registration number
+ *         description: Bus number in NB-XXXX format
  *         schema:
  *           type: string
- *           example: "CAA-5678"
+ *           example: "NB-1001"
  *     responses:
  *       200:
  *         description: Bus location retrieved successfully
@@ -43,8 +44,9 @@ const router = express.Router();
  *                         bus:
  *                           type: object
  *                           properties:
- *                             registrationNumber:
+ *                             busNumber:
  *                               type: string
+ *                               example: "NB-1001"
  *                             operator:
  *                               type: string
  *                             type:
@@ -84,32 +86,66 @@ const router = express.Router();
  *         $ref: '#/components/responses/RateLimitError'
  */
 
-// GET /api/public/bus-location/:busId - Public endpoint to get live bus location
-router.get('/bus-location/:busId', async (req, res) => {
+// GET /api/public/bus-location/:busNumber - Public endpoint to get live bus location
+router.get('/bus-location/:busNumber', async (req, res) => {
   try {
-    const { busId } = req.params;
+    const { busNumber } = req.params;
     
-    // Find bus by ID or registration number
+    // Find bus by bus number (public endpoint uses bus numbers only)
     let bus;
     
-    // Try to find by MongoDB ObjectId first
-    if (busId.match(/^[0-9a-fA-F]{24}$/)) {
-      bus = await Bus.findById(busId).select('registrationNumber operator type isActive').lean();
-    }
+    // Primary search: find by bus number (NB-XXXX format)
+    bus = await Bus.findOne({ busNumber: busNumber })
+      .select('registrationNumber busNumber operator type isActive')
+      .lean();
     
-    // If not found, try to find by registration number
-    if (!bus) {
-      bus = await Bus.findOne({ registrationNumber: busId })
-        .select('registrationNumber operator type isActive')
+    // If not found, create a mapping from NB-XXXX to registration numbers
+    // This allows users to use NB format while working with existing data
+    if (!bus && busNumber.match(/^NB-\d{4}$/)) {
+      // Get all buses and create a consistent mapping
+      const allBuses = await Bus.find({})
+        .select('registrationNumber busNumber operator type isActive')
         .lean();
+      
+      // Create a deterministic mapping based on registration number
+      for (let i = 0; i < allBuses.length; i++) {
+        const mappedBusNumber = `NB-${(1000 + i).toString()}`;
+        if (mappedBusNumber === busNumber) {
+          bus = allBuses[i];
+          // Assign the mapped bus number for consistency
+          bus.busNumber = mappedBusNumber;
+          break;
+        }
+      }
+    }
+    
+    // If not found and busNumber looks like an ObjectId, try MongoDB ID (backward compatibility)
+    if (!bus && busNumber.match(/^[0-9a-fA-F]{24}$/)) {
+      bus = await Bus.findById(busNumber).select('registrationNumber busNumber operator type isActive').lean();
+    }
+    
+    // Generate bus number if not available in database
+    if (bus && !bus.busNumber) {
+      // Create consistent mapping based on registration number
+      const regNum = bus.registrationNumber;
+      const hash = regNum.split('').reduce((a, b) => {
+        a = ((a << 5) - a) + b.charCodeAt(0);
+        return a & a;
+      }, 0);
+      bus.busNumber = `NB-${Math.abs(hash % 9000) + 1000}`;
     }
     
     if (!bus) {
+      // Get available bus numbers for user reference
+      const sampleBuses = await Bus.find({}).limit(5).select('registrationNumber').lean();
+      const availableBusNumbers = sampleBuses.map((b, index) => `NB-${(1000 + index).toString()}`);
+      
       return res.status(404).json({
         success: false,
-        message: `Bus not found with ID/Registration: ${busId}`,
-        availableBuses: 'Try: CAA-5678, CAB-9012, CAC-3456, CAD-7890, or CAE-2468',
-        note: 'Use actual bus registration numbers or ObjectIds from database'
+        message: `Bus not found with Bus Number: ${busNumber}`,
+        availableBuses: `Try: ${availableBusNumbers.join(', ')}`,
+        note: 'Use bus numbers in NB-XXXX format (e.g., NB-1000, NB-1001, etc.). Registration numbers are not accepted in public endpoints.',
+        totalBuses: sampleBuses.length > 0 ? `${sampleBuses.length}+ buses available` : 'No buses available'
       });
     }
     
@@ -119,10 +155,11 @@ router.get('/bus-location/:busId', async (req, res) => {
         message: 'Bus is currently not in service',
         data: {
           busInfo: {
-            registrationNumber: bus.registrationNumber,
+            busNumber: bus.busNumber || `NB-${Math.floor(Math.random() * 9000) + 1000}`,
             operator: bus.operator,
             type: bus.type,
             status: 'Not in service'
+            // registrationNumber is not included for public users (security)
           },
           location: null
         }
@@ -174,10 +211,11 @@ router.get('/bus-location/:busId', async (req, res) => {
     // Prepare public response (limited information for privacy)
     const publicLocationInfo = {
       busInfo: {
-        registrationNumber: bus.registrationNumber,
+        busNumber: bus.busNumber || `NB-${Math.floor(Math.random() * 9000) + 1000}`,
         operator: bus.operator,
         type: bus.type,
         status: bus.isActive ? 'Active' : 'Inactive'
+        // registrationNumber is not included for public users (security)
       },
       
       currentTrip: currentTrip ? {
@@ -345,26 +383,41 @@ router.get('/buses-near', async (req, res) => {
   }
 });
 
-// GET /api/public/route-buses/:routeId - Get all buses currently on a specific route
-router.get('/route-buses/:routeId', async (req, res) => {
+// GET /api/public/route-buses/:routeNumber - Get all buses currently on a specific route (using route number)
+router.get('/route-buses/:routeNumber', async (req, res) => {
   try {
-    const { routeId } = req.params;
+    const { routeNumber } = req.params;
     
-    // Find current trips on this route
+    // First find the route by route number
+    const route = await Route.findOne({ routeNumber: routeNumber })
+      .select('_id routeNumber name start destination distance')
+      .lean();
+    
+    if (!route) {
+      return res.status(404).json({
+        success: false,
+        message: `Route not found with route number: ${routeNumber}`,
+        suggestion: 'Try route numbers like: 001, 002, 003, 004, etc.',
+        note: 'Use route numbers instead of ObjectIds for public access'
+      });
+    }
+    
+    // Find current trips on this route using the route ObjectId
     const currentTrips = await Trip.find({
-      route: routeId,
+      route: route._id,
       status: 'In Progress'
     })
-    .populate('bus', 'registrationNumber operator type capacity')
+    .populate('bus', 'registrationNumber busNumber operator type capacity')
     .populate('route', 'routeNumber name start destination distance')
     .lean();
     
     if (currentTrips.length === 0) {
       return res.status(200).json({
         success: true,
-        message: 'No buses currently active on this route',
+        message: `No buses currently active on route ${routeNumber}`,
         data: {
-          routeId,
+          routeNumber,
+          routeName: route.name,
           activeBuses: [],
           totalActive: 0
         }
@@ -389,12 +442,23 @@ router.get('/route-buses/:routeId', async (req, res) => {
         loc._id.toString() === trip.bus._id.toString()
       );
       
+      // Generate bus number if not available
+      const busNumber = trip.bus.busNumber || (() => {
+        const regNum = trip.bus.registrationNumber;
+        const hash = regNum.split('').reduce((a, b) => {
+          a = ((a << 5) - a) + b.charCodeAt(0);
+          return a & a;
+        }, 0);
+        return `NB-${Math.abs(hash % 9000) + 1000}`;
+      })();
+
       return {
         bus: {
-          registrationNumber: trip.bus.registrationNumber,
+          busNumber: busNumber,
           operator: trip.bus.operator,
           type: trip.bus.type,
           capacity: trip.bus.capacity
+          // registrationNumber removed for public access
         },
         trip: {
           tripId: trip.tripId,
@@ -420,15 +484,16 @@ router.get('/route-buses/:routeId', async (req, res) => {
     
     res.json({
       success: true,
-      message: `Found ${activeBuses.length} active buses on route`,
+      message: `Found ${activeBuses.length} active buses on route ${routeNumber}`,
       data: {
-        routeId,
-        routeInfo: currentTrips[0]?.route ? {
-          routeNumber: currentTrips[0].route.routeNumber,
-          routeName: currentTrips[0].route.name,
-          start: currentTrips[0].route.start?.city,
-          destination: currentTrips[0].route.destination?.city
-        } : null,
+        routeNumber: routeNumber,
+        routeInfo: {
+          routeNumber: route.routeNumber,
+          routeName: route.name,
+          start: route.start?.city,
+          destination: route.destination?.city,
+          totalDistance: route.distance
+        },
         activeBuses,
         totalActive: activeBuses.length
       }
@@ -452,25 +517,85 @@ router.get('/location/:identifier', async (req, res) => {
     
     let bus;
     
-    // Check if identifier is MongoDB ObjectId format
-    if (identifier.match(/^[0-9a-fA-F]{24}$/)) {
-      // Search by ObjectId
+    // Public users can ONLY use bus numbers (NB-XXXX format)
+    if (identifier.match(/^NB-\d{4}$/)) {
+      bus = await Bus.findOne({ busNumber: identifier })
+        .populate('route', 'name routeNumber start destination')
+        .lean();
+      
+      // If not found, create a mapping from NB-XXXX to registration numbers
+      if (!bus) {
+        const allBuses = await Bus.find({})
+          .populate('route', 'name routeNumber start destination')
+          .lean();
+        
+        // Create a deterministic mapping based on registration number
+        for (let i = 0; i < allBuses.length; i++) {
+          const mappedBusNumber = `NB-${(1000 + i).toString()}`;
+          if (mappedBusNumber === identifier) {
+            bus = allBuses[i];
+            // Assign the mapped bus number for consistency
+            bus.busNumber = mappedBusNumber;
+            break;
+          }
+        }
+      }
+    }
+    // Admin-only access: registration numbers and ObjectIds
+    else if (isAdmin && identifier.match(/^[0-9a-fA-F]{24}$/)) {
+      // Admin can search by ObjectId
       bus = await Bus.findById(identifier)
         .populate('route', 'name routeNumber start destination')
         .lean();
-    } else {
-      // Search by registration number
+    } else if (isAdmin) {
+      // Admin can search by registration number
       bus = await Bus.findOne({ registrationNumber: identifier })
         .populate('route', 'name routeNumber start destination')
         .lean();
+    } else {
+      // Public user trying to use registration number or ObjectId - reject
+      return res.status(403).json({
+        success: false,
+        message: 'Access denied: Public users can only use bus numbers',
+        hint: `Use bus number format: NB-XXXX (e.g., NB-1000, NB-1001)`,
+        providedFormat: identifier.match(/^[A-Z]{3}-\d{4}$/) ? 'registration number' : 
+                       identifier.match(/^[0-9a-fA-F]{24}$/) ? 'ObjectId' : 'unknown format',
+        note: 'Registration numbers and ObjectIds are available only for admin users'
+      });
+    }
+    
+    // Generate bus number if not available in database
+    if (bus && !bus.busNumber) {
+      // Create consistent mapping based on registration number
+      const regNum = bus.registrationNumber;
+      const hash = regNum.split('').reduce((a, b) => {
+        a = ((a << 5) - a) + b.charCodeAt(0);
+        return a & a;
+      }, 0);
+      bus.busNumber = `NB-${Math.abs(hash % 9000) + 1000}`;
     }
 
     if (!bus) {
-      return res.status(404).json({
-        success: false,
-        message: `Bus not found with identifier: ${identifier}`,
-        suggestion: 'Try using bus registration number (e.g., CAA-5678) or valid ObjectId'
-      });
+      // Get available identifiers based on user role
+      const sampleBuses = await Bus.find({}).limit(5).select('registrationNumber').lean();
+      
+      if (isAdmin) {
+        const availableRegNums = sampleBuses.map(b => b.registrationNumber);
+        return res.status(404).json({
+          success: false,
+          message: `Bus not found with identifier: ${identifier}`,
+          suggestion: `Admin access - try registration numbers: ${availableRegNums.join(', ')}`,
+          note: 'Admin users can use registration numbers, ObjectIds, or bus numbers'
+        });
+      } else {
+        const availableBusNumbers = sampleBuses.map((b, index) => `NB-${(1000 + index).toString()}`);
+        return res.status(404).json({
+          success: false,
+          message: `Bus not found with identifier: ${identifier}`,
+          suggestion: `Public access - try bus numbers: ${availableBusNumbers.join(', ')}`,
+          note: 'Public users can only use NB-XXXX format bus numbers'
+        });
+      }
     }
 
     // Generate mock live location data
@@ -486,8 +611,7 @@ router.get('/location/:identifier', async (req, res) => {
 
     // Public response
     const publicData = {
-      busId: bus._id,
-      busNumber: bus.registrationNumber || bus.busNumber,
+      busNumber: bus.busNumber || `NB-${Math.floor(Math.random() * 9000) + 1000}`,
       busType: bus.busType || bus.type || 'Normal',
       route: {
         name: bus.route?.name,

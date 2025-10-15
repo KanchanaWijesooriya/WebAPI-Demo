@@ -805,6 +805,38 @@ const options = {
           }
         }
       },
+      '/admin/ddos-status': {
+        get: {
+          tags: ['Admin'],
+          summary: 'Get DDoS protection status',
+          description: 'Retrieve real-time DDoS protection statistics and monitoring data (Admin only)',
+          security: [{ BearerAuth: [] }, { sessionAuth: [] }],
+          responses: {
+            200: {
+              description: 'DDoS status retrieved successfully',
+              content: {
+                'application/json': {
+                  schema: {
+                    allOf: [
+                      { $ref: '#/components/schemas/ApiResponse' },
+                      {
+                        type: 'object',
+                        properties: {
+                          data: {
+                            $ref: '#/components/schemas/DDoSStatus'
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            401: { $ref: '#/components/responses/UnauthorizedError' },
+            403: { $ref: '#/components/responses/ForbiddenError' }
+          }
+        }
+      },
       
       // User Management Endpoints
       '/users/{id}': {
@@ -1474,6 +1506,54 @@ const options = {
                   }
                 }
               }
+            }
+          }
+        }
+      },
+
+      // Trip Endpoints
+      '/trips': {
+        get: {
+          tags: ['Trips', 'Public'],
+          summary: 'Get all trips',
+          security: [],
+          parameters: [
+            {
+              name: 'start',
+              in: 'query',
+              required: false,
+              description: 'Filter by start location',
+              schema: {
+                type: 'string',
+                enum: ['Colombo Fort', 'Kandy', 'Galle', 'Matara', 'Badulla', 'Anuradhapura']
+              },
+              example: 'Colombo Fort'
+            },
+            {
+              name: 'end',
+              in: 'query',
+              required: false,
+              description: 'Filter by end location',
+              schema: {
+                type: 'string',
+                enum: ['Colombo Fort', 'Kandy', 'Galle', 'Matara', 'Badulla', 'Anuradhapura']
+              },
+              example: 'Kandy'
+            }
+          ],
+          responses: {
+            200: {
+              description: 'Trips retrieved successfully',
+              content: {
+                'application/json': {
+                  schema: {
+                    $ref: '#/components/schemas/ApiResponse'
+                  }
+                }
+              }
+            },
+            400: {
+              $ref: '#/components/responses/ValidationError'
             }
           }
         }
