@@ -17,6 +17,18 @@ const router = express.Router();
  *     parameters:
  *       - $ref: '#/components/parameters/PageParam'
  *       - $ref: '#/components/parameters/LimitParam'
+ *       - name: start
+ *         in: query
+ *         description: Filter trips by start location/city
+ *         schema:
+ *           type: string
+ *           example: "Colombo Fort"
+ *       - name: end
+ *         in: query
+ *         description: Filter trips by destination location/city
+ *         schema:
+ *           type: string
+ *           example: "Kandy"
  *       - name: status
  *         in: query
  *         description: Filter by trip status
