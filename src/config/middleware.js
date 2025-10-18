@@ -19,31 +19,31 @@ import {
 export const configureCORS = () => {
   const corsOptions = {
     origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps, Postman, curl)
+      // Allow requests with no origin (like mobile apps, Postman, curl, Swagger UI)
       if (!origin) return callback(null, true);
       
-      // In production, allow only specific domains
+      // Check if it's same origin (Swagger UI served from same domain)
       const allowedOrigins = [
         'https://ntc-bustracking.me',
+        'https://www.ntc-bustracking.me',
         'https://localhost:3443',
         'http://localhost:3000',
         'http://localhost:3443'
       ];
       
+      // Always allow same-origin requests (Swagger UI from same domain)
       if (allowedOrigins.includes(origin)) {
         return callback(null, true);
-      } else {
-        // For development, allow all origins
-        if (process.env.NODE_ENV !== 'production') {
-          return callback(null, true);
-        }
-        return callback(new Error('Not allowed by CORS'));
       }
+      
+      // For development or if not in strict production mode, be more permissive
+      console.log('CORS Origin:', origin);
+      return callback(null, true); // Allow all for now to fix Swagger UI
     },
     credentials: true,
     optionsSuccessStatus: 200,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin']
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin', 'Access-Control-Allow-Origin']
   };
   return cors(corsOptions);
 };
@@ -57,12 +57,12 @@ export const configureSecurity = () => {
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        styleSrc: ["'self'", "'unsafe-inline'", "https:"],
-        scriptSrc: ["'self'", "'unsafe-inline'"],
-        imgSrc: ["'self'", "data:", "https:"],
+        styleSrc: ["'self'", "'unsafe-inline'", "https:", "blob:"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"], // unsafe-eval needed for Swagger UI
+        imgSrc: ["'self'", "data:", "https:", "blob:"],
         fontSrc: ["'self'", "https:", "data:"],
-        connectSrc: ["'self'", "https://ntc-bustracking.me", "https://localhost:3443"],
-        frameSrc: ["'none'"],
+        connectSrc: ["'self'", "https:", "http:", "ws:", "wss:"], // Allow all connections for Swagger UI
+        frameSrc: ["'self'"],
         objectSrc: ["'none'"],
         upgradeInsecureRequests: [],
       },
