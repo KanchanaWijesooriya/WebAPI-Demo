@@ -18,7 +18,28 @@ import {
  */
 export const configureCORS = () => {
   const corsOptions = {
-    origin: true, // Allow all origins for development
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps, Postman, curl)
+      if (!origin) return callback(null, true);
+      
+      // In production, allow only specific domains
+      const allowedOrigins = [
+        'https://ntc-bustracking.me',
+        'https://localhost:3443',
+        'http://localhost:3000',
+        'http://localhost:3443'
+      ];
+      
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        // For development, allow all origins
+        if (process.env.NODE_ENV !== 'production') {
+          return callback(null, true);
+        }
+        return callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
     optionsSuccessStatus: 200,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
@@ -32,7 +53,20 @@ export const configureCORS = () => {
  */
 export const configureSecurity = () => {
   return helmet({
-    crossstartResourcePolicy: { policy: 'cross-start' }
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        styleSrc: ["'self'", "'unsafe-inline'", "https:"],
+        scriptSrc: ["'self'", "'unsafe-inline'"],
+        imgSrc: ["'self'", "data:", "https:"],
+        fontSrc: ["'self'", "https:", "data:"],
+        connectSrc: ["'self'", "https://ntc-bustracking.me", "https://localhost:3443"],
+        frameSrc: ["'none'"],
+        objectSrc: ["'none'"],
+        upgradeInsecureRequests: [],
+      },
+    },
   });
 };
 
