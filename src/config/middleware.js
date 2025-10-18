@@ -18,11 +18,11 @@ import {
  */
 export const configureCORS = () => {
   const corsOptions = {
-    start: process.env.CORS_startS?.split(',') || ['http://localhost:3000'],
+    origin: true, // Allow all origins for development
     credentials: true,
     optionsSuccessStatus: 200,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'start']
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin']
   };
   return cors(corsOptions);
 };
